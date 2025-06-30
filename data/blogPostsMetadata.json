@@ -1,0 +1,10 @@
+[
+{
+    "imageUrl":"images/blog-images/SOLID-Prensibleri.png",
+    "title":"Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar",
+    "date":"25 Haziran 2025",
+    "excerpt":"SOLID prensipleri, nesne yönelimli programlamada (OOP) daha sağlam, bakımı kolay ve esnek yazılımlar tasarlamak için kullanılan beş temel prensibin kısaltmasıdır. Bu prensipler, yazılım tasarımını ve mimarisini iyileştirerek, zamanla değişen gereksinimlere daha kolay adapte olabilen sistemler oluşturmanıza yardımcı olur.",
+    "slug":"python-solid-prensipleri",
+    "contentFile":"posts/python-solid-prensipleri.md"
+}
+]
