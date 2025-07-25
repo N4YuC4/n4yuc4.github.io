@@ -1,18 +1,18 @@
 [
-{
-    "imageUrl":"images/blog-images/SOLID-Prensibleri.png",
-    "title":"Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar",
-    "date":"25 Haziran 2025",
-    "excerpt":"SOLID prensipleri, nesne yönelimli programlamada (OOP) daha sağlam, bakımı kolay ve esnek yazılımlar tasarlamak için kullanılan beş temel prensibin kısaltmasıdır. Bu prensipler, yazılım tasarımını ve mimarisini iyileştirerek, zamanla değişen gereksinimlere daha kolay adapte olabilen sistemler oluşturmanıza yardımcı olur.",
-    "slug":"python-solid-prensipleri",
-    "contentFile":"posts/python-solid-prensipleri.md"
-},
-{
-    "imageUrl":"images/blog-images/k-fold-cross-validation-banner.png",
-    "title":"Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?",
-    "date":"13 Temmuz 2025",
-    "excerpt":"Makine öğrenimiyle uğraşan herkesin aslında tek bir dileği var: Kurduğumuz model, okulda öğrendiği her şeyi unutup gerçek hayatta karşısına çıkan bambaşka verilerle de başarılı olsun. Yani, modelimiz öyle sadece ezber yapmasın, konuyu gerçekten anlasın. Tıpkı sınava hazırlanan bir öğrencinin, sadece soru ezberlemekle kalmayıp, konuyu kökünden anlayıp önüne gelen her türlü soruyu çözebilmesi gibi.",
-    "slug":"capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir",
-    "contentFile":"posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.md"
-}
+    {
+        "imageUrl": "images/blog-images/k-fold-cross-validation-banner.png",
+        "title": "Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?",
+        "date": "13 Temmuz 2025",
+        "excerpt": "Makine öğrenimiyle uğraşan herkesin aslında tek bir dileği var: Kurduğumuz model, okulda öğrendiği her şeyi unutup gerçek hayatta karşısına çıkan bambaşka verilerle de başarılı olsun. Yani, modelimiz öyle sadece ezber yapmasın, konuyu gerçekten anlasın. Tıpkı sınava hazırlanan bir öğrencinin, sadece soru ezberlemekle kalmayıp, konuyu kökünden anlayıp önüne gelen her türlü soruyu çözebilmesi gibi.",
+        "slug": "capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir",
+        "contentFile": "posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.md"
+    },
+    {
+        "imageUrl": "images/blog-images/SOLID-Prensibleri.png",
+        "title": "Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar",
+        "date": "25 Haziran 2025",
+        "excerpt": "SOLID prensipleri, nesne yönelimli programlamada (OOP) daha sağlam, bakımı kolay ve esnek yazılımlar tasarlamak için kullanılan beş temel prensibin kısaltmasıdır. Bu prensipler, yazılım tasarımını ve mimarisini iyileştirerek, zamanla değişen gereksinimlere daha kolay adapte olabilen sistemler oluşturmanıza yardımcı olur.",
+        "slug": "python-solid-prensipleri",
+        "contentFile": "posts/python-solid-prensipleri.md"
+    }
 ]
