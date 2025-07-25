@@ -476,3 +476,35 @@ footer a:hover {
     color: #a3b1c6 !important;
     border-color: #a3b1c6 !important;
 }
+
+/* Markdown içeriği için temel stiller */
+.content-area h1, .content-area h2, .content-area h3, .content-area h4, .content-area h5, .content-area h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: bold;
+  color: #4B5563;
+}
+.content-area ul, .content-area ol {
+  margin-left: 2em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+.content-area ol {
+  list-style-type: decimal;
+}
+.content-area li {
+  margin-bottom: 0.5em;
+  padding-left: 0.2em;
+}
+.content-area p {
+  margin-bottom: 1em;
+}
+.content-area pre, .content-area code {
+  background: #f3f4f6;
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+  color: #374151;
+}

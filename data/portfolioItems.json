@@ -1,0 +1,9 @@
+[
+  {
+    "imageUrl": "images/icon.png",
+    "title": "Kişisel Web Sitesi",
+    "description": "Bu blogun ve portfolyonun kodlanması, modern JS ve CSS ile responsive tasarım.",
+    "detailFile": "portfolio/kisisel-web-sitesi.md",
+    "slug": "kisisel-web-sitesi"
+  }
+]

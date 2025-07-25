@@ -7,6 +7,7 @@ import { aboutPageData } from '../data/aboutPageData.js';
 import { privacyPolicyData } from '../data/privacyPolicyData.js';
 import { termsOfUseData } from '../data/termsOfUseData.js';
 import { contactPageData } from '../data/contactPageData.js';
+import { fetchPortfolioItems } from '../data/portfolioItemsData.js';
 
 // Bileşen ve Yardımcı Fonksiyon Modüllerini İçe Aktar
 import { createBlogPostSummaryElement } from './components.js';
@@ -264,9 +265,83 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     /**
+     * Portfolyo sayfasını render eder.
+     */
+    async function renderPortfolioPage() {
+        document.title = "Portfolyo - N4YuC4_Blog";
+        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/portfolio`);
+        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/portfolio`);
+        let portfolioItems = [];
+        try {
+            portfolioItems = await fetchPortfolioItems();
+        } catch (error) {
+            contentArea.innerHTML = '<p class="text-red-600">Portfolyo verisi yüklenemedi.</p>';
+            return;
+        }
+        contentArea.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                ${portfolioItems.map(item => `
+                    <div class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
+                        <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${item.title}</h3>
+                        <p class="text-gray-700 mb-4">${item.description}</p>
+                        <a href="#/portfolio/${item.slug}" class="modern-button mt-auto">Detay</a>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        contentArea.classList.add('grid-container');
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+        }
+    }
+
+    /**
+     * Portfolyo detay sayfasını render eder.
+     */
+    async function renderPortfolioDetail(slug) {
+        let portfolioItems = [];
+        try {
+            portfolioItems = await fetchPortfolioItems();
+        } catch (error) {
+            contentArea.innerHTML = '<p class="text-red-600">Portfolyo verisi yüklenemedi.</p>';
+            return;
+        }
+        const item = portfolioItems.find(p => p.slug === slug);
+        if (!item) {
+            renderNotFoundPage(contentArea);
+            return;
+        }
+        let fullMarkdownContent = '';
+        try {
+            const response = await fetch(`/${item.detailFile}`);
+            if (!response.ok) throw new Error('Markdown yüklenemedi');
+            fullMarkdownContent = await response.text();
+        } catch (error) {
+            fullMarkdownContent = 'Detay içeriği yüklenemedi.';
+        }
+        contentArea.innerHTML = `
+            <article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
+                <a href="#/portfolio" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Tüm Portfolyoya Dön
+                </a>
+                <img src="${item.imageUrl}" alt="${item.title} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+                <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${item.title}</h1>
+                <div class="text-gray-700 leading-relaxed text-lg content-area">
+                    ${marked.parse(fullMarkdownContent)}
+                </div>
+            </article>
+        `;
+        contentArea.classList.remove('grid-container');
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+        }
+    }
+
+    /**
      * URL hash'ine göre sayfayı yönlendirir ve içeriği render eder.
      */
-    async function handleRoute() { // async anahtar kelimesini ekledik
+    async function handleRoute() {
         const hash = window.location.hash;
         loadingMessage.classList.add('hidden'); // Yükleme mesajını gizle
         errorMessage.classList.add('hidden'); // Hata mesajını gizla
@@ -275,7 +350,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (hash.startsWith('#/posts/')) {
             const slug = hash.substring('#/posts/'.length);
-            await renderSinglePost(slug); // await ile bekle
+            await renderSinglePost(slug);
         } else if (hash === '#/about') {
             renderAboutPage();
         } else if (hash === '#/contact') {
@@ -284,10 +359,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderPrivacyPage();
         } else if (hash === '#/terms') {
             renderTermsPage();
+        } else if (hash === '#/portfolio') {
+            await renderPortfolioPage();
+        } else if (hash.startsWith('#/portfolio/')) {
+            const slug = hash.substring('#/portfolio/'.length);
+            await renderPortfolioDetail(slug);
         } else {
-            renderPostsList(); // Varsayılan olarak blog yazısı listesini göster
+            renderPostsList();
         }
-        // Rota değişiminde mobil menüyü kapat
         closeMobileMenu(mobileMenuOverlay, document.body);
     }
 
