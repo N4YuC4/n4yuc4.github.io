@@ -500,11 +500,13 @@ footer a:hover {
 .content-area p {
   margin-bottom: 1em;
 }
-.content-area pre, .content-area code {
-  background: #f3f4f6;
+.content-area pre {
+    font-size: 1.25em;
+
+}
+.content-area code {
+  background: #f3f4f698;
   border-radius: 6px;
-  padding: 0.5em 1em;
-  font-size: 1em;
   font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
   color: #374151;
 }
