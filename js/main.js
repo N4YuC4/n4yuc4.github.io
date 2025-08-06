@@ -24,7 +24,7 @@ document.body.style.backgroundImage = `url('${randomBg}')`;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Blog sitesinin ana alan adını burada tanımlayın
-    const blogDomain = 'https://n4yuc4.neocities.com/';
+    const blogDomain = 'https://n4yuc4.vercel.app/';
 
     // DOM elemanlarına referanslar
     const contentArea = document.getElementById('content-area');

@@ -16,7 +16,7 @@ export function renderNotFoundPage(contentArea) {
     contentArea.classList.remove('grid-container');
     document.title = "404 - Sayfa Bulunamadı";
     // Canonical ve Open Graph URL'leri 404 sayfasına göre güncelle
-    const blogDomain = 'https://yourwebsite.com/'; // Bu domain'i dinamik olarak alabilir veya sabit tutabilirsiniz
+    const blogDomain = 'https://n4yuc4.vercel.app/'; // Bu domain'i dinamik olarak alabilir veya sabit tutabilirsiniz
     document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/404`);
     document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/404`);
 }
