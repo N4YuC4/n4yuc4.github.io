@@ -1,0 +1,20 @@
+{
+    "title": "İletişim",
+    "introText": "Benimle e-posta veya sosyal medya platformları aracılığıyla iletişime geçebilirsiniz. En kısa sürede size geri dönüş yapacağım.",
+    "otherContactMethodsTitle": "Bana Ulaşın",
+    "email": "yucelcan028@gmail.com",
+    "socialMediaLinks": [
+        {
+            "platform": "LinkedIn",
+            "url": "https://www.linkedin.com/in/n4yuc4/"
+        },
+        {
+            "platform": "GitHub",
+            "url": "https://github.com/N4YuC4"
+        },
+        {
+            "platform": "X (Twitter)",
+            "url": "https://x.com/N4YuC4"
+        }
+    ]
+}
