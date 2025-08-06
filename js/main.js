@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <a href="#/" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
                         <i class="fas fa-arrow-left mr-2"></i> Tüm Yazılara Dön
                     </a>
-                    <img src="${post.imageUrl}" alt="${post.title} blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
                     <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${post.title}</h1>
+                    <img src="${post.imageUrl}" alt="${post.title} blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
                     <p class="text-sm text-gray-500 mb-6">Yayınlanma Tarihi: ${post.date}</p>
                     <div class="text-gray-700 leading-relaxed text-lg content-area">
                         ${post.content}
@@ -115,16 +115,32 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.title = `${aboutPageData.title} - N4YuC4_Blog`;
             document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/about`);
             document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/about`);
-            contentArea.innerHTML = `
-                <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                    <div class="max-w-3xl mx-auto text-center">
-                        <h2 class="text-4xl font-bold text-gray-800 mb-4">${aboutPageData.title}</h2>
-                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
-                            ${aboutPageData.content}
-                        </div>
-                    </div>
-                </section>
+            // Sosyal medya ikonlarını dinamik olarak oluşturma
+            const socialMediaIconsHtml = aboutPageData.socialMediaLinks.map(link => {
+                return `
+                <a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        ${link.svgCircle ? `<circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>` : ''}
+                        <path ${link.svgCircle ? '' : 'fill-rule="evenodd"'} d="${link.svgPath}"></path>
+                    </svg>
+                </a>
             `;
+            }).join('');
+
+            contentArea.innerHTML = `
+            <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                <div class="max-w-3xl mx-auto text-center">
+                    <img src="${aboutPageData.profileImageUrl}" alt="Kullanıcının profil resmi" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">${aboutPageData.title}</h2>
+                    <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                        ${marked.parse(aboutPageData.content)}
+                    </div>
+                    <div class="mt-8 flex justify-center space-x-6">
+                        ${socialMediaIconsHtml}
+                    </div>
+                </div>
+            </section>
+        `;
             contentArea.classList.remove('grid-container');
             if (typeof hljs !== 'undefined') {
                 hljs.highlightAll();
@@ -145,25 +161,39 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.title = `${contactPageData.title} - N4YuC4_Blog`;
             document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/contact`);
             document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/contact`);
+            // Sosyal medya ikonlarını dinamik olarak oluşturma
+            const socialMediaIconsHtml = contactPageData.socialMediaLinks.map(link => {
+                return `
+                <a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        ${link.svgCircle ? `<circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>` : ''}
+                        <path ${link.svgCircle ? '' : 'fill-rule="evenodd"'} d="${link.svgPath}"></path>
+                    </svg>
+                </a>
+            `;
+            }).join('');
+
             contentArea.innerHTML = `
-                <section id="contact-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                    <div class="max-w-3xl mx-auto text-center">
-                        <h2 class="text-4xl font-bold text-gray-800 mb-6">${contactPageData.title}</h2>
-                        <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                            ${contactPageData.introText}
+            <section id="contact-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">${contactPageData.title}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${contactPageData.introText}
+                    </p>
+
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">${contactPageData.otherContactMethodsTitle}</h3>
+                        <p class="text-lg text-gray-700 mb-2">
+                            E-posta: <a href="mailto:${contactPageData.email}" target="_blank" class="text-blue-600 hover:underline">${contactPageData.email}</a>
                         </p>
-                        <div class="mt-8">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">${contactPageData.otherContactMethodsTitle}</h3>
-                            <p class="text-lg text-gray-700 mb-2">
-                                E-posta: <a href="mailto:${contactPageData.email}" target="_blank" class="text-blue-600 hover:underline">${contactPageData.email}</a>
-                            </p>
-                            <div class="mt-6 flex justify-center space-x-6">
-                                ${(contactPageData.socialMediaLinks || []).map(link => `<a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili"><i class="fab fa-${link.platform.toLowerCase().replace(/[^a-z0-9]/g, '')}"></i></a>`).join('')}
-                            </div>
+                        ${contactPageData.phone ? `<p class="text-lg text-gray-700 mb-2">Telefon: <a href="tel:${contactPageData.phone.replace(/\s/g, '')}" class="text-blue-600 hover:underline">${contactPageData.phone}</a></p>` : ''}
+                        <div class="mt-6 flex justify-center space-x-6">
+                            ${socialMediaIconsHtml}
                         </div>
                     </div>
-                </section>
-            `;
+                </div>
+            </section>
+        `;
             contentArea.classList.remove('grid-container');
         } catch (error) {
             renderNotFoundPage(contentArea);
@@ -277,8 +307,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <a href="#/portfolio" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
                         <i class="fas fa-arrow-left mr-2"></i> Tüm Portfolyoya Dön
                     </a>
-                    <img src="${item.imageUrl}" alt="${item.title} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
                     <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${item.title}</h1>
+                    <img src="${item.imageUrl}" alt="${item.title} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
                     <div class="text-gray-700 leading-relaxed text-lg content-area">
                         ${item.content}
                     </div>

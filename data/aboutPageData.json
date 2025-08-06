@@ -1,6 +1,33 @@
 [
   {
-    "title": "Hakkımda",
-    "content": "Merhaba! Ben Nazmi Yücel Çan. Veri bilimi, makine öğrenmesi ve yazılım geliştirme alanlarında içerikler üretiyorum."
+    "title": "Ben Kimim?",
+    "profileImageUrl": "../images/profile.jpg",
+    "content": "Merhaba! Ben Nazmi Yücel Çan. Bu blogu, veri bilimi, makine öğrenmesi ve derin öğrenme alanlarındaki bilgi birikimimi ve deneyimlerimi sizinle paylaşmak için oluşturdum. Amacım, bu karmaşık konuları anlaşılır bir dille sunarak hem yeni başlayanlara rehberlik etmek hem de deneyimli profesyoneller için güncel bilgiler sağlamaktır.\n\nVeri bilimi alanında özellikle sinir ağları, doğal dil işleme ve veri analizi konularında kendimi her geçen gün geliştiriyorum. Boş zamanlarımda yeni algoritmalar denemek, açık kaynak projelere katkıda bulunmak ve yapay zekanın etik boyutlarını araştırmaktan keyif alıyorum.",
+    "socialMediaLinks": [
+        {
+            "platform": "LinkedIn",
+            "url": "https://www.linkedin.com/in/n4yuc4/",
+            "svgPath": "M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v4.74z",
+            "svgCircle": false
+        },
+        {
+            "platform": "GitHub",
+            "url": "https://github.com/N4YuC4",
+            "svgPath": "M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.47.087.674-.215.674-.477 0-.237-.01-1.033-.015-1.996-2.783.606-3.371-1.33-3.371-1.33-.454-1.155-1.11-1.463-1.11-1.463-.905-.62.068-.606.068-.606 1.002.07 1.529 1.03 1.529 1.03.89 1.53 2.34 1.092 2.91.834.091-.647.35-1.092.637-1.34-2.22-.253-4.555-1.113-4.555-4.954 0-1.096.39-1.99 1.029-2.697-.103-.253-.447-1.273.098-2.66 0 0 .84-.27 2.75 1.025A9.428 9.043 0 0112 6.844c.85.004 1.7.11 2.494.323 1.91-1.295 2.75-1.025 2.75-1.025.546 1.387.202 2.407.099 2.66.64.707 1.028 1.601 1.028 2.697 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.34-.012 2.417-.012 2.747 0 .265.203.567.678.47C20.147 20.2 23 16.446 23 12.017 23 6.484 18.522 2 12 2z",
+            "svgCircle": false
+        },
+        {
+            "platform": "X (Twitter)",
+            "url": "https://x.com/N4YuC4",
+            "svgPath": "M22.5 2h-3.1L12 10.6 4.6 2H2L10.8 12.1 2 22h3.1l7.4-8.6 7.4 8.6H22L13.2 12.1 22.5 2z",
+            "svgCircle": false
+        },
+        {
+            "platform": "Kaggle",
+            "url": "https://www.kaggle.com/n4yuc4",
+            "svgPath": "M4 2a1 1 0 0 1 1 1v8.586l5.293-5.293a1 1 0 1 1 1.414 1.414L6.414 13l5.293 5.293a1 1 0 0 1-1.414 1.414L5 14.414V21a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
+            "svgCircle": false
+        }
+    ]
   }
 ]
