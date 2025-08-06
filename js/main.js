@@ -1,13 +1,6 @@
 // main.js - Uygulamanın ana mantığı, rota işleme ve olay dinleyicileri
 
-// Veri Modüllerini İçe Aktar
-// blogPosts artık bir Promise döndürüyor, bu yüzden doğrudan içe aktarmıyoruz
-import { fetchBlogPostsMetadata } from '../data/blogPostsData.js'; // metadata çeken fonksiyonu import ettik
-import { aboutPageData } from '../data/aboutPageData.js';
-import { privacyPolicyData } from '../data/privacyPolicyData.js';
-import { termsOfUseData } from '../data/termsOfUseData.js';
-import { contactPageData } from '../data/contactPageData.js';
-import { fetchPortfolioItems } from '../data/portfolioItemsData.js';
+
 
 // Bileşen ve Yardımcı Fonksiyon Modüllerini İçe Aktar
 import { createBlogPostSummaryElement } from './components.js';
@@ -46,17 +39,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('link[rel="canonical"]').setAttribute('href', blogDomain);
     document.querySelector('meta[property="og:url"]').setAttribute('content', blogDomain);
 
-    let blogPostsMetadata = []; // Blog yazı metadata'sını tutacak değişken
-
-    // JSON verilerini çekme ve hata kontrolü
+    let blogPostsMetadata = [];
+    // Blog yazı metadata'sını Flask API'den çek
     try {
-        // Blog yazı metadata'sını fetchBlogPostsMetadata fonksiyonundan çekiyoruz
-        blogPostsMetadata = await fetchBlogPostsMetadata(); // await ile Promise'in çözülmesini bekliyoruz
-
-        // Diğer sabit veriler doğrudan JS'den geliyor, burada değişim yok:
-        // aboutPageData, privacyPolicyData, termsOfUseData, contactPageData
-
-        loadingMessage.classList.add('hidden'); // Yükleme mesajını gizle
+        const response = await fetch('/api/posts');
+        if (!response.ok) throw new Error('Blog yazısı metadata yüklenemedi');
+        blogPostsMetadata = await response.json();
+        loadingMessage.classList.add('hidden');
     } catch (error) {
         console.error('Veri yüklenirken hata oluştu:', error);
         loadingMessage.classList.add('hidden');
@@ -85,182 +74,159 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Tek bir blog yazısını ana içerik alanına render eder.
      * @param {string} slug - Görüntülenecek blog yazısının slug'ı (benzersiz kimliği)
      */
-    async function renderSinglePost(slug) { // async anahtar kelimesini ekledik
-        const post = blogPostsMetadata.find(p => p.slug === slug);
-        if (!post) {
-            renderNotFoundPage(contentArea); // Yardımcı fonksiyona contentArea'yı geç
-            return;
-        }
-
-        // Sayfa başlığını ve canonical URL'yi gönderiyle eşleşecek şekilde güncelle
-        document.title = `${post.title} - N4YuC4_Blog`;
-        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/posts/${post.slug}`);
-        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/posts/${post.slug}`);
-
-        // Blog yazısının tam içeriğini Markdown dosyasından çek
-        let fullMarkdownContent = '';
+    async function renderSinglePost(slug) {
         try {
-            const response = await fetch(`/${post.contentFile}`); // Markdown dosyasının yolunu kullanıyoruz
-            if (!response.ok) {
-                throw new Error(`HTTP hata kodu: ${response.status}`);
+            const response = await fetch(`/api/posts/${slug}`);
+            if (!response.ok) throw new Error('Yazı bulunamadı');
+            const post = await response.json();
+            document.title = `${post.title} - N4YuC4_Blog`;
+            document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/posts/${post.slug}`);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/posts/${post.slug}`);
+            contentArea.innerHTML = `
+                <article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
+                    <a href="#/" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Tüm Yazılara Dön
+                    </a>
+                    <img src="${post.imageUrl}" alt="${post.title} blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${post.title}</h1>
+                    <p class="text-sm text-gray-500 mb-6">Yayınlanma Tarihi: ${post.date}</p>
+                    <div class="text-gray-700 leading-relaxed text-lg content-area">
+                        ${post.content}
+                    </div>
+                </article>
+            `;
+            contentArea.classList.remove('grid-container');
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
             }
-            fullMarkdownContent = await response.text(); // Metin olarak çekiyoruz
         } catch (error) {
-            console.error(`Markdown içeriği yüklenirken hata oluştu: ${post.contentFile}`, error);
-            fullMarkdownContent = 'Yazı içeriği yüklenemedi.'; // Hata durumunda mesaj göster
-        }
-
-        // Yazı içeriğini Markdown'dan HTML'e dönüştürerek render et
-        contentArea.innerHTML = `
-            <article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
-                <a href="#/" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Tüm Yazılara Dön
-                </a>
-                <img src="${post.imageUrl}" alt="${post.title} blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
-                <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${post.title}</h1>
-                <p class="text-sm text-gray-500 mb-6">Yayınlanma Tarihi: ${post.date}</p>
-                <div class="text-gray-700 leading-relaxed text-lg content-area">
-                    ${marked.parse(fullMarkdownContent)}
-                </div>
-            </article>
-        `;
-        contentArea.classList.remove('grid-container'); // Izgara düzenini kaldır
-
-        // İçerik render edildikten sonra söz dizimi vurgulamasını uygula
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightAll();
+            renderNotFoundPage(contentArea);
         }
     }
 
     /**
      * Hakkımda sayfasını JSON verisinden alarak render eder.
      */
-    function renderAboutPage() {
-        document.title = `${aboutPageData.title} - N4YuC4_Blog`;
-        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/about`);
-        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/about`);
-
-        // Sosyal medya ikonlarını dinamik olarak oluşturma
-        const socialMediaIconsHtml = aboutPageData.socialMediaLinks.map(link => {
-            return `
-                <a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        ${link.svgCircle ? `<circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>` : ''}
-                        <path ${link.svgCircle ? '' : 'fill-rule="evenodd"'} d="${link.svgPath}"></path>
-                    </svg>
-                </a>
+    async function renderAboutPage() {
+        try {
+            const response = await fetch('/api/about');
+            if (!response.ok) throw new Error('Hakkımda verisi yüklenemedi');
+            const aboutPageData = (await response.json())[0];
+            document.title = `${aboutPageData.title} - N4YuC4_Blog`;
+            document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/about`);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/about`);
+            contentArea.innerHTML = `
+                <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-4">${aboutPageData.title}</h2>
+                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                            ${aboutPageData.content}
+                        </div>
+                    </div>
+                </section>
             `;
-        }).join('');
-
-        contentArea.innerHTML = `
-            <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                <div class="max-w-3xl mx-auto text-center">
-                    <img src="${aboutPageData.profileImageUrl}" alt="Kullanıcının profil resmi" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-4">${aboutPageData.title}</h2>
-                    <div class="text-lg text-gray-700 leading-relaxed content-area-text">
-                        ${marked.parse(aboutPageData.content)}
-                    </div>
-                    <div class="mt-8 flex justify-center space-x-6">
-                        ${socialMediaIconsHtml}
-                    </div>
-                </div>
-            </section>
-        `;
-        contentArea.classList.remove('grid-container');
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightAll();
+            contentArea.classList.remove('grid-container');
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+        } catch (error) {
+            renderNotFoundPage(contentArea);
         }
     }
 
     /**
      * İletişim sayfasını JSON verisinden alarak render eder.
      */
-    function renderContactPage() {
-        document.title = `${contactPageData.title} - N4YuC4_Blog`;
-        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/contact`);
-        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/contact`);
-
-        // Sosyal medya ikonlarını dinamik olarak oluşturma
-        const socialMediaIconsHtml = contactPageData.socialMediaLinks.map(link => {
-            return `
-                <a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        ${link.svgCircle ? `<circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>` : ''}
-                        <path ${link.svgCircle ? '' : 'fill-rule="evenodd"'} d="${link.svgPath}"></path>
-                    </svg>
-                </a>
-            `;
-        }).join('');
-
-        contentArea.innerHTML = `
-            <section id="contact-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-6">${contactPageData.title}</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                        ${contactPageData.introText}
-                    </p>
-
-                    <div class="mt-8">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">${contactPageData.otherContactMethodsTitle}</h3>
-                        <p class="text-lg text-gray-700 mb-2">
-                            E-posta: <a href="mailto:${contactPageData.email}" target="_blank" class="text-blue-600 hover:underline">${contactPageData.email}</a>
+    async function renderContactPage() {
+        try {
+            const response = await fetch('/api/contact');
+            if (!response.ok) throw new Error('İletişim verisi yüklenemedi');
+            const contactPageData = await response.json();
+            document.title = `${contactPageData.title} - N4YuC4_Blog`;
+            document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/contact`);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/contact`);
+            contentArea.innerHTML = `
+                <section id="contact-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-6">${contactPageData.title}</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                            ${contactPageData.introText}
                         </p>
-                        ${contactPageData.phone ? `<p class="text-lg text-gray-700 mb-2">Telefon: <a href="tel:${contactPageData.phone.replace(/\s/g, '')}" class="text-blue-600 hover:underline">${contactPageData.phone}</a></p>` : ''}
-                        <div class="mt-6 flex justify-center space-x-6">
-                            ${socialMediaIconsHtml}
+                        <div class="mt-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">${contactPageData.otherContactMethodsTitle}</h3>
+                            <p class="text-lg text-gray-700 mb-2">
+                                E-posta: <a href="mailto:${contactPageData.email}" target="_blank" class="text-blue-600 hover:underline">${contactPageData.email}</a>
+                            </p>
+                            <div class="mt-6 flex justify-center space-x-6">
+                                ${(contactPageData.socialMediaLinks || []).map(link => `<a href="${link.url}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="${link.platform} Profili"><i class="fab fa-${link.platform.toLowerCase().replace(/[^a-z0-9]/g, '')}"></i></a>`).join('')}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        `;
-        contentArea.classList.remove('grid-container');
+                </section>
+            `;
+            contentArea.classList.remove('grid-container');
+        } catch (error) {
+            renderNotFoundPage(contentArea);
+        }
     }
 
     /**
      * Gizlilik Politikası sayfasını JSON verisinden alarak render eder.
      */
-    function renderPrivacyPage() {
-        document.title = `${privacyPolicyData.title} - N4YuC4_Blog`;
-        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/privacy`);
-        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/privacy`);
-
-        contentArea.innerHTML = `
-            <section id="privacy-policy-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                <div class="max-w-3xl mx-auto">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${privacyPolicyData.title}</h2>
-                    <div class="text-lg text-gray-700 leading-relaxed content-area-text">
-                        ${marked.parse(privacyPolicyData.content)}
+    async function renderPrivacyPage() {
+        try {
+            const response = await fetch('/api/privacy');
+            if (!response.ok) throw new Error('Gizlilik politikası verisi yüklenemedi');
+            const privacyPolicyData = await response.json();
+            document.title = `${privacyPolicyData.title} - N4YuC4_Blog`;
+            document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/privacy`);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/privacy`);
+            contentArea.innerHTML = `
+                <section id="privacy-policy-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                    <div class="max-w-3xl mx-auto">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${privacyPolicyData.title}</h2>
+                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                            ${privacyPolicyData.content}
+                        </div>
                     </div>
-                </div>
-            </section>
-        `;
-        contentArea.classList.remove('grid-container');
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightAll();
+                </section>
+            `;
+            contentArea.classList.remove('grid-container');
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+        } catch (error) {
+            renderNotFoundPage(contentArea);
         }
     }
 
     /**
      * Kullanım Koşulları sayfasını JSON verisinden alarak render eder.
      */
-    function renderTermsPage() {
-        document.title = `${termsOfUseData.title} - N4YuC4_Blog`;
-        document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/terms`);
-        document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/terms`);
-
-        contentArea.innerHTML = `
-            <section id="terms-of-use-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
-                <div class="max-w-3xl mx-auto">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${termsOfUseData.title}</h2>
-                    <div class="text-lg text-gray-700 leading-relaxed content-area-text">
-                        ${marked.parse(termsOfUseData.content)}
+    async function renderTermsPage() {
+        try {
+            const response = await fetch('/api/terms');
+            if (!response.ok) throw new Error('Kullanım koşulları verisi yüklenemedi');
+            const termsOfUseData = await response.json();
+            document.title = `${termsOfUseData.title} - N4YuC4_Blog`;
+            document.querySelector('link[rel="canonical"]').setAttribute('href', `${blogDomain}#/terms`);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/terms`);
+            contentArea.innerHTML = `
+                <section id="terms-of-use-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+                    <div class="max-w-3xl mx-auto">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${termsOfUseData.title}</h2>
+                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                            ${termsOfUseData.content}
+                        </div>
                     </div>
-                </div>
-            </section>
-        `;
-        contentArea.classList.remove('grid-container');
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightAll();
+                </section>
+            `;
+            contentArea.classList.remove('grid-container');
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+        } catch (error) {
+            renderNotFoundPage(contentArea);
         }
     }
 
@@ -273,7 +239,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('meta[property="og:url"]').setAttribute('content', `${blogDomain}#/portfolio`);
         let portfolioItems = [];
         try {
-            portfolioItems = await fetchPortfolioItems();
+            const response = await fetch('/api/portfolio');
+            if (!response.ok) throw new Error('Portfolyo verisi yüklenemedi');
+            portfolioItems = await response.json();
         } catch (error) {
             contentArea.innerHTML = '<p class="text-red-600">Portfolyo verisi yüklenemedi.</p>';
             return;
@@ -300,41 +268,28 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Portfolyo detay sayfasını render eder.
      */
     async function renderPortfolioDetail(slug) {
-        let portfolioItems = [];
         try {
-            portfolioItems = await fetchPortfolioItems();
+            const response = await fetch(`/api/portfolio/${slug}`);
+            if (!response.ok) throw new Error('Portfolyo detayı bulunamadı');
+            const item = await response.json();
+            contentArea.innerHTML = `
+                <article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
+                    <a href="#/portfolio" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Tüm Portfolyoya Dön
+                    </a>
+                    <img src="${item.imageUrl}" alt="${item.title} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${item.title}</h1>
+                    <div class="text-gray-700 leading-relaxed text-lg content-area">
+                        ${item.content}
+                    </div>
+                </article>
+            `;
+            contentArea.classList.remove('grid-container');
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
         } catch (error) {
-            contentArea.innerHTML = '<p class="text-red-600">Portfolyo verisi yüklenemedi.</p>';
-            return;
-        }
-        const item = portfolioItems.find(p => p.slug === slug);
-        if (!item) {
             renderNotFoundPage(contentArea);
-            return;
-        }
-        let fullMarkdownContent = '';
-        try {
-            const response = await fetch(`/${item.detailFile}`);
-            if (!response.ok) throw new Error('Markdown yüklenemedi');
-            fullMarkdownContent = await response.text();
-        } catch (error) {
-            fullMarkdownContent = 'Detay içeriği yüklenemedi.';
-        }
-        contentArea.innerHTML = `
-            <article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
-                <a href="#/portfolio" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Tüm Portfolyoya Dön
-                </a>
-                <img src="${item.imageUrl}" alt="${item.title} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
-                <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">${item.title}</h1>
-                <div class="text-gray-700 leading-relaxed text-lg content-area">
-                    ${marked.parse(fullMarkdownContent)}
-                </div>
-            </article>
-        `;
-        contentArea.classList.remove('grid-container');
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightAll();
         }
     }
 
@@ -352,13 +307,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const slug = hash.substring('#/posts/'.length);
             await renderSinglePost(slug);
         } else if (hash === '#/about') {
-            renderAboutPage();
+            await renderAboutPage();
         } else if (hash === '#/contact') {
-            renderContactPage();
+            await renderContactPage();
         } else if (hash === '#/privacy') {
-            renderPrivacyPage();
+            await renderPrivacyPage();
         } else if (hash === '#/terms') {
-            renderTermsPage();
+            await renderTermsPage();
         } else if (hash === '#/portfolio') {
             await renderPortfolioPage();
         } else if (hash.startsWith('#/portfolio/')) {

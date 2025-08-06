@@ -1,4 +1,4 @@
-// aboutPageData.js - Hakkımda sayfası verileri
+// Bu dosya artık kullanılmıyor. Python backend'e geçildi.
 
 export const aboutPageData = {
     "title": "Ben Kimim?",
