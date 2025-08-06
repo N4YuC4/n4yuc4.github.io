@@ -24,6 +24,10 @@ def css_static(filename):
 def js_static(filename):
     return send_from_directory('js', filename)
 
+# Sitemap
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('.', 'sitemap.xml')
 
 # Images statik dosyaları
 @app.route('/images/<path:filename>')
