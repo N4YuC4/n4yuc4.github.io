@@ -29,6 +29,11 @@ def js_static(filename):
 def sitemap():
     return send_from_directory('.', 'sitemap.xml')
 
+# Robots.txt
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('.', 'robots.txt')
+
 # Images statik dosyaları
 @app.route('/images/<path:filename>')
 def images_static(filename):
