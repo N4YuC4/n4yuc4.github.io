@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2">${item.title}</h3>
                         <p class="text-gray-700 mb-4">${item.description}</p>
-                        <a href="#/portfolio/${item.slug}" class="modern-button mt-auto">Detay</a>
+                        <a href="#/portfolio/${item.slug}" class="read-more-btn inline-block py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300">Detay</a>
                     </div>
                 `).join('')}
             </div>
