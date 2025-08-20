@@ -476,13 +476,6 @@ footer a:hover {
     border-color: #a3b1c6 !important;
 }
 
-/* Markdown içeriği için temel stiller */
-.content-area h1, .content-area h2, .content-area h3, .content-area h4, .content-area h5, .content-area h6 {
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  font-weight: bold;
-  color: #4B5563;
-}
 .content-area ul, .content-area ol {
   margin-left: 2em;
   margin-bottom: 1em;
@@ -502,10 +495,4 @@ footer a:hover {
 .content-area pre {
     font-size: 1.25em;
 
-}
-.content-area code {
-  background: #f3f4f698;
-  border-radius: 6px;
-  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
-  color: #374151;
 }
