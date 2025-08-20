@@ -102,15 +102,25 @@ def get_contact():
 def get_privacy():
     with open('data/privacyPolicyData.json', encoding='utf-8') as f:
         data = json.load(f)
-    data['content'] = markdown(data['content'], extensions=['fenced_code', 'codehilite'])
-    return jsonify(data)
+    content_path = data['contentFile']
+    if not os.path.exists(content_path):
+        return jsonify({'error': 'Content file not found'}), 404
+    with open(content_path, encoding='utf-8') as f_md:
+        content = f_md.read()
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    return jsonify({'content': html_content, 'title': data['title']})
 
 @app.route('/api/terms')
 def get_terms():
     with open('data/termsOfUseData.json', encoding='utf-8') as f:
         data = json.load(f)
-    data['content'] = markdown(data['content'], extensions=['fenced_code', 'codehilite'])
-    return jsonify(data)
+    content_path = data['contentFile']
+    if not os.path.exists(content_path):
+        return jsonify({'error': 'Content file not found'}), 404
+    with open(content_path, encoding='utf-8') as f_md:
+        content = f_md.read()
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    return jsonify({'content': html_content, 'title': data['title']})
 
 # Statik dosyalar (CSS, JS, images)
 @app.route('/static/<path:filename>')
