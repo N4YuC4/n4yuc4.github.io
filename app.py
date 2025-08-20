@@ -102,12 +102,14 @@ def get_contact():
 def get_privacy():
     with open('data/privacyPolicyData.json', encoding='utf-8') as f:
         data = json.load(f)
+    data['content'] = markdown(data['content'], extensions=['fenced_code', 'codehilite'])
     return jsonify(data)
 
 @app.route('/api/terms')
 def get_terms():
     with open('data/termsOfUseData.json', encoding='utf-8') as f:
         data = json.load(f)
+    data['content'] = markdown(data['content'], extensions=['fenced_code', 'codehilite'])
     return jsonify(data)
 
 # Statik dosyalar (CSS, JS, images)
