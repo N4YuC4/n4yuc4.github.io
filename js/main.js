@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <section id="privacy-policy-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
                     <div class="max-w-3xl mx-auto">
                         <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${privacyPolicyData.title}</h2>
-                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                        <div class="text-gray-700 content-area">
                             ${privacyPolicyData.content}
                         </div>
                     </div>
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <section id="terms-of-use-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
                     <div class="max-w-3xl mx-auto">
                         <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">${termsOfUseData.title}</h2>
-                        <div class="text-lg text-gray-700 leading-relaxed content-area-text">
+                        <div class="text-gray-700 content-area">
                             ${termsOfUseData.content}
                         </div>
                     </div>

@@ -1,23 +1,47 @@
-Bu Gizlilik Politikası, N4YuC4_Blog web sitesini ziyaret ettiğinizde kişisel bilgilerinizin nasıl toplandığını, kullanıldığını ve paylaşıldığını açıklar. Gizliliğiniz bizim için önemlidir.
+# N4YuC4_Blog Gizlilik Politikası
 
-## Topladığımız Bilgiler
+Bu Gizlilik Politikası, N4YuC4_Blog web sitesini ziyaret ettiğinizde veya hizmetlerimizi kullandığınızda kişisel bilgilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır. Gizliliğiniz bizim için büyük önem taşımaktadır.
 
-Web sitemizi ziyaret ettiğinizde, otomatik olarak cihazınız hakkında belirli bilgiler toplarız. Bu bilgiler, web tarayıcınız, IP adresiniz, saat diliminiz ve cihazınıza yüklenen bazı çerezler gibi verileri içerebilir. Ayrıca, web sitesinde gezinirken, görüntülediğiniz web sayfaları veya ürünler, sizi web sitesine yönlendiren web siteleri veya arama terimleri ve web sitesiyle nasıl etkileşimde bulunduğunuz hakkında bilgi toplarız. Bu otomatik olarak toplanan bilgilere "Cihaz Bilgileri" diyoruz.
+## 1. Topladığımız Bilgiler
 
-## Bilgilerinizi Nasıl Kullanırız?
+Web sitemizi ziyaret ettiğinizde, cihazınızdan otomatik olarak belirli bilgiler toplanır. Bu bilgiler şunları içerebilir:
+*   **Web Tarayıcısı Bilgileri:** Kullandığınız tarayıcı türü ve sürümü.
+*   **Saat Dilimi:** Cihazınızın saat dilimi ayarları.
+*   **Çerezler (Cookies):** Cihazınıza yerleştirilen küçük veri dosyaları. Bu çerezler, web sitesi deneyiminizi iyileştirmek ve site kullanımınızı analiz etmek için kullanılır. Çerez tercihlerinizi tarayıcı ayarlarınızdan yönetebilirsiniz.
+*   **Gezinme Verileri:** Web sitesinde görüntülediğiniz sayfalar, sitede geçirdiğiniz süre, tıklamalar ve etkileşimler.
+*   **Yönlendiren Kaynaklar:** Sizi web sitemize yönlendiren web siteleri veya arama terimleri.
 
-Topladığımız Cihaz Bilgilerini genel olarak, web sitemizi geliştirmek ve optimize etmek için kullanırız (örneğin, müşterilerimizin web sitesinde nasıl gezindiğini analiz ederek ve pazarlama ve reklam kampanyalarımızın başarısını değerlendirerek).
+Bu bilgiler, web sitemizin performansını anlamak, kullanıcı deneyimini optimize etmek ve pazarlama çabalarımızın etkinliğini ölçmek amacıyla anonim ve toplu bir şekilde analiz edilir.
 
-Ek olarak, sağladığınız kişisel bilgileri (isim, e-posta, mesaj içeriği) bize gönderdiğiniz sorulara yanıt vermek, taleplerinizi işlemek ve size hizmet sunmak için kullanırız.
 
-## Bilgilerinizin Paylaşılması
+## 2. Bilgilerinizi Nasıl Kullanırız?
 
-Kişisel bilgilerinizi üçüncü taraflarla paylaşmayız, satmayız veya kiralamayız. Yalnızca yasal gereklilikler veya hizmet sağlayıcılarımızla (örneğin, web sitesi barındırma hizmetleri) anlaşmalar çerçevesinde bilgileri paylaşabiliriz ve bu durumda gizliliğinizin korunmasını sağlamak için gerekli tüm adımları atarız.
+Topladığımız bilgileri aşağıdaki amaçlarla kullanırız:
+*   **Web Sitesi Yönetimi ve İyileştirme:** Web sitemizin işleyişini sağlamak, sorunları gidermek, güvenliği artırmak ve kullanıcı deneyimini sürekli olarak iyileştirmek.
+*   **İletişim:** Sorularınıza yanıt vermek, taleplerinizi yerine getirmek ve size gerekli bilgileri sağlamak.
+*   **Analiz ve Optimizasyon:** Web sitesi trafiğini ve kullanım alışkanlıklarını analiz ederek içerik ve hizmetlerimizi optimize etmek.
+*   **Pazarlama ve Reklam (Anonim):** Pazarlama ve reklam kampanyalarımızın etkinliğini ölçmek, ancak bu süreçte kişisel olarak tanımlanabilir bilgiler kullanılmaz.
 
-## Haklarınız
+## 3. Bilgilerin Paylaşılması
 
-Eğer Avrupa'da ikamet ediyorsanız, hakkınızda tuttuğumuz kişisel bilgilere erişme ve kişisel bilgilerinizin düzeltilmesini, güncellenmesini veya silinmesini isteme hakkına sahipsiniz. Bu hakkı kullanmak isterseniz, lütfen aşağıdaki iletişim bilgileri aracılığıyla bizimle iletişime geçin.
+Kişisel bilgileriniz, izniniz olmaksızın üçüncü taraflarla satılmaz, kiralanmaz veya paylaşılmaz. Bilgileriniz yalnızca aşağıdaki durumlarda paylaşılabilir:
+*   **Yasal Yükümlülükler:** Yasal bir zorunluluk veya mahkeme kararı gereği.
+*   **Hizmet Sağlayıcılar:** Web sitesi barındırma, veri analizi veya teknik destek gibi hizmetleri sağlayan güvenilir üçüncü taraf hizmet sağlayıcılarla. Bu durumlarda, hizmet sağlayıcıların gizlilik ve veri güvenliği standartlarımıza uymasını sağlamak için gerekli tüm önlemler alınır.
 
-## Değişiklikler
+## 4. Veri Güvenliği
 
-Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Herhangi bir değişiklik durumunda, güncellenmiş politi...
+Kişisel bilgilerinizin güvenliğini sağlamak için uygun teknik ve organizasyonel önlemleri almaktayız. Bilgilerinizi yetkisiz erişim, değiştirme, ifşa veya yok etmeye karşı korumak için çeşitli güvenlik teknolojileri ve prosedürleri kullanırız. Ancak, internet üzerinden hiçbir veri aktarımının veya elektronik depolama yönteminin %100 güvenli olduğu garanti edilemez.
+
+## 5. Üçüncü Taraf Bağlantıları
+
+Web sitemiz, kontrolümüz dışında olan üçüncü taraf web sitelerine bağlantılar içerebilir. Bu Gizlilik Politikası yalnızca N4YuC4_Blog web sitesi için geçerlidir. Bağlantı verdiğimiz diğer web sitelerinin gizlilik uygulamalarından veya içeriklerinden sorumlu değiliz. Herhangi bir üçüncü taraf sitesini ziyaret etmeden önce kendi gizlilik politikalarını okumanızı tavsiye ederiz.
+
+## 6. Bu Gizlilik Politikasındaki Değişiklikler
+
+Bu Gizlilik Politikası'nı zaman zaman güncelleyebiliriz. Herhangi bir değişiklik, güncellenmiş politikanın bu sayfada yayınlanmasıyla derhal yürürlüğe girer.
+
+## 7. İletişim
+
+Gizlilik Politikamız hakkında herhangi bir sorunuz veya endişeniz varsa, lütfen bizimle iletişime geçmekten çekinmeyin
+
+**Son Güncelleme Tarihi:** 20 Ağustos 2025
