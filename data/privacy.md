@@ -5,6 +5,7 @@ Bu Gizlilik Politikası, N4YuC4_Blog web sitesini ziyaret ettiğinizde veya hizm
 ## 1. Topladığımız Bilgiler
 
 Web sitemizi ziyaret ettiğinizde, cihazınızdan otomatik olarak belirli bilgiler toplanır. Bu bilgiler şunları içerebilir:
+
 *   **Web Tarayıcısı Bilgileri:** Kullandığınız tarayıcı türü ve sürümü.
 *   **Saat Dilimi:** Cihazınızın saat dilimi ayarları.
 *   **Çerezler (Cookies):** Cihazınıza yerleştirilen küçük veri dosyaları. Bu çerezler, web sitesi deneyiminizi iyileştirmek ve site kullanımınızı analiz etmek için kullanılır. Çerez tercihlerinizi tarayıcı ayarlarınızdan yönetebilirsiniz.
@@ -17,6 +18,7 @@ Bu bilgiler, web sitemizin performansını anlamak, kullanıcı deneyimini optim
 ## 2. Bilgilerinizi Nasıl Kullanırız?
 
 Topladığımız bilgileri aşağıdaki amaçlarla kullanırız:
+
 *   **Web Sitesi Yönetimi ve İyileştirme:** Web sitemizin işleyişini sağlamak, sorunları gidermek, güvenliği artırmak ve kullanıcı deneyimini sürekli olarak iyileştirmek.
 *   **İletişim:** Sorularınıza yanıt vermek, taleplerinizi yerine getirmek ve size gerekli bilgileri sağlamak.
 *   **Analiz ve Optimizasyon:** Web sitesi trafiğini ve kullanım alışkanlıklarını analiz ederek içerik ve hizmetlerimizi optimize etmek.
@@ -25,6 +27,7 @@ Topladığımız bilgileri aşağıdaki amaçlarla kullanırız:
 ## 3. Bilgilerin Paylaşılması
 
 Kişisel bilgileriniz, izniniz olmaksızın üçüncü taraflarla satılmaz, kiralanmaz veya paylaşılmaz. Bilgileriniz yalnızca aşağıdaki durumlarda paylaşılabilir:
+
 *   **Yasal Yükümlülükler:** Yasal bir zorunluluk veya mahkeme kararı gereği.
 *   **Hizmet Sağlayıcılar:** Web sitesi barındırma, veri analizi veya teknik destek gibi hizmetleri sağlayan güvenilir üçüncü taraf hizmet sağlayıcılarla. Bu durumlarda, hizmet sağlayıcıların gizlilik ve veri güvenliği standartlarımıza uymasını sağlamak için gerekli tüm önlemler alınır.
 
