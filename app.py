@@ -27,7 +27,7 @@ def static_js(filename):
     return send_from_directory('js', filename)
 
 # Sitemap
-@app.route('/sitemap.xml')
+@app.route('/sitemap.xml', strict_slashes=False)
 def sitemap():
     # Load blog posts metadata
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
