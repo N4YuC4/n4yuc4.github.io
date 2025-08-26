@@ -1,14 +1,16 @@
 
-from flask import Flask, jsonify, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, abort, make_response
 import json
 import os
 from markdown import markdown
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'index.html')
+    with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
+        posts = json.load(f)
+    return render_template('home.html', posts=posts)
 
 @app.route('/favicon.ico')
 def favicon():
@@ -16,18 +18,29 @@ def favicon():
 
 # CSS statik dosyaları
 @app.route('/css/<path:filename>')
-def css_static(filename):
+def static_css(filename):
     return send_from_directory('css', filename)
 
 # JS statik dosyaları
 @app.route('/js/<path:filename>')
-def js_static(filename):
+def static_js(filename):
     return send_from_directory('js', filename)
 
 # Sitemap
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('.', 'sitemap.xml')
+    # Load blog posts metadata
+    with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
+        blog_posts = json.load(f)
+
+    # Load portfolio items
+    with open('data/portfolioItems.json', encoding='utf-8') as f:
+        portfolio_items = json.load(f)
+
+    # Render the sitemap template
+    response = make_response(render_template('sitemap.xml', blog_posts=blog_posts, portfolio_items=portfolio_items))
+    response.headers["Content-Type"] = "application/xml"
+    return response
 
 # Robots.txt
 @app.route('/robots.txt')
@@ -36,95 +49,96 @@ def robots():
 
 # Images statik dosyaları
 @app.route('/images/<path:filename>')
-def images_static(filename):
+def static_images(filename):
     return send_from_directory('images', filename)
 
-# Blog yazıları metadata
-@app.route('/api/posts')
-def get_posts():
-    with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
-        posts = json.load(f)
-    return jsonify(posts)
-
-# Tekil blog yazısı (markdown içeriğiyle birlikte)
-@app.route('/api/posts/<slug>')
-def get_post_content(slug):
+# Tekil blog yazısı
+@app.route('/posts/<slug>')
+def post_detail(slug):
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
         posts = json.load(f)
     post = next((p for p in posts if p['slug'] == slug), None)
     if not post:
-        return jsonify({'error': 'Not found'}), 404
+        abort(404)
     content_path = post['contentFile']
     if not os.path.exists(content_path):
-        return jsonify({'error': 'Content file not found'}), 404
+        abort(404)
     with open(content_path, encoding='utf-8') as f:
         content = f.read()
     html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
-    return jsonify({'content': html_content, **post})
+    return render_template('post.html', post={'content': html_content, **post})
 
-# Portfolyo verileri
-@app.route('/api/portfolio')
-def get_portfolio():
+# Portfolyo listesi
+@app.route('/portfolio')
+def portfolio_list():
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         items = json.load(f)
-    return jsonify(items)
+    return render_template('portfolio.html', items=items)
 
-# Portfolyo detay (markdown)
-@app.route('/api/portfolio/<slug>')
-def get_portfolio_detail(slug):
+# Portfolyo detay
+@app.route('/portfolio/<slug>')
+def portfolio_detail(slug):
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         items = json.load(f)
     item = next((i for i in items if i['slug'] == slug), None)
     if not item:
-        return jsonify({'error': 'Not found'}), 404
+        abort(404)
     detail_path = item['detailFile']
     if not os.path.exists(detail_path):
-        return jsonify({'error': 'Detail file not found'}), 404
+        abort(404)
     with open(detail_path, encoding='utf-8') as f:
         content = f.read()
     html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
-    return jsonify({'content': html_content, **item})
+    return render_template('portfolio_detail.html', item={'content': html_content, **item})
 
-# Hakkımda, iletişim, gizlilik, kullanım koşulları (JS dosyalarındaki dict'ler Python'a taşınmalı)
-@app.route('/api/about')
-def get_about():
+# Hakkımda sayfası
+@app.route('/about')
+def about():
     with open('data/aboutPageData.json', encoding='utf-8') as f:
         data = json.load(f)
-    return jsonify(data)
+    # Assuming aboutPageData.json contains a list and we need the first item
+    about_data = data[0] if isinstance(data, list) and data else {}
+    # Convert markdown content if present
+    if 'content' in about_data:
+        about_data['content'] = markdown(about_data['content'], extensions=['fenced_code', 'codehilite'])
+    return render_template('about.html', about=about_data)
 
-@app.route('/api/contact')
-def get_contact():
+# İletişim sayfası
+@app.route('/contact')
+def contact():
     with open('data/contactPageData.json', encoding='utf-8') as f:
         data = json.load(f)
-    return jsonify(data)
+    return render_template('contact.html', contact=data)
 
-@app.route('/api/privacy')
-def get_privacy():
+# Gizlilik Politikası sayfası
+@app.route('/privacy')
+def privacy():
     with open('data/privacyPolicyData.json', encoding='utf-8') as f:
         data = json.load(f)
     content_path = data['contentFile']
     if not os.path.exists(content_path):
-        return jsonify({'error': 'Content file not found'}), 404
+        abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
     html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
-    return jsonify({'content': html_content, 'title': data['title']})
+    return render_template('privacy.html', privacy={'content': html_content, 'title': data['title']})
 
-@app.route('/api/terms')
-def get_terms():
+# Kullanım Koşulları sayfası
+@app.route('/terms')
+def terms():
     with open('data/termsOfUseData.json', encoding='utf-8') as f:
         data = json.load(f)
     content_path = data['contentFile']
     if not os.path.exists(content_path):
-        return jsonify({'error': 'Content file not found'}), 404
+        abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
     html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
-    return jsonify({'content': html_content, 'title': data['title']})
+    return render_template('terms.html', terms={'content': html_content, 'title': data['title']})
 
-# Statik dosyalar (CSS, JS, images)
+# Statik dosyalar (CSS, JS, images) - general static folder
 @app.route('/static/<path:filename>')
-def static_files(filename):
+def static_general(filename):
     return send_from_directory(app.static_folder, filename)
 
 if __name__ == '__main__':

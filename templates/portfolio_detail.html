@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} - N4YuC4_Blog{% endblock %}
+
+{% block content %}
+<article class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 max-w-3xl mx-auto">
+    <a href="{{ url_for('portfolio_list') }}" class="back-to-home-button inline-block text-purple-600 hover:text-purple-800 transition duration-300 font-semibold mb-6 flex items-center">
+        <i class="fas fa-arrow-left mr-2"></i> Tüm Portfolyoya Dön
+    </a>
+    <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">{{ item.title }}</h1>
+    <img src="{{ url_for('static_images', filename=item.imageUrl.replace('images/', '', 1)) }}" alt="{{ item.title }} görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+    <div class="text-gray-700 leading-relaxed text-lg content-area">
+        {{ item.content | safe }}
+    </div>
+</article>
+{% endblock %}

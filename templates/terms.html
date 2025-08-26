@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ terms.title }} - N4YuC4_Blog{% endblock %}
+
+{% block content %}
+<section id="terms-of-use-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">{{ terms.title }}</h2>
+        <div class="text-gray-700 content-area">
+            {{ terms.content | safe }}
+        </div>
+    </div>
+</section>
+{% endblock %}
