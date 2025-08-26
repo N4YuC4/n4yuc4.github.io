@@ -9,11 +9,11 @@ import {
 
 // Rastgele arka plan görseli seçimi
 const backgrounds = [
-    'images/bg/bg_1.gif',
-    'images/bg/bg_2.gif',
-    'images/bg/bg_3.gif',
-    'images/bg/bg_4.gif',
-    'images/bg/bg_5.gif',
+    '/images/bg/bg_1.gif',
+    '/images/bg/bg_2.gif',
+    '/images/bg/bg_3.gif',
+    '/images/bg/bg_4.gif',
+    '/images/bg/bg_5.gif',
 ];
 const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
 document.body.style.backgroundImage = `url('${randomBg}')`;

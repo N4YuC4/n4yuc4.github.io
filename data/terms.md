@@ -28,6 +28,7 @@ Web sitemiz, kolaylık sağlamak amacıyla üçüncü taraf web sitelerine veya 
 ## 5. Kullanıcı Davranışı
 
 Web sitemizi kullanırken aşağıdaki kurallara uymayı kabul edersiniz:
+
 *   Yasalara ve genel ahlak kurallarına uygun davranmak.
 *   Web sitesinin güvenliğini tehlikeye atacak veya işleyişini bozacak eylemlerde bulunmamak.
 *   Diğer kullanıcıların web sitesini kullanmasını engellememek veya rahatsız etmemek.
