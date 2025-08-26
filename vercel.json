@@ -7,6 +7,10 @@
     ],
     "routes": [
         {
+            "src": "/sitemap.xml",
+            "dest": "app.py"
+        },
+        {
             "src": "/(.*)",
             "dest": "app.py"
         }
