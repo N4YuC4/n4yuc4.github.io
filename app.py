@@ -26,26 +26,10 @@ def static_css(filename):
 def static_js(filename):
     return send_from_directory('js', filename)
 
-# Sitemap
-@app.route('/sitemap.xml', strict_slashes=False)
-def sitemap():
-    # Load blog posts metadata
-    with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
-        blog_posts = json.load(f)
-
-    # Load portfolio items
-    with open('data/portfolioItems.json', encoding='utf-8') as f:
-        portfolio_items = json.load(f)
-
-    # Render the sitemap template
-    response = make_response(render_template('sitemap.xml', blog_posts=blog_posts, portfolio_items=portfolio_items))
-    response.headers["Content-Type"] = "application/xml"
-    return response
-
-# Robots.txt
 @app.route('/robots.txt')
-def robots():
-    return send_from_directory('.', 'robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 # Images statik dosyaları
 @app.route('/images/<path:filename>')
