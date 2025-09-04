@@ -1,5 +1,13 @@
 [
     {
+        "imageUrl": "images/blog-images/black-box.jpg",
+        "title": "Yapay Zeka Artık 'Sihirli Bir Kara Kutu' Değil! AYZ ile Şeffaflık ve Güven Çağı",
+        "date": "5 Eylül 2025",
+        "excerpt": "Yapay zeka hayatımızın her köşesini hızla ele geçiriyor. Akıllı telefonlarımızdan bankacılık işlemlerimize, sağlık uygulamalarımızdan sosyal medya akışlarımıza kadar her yerde karşımıza çıkıyor. Ama bu hızla gelişen teknolojiyle birlikte kafamızda bir soru beliriyor: Peki ya bu yapay zeka kararları nasıl alıyor? İşte tam bu noktada, devasa sinir ağlarından oluşan bu \"kara kutu\"ların içini göremiyoruz. Neden kredi başvurumuz reddedildi, ya da bir teşhis nasıl konuldu? Bu bilinmezlik, güven ve adalet konularında ciddi endişeler yaratıyor.",
+        "slug": "aciklanabilir-yapay-zeka",
+        "contentFile": "posts/aciklanabilir-yapay-zeka.md"
+    },
+    {
         "imageUrl": "images/blog-images/k-fold-cross-validation-banner.png",
         "title": "Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?",
         "date": "13 Temmuz 2025",
