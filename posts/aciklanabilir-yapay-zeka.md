@@ -28,10 +28,16 @@ Yapay zekanın açıklanabilirlik hikayesi aslında yeni değil. Onlarca yıllı
 * **Erken Dönem (1950'ler-1990'lar):** Bu dönemde yapay zeka, net kurallara dayanıyordu. "Eğer ateşi varsa VE boğazı ağrıyorsa, o zaman grip olabilir" gibi. Bu sistemlerin nasıl çalıştığı zaten belliydi. Yani bir "kara kutu" sorunu yoktu bile.
 * **"Kara Kutu" Dönemi (2000'ler-2010'lar):** İşte hikayenin dönüm noktası burası. Derin öğrenme modelleri inanılmaz bir hızla gelişmeye başladı. Ama bu modeller o kadar karmaşıktı ki, kararlarını nasıl aldıklarını anlamak imkansız hale geldi. Bir finans modeli neden kredi vermeyi reddetti? Bir teşhis modeli nasıl bir sonuca vardı? Bu sorular, "kara kutu" çağının en büyük sorunlarıydı.
 * **Modern Dönem (2015 ve Sonrası):** "Kara kutu" sorununa bir çözüm bulunması gerekti. Bu dönemde hem teknoloji hem de yasalar devreye girdi:
-    * **2015:** ABD'de **DARPA** ajansı **"Açıklanabilir Yapay Zeka (XAI)"** programını başlattı.
-    * **2016:** Herhangi bir modelin kararlarını açıklayabilen **LIME** tekniği geliştirildi.
-    * **2017:** Daha da gelişmiş bir teknik olan **SHAP** ortaya çıktı.
-    * **2018:** Avrupa Birliği'nde yürürlüğe giren **GDPR**, vatandaşlara "açıklama hakkı" tanıdı. Bu yasa, AYZ araştırmalarını adeta patlattı.
+
+* **2015 - DARPA XAI Programı:** ABD Savunma İleri Araştırma Projeleri Ajansı (DARPA), **"Açıklanabilir Yapay Zeka (XAI)"** programını başlatarak bu konuyu ulusal bir öncelik haline getirdi. Bu programın amacı, yapay zeka modellerinin kararlarını insanlara anlaşılır ve güvenilir bir şekilde açıklayabilen yeni yöntemler geliştirmekti. Bu, AYZ için modern dönemin başlangıcı oldu.
+
+* **2016 - LIME: Yerel Açıklamalar Getiren Bir Dedektif**
+    * Model-agnostik (modelden bağımsız) bir açıklama tekniği olan **LIME (Local Interpretable Model-agnostic Explanations)** geliştirildi. LIME'ı, büyük bir binanın (kara kutu model) içindeki bir odaya (tek bir karar) odaklanan bir dedektif gibi düşünebilirsiniz. Binanın tamamını anlamak yerine, sadece o odadaki olayları anlamaya çalışır. LIME, yapay zekanın **"Neden bu kararı aldı?"** sorusuna yerel olarak, yani o karara en yakın olan faktörleri inceleyerek yanıt verir. Örneğin, bir modelin bir fotoğraftaki köpeği "Husky" olarak tanımlamasının ana nedeninin, arka plandaki kar olduğunu ortaya çıkarabilir. fakat bu çıkarımın yeteri kadar mantıklı olmadığını (***Doğruluk/Sadakat** kuralını dikkate alırsak eğer*) düşünebiliriz.
+
+* **2017 - SHAP: Her Bir Faktörün Katkısını Hesaba Katan Bir Hakem**
+    * Oyun teorisine dayalı bir başka popüler açıklama tekniği olan **SHAP (SHapley Additive exPlanations)** tanıtıldı. SHAP, bir takım sporundaki oyuncuların (yani, *verideki özelliklerin*) bir maçın sonucuna (*yapay zeka çıktısı*) ne kadar katkıda bulunduğunu hesaplayan bir hakem gibidir. SHAP, bir kararda etkili olan her bir faktörün (*yaş, gelir, eğitim seviyesi vb.*) olumlu veya olumsuz yönde ne kadar etkisi olduğunu net bir şekilde ortaya koyar. Bu sayede, "kredi başvurusunun reddedilmesinde en etkili faktörün yaş değil, gelir seviyesi olduğu" gibi daha tutarlı ve adil açıklamalar sunar.
+
+* **2018 - GDPR'nin Etkisi:** Avrupa Birliği'nde yürürlüğe giren **Genel Veri Koruma Tüzüğü (GDPR)**, makine öğrenimi modelleri tarafından alınan otomatik kararlara karşı bireylere **"açıklama hakkı"** nı tanıdı. Bu yasal zorunluluk, özellikle finans, sağlık ve hukuk gibi sektörlerdeki şirketleri, yapay zeka sistemlerini şeffaf hale getirmeye zorladı. Bu düzenleyici baskı, AYZ alanındaki yayın ve araştırmalarda üstel bir büyümeyi tetikledi.
 
 ---
 
@@ -40,7 +46,7 @@ Yapay zekanın açıklanabilirlik hikayesi aslında yeni değil. Onlarca yıllı
 AYZ artık sadece teorik bir kavram değil. Günlük hayatımızda somut uygulamaları var:
 
 * **Sağlık:** AYZ, doktorların yapay zeka destekli tanıları doğrulamasına yardımcı oluyor ve hastaların kendilerine konan teşhisi anlamasını sağlıyor.
-* **Finans:** Bankaların kredi ve sigorta kararlarını açıklaması, hem müşterilerin güvenini kazanmasını hem de yasalara uyum sağlamasını kolaylaştırıyor. Mesela, Silent Eight adlı bir şirket, bir banka için yapay zeka destekli bir sistem kurdu ve bu sistemin verdiği her kararı açıklayarak düzenleyici kurumlardan onay almayı başardı.
+* **Finans:** Bankaların kredi ve sigorta kararlarını açıklaması, hem müşterilerin güvenini kazanmasını hem de yasalara uyum sağlamasını kolaylaştırıyor. Mesela, **Silent Eight** adlı bir şirket, bir banka için yapay zeka destekli bir sistem kurdu ve bu sistemin verdiği her kararı açıklayarak düzenleyici kurumlardan onay almayı başardı.
 * **Otonom Araçlar:** Bir otonom aracın neden ani fren yaptığını açıklayan AYZ, hem mühendislerin hataları düzeltmesine hem de kamuoyunun bu araçlara güvenmesine yardımcı oluyor.
 
 ---
