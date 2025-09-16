@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /sitemap.xml
 
-Sitemap: https://www.siteniz.com/sitemap.xml
+Sitemap: https://n4yuc4-blog.vercel.app/sitemap.xml
