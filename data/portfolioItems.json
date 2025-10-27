@@ -1,6 +1,6 @@
 [
   {    
-    "title": "Kişisel Web Sitesi",
+    "title": "Zettelkasten AI Notes",
     "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
     "description": "Zettelkasten yöntemini kullanarak verimli bilgi yönetimi için PyQt5 ile oluşturulmuş bir masaüstü uygulamasıdır. Kullanıcıların notları oluşturmasına, düzenlemesine ve bağlamasına olanak tanır, zengin içerik için Markdown'ı destekler ve gerçek zamanlı bir önizleme sunar. Tüm verileri yerel bir SQLite veritabanında saklar. Önemli bir özelliği, PDF belgelerinden Zettelkasten tarzı notlar oluşturmak için Google Gemini AI'ı kullanabilmesi ve aralarında otomatik olarak ilgili bağlantılar önermesidir.",
     "detailFile": "portfolio/zettelkasten-ai-notes.md",
