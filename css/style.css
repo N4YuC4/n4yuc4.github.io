@@ -12,6 +12,17 @@ body {
     background-attachment: fixed;
 }
 
+/* Genel bağlantı stilleri */
+a {
+    color: #ffb6c1; /* Belirgin bir pembe tonu */
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: #ffc1e0; /* Hover durumunda daha açık pembe */
+    text-decoration: none;
+}
+
 /* Sayfa kaydırmasını engellemek için */
 body.no-scroll {
     overflow: hidden;
@@ -566,4 +577,16 @@ footer a:hover {
 .content-area pre {
     font-size: 1.25em;
 
+}
+
+/* İçerik alanındaki bağlantılar için stil */
+.content-area a {
+    color: #ffb6c1; /* Belirgin bir pembe tonu */
+    text-decoration: underline;
+    transition: color 0.2s ease-in-out;
+}
+
+.content-area a:hover {
+    color: #ffc1e0; /* Hover durumunda daha açık pembe */
+    text-decoration: none;
 }
