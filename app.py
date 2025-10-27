@@ -49,7 +49,7 @@ def post_detail(slug):
         abort(404)
     with open(content_path, encoding='utf-8') as f:
         content = f.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('post.html', post={'content': html_content, **post})
 
 # Portfolyo listesi
@@ -72,7 +72,7 @@ def portfolio_detail(slug):
         abort(404)
     with open(detail_path, encoding='utf-8') as f:
         content = f.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('portfolio_detail.html', item={'content': html_content, **item})
 
 # Hakkımda sayfası
@@ -84,7 +84,7 @@ def about():
     about_data = data[0] if isinstance(data, list) and data else {}
     # Convert markdown content if present
     if 'content' in about_data:
-        about_data['content'] = markdown(about_data['content'], extensions=['fenced_code', 'codehilite'])
+        about_data['content'] = markdown(about_data['content'], extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('about.html', about=about_data)
 
 # İletişim sayfası
@@ -104,7 +104,7 @@ def privacy():
         abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('privacy.html', privacy={'content': html_content, 'title': data['title']})
 
 # Kullanım Koşulları sayfası
@@ -117,7 +117,7 @@ def terms():
         abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite'])
+    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('terms.html', terms={'content': html_content, 'title': data['title']})
 
 # Statik dosyalar (CSS, JS, images) - general static folder

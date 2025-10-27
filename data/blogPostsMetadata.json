@@ -1,5 +1,13 @@
 [
     {
+        "imageUrl": "images/blog-images/ozellik-secimi-ve-ozellik-cikarimi.png",
+        "title": "Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark",
+        "date": "27 Ekim 2025",
+        "excerpt": "Veri bilimi ve makine öğrenimi alanlarında, bir modelin performansı, kendisine sağlanan verinin kalitesiyle doğrudan ilişkilidir. \"Garbage in, garbage out\" (Çöp giren, çöp çıkar) ilkesi, bu alandaki temel gerçeklerden biridir.\n Modern veri setleri, genellikle \"yüksek boyutluluk laneti\" (curse of dimensionality) olarak bilinen bir zorlukla birlikte gelir: Binlerce özellik (feature), hesaplama maliyetini artırır ve modelin ilgisiz \"gürültü\" (noise) üzerinde aşırı öğrenmesine (overfitting) neden olabilir.",
+        "slug": "ozellik-secimi-ve-ozellik-cikarimi",
+        "contentFile": "posts/ozellik-secimi-ve-ozellik-cikarimi.md"
+    },
+    {
         "imageUrl": "images/blog-images/black-box.jpg",
         "title": "Yapay Zeka Artık 'Sihirli Bir Kara Kutu' Değil! AYZ ile Şeffaflık ve Güven Çağı",
         "date": "5 Eylül 2025",

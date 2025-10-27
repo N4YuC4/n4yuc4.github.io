@@ -492,6 +492,77 @@ footer a:hover {
 .content-area p {
   margin-bottom: 1em;
 }
+
+.content-area table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+.content-area th, .content-area td {
+    border: 1px solid #7a7f8c;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.content-area th {
+    background-color: #23242a;
+}
+
+.content-area .admonition {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.content-area .admonition-title {
+    font-weight: bold;
+}
+
+.content-area .admonition.note {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.content-area .admonition.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.content-area .footnotes {
+    border-top: 1px solid #7a7f8c;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.content-area .toc {
+    border: 1px solid #7a7f8c;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.content-area .toc ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content-area .toc ul li {
+    margin-bottom: 5px;
+}
+
+.content-area .toc ul li a {
+    text-decoration: none;
+    color: #a3b1c6;
+}
+
+.content-area .toc ul li a:hover {
+    color: #8a99ad;
+}
+
 .content-area pre {
     font-size: 1.25em;
 
