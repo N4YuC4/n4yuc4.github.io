@@ -2,7 +2,7 @@
 
 Veri bilimiyle ilgilenen herkesin bildiği temel bir prensip vardır: "Garbage in, garbage out" (Çöp giren, çöp çıkar). Bir makine öğrenimi modelinin performansı, ona sunduğumuz verinin kalitesiyle doğrudan orantılıdır.
 
-Modern veri setleri, genellikle "yüksek boyutluluk laneti" (curse of dimensionality) olarak bilinen bir zorlukla birlikte gelir: Binlerce özellik (feature), hesaplama maliyetini artırır ve modelin ilgisiz "gürültü" (noise) üzerinde aşırı öğrenmesine (overfitting) neden olabilir.
+Modern veri setleri, genellikle "yüksek boyutluluk laneti" (curse of dimensionality) olarak bilinen bir zorlukla birlikte gelir: Binlerce özellik, hesaplama maliyetini artırır ve modelin ilgisiz "gürültü" üzerinde aşırı öğrenmesine neden olabilir.
 
 Bu zorlukların üstesinden gelmek için **Özellik Mühendisliği (Feature Engineering)** kritik bir rol oynar. Bu disiplinin iki temel yaklaşımı olan **Özellik Seçimi (Feature Selection)** ve **Özellik Çıkarımı (Feature Extraction)**, sıklıkla birbirine karıştırılsa da, temelde farklı felsefelere dayanır.
 
@@ -12,7 +12,7 @@ Bu yazıda, bu iki temel tekniği, uygulamalarını ve aralarındaki stratejik f
 
 ### Özellik Seçimi (Feature Selection) 🎯
 
-Özellik Seçimi, modelin hedef değişkenini (target variable) açıklama gücü en yüksek olan **orijinal özelliklerin bir alt kümesini belirleme** sürecidir. Esasen, gereksiz (redundant) ve ilgisiz (irrelevant) veriyi filtreleyerek sinyali gürültüden ayırmayı amaçlar.
+Özellik Seçimi, modelin hedef değişkenini açıklama gücü en yüksek olan **orijinal özelliklerin bir alt kümesini belirleme** sürecidir. Esasen, gereksiz ve ilgisiz veriyi filtreleyerek sinyali gürültüden ayırmayı amaçlar.
 
 Örneğin, bir konut fiyatı regresyon modelini ele alalım. 'Metrekare', 'oda sayısı' ve 'konum' gibi özellikler hedef değişkenle yüksek korelasyona sahipken; 'kapı zili markası' gibi özellikler muhtemelen ilgisizdir. Özellik seçimi, bu ilgisiz özellikleri sistematik olarak eler.
 
@@ -20,9 +20,9 @@ Bu yazıda, bu iki temel tekniği, uygulamalarını ve aralarındaki stratejik f
 
 Bu yöntemin birincil hedefleri:
 
-1.  Modelin karmaşıklığını (complexity) azaltmak ve hesaplama verimliliğini artırmak.
-2.  Aşırı öğrenme riskini (overfitting) minimize etmek.
-3.  Modelin yorumlanabilirliğini (interpretability) korumak veya artırmak.
+1.  Modelin karmaşıklığını azaltmak ve hesaplama verimliliğini artırmak.
+2.  Aşırı öğrenme riskini minimize etmek.
+3.  Modelin yorumlanabilirliğini korumak veya artırmak.
 
 Python'daki `scikit-learn` kütüphanesi, bu işlem için çeşitli mekanizmalar sunar. Örneğin `SelectKBest` sınıfı, ANOVA F-testi gibi istatistiksel yöntemler kullanarak en yüksek puana sahip 'k' adet özelliği filtreler:
 
@@ -56,11 +56,11 @@ Görüldüğü üzere, 4 orijinal özellikten, hedef değişkeni (çiçek türü
 
 ### Özellik Çıkarımı (Feature Extraction) ✨
 
-Özellik Çıkarımı, mevcut özellik uzayını (feature space) **matematiksel olarak dönüştürerek** daha düşük boyutlu yeni bir uzay yaratan bir tekniktir. Bu yeni özellikler, orijinal verinin birer *kombinasyonudur*.
+Özellik Çıkarımı, mevcut özellik uzayını **matematiksel olarak dönüştürerek** daha düşük boyutlu yeni bir uzay yaratan bir tekniktir. Bu yeni özellikler, orijinal verinin birer *kombinasyonudur*.
 
-Buradaki amaç, orijinal verideki varyansın veya bilginin büyük bir kısmını, daha az sayıda *yeni* özelliğe (bileşene) 'yoğunlaştırmaktır'.
+Buradaki amaç, orijinal verideki varyansın veya bilginin büyük bir kısmını, daha az sayıda *yeni* özelliğe 'yoğunlaştırmaktır'.
 
-Görüntü işleme (image processing) buna klasik bir örnektir. 1000x1000 piksellik bir görüntü, 1 milyon özellik anlamına gelir. Bu yüksek boyutlulukla çalışmak verimsizdir. Özellik çıkarımı, bu 1 milyon pikseli, verinin yapısını temsil eden 100-200 adet "bileşene" dönüştürebilir.
+Görüntü işleme buna klasik bir örnektir. 1000x1000 piksellik bir görüntü, 1 milyon özellik anlamına gelir. Bu yüksek boyutlulukla çalışmak verimsizdir. Özellik çıkarımı, bu 1 milyon pikseli, verinin yapısını temsil eden 100-200 adet "bileşene" dönüştürebilir.
 
 ![Özellik Çıkarımı](../images/blog-images/ozellik-cikarimi.png)
 
