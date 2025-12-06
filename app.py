@@ -26,10 +26,20 @@ def static_css(filename):
 def static_js(filename):
     return send_from_directory('js', filename)
 
-@app.route('/robots.txt')
 @app.route('/sitemap.xml')
-def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
+def sitemap():
+    # Dosyayı static klasöründen al
+    response = make_response(send_from_directory(app.static_folder, 'sitemap.xml'))
+    # Header'ı açıkça XML olarak belirt
+    response.headers['Content-Type'] = 'application/xml' 
+    return response
+
+@app.route('/robots.txt')
+def robots():
+    # robots.txt dosyasının static klasöründe olduğundan emin olun
+    response = make_response(send_from_directory(app.static_folder, 'robots.txt'))
+    response.headers['Content-Type'] = 'text/plain'
+    return response
 
 # Images statik dosyaları
 @app.route('/images/<path:filename>')
