@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /sitemap.xml
+Allow: /
 
 Sitemap: https://n4yuc4.vercel.app/sitemap.xml

@@ -8,18 +8,27 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/sitemap.xml')
 def sitemap():
-    # Dosyayı static klasöründen al
-    response = make_response(send_from_directory(app.static_folder, 'sitemap.xml'))
-    # Header'ı açıkça XML olarak belirt
-    response.headers['Content-Type'] = 'application/xml' 
-    return response
+    # Dosyayı doğrudan oku ve XML olarak sun
+    try:
+        with open('static/sitemap.xml', 'r', encoding='utf-8') as f:
+            content = f.read()
+        response = make_response(content)
+        response.headers['Content-Type'] = 'application/xml'
+        return response
+    except FileNotFoundError:
+        return "Sitemap bulunamadı", 404
 
 @app.route('/robots.txt')
 def robots():
-    # robots.txt dosyasının static klasöründe olduğundan emin olun
-    response = make_response(send_from_directory(app.static_folder, 'robots.txt'))
-    response.headers['Content-Type'] = 'text/plain'
-    return response
+    # Dosyayı doğrudan oku ve düz metin olarak sun
+    try:
+        with open('static/robots.txt', 'r', encoding='utf-8') as f:
+            content = f.read()
+        response = make_response(content)
+        response.headers['Content-Type'] = 'text/plain'
+        return response
+    except FileNotFoundError:
+        return "Robots.txt bulunamadı", 404
 
 @app.route('/')
 def index():
