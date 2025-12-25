@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark - N4YuC4_Blog</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="keywords"
+        content="veri bilimi, makine öğrenmesi, derin öğrenme, yapay zeka, AI, ML, DL, Python, algoritmalar, analitik, büyük veri">
+    <meta name="author" content="Nazmi Yücel Çan">
+    <link rel="canonical" href="https://n4yuc4.github.io/">
+
+    <!-- Open Graph Meta Etiketleri -->
+    <meta property="og:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta property="og:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@N4YuC4">
+    <meta name="twitter:creator" content="@N4YuC4">
+    <meta name="twitter:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta name="twitter:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Python dili için Highlight.js desteği -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+    <!-- Harici CSS dosyamız -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+
+    <!-- Google Analytics -->
+    <meta name="google-site-verification" content="q5MqKbUj7_j7znfw-rUNhvvzm6W4epxAICWFvApbtJI" />
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <!-- Başlık Bölümü -->
+    <header id="main-header"
+        class="main-header bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-xl rounded-b-xl sticky top-0 z-10">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <a href="/">
+                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 md:mb-0 tracking-tight">
+                    <span id="header-title-text">N4YuC4_Blog</span>
+                </h1>
+            </a>
+
+            <!-- Hamburger Menü Butonu (Sadece mobil görünümde) -->
+            <div id="hamburger-button" class="hamburger-button md:hidden">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Masaüstü Navigasyon Menüsü -->
+            <nav id="desktop-nav" class="hidden md:flex items-center">
+                <ul class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-8 text-xl">
+                    <li><a href="/" id="nav-home"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Ana
+                            Sayfa</a></li>
+                    <li><a href="/portfolio" id="nav-portfolio"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Portfolyo</a>
+                    </li>
+                    <li><a href="/about" id="nav-about"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Hakkımda</a>
+                    </li>
+                    <li><a href="/contact" id="nav-contact"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">İletişim</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobil Menü Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div id="close-mobile-menu" class="close-button">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/" class="mobile-nav-link" data-target="home">Ana Sayfa</a></li>
+            <li><a href="/portfolio" class="mobile-nav-link" data-target="portfolio">Portfolyo</a></li>
+            <li><a href="/about" class="mobile-nav-link" data-target="about">Hakkımda</a></li>
+            <li><a href="/contact" class="mobile-nav-link" data-target="contact">İletişim</a></li>
+        </ul>
+    </div>
+
+    <!-- Ana İçerik Alanı -->
+    <main id="content-area" class="container mx-auto my-12 p-4 flex-grow">
+        
+<article class="bg-white p-8 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
+    <div class="mb-8 border-b pb-6 border-gray-200">
+        <a href="/" class="text-purple-600 hover:text-purple-800 font-semibold mb-4 inline-block transition duration-300">&larr; Ana Sayfaya Dön</a>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark</h1>
+        <div class="text-gray-500 text-sm mb-6 flex items-center">
+            <i class="far fa-calendar-alt mr-2"></i> 27 Ekim 2025
+        </div>
+        <img src="/static/images/blog-images/ozellik-secimi-ve-ozellik-cikarimi.png" alt="Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+    </div>
+
+    <div class="prose prose-lg prose-purple mx-auto text-gray-700">
+        <h2 id="veri-biliminde-boyutluluk-ozellik-secimi-ve-ozellik-ckarm-arasndaki-kritik-fark"><strong>Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark</strong></h2>
+<p>Veri bilimiyle ilgilenen herkesin bildiği temel bir prensip vardır: "Garbage in, garbage out" (Çöp giren, çöp çıkar). Bir makine öğrenimi modelinin performansı, ona sunduğumuz verinin kalitesiyle doğrudan orantılıdır.</p>
+<p>Modern veri setleri, genellikle "yüksek boyutluluk laneti" (curse of dimensionality) olarak bilinen bir zorlukla birlikte gelir: Binlerce özellik, hesaplama maliyetini artırır ve modelin ilgisiz "gürültü" üzerinde aşırı öğrenmesine neden olabilir.</p>
+<p>Bu zorlukların üstesinden gelmek için <strong>Özellik Mühendisliği (Feature Engineering)</strong> kritik bir rol oynar. Bu disiplinin iki temel yaklaşımı olan <strong>Özellik Seçimi (Feature Selection)</strong> ve <strong>Özellik Çıkarımı (Feature Extraction)</strong>, sıklıkla birbirine karıştırılsa da, temelde farklı felsefelere dayanır.</p>
+<p>Bu yazıda, bu iki temel tekniği, uygulamalarını ve aralarındaki stratejik farkları inceleyeceğiz.</p>
+<hr />
+<h3 id="ozellik-secimi-feature-selection">Özellik Seçimi (Feature Selection) 🎯</h3>
+<p>Özellik Seçimi, modelin hedef değişkenini açıklama gücü en yüksek olan <strong>orijinal özelliklerin bir alt kümesini belirleme</strong> sürecidir. Esasen, gereksiz ve ilgisiz veriyi filtreleyerek sinyali gürültüden ayırmayı amaçlar.</p>
+<p>Örneğin, bir konut fiyatı regresyon modelini ele alalım. 'Metrekare', 'oda sayısı' ve 'konum' gibi özellikler hedef değişkenle yüksek korelasyona sahipken; 'kapı zili markası' gibi özellikler muhtemelen ilgisizdir. Özellik seçimi, bu ilgisiz özellikleri sistematik olarak eler.</p>
+<p><img alt="Özellik Seçimi" src="../images/blog-images/ozellik-secimi.png" /></p>
+<p>Bu yöntemin birincil hedefleri:</p>
+<ol>
+<li>Modelin karmaşıklığını azaltmak ve hesaplama verimliliğini artırmak.</li>
+<li>Aşırı öğrenme riskini minimize etmek.</li>
+<li>Modelin yorumlanabilirliğini korumak veya artırmak.</li>
+</ol>
+<p>Python'daki <code>scikit-learn</code> kütüphanesi, bu işlem için çeşitli mekanizmalar sunar. Örneğin <code>SelectKBest</code> sınıfı, ANOVA F-testi gibi istatistiksel yöntemler kullanarak en yüksek puana sahip 'k' adet özelliği filtreler:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">f_classif</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="c1"># Iris veri setini yükleyelim</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orijinal özellik sayısı (</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> adet): </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># İstatistiksel olarak en iyi 2 özelliği seçmeyi hedefleyelim</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_new</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Seçilen özelliklerin isimlerini alalım</span>
+<span class="n">selected_features</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seçilen en iyi 2 özellik: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">selected_features</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Çıktı:</strong></p>
+<div class="codehilite"><pre><span></span><code>Orijinal özellik sayısı (4 adet): [&#39;sepal length (cm)&#39;, &#39;sepal width (cm)&#39;, &#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
+Seçilen en iyi 2 özellik: [&#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
+</code></pre></div>
+
+<p>Görüldüğü üzere, 4 orijinal özellikten, hedef değişkeni (çiçek türü) açıklamada en başarılı olan 2 tanesi korunmuş, diğerleri elenmiştir.</p>
+<hr />
+<h3 id="ozellik-ckarm-feature-extraction">Özellik Çıkarımı (Feature Extraction) ✨</h3>
+<p>Özellik Çıkarımı, mevcut özellik uzayını <strong>matematiksel olarak dönüştürerek</strong> daha düşük boyutlu yeni bir uzay yaratan bir tekniktir. Bu yeni özellikler, orijinal verinin birer <em>kombinasyonudur</em>.</p>
+<p>Buradaki amaç, orijinal verideki varyansın veya bilginin büyük bir kısmını, daha az sayıda <em>yeni</em> özelliğe 'yoğunlaştırmaktır'.</p>
+<p>Görüntü işleme buna klasik bir örnektir. 1000x1000 piksellik bir görüntü, 1 milyon özellik anlamına gelir. Bu yüksek boyutlulukla çalışmak verimsizdir. Özellik çıkarımı, bu 1 milyon pikseli, verinin yapısını temsil eden 100-200 adet "bileşene" dönüştürebilir.</p>
+<p><img alt="Özellik Çıkarımı" src="../images/blog-images/ozellik-cikarimi.png" /></p>
+<p>En yaygın tekniklerden biri olan <strong>PCA (Principal Component Analysis - Temel Bileşen Analizi)</strong>, verideki maksimum varyansı açıklayan yeni, ortogonal (birbirine dik) eksenler (bileşenler) bulur. Aynı Iris verisi üzerinde uygulayalım:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orijinal özellik sayısı: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Orijinal 4 özelliği 2 yeni bileşene dönüştürelim</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_new_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Yeni bileşenleri DataFrame olarak görelim</span>
+<span class="n">pca_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X_new_pca</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bileşen 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Bileşen 2&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Yeni özellik sayısı: </span><span class="si">{</span><span class="n">pca_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dönüşüm sonrası yeni özellikler (ilk 5 satır):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pca_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div>
+
+<p><strong>Çıktı:</strong></p>
+<div class="codehilite"><pre><span></span><code>Orijinal özellik sayısı: 4
+Yeni özellik sayısı: 2
+Dönüşüm sonrası yeni özellikler (ilk 5 satır):
+   Bileşen 1  Bileşen 2
+0  -2.684126   0.319397
+1  -2.714142  -0.177001
+2  -2.888991  -0.144949
+3  -2.745343  -0.318299
+4  -2.728717   0.326755
+</code></pre></div>
+
+<p>Dikkat edilirse, "Bileşen 1" ve "Bileşen 2" olarak adlandırılan yeni özellikler, orijinal "çanak yaprak uzunluğu" gibi doğrudan yorumlanabilir özelliklerin yerini almıştır.</p>
+<hr />
+<h3 id="temel-farkllklar-ve-stratejik-secim">Temel Farklılıklar ve Stratejik Seçim</h3>
+<p>İki yaklaşım arasındaki farkları ve kullanım senaryolarını netleştirelim.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Kriter</th>
+<th style="text-align: left;">Özellik Seçimi (Feature Selection)</th>
+<th style="text-align: left;">Özellik Çıkarımı (Feature Extraction)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Temel Felsefe</strong></td>
+<td style="text-align: left;">Orijinal özelliklerin bir <strong>alt kümesini seçer</strong>.</td>
+<td style="text-align: left;">Orijinal özelliklerden <strong>yeni özellikler türetir</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Veri</strong></td>
+<td style="text-align: left;">Özellikler korunur (Dönüşüm yoktur).</td>
+<td style="text-align: left;">Özellikler dönüştürülür (Orijinaller kaybolur).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Yorumlanabilirlik</strong></td>
+<td style="text-align: left;"><strong>Yüksektir.</strong> (Hangi özelliğin önemli olduğu bilinir).</td>
+<td style="text-align: left;"><strong>Düşüktür.</strong> (Yeni bileşenlerin anlamı karmaşıktır).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Başlıca Amaç</strong></td>
+<td style="text-align: left;">Aşırı öğrenmeyi önlemek, yorumlanabilirliği artırmak.</td>
+<td style="text-align: left;">Yüksek boyutluluğu (örn. &gt;1000 özellik) yönetmek.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Popüler Yöntemler</strong></td>
+<td style="text-align: left;">Filtre (örn. Chi2, ANOVA), Sarma (RFE), Gömülü (Lasso)</td>
+<td style="text-align: left;">PCA, LDA, t-SNE, Autoencoder'lar</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bir Metafor Kullanmak Gerekirse:</strong></p>
+<ul>
+<li><strong>Özellik Seçimi:</strong> 20 kitaplık bir kütüphaneden, projenizle en ilgili 5 kitabı <em>seçip</em> rafa koymaktır. Raftaki kitaplar hala orijinal kitaplardır.</li>
+<li><strong>Özellik Çıkarımı:</strong> Bu 20 kitabın tamamını okuyup, içerdikleri ana fikirleri 3 sayfalık bir <em>özet</em> (sentez) halinde yeniden yazmaktır. Elinizdeki artık orijinal kitaplar değil, onların yoğunlaştırılmış bir temsilidir.</li>
+</ul>
+<hr />
+<h3 id="sonuc-hangi-yaklasm-ne-zaman-tercih-edilmeli">Sonuç: Hangi Yaklaşım Ne Zaman Tercih Edilmeli?</h3>
+<p>Özellik Seçimi ve Özellik Çıkarımı arasında mutlak bir "kazanan" yoktur; yalnızca projenin gereksinimlerine göre optimize edilmesi gereken <strong>stratejik bir tercih</strong> mevcuttur.</p>
+<ol>
+<li>Eğer projenizin önceliği <strong>yorumlabilirlik</strong> ise (örneğin, tıbbi bir teşhis, finansal risk veya kredi skoru modellemesi gibi kararların "neden" alındığının açıklanması gereken durumlar), orijinal özellikleri koruyan <strong>Özellik Seçimi</strong> tercih edilmelidir.</li>
+<li>Eğer öncelik, yüksek boyutlu verilerde (görüntü, ses, yapılandırılmamış metin) <strong>tahmin doğruluğunu maksimize etmekse</strong> ve yorumlanabilirlik ikinci plandaysa, <strong>Özellik Çıkarımı</strong> (PCA gibi) genellikle daha üstün performans sağlar.</li>
+</ol>
+<p>Her iki teknik de, daha verimli, daha hızlı ve daha doğru makine öğrenimi modelleri oluşturmak için vazgeçilmez araçlardır.</p>
+    </div>
+</article>
+
+    </main>
+
+    <!-- Alt Bilgi Bölümü -->
+    <footer class="bg-gray-900 text-white p-8 mt-12 rounded-t-xl">
+        <div class="container mx-auto text-center">
+            <p class="text-lg">&copy; 2025 N4YuC4_Blog. Tüm Hakları Saklıdır.</p>
+            <div class="flex justify-center space-x-6 mt-4 text-md">
+                <a href="/privacy" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-privacy-link">Gizlilik Politikası</a>
+                <a href="/terms" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-terms-link">Kullanım Koşulları</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ana JavaScript dosyamız (type="module" ile) -->
+    <script type="module" src="/static/js/main.js"></script>
+
+</body>
+
+</html>

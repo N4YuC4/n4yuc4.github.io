@@ -1,7 +1,7 @@
 [
   {
     "title": "Ben Kimim?",
-    "profileImageUrl": "../images/profile.jpg",
+    "profileImageUrl": "images/profile.jpg",
     "content": "Merhaba! Ben Nazmi Yücel Çan. Bu blogu, veri bilimi, makine öğrenmesi ve derin öğrenme alanlarındaki bilgi birikimimi ve deneyimlerimi sizinle paylaşmak için oluşturdum. Amacım, bu karmaşık konuları anlaşılır bir dille sunarak hem yeni başlayanlara rehberlik etmek hem de deneyimli profesyoneller için güncel bilgiler sağlamaktır.\n\nVeri bilimi alanında özellikle sinir ağları, doğal dil işleme ve veri analizi konularında kendimi her geçen gün geliştiriyorum. Boş zamanlarımda yeni algoritmalar denemek, açık kaynak projelere katkıda bulunmak ve yapay zekanın etik boyutlarını araştırmaktan keyif alıyorum.",
     "socialMediaLinks": [
         {

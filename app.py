@@ -8,52 +8,40 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/sitemap.xml')
 def sitemap():
-    # Dosyayı doğrudan oku ve XML olarak sun
+    # Artık build.py dinamik üretiyor ama local dev için static'ten varsa sunsun yoksa 404
     try:
-        with open('static/sitemap.xml', 'r', encoding='utf-8') as f:
-            content = f.read()
-        response = make_response(content)
-        response.headers['Content-Type'] = 'application/xml'
-        return response
-    except FileNotFoundError:
-        return "Sitemap bulunamadı", 404
+        return send_from_directory('docs', 'sitemap.xml')
+    except:
+        return "Sitemap build işleminden sonra docs klasöründe oluşacaktır.", 404
 
 @app.route('/robots.txt')
 def robots():
-    # Dosyayı doğrudan oku ve düz metin olarak sun
-    try:
-        with open('static/robots.txt', 'r', encoding='utf-8') as f:
-            content = f.read()
-        response = make_response(content)
-        response.headers['Content-Type'] = 'text/plain'
-        return response
-    except FileNotFoundError:
-        return "Robots.txt bulunamadı", 404
+    return send_from_directory('static', 'robots.txt')
 
 @app.route('/')
 def index():
+    # About Verisi
+    with open('data/aboutPageData.json', encoding='utf-8') as f:
+        about_data_list = json.load(f)
+    about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
+    if 'content' in about_data:
+        about_data['content'] = markdown(about_data['content'], extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+
+    # Son 3 Blog Yazısı
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
         posts = json.load(f)
-    return render_template('home.html', posts=posts)
+    latest_posts = posts[:3] 
+
+    # Son 3 Portfolyo Öğesi
+    with open('data/portfolioItems.json', encoding='utf-8') as f:
+        portfolio_items = json.load(f)
+    latest_portfolio = portfolio_items[:3]
+
+    return render_template('home.html', about=about_data, posts=latest_posts, portfolio=latest_portfolio)
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory('images', 'icon.png')
-
-# CSS statik dosyaları
-@app.route('/css/<path:filename>')
-def static_css(filename):
-    return send_from_directory('css', filename)
-
-# JS statik dosyaları
-@app.route('/js/<path:filename>')
-def static_js(filename):
-    return send_from_directory('js', filename)
-
-# Images statik dosyaları
-@app.route('/images/<path:filename>')
-def static_images(filename):
-    return send_from_directory('images', filename)
+    return send_from_directory('static/images', 'icon.png')
 
 # Tekil blog yazısı
 @app.route('/posts/<slug>')
@@ -99,9 +87,7 @@ def portfolio_detail(slug):
 def about():
     with open('data/aboutPageData.json', encoding='utf-8') as f:
         data = json.load(f)
-    # Assuming aboutPageData.json contains a list and we need the first item
     about_data = data[0] if isinstance(data, list) and data else {}
-    # Convert markdown content if present
     if 'content' in about_data:
         about_data['content'] = markdown(about_data['content'], extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('about.html', about=about_data)
@@ -138,11 +124,6 @@ def terms():
         content = f_md.read()
     html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     return render_template('terms.html', terms={'content': html_content, 'title': data['title']})
-
-# Statik dosyalar (CSS, JS, images) - general static folder
-@app.route('/static/<path:filename>')
-def static_general(filename):
-    return send_from_directory(app.static_folder, filename)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

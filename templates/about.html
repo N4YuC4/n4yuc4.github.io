@@ -5,7 +5,7 @@
 {% block content %}
 <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
     <div class="max-w-3xl mx-auto text-center">
-        <img src="{{ url_for('static_images', filename=about.profileImageUrl.split('/')[-1]) }}" alt="Kullanıcının profil resmi" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
+    <img src="{{ url_for('static', filename=about.profileImageUrl) }}" alt="Kullanıcının profil resmi" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
         <h2 class="text-4xl font-bold text-gray-800 mb-4">{{ about.title }}</h2>
         <div class="text-lg text-gray-700 leading-relaxed content-area-text">
             {{ about.content | safe }}
