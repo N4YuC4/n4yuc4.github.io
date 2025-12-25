@@ -1,14 +1,97 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-    {% for post in posts %}
-    <div class="bg-white p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="{{ url_for('static_images', filename=post.imageUrl.replace('images/', '', 1)) }}" alt="{{ post.title }} blog yazısı görseli" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ post.title }}</h3>
-        <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
-        <a href="{{ url_for('post_detail', slug=post.slug) }}" class="read-more-btn inline-block py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300">Devamını Oku</a>
+<div class="space-y-16">
+    <!-- Hakkımda Bölümü -->
+    <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <!-- Profil Resmi -->
+            <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
+                <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-indigo-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
+                <img src="{{ url_for('static', filename=about.profileImageUrl) }}" 
+                     alt="Profil Resmi" 
+                     class="w-full h-full object-cover rounded-full shadow-2xl relative z-10 border-4 border-white">
+            </div>
+            
+            <!-- İçerik -->
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">{{ about.title }}</h2>
+                <div class="prose prose-lg text-gray-600 mb-6 max-w-none">
+                    {{ about.content | safe }}
+                </div>
+                
+                <!-- Sosyal Medya İkonları -->
+                <div class="flex justify-center md:justify-start gap-4">
+                    {% for social in about.socialMediaLinks %}
+                    <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" 
+                       class="group relative p-3 bg-gray-100 rounded-full hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                        <svg class="w-6 h-6 fill-current text-gray-700 group-hover:text-white transition-colors duration-300" 
+                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            {% if social.svgCircle %}
+                                <circle cx="12" cy="12" r="10"/>
+                            {% endif %}
+                            <path d="{{ social.svgPath }}"/>
+                        </svg>
+                        <span class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-20 pointer-events-none">
+                            {{ social.platform }}
+                        </span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Son Yazılar Bölümü -->
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-purple-600 pl-3">Son Yazılar</h3>
+            </div>
+            <div class="space-y-6">
+                {% for post in posts %}
+                <a href="{{ url_for('post_detail', slug=post.slug) }}" class="block group">
+                    <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+                            <img src="{{ url_for('static', filename=post.imageUrl) }}" 
+                                 alt="{{ post.title }}" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors mb-2 line-clamp-2">{{ post.title }}</h4>
+                            <p class="text-sm text-gray-500 mb-2">{{ post.date }}</p>
+                            <p class="text-gray-600 text-sm line-clamp-2">{{ post.excerpt }}</p>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Son Çalışmalar Bölümü -->
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-indigo-600 pl-3">Son Çalışmalar</h3>
+                <a href="{{ url_for('portfolio_list') }}" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition">Tümünü Gör →</a>
+            </div>
+            <div class="space-y-6">
+                {% for item in portfolio %}
+                <a href="{{ url_for('portfolio_detail', slug=item.slug) }}" class="block group">
+                    <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+                            <img src="{{ url_for('static', filename=item.imageUrl) }}" 
+                                 alt="{{ item.title }}" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors mb-2">{{ item.title }}</h4>
+                            <p class="text-gray-600 text-sm line-clamp-3">{{ item.description }}</p>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

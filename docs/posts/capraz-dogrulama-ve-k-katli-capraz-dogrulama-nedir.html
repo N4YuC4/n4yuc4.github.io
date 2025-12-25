@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir? - N4YuC4_Blog</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="keywords"
+        content="veri bilimi, makine öğrenmesi, derin öğrenme, yapay zeka, AI, ML, DL, Python, algoritmalar, analitik, büyük veri">
+    <meta name="author" content="Nazmi Yücel Çan">
+    <link rel="canonical" href="https://n4yuc4.github.io/">
+
+    <!-- Open Graph Meta Etiketleri -->
+    <meta property="og:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta property="og:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@N4YuC4">
+    <meta name="twitter:creator" content="@N4YuC4">
+    <meta name="twitter:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta name="twitter:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Python dili için Highlight.js desteği -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+    <!-- Harici CSS dosyamız -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+
+    <!-- Google Analytics -->
+    <meta name="google-site-verification" content="q5MqKbUj7_j7znfw-rUNhvvzm6W4epxAICWFvApbtJI" />
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <!-- Başlık Bölümü -->
+    <header id="main-header"
+        class="main-header bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-xl rounded-b-xl sticky top-0 z-10">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <a href="/">
+                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 md:mb-0 tracking-tight">
+                    <span id="header-title-text">N4YuC4_Blog</span>
+                </h1>
+            </a>
+
+            <!-- Hamburger Menü Butonu (Sadece mobil görünümde) -->
+            <div id="hamburger-button" class="hamburger-button md:hidden">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Masaüstü Navigasyon Menüsü -->
+            <nav id="desktop-nav" class="hidden md:flex items-center">
+                <ul class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-8 text-xl">
+                    <li><a href="/" id="nav-home"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Ana
+                            Sayfa</a></li>
+                    <li><a href="/portfolio" id="nav-portfolio"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Portfolyo</a>
+                    </li>
+                    <li><a href="/about" id="nav-about"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Hakkımda</a>
+                    </li>
+                    <li><a href="/contact" id="nav-contact"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">İletişim</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobil Menü Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div id="close-mobile-menu" class="close-button">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/" class="mobile-nav-link" data-target="home">Ana Sayfa</a></li>
+            <li><a href="/portfolio" class="mobile-nav-link" data-target="portfolio">Portfolyo</a></li>
+            <li><a href="/about" class="mobile-nav-link" data-target="about">Hakkımda</a></li>
+            <li><a href="/contact" class="mobile-nav-link" data-target="contact">İletişim</a></li>
+        </ul>
+    </div>
+
+    <!-- Ana İçerik Alanı -->
+    <main id="content-area" class="container mx-auto my-12 p-4 flex-grow">
+        
+<article class="bg-white p-8 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
+    <div class="mb-8 border-b pb-6 border-gray-200">
+        <a href="/" class="text-purple-600 hover:text-purple-800 font-semibold mb-4 inline-block transition duration-300">&larr; Ana Sayfaya Dön</a>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?</h1>
+        <div class="text-gray-500 text-sm mb-6 flex items-center">
+            <i class="far fa-calendar-alt mr-2"></i> 13 Temmuz 2025
+        </div>
+        <img src="/static/images/blog-images/k-fold-cross-validation-banner.png" alt="Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir? blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+    </div>
+
+    <div class="prose prose-lg prose-purple mx-auto text-gray-700">
+        <h2 id="modelinizi-snava-sokmak-capraz-dogrulama-ve-k-katl-capraz-dogrulama-nedir">Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?</h2>
+<p>Makine öğrenimiyle uğraşan herkesin aslında tek bir dileği var: Kurduğumuz model, okulda öğrendiği her şeyi unutup gerçek hayatta karşısına çıkan bambaşka verilerle de başarılı olsun. Yani, modelimiz öyle sadece ezber yapmasın, konuyu gerçekten anlasın. Tıpkı sınava hazırlanan bir öğrencinin, sadece soru ezberlemekle kalmayıp, konuyu kökünden anlayıp önüne gelen her türlü soruyu çözebilmesi gibi.</p>
+<p>İşte tam da bu noktada <strong>Çapraz Doğrulama (Cross-Validation)</strong> sahneye çıkıyor. Bu yöntem, modelimizin sadece daha önce "gördüğü" verilerde değil, hiç görmediği, yepyeni verilerde ne kadar başarılı tahminler yapabildiğini anlamamıza yardımcı olan harika bir teknik.</p>
+<p>Peki, etrafta sıkça duyduğumuz <strong>K-Katlı Çapraz Doğrulama (K-Fold Cross-Validation)</strong> tam olarak neyin nesi? Çapraz doğrulama ile nasıl bir ilişkisi var? Gelin, bu kavramları hiç kafa karıştırmadan, en sade haliyle açıklayalım.</p>
+<h3 id="capraz-dogrulama-nedir">Çapraz Doğrulama Nedir?</h3>
+<p>Çapraz doğrulama, aslında modelinizin ne kadar iyi olduğunu daha güvenilir bir şekilde ölçmek için, elinizdeki veriyi birden fazla farklı parçaya bölüp, her seferinde modelinizi farklı bir parça üzerinde test etmenizi sağlayan bir değerlendirme stratejisi.</p>
+<p>Genellikle ne yaparız? Veri setimizi ikiye böleriz: %80'ini modele öğretmek için kullanırız, %20'sini de modelin öğrendiklerini test etmek için. Ama bu tek seferlik bölme bazen yanıltıcı olabilir, değil mi? Belki test setimiz çok kolay çıktı da modelimiz olduğundan daha zeki göründü, ya da tam tersi, çok zor çıktı da haksız yere kötü not aldı.</p>
+<p>İşte tam bu yüzden çapraz doğrulama der ki: "Gel arkadaşım, veriyi tek bir şekilde bölmekle kalma. Farklı farklı şekillerde böl, her seferinde başka bir kısmını test için kullan. Böylece modelinin genel başarısını daha doğru bir şekilde anlarsın."</p>
+<p>Burada küçücük ama önemli bir noktaya dikkat:</p>
+<p><strong><code>train_test_split</code></strong> fonksiyonuyla yaptığımız o bildiğimiz tek seferlik ayırma, çapraz doğrulama değildir. Çapraz doğrulama, veriyi en az iki veya daha fazla kez bölerek modelin farklı veri alt kümelerinde test edilmesini sağlayan daha kapsamlı bir yaklaşımdır.</p>
+<h3 id="basit-bir-veri-bolme-ornegi-train_test_split">Basit Bir Veri Bölme Örneği (<code>train_test_split</code>)</h3>
+<p>Bu örnek, yalnızca tek bir eğitim/test bölmesini gösteriyor; yani henüz çapraz doğrulama yapmıyoruz, sadece modelin ilk sınavını hazırlıyoruz:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Veri setimizi yükleyelim</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Veriyi eğitim ve test olarak ayıralım</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Modeli eğitelim</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Test verisiyle tahmin yapalım</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Doğruluk:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div>
+
+<h3 id="k-katl-capraz-dogrulama-nedir">K-Katlı Çapraz Doğrulama Nedir?</h3>
+<p>K-Katlı Çapraz Doğrulama, çapraz doğrulamanın en sevilen, en çok kullanılan yöntemlerinden biri. Adı biraz karmaşık gelse de mantığı çok basit ve etkili:</p>
+<ul>
+<li>Veri setinizi <strong>K</strong> tane eşit parçaya (bunlara "kat" veya "fold" diyoruz) ayırırsınız.</li>
+<li>Sonra bir döngü başlar: Her seferinde bu K parçadan <strong>bir tanesini test seti olarak kullanırsınız</strong>, geri kalan K-1 parçayı ise birleştirip modelinizi eğitmek için kullanırsınız.</li>
+<li>Bu işlemi tam <strong>K</strong> kez tekrarlarsınız. Yani her kat bir kez test seti olur. Her seferinde model yeniden eğitilir ve test edilir.</li>
+<li>En sonunda <strong>K</strong> farklı test sonucu elde edersiniz ve genellikle bu sonuçların <strong>ortalamasını</strong> alarak modelinizin gerçek performansını belirlersiniz.</li>
+</ul>
+<p>Aşağıdaki görselde K değeri 5 verilen bir K-Katlı Çapraz Doğrulama diyagramını görebilirsiniz.
+<img alt="K-Katlı Çapraz Doğrulama" src="../images/blog-images/K-Fold-cross-validation.png" /> </p>
+<h3 id="k-katl-capraz-dogrulama-python-ornegi">K-Katlı Çapraz Doğrulama Python Örneği</h3>
+<p>Şimdi bunu Python'da nasıl yaparız, ona bakalım. Gayet temiz ve anlaşılır:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+
+<span class="c1"># K-Katlı Çapraz Doğrulama yapıyoruz (örnekte k değerini 5 veriyoruz)</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># Veriyi 5&#39;e bölüyoruz</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">)</span> <span class="c1"># Her bir kat için modelimiz test edilir</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Her bir kat için elde edilen doğruluk skorları:&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ortalama doğruluk:&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</code></pre></div>
+
+<h3 id="derin-sinir-aglarnda-keras-ile-k-katl-capraz-dogrulama-nasl-kullanlr">Derin Sinir Ağlarında (Keras ile) K-Katlı Çapraz Doğrulama Nasıl Kullanılır?</h3>
+<p>K-Katlı Çapraz Doğrulama, sadece klasik makine öğrenimi algoritmaları için değil, derin öğrenme modelleri için de harika bir araç. Ama Keras gibi kütüphanelerde ufak bir fark var: Her bir kat için modeli baştan oluşturmanız gerekiyor. Çünkü bir Keras modeli bir kere eğitildikten sonra, içindeki öğrenilmiş bilgileri sıfırlayıp baştan eğitim için hazırlamak mümkün değil.</p>
+<p>Aşağıda, Keras ile basit bir yapay sinir ağı için K-Katlı Çapraz Doğrulama örneğini bulabilirsiniz. Biraz daha detaylı gözükebilir ama mantık hala aynı:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneHotEncoder</span>
+
+<span class="c1"># Veri setimizi yükleyelim ve hazırlayalım</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">acc_scores</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Doğruluk skorlarını burada tutacağız</span>
+
+<span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y_encoded</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">y_encoded</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+
+    <span class="c1"># Her kat için yeni bir model oluşturuyoruz</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],)),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Modeli eğitiyoruz (verbose=0 ile sessiz modda)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Modelin performansını test ediyoruz</span>
+    <span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">acc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span> <span class="c1"># Skoru listemize ekliyoruz</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Her bir kat için elde edilen doğruluk skorları:&quot;</span><span class="p">,</span> <span class="n">acc_scores</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ortalama doğruluk:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_scores</span><span class="p">))</span>
+</code></pre></div>
+
+<p><strong>Küçük bir hatırlatma:</strong> Keras ile K-Katlı Çapraz Doğrulama yaparken, her bir kat için modeli sıfırdan oluşturmanız gerektiğini unutmayın.</p>
+<p>Bu yöntem sayesinde, derin öğrenme modellerinizin farklı veri bölünmelerinde nasıl davrandığını çok daha güvenilir bir şekilde görebilirsiniz. Özellikle veri setiniz çok büyük değilse veya modelinizin "genelleme yeteneğini" yani hiç görmediği verilere ne kadar iyi uyum sağlayabildiğini test etmek istiyorsanız, K-Katlı Çapraz Doğrulama size altın değerinde bilgiler sunacaktır!</p>
+    </div>
+</article>
+
+    </main>
+
+    <!-- Alt Bilgi Bölümü -->
+    <footer class="bg-gray-900 text-white p-8 mt-12 rounded-t-xl">
+        <div class="container mx-auto text-center">
+            <p class="text-lg">&copy; 2025 N4YuC4_Blog. Tüm Hakları Saklıdır.</p>
+            <div class="flex justify-center space-x-6 mt-4 text-md">
+                <a href="/privacy" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-privacy-link">Gizlilik Politikası</a>
+                <a href="/terms" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-terms-link">Kullanım Koşulları</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ana JavaScript dosyamız (type="module" ile) -->
+    <script type="module" src="/static/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka Artık &#39;Sihirli Bir Kara Kutu&#39; Değil! AYZ ile Şeffaflık ve Güven Çağı - N4YuC4_Blog</title>
+
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="keywords"
+        content="veri bilimi, makine öğrenmesi, derin öğrenme, yapay zeka, AI, ML, DL, Python, algoritmalar, analitik, büyük veri">
+    <meta name="author" content="Nazmi Yücel Çan">
+    <link rel="canonical" href="https://n4yuc4.github.io/">
+
+    <!-- Open Graph Meta Etiketleri -->
+    <meta property="og:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta property="og:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@N4YuC4">
+    <meta name="twitter:creator" content="@N4YuC4">
+    <meta name="twitter:title" content="N4YuC4_Blog - Veri Bilimi ve Yapay Zeka Keşifleri">
+    <meta name="twitter:description"
+        content="N4YuC4_Blog'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Python dili için Highlight.js desteği -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+    <!-- Harici CSS dosyamız -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+
+    <!-- Google Analytics -->
+    <meta name="google-site-verification" content="q5MqKbUj7_j7znfw-rUNhvvzm6W4epxAICWFvApbtJI" />
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <!-- Başlık Bölümü -->
+    <header id="main-header"
+        class="main-header bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-xl rounded-b-xl sticky top-0 z-10">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <a href="/">
+                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 md:mb-0 tracking-tight">
+                    <span id="header-title-text">N4YuC4_Blog</span>
+                </h1>
+            </a>
+
+            <!-- Hamburger Menü Butonu (Sadece mobil görünümde) -->
+            <div id="hamburger-button" class="hamburger-button md:hidden">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Masaüstü Navigasyon Menüsü -->
+            <nav id="desktop-nav" class="hidden md:flex items-center">
+                <ul class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-8 text-xl">
+                    <li><a href="/" id="nav-home"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Ana
+                            Sayfa</a></li>
+                    <li><a href="/portfolio" id="nav-portfolio"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Portfolyo</a>
+                    </li>
+                    <li><a href="/about" id="nav-about"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Hakkımda</a>
+                    </li>
+                    <li><a href="/contact" id="nav-contact"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">İletişim</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobil Menü Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div id="close-mobile-menu" class="close-button">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="/" class="mobile-nav-link" data-target="home">Ana Sayfa</a></li>
+            <li><a href="/portfolio" class="mobile-nav-link" data-target="portfolio">Portfolyo</a></li>
+            <li><a href="/about" class="mobile-nav-link" data-target="about">Hakkımda</a></li>
+            <li><a href="/contact" class="mobile-nav-link" data-target="contact">İletişim</a></li>
+        </ul>
+    </div>
+
+    <!-- Ana İçerik Alanı -->
+    <main id="content-area" class="container mx-auto my-12 p-4 flex-grow">
+        
+<article class="bg-white p-8 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
+    <div class="mb-8 border-b pb-6 border-gray-200">
+        <a href="/" class="text-purple-600 hover:text-purple-800 font-semibold mb-4 inline-block transition duration-300">&larr; Ana Sayfaya Dön</a>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">Yapay Zeka Artık &#39;Sihirli Bir Kara Kutu&#39; Değil! AYZ ile Şeffaflık ve Güven Çağı</h1>
+        <div class="text-gray-500 text-sm mb-6 flex items-center">
+            <i class="far fa-calendar-alt mr-2"></i> 5 Eylül 2025
+        </div>
+        <img src="/static/images/blog-images/black-box.jpg" alt="Yapay Zeka Artık &#39;Sihirli Bir Kara Kutu&#39; Değil! AYZ ile Şeffaflık ve Güven Çağı blog yazısı görseli" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+    </div>
+
+    <div class="prose prose-lg prose-purple mx-auto text-gray-700">
+        <h2 id="yapay-zeka-artk-sihirli-bir-kara-kutu-degil-ayz-ile-seffaflk-ve-guven-cag"><strong>Yapay Zeka Artık 'Sihirli Bir Kara Kutu' Değil! AYZ ile Şeffaflık ve Güven Çağı</strong></h2>
+<p>Yapay zeka hayatımızın her köşesini hızla ele geçiriyor. Akıllı telefonlarımızdan bankacılık işlemlerimize, sağlık uygulamalarımızdan sosyal medya akışlarımıza kadar her yerde karşımıza çıkıyor. Ama bu hızla gelişen teknolojiyle birlikte kafamızda bir soru beliriyor: <strong>Peki ya bu yapay zeka kararları nasıl alıyor?</strong> İşte tam bu noktada, devasa sinir ağlarından oluşan bu "kara kutu"ların içini göremiyoruz. Neden kredi başvurumuz reddedildi, ya da bir teşhis nasıl konuldu? Bu bilinmezlik, güven ve adalet konularında ciddi endişeler yaratıyor.</p>
+<p>İşte bu noktada <strong>Açıklanabilir Yapay Zeka (AYZ)</strong> imdadımıza yetişiyor. AYZ, bu sihirli kutunun kapağını aralayarak, yapay zekanın ne yaptığını değil, <strong>neden</strong> yaptığını anlatıyor.</p>
+<h3 id="ayz-nedir-ve-neden-hayati-onem-tasyor"><strong>AYZ Nedir ve Neden Hayati Önem Taşıyor?</strong></h3>
+<p>AYZ'yi, yapay zekanın kararlarını insan diline çeviren bir tercüman gibi düşünebilirsiniz. Bu tercümanın iyi bir iş çıkarması için üç temel kuralı var:</p>
+<ul>
+<li><strong>Açıklama:</strong> Yapay zekanın kararlarının mantıklı bir sebebi olmalı. Bir banka, başvurunuzu reddettiyse, size sadece "hayır" demek yerine "son altı ayda yaptığınız çok fazla kredi başvurusu nedeniyle reddedildi" demeli.</li>
+<li><strong>Anlamlılık:</strong> Açıklama, karşınızdaki kişinin anlayacağı dilde olmalı. Bir doktor, hastaya "Model, ciğerinizde anormal bir doku kümesi tespit etti" derken, diğer bir doktora bu durumu teknik terimlerle açıklayabilir. Yani, herkese tek tip bir açıklama sunmak yerine, kime hitap ettiğini bilmeli.</li>
+<li><strong>Doğruluk/Sadakat:</strong> Açıklama, modelin gerçekte nasıl çalıştığını yansıtmalı. Eğer bir yapay zeka bir resmi "kedi" olarak tanımlıyorsa, bunu gerçekten kedinin kulaklarına ve bıyıklarına bakarak yaptığını açıklamalı, arka planın rengine bakarak değil.</li>
+</ul>
+<p>Peki, AYZ neden bu kadar önemli?</p>
+<ul>
+<li><strong>Güven:</strong> Kararlarını anladığımız bir teknolojiye daha çok güveniriz. Bir otonom aracın neden aniden fren yaptığını bilmek, yolcu olarak kendimizi daha güvende hissetmemizi sağlar.</li>
+<li><strong>Yasal Uyumluluk:</strong> <strong>GDPR</strong> gibi yasalar, şirketleri otomatik kararları açıklamakla yükümlü kılıyor. AYZ, şirketlerin bu yasalara uyum sağlamasına ve olası cezalardan kaçınmasına yardımcı olur. Özellikle finans ve sigorta gibi hassas sektörlerde bu vazgeçilmez bir gereklilik.</li>
+<li><strong>Gizli Önyargıların Tespiti:</strong> Yapay zeka, eğer eğitim verilerinde önyargı varsa, bunu farkında olmadan öğrenebilir ve kararlarında kullanabilir. Örneğin, bir işe alım algoritmasının sadece erkek adayları öne çıkarmasının arkasında bir önyargı olabilir. AYZ, bu gizli önyargıları ortaya çıkarır ve adil sistemler kurmamızı sağlar.</li>
+<li><strong>Kolay Hata Ayıklama:</strong> Geliştiriciler, bir modelin neden yanlış bir tahmin yaptığını anlamak için AYZ'yi kullanır. Modelin bir hastayı yanlışlıkla sağlıklı olarak sınıflandırmasının nedenini anlamak, hem hatayı düzeltmeye yardımcı olur hem de modelin performansını artırır.</li>
+</ul>
+<hr />
+<h3 id="yapay-zekann-tarihi-kara-kutudan-seffaflga-yolculuk"><strong>Yapay Zekanın Tarihi: Kara Kutudan Şeffaflığa Yolculuk</strong></h3>
+<p>Yapay zekanın açıklanabilirlik hikayesi aslında yeni değil. Onlarca yıllık bir geçmişi var. Bu hikayeyi üç ana döneme ayırabiliriz:</p>
+<ul>
+<li><strong>Erken Dönem (1950'ler-1990'lar):</strong> Bu dönemde yapay zeka, net kurallara dayanıyordu. "Eğer ateşi varsa VE boğazı ağrıyorsa, o zaman grip olabilir" gibi. Bu sistemlerin nasıl çalıştığı zaten belliydi. Yani bir "kara kutu" sorunu yoktu bile.</li>
+<li><strong>"Kara Kutu" Dönemi (2000'ler-2010'lar):</strong> İşte hikayenin dönüm noktası burası. Derin öğrenme modelleri inanılmaz bir hızla gelişmeye başladı. Ama bu modeller o kadar karmaşıktı ki, kararlarını nasıl aldıklarını anlamak imkansız hale geldi. Bir finans modeli neden kredi vermeyi reddetti? Bir teşhis modeli nasıl bir sonuca vardı? Bu sorular, "kara kutu" çağının en büyük sorunlarıydı.</li>
+<li>
+<p><strong>Modern Dönem (2015 ve Sonrası):</strong> "Kara kutu" sorununa bir çözüm bulunması gerekti. Bu dönemde hem teknoloji hem de yasalar devreye girdi:</p>
+</li>
+<li>
+<p><strong>2015 - DARPA XAI Programı:</strong> ABD Savunma İleri Araştırma Projeleri Ajansı (DARPA), <strong>"Açıklanabilir Yapay Zeka (XAI)"</strong> programını başlatarak bu konuyu ulusal bir öncelik haline getirdi. Bu programın amacı, yapay zeka modellerinin kararlarını insanlara anlaşılır ve güvenilir bir şekilde açıklayabilen yeni yöntemler geliştirmekti. Bu, AYZ için modern dönemin başlangıcı oldu.</p>
+</li>
+<li>
+<p><strong>2016 - LIME: Yerel Açıklamalar Getiren Bir Dedektif</strong></p>
+<ul>
+<li>Model-agnostik (modelden bağımsız) bir açıklama tekniği olan <strong>LIME (Local Interpretable Model-agnostic Explanations)</strong> geliştirildi. LIME'ı, büyük bir binanın (kara kutu model) içindeki bir odaya (tek bir karar) odaklanan bir dedektif gibi düşünebilirsiniz. Binanın tamamını anlamak yerine, sadece o odadaki olayları anlamaya çalışır. LIME, yapay zekanın <strong>"Neden bu kararı aldı?"</strong> sorusuna yerel olarak, yani o karara en yakın olan faktörleri inceleyerek yanıt verir. Örneğin, bir modelin bir fotoğraftaki köpeği "Husky" olarak tanımlamasının ana nedeninin, arka plandaki kar olduğunu ortaya çıkarabilir. Fakat bu çıkarımın yeteri kadar mantıklı olmadığını (<em><strong>Doğruluk/Sadakat</strong> kuralını dikkate alırsak eğer</em>) düşünebiliriz.</li>
+</ul>
+</li>
+<li>
+<p><strong>2017 - SHAP: Her Bir Faktörün Katkısını Hesaba Katan Bir Hakem</strong></p>
+<ul>
+<li>Oyun teorisine dayalı bir başka popüler açıklama tekniği olan <strong>SHAP (SHapley Additive exPlanations)</strong> tanıtıldı. SHAP, bir takım sporundaki oyuncuların (yani, <em>verideki özelliklerin</em>) bir maçın sonucuna (<em>yapay zeka çıktısı</em>) ne kadar katkıda bulunduğunu hesaplayan bir hakem gibidir. SHAP, bir kararda etkili olan her bir faktörün (<em>yaş, gelir, eğitim seviyesi vb.</em>) olumlu veya olumsuz yönde ne kadar etkisi olduğunu net bir şekilde ortaya koyar. Bu sayede, "kredi başvurusunun reddedilmesinde en etkili faktörün yaş değil, gelir seviyesi olduğu" gibi daha tutarlı ve adil açıklamalar sunar.</li>
+</ul>
+</li>
+<li>
+<p><strong>2018 - GDPR'nin Etkisi:</strong> Avrupa Birliği'nde yürürlüğe giren <strong>Genel Veri Koruma Tüzüğü (GDPR)</strong>, makine öğrenimi modelleri tarafından alınan otomatik kararlara karşı bireylere <strong>"açıklama hakkı"</strong> nı tanıdı. Bu yasal zorunluluk, özellikle finans, sağlık ve hukuk gibi sektörlerdeki şirketleri, yapay zeka sistemlerini şeffaf hale getirmeye zorladı. Bu düzenleyici baskı, AYZ alanındaki yayın ve araştırmalarda üstel bir büyümeyi tetikledi.</p>
+</li>
+</ul>
+<hr />
+<h3 id="gercek-hayattan-ayz-ornekleri"><strong>Gerçek Hayattan AYZ Örnekleri</strong></h3>
+<p>AYZ artık sadece teorik bir kavram değil. Günlük hayatımızda somut uygulamaları var:</p>
+<ul>
+<li><strong>Sağlık:</strong> AYZ, doktorların yapay zeka destekli tanıları doğrulamasına yardımcı oluyor ve hastaların kendilerine konan teşhisi anlamasını sağlıyor.</li>
+<li><strong>Finans:</strong> Bankaların kredi ve sigorta kararlarını açıklaması, hem müşterilerin güvenini kazanmasını hem de yasalara uyum sağlamasını kolaylaştırıyor. Mesela, <strong>Silent Eight</strong> adlı bir şirket, bir banka için yapay zeka destekli bir sistem kurdu ve bu sistemin verdiği her kararı açıklayarak düzenleyici kurumlardan onay almayı başardı.</li>
+<li><strong>Otonom Araçlar:</strong> Bir otonom aracın neden ani fren yaptığını açıklayan AYZ, hem mühendislerin hataları düzeltmesine hem de kamuoyunun bu araçlara güvenmesine yardımcı oluyor.</li>
+</ul>
+<hr />
+<h3 id="sonuc-ayz-bir-secenek-degil-bir-zorunluluk"><strong>Sonuç: AYZ Bir Seçenek Değil, Bir Zorunluluk</strong></h3>
+<p>AYZ artık sadece bir eklenti değil, yapay zekanın güvenilir ve sorumlu bir şekilde kullanılabilmesi için temel bir şart. Gelecekte, AYZ'nin daha da gelişerek yapay zeka yetenekleriyle insan anlayışı arasında sağlam bir köprü kurmaya devam etmesini bekleyebiliriz.</p>
+    </div>
+</article>
+
+    </main>
+
+    <!-- Alt Bilgi Bölümü -->
+    <footer class="bg-gray-900 text-white p-8 mt-12 rounded-t-xl">
+        <div class="container mx-auto text-center">
+            <p class="text-lg">&copy; 2025 N4YuC4_Blog. Tüm Hakları Saklıdır.</p>
+            <div class="flex justify-center space-x-6 mt-4 text-md">
+                <a href="/privacy" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-privacy-link">Gizlilik Politikası</a>
+                <a href="/terms" class="text-gray-400 hover:text-white transition duration-300 font-medium"
+                    id="footer-terms-link">Kullanım Koşulları</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ana JavaScript dosyamız (type="module" ile) -->
+    <script type="module" src="/static/js/main.js"></script>
+
+</body>
+
+</html>
