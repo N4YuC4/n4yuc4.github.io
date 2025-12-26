@@ -12,14 +12,14 @@
     <meta name="keywords"
         content="veri bilimi, makine öğrenmesi, derin öğrenme, yapay zeka, AI, ML, DL, Python, algoritmalar, analitik, büyük veri">
     <meta name="author" content="Nazmi Yücel Çan">
-    <link rel="canonical" href="{{ url_for('index', _external=True) }}">
+    <link rel="canonical" href="{{ request.base_url }}">
 
     <!-- Open Graph Meta Etiketleri -->
     <meta property="og:title" content="N4YuC4 - Veri Bilimi ve Yapay Zeka Keşifleri">
     <meta property="og:description"
         content="N4YuC4'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
     <meta property="og:image" content="{{ url_for('static', filename='images/meta_image.png', _external=True) }}">
-    <meta property="og:url" content="{{ url_for('index', _external=True) }}">
+    <meta property="og:url" content="{{ request.base_url }}">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Meta Etiketleri -->

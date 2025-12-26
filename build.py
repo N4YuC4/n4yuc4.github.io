@@ -45,12 +45,12 @@ def build():
     # Oluşturulacak sayfaları belirle
     pages = [
         ('/', 'index.html'),
-        ('/blog', 'blog.html'),
-        ('/about', 'about.html'),
-        ('/contact', 'contact.html'),
-        ('/portfolio', 'portfolio.html'),
-        ('/privacy', 'privacy.html'),
-        ('/terms', 'terms.html'),
+        ('/blog.html', 'blog.html'),
+        ('/about.html', 'about.html'),
+        ('/contact.html', 'contact.html'),
+        ('/portfolio.html', 'portfolio.html'),
+        ('/privacy.html', 'privacy.html'),
+        ('/terms.html', 'terms.html'),
     ]
 
     # Blog yazılarını metadata dosyasından oku
@@ -58,7 +58,7 @@ def build():
         with open('data/blogPostsMetadata.json', 'r', encoding='utf-8') as f:
             posts = json.load(f)
             for post in posts:
-                pages.append((f"/posts/{post['slug']}", f"posts/{post['slug']}.html"))
+                pages.append((f"/posts/{post['slug']}.html", f"posts/{post['slug']}.html"))
     except Exception as e:
         print(f"Blog metadataları okunamadı: {e}")
 
@@ -67,7 +67,7 @@ def build():
         with open('data/portfolioItems.json', 'r', encoding='utf-8') as f:
             items = json.load(f)
             for item in items:
-                pages.append((f"/portfolio/{item['slug']}", f"portfolio/{item['slug']}.html"))
+                pages.append((f"/portfolio/{item['slug']}.html", f"portfolio/{item['slug']}.html"))
     except Exception as e:
         print(f"Portfolyo metadataları okunamadı: {e}")
 

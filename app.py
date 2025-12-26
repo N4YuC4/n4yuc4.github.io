@@ -48,7 +48,7 @@ def favicon():
     return send_from_directory('static/images', 'icon.png')
 
 # Tekil blog yazısı
-@app.route('/posts/<slug>')
+@app.route('/posts/<slug>.html')
 def post_detail(slug):
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
         posts = json.load(f)
@@ -69,14 +69,14 @@ def post_detail(slug):
     return render_template('post.html', post={'content': html_content, **post})
 
 # Portfolyo listesi
-@app.route('/portfolio')
+@app.route('/portfolio.html')
 def portfolio_list():
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         items = json.load(f)
     return render_template('portfolio.html', items=items)
 
 # Portfolyo detay
-@app.route('/portfolio/<slug>')
+@app.route('/portfolio/<slug>.html')
 def portfolio_detail(slug):
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         items = json.load(f)
@@ -97,14 +97,14 @@ def portfolio_detail(slug):
     return render_template('portfolio_detail.html', item={'content': html_content, **item})
 
 # Tüm Blog Yazıları Listesi
-@app.route('/blog')
+@app.route('/blog.html')
 def blog_list():
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
         posts = json.load(f)
     return render_template('blog.html', posts=posts)
 
 # Hakkımda sayfası
-@app.route('/about')
+@app.route('/about.html')
 def about():
     with open('data/aboutPageData.json', encoding='utf-8') as f:
         data = json.load(f)
@@ -119,14 +119,14 @@ def about():
     return render_template('about.html', about=about_data)
 
 # İletişim sayfası
-@app.route('/contact')
+@app.route('/contact.html')
 def contact():
     with open('data/contactPageData.json', encoding='utf-8') as f:
         data = json.load(f)
     return render_template('contact.html', contact=data)
 
 # Gizlilik Politikası sayfası
-@app.route('/privacy')
+@app.route('/privacy.html')
 def privacy():
     with open('data/privacyPolicyData.json', encoding='utf-8') as f:
         data = json.load(f)
@@ -144,7 +144,7 @@ def privacy():
     return render_template('privacy.html', privacy={'content': html_content, 'title': data['title']})
 
 # Kullanım Koşulları sayfası
-@app.route('/terms')
+@app.route('/terms.html')
 def terms():
     with open('data/termsOfUseData.json', encoding='utf-8') as f:
         data = json.load(f)
