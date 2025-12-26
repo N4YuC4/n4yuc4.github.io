@@ -10,4 +10,3 @@ https://n4yuc4.github.io/posts/aciklanabilir-yapay-zeka.html
 https://n4yuc4.github.io/posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.html
 https://n4yuc4.github.io/posts/python-solid-prensipleri.html
 https://n4yuc4.github.io/portfolio/zettelkasten-ai-notes.html
-https://n4yuc4.github.io/portfolio/kisisel-web-sitesi.html
