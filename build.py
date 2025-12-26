@@ -104,10 +104,14 @@ def build():
     print(f"Statik site '{BUILD_DIR}' klasörüne oluşturuldu.")
 
 def generate_sitemap(pages):
-    print("Sitemap.xml oluşturuluyor...")
+    print("Sitemap (XML ve TXT) oluşturuluyor...")
     
+    # XML Sitemap
     sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
     sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    
+    # TXT Sitemap (Daha basit alternatif)
+    txt_content = []
     
     today = datetime.date.today().isoformat()
     
@@ -117,15 +121,24 @@ def generate_sitemap(pages):
         else:
             url = f"{SITE_URL}/{output_path}"
             
+        # XML için ekle
         sitemap_content.append('  <url>')
         sitemap_content.append(f'    <loc>{url}</loc>')
         sitemap_content.append(f'    <lastmod>{today}</lastmod>')
         sitemap_content.append('  </url>')
         
+        # TXT için ekle
+        txt_content.append(url)
+        
     sitemap_content.append('</urlset>')
     
+    # XML dosyasını yaz
     with open(os.path.join(BUILD_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
         f.write('\n'.join(sitemap_content))
+        
+    # TXT dosyasını yaz
+    with open(os.path.join(BUILD_DIR, 'sitemap.txt'), 'w', encoding='utf-8') as f:
+        f.write('\n'.join(txt_content))
 
 if __name__ == "__main__":
     build()
