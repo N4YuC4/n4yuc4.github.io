@@ -1,5 +1,7 @@
 /* Modern Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* Kod Fontu */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -138,38 +140,59 @@ p, li {
 .prose ul > li::marker {
     color: #a78bfa !important;
 }
-/* Satır içi kod */
-.prose code {
+
+/* KOD BLOKLARI DÜZELTMESİ (ÖNEMLİ) */
+
+/* 1. Sadece satır içi kodları hedefle */
+.prose code:not(pre code) {
     color: #f472b6 !important; 
     background: #2d2d2d;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
 }
 
+/* 2. Blok kodlar (pre içindeki) için renkleri SIFIRLA */
+/* Highlight.js kendi temasını kullanacak */
+.prose pre {
+    background: transparent !important; /* Wrapper arka planı var */
+    color: inherit !important;
+    border: none !important;
+    padding: 1.25rem !important;
+    margin: 0 !important;
+    overflow-x: auto;
+}
+
+.prose pre code {
+    background: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-family: 'Fira Code', 'Consolas', monospace !important;
+    font-size: 0.95em !important;
+    font-weight: normal !important;
+}
+
 /* --- KOD BLOKLARI (Mac Tarzı) --- */
 
-/* Kod bloğu kapsayıcısı */
 .code-wrapper {
     position: relative;
     margin: 2rem 0;
     border-radius: 0.75rem;
-    background-color: #1a1b26; /* Tokyo Night arka planı */
+    background-color: #1a1b26; /* Tokyo Night Arka Planı */
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     border: 1px solid #2f334d;
     overflow: hidden;
 }
 
-/* Kod bloğu başlığı (Mac pencere çubuğu) */
 .code-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #16161e; /* Daha koyu başlık */
+    background-color: #16161e;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid #2f334d;
 }
 
-/* Pencere noktaları */
 .window-dots {
     display: flex;
     gap: 6px;
@@ -183,7 +206,6 @@ p, li {
 .dot-yellow { background-color: #ffbd2e; }
 .dot-green { background-color: #27c93f; }
 
-/* Dil etiketi */
 .language-label {
     color: #787c99;
     font-size: 0.8rem;
@@ -191,7 +213,6 @@ p, li {
     text-transform: uppercase;
 }
 
-/* Kopyala butonu */
 .copy-btn {
     background: transparent;
     border: none;
@@ -206,18 +227,13 @@ p, li {
 .copy-btn:hover {
     color: white;
 }
-.copy-btn i {
-    font-size: 1rem;
-}
 
-/* Asıl kod alanı (Pre) */
-.prose pre {
-    margin: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background: transparent !important; /* Arka planı wrapper hallediyor */
-    padding: 1.25rem !important;
-    overflow-x: auto;
+.prose blockquote {
+    border-left: 4px solid #a78bfa;
+    color: #9ca3af !important;
+    background: #111827;
+    padding: 1rem;
+    font-style: italic;
 }
 
 /* Footer */
