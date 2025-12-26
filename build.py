@@ -112,7 +112,7 @@ def generate_sitemap(pages):
     
     for route, output_path in pages:
         if route == '/' or output_path == 'index.html':
-            url = SITE_URL
+            url = f"{SITE_URL}/"
             priority = '1.0'
         else:
             url = f"{SITE_URL}/{output_path}"
