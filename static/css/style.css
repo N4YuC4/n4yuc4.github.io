@@ -5,19 +5,19 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #0a0a0a; /* Koyu Arka Plan */
-    color: #e5e7eb; /* Açık Gri Metin */
+    background-color: #0a0a0a;
+    color: #e5e7eb;
     transition: background-color 0.3s ease, color 0.3s ease;
     /* Döşeme (Tiling) Ayarları */
     background-repeat: repeat !important;
-    background-size: 250px auto !important; /* Bir taşın boyutu gibi */
+    background-size: auto !important; /* Orijinal Boyut */
     background-position: top left !important;
     background-attachment: fixed;
 }
 
 /* Linkler */
 a {
-    color: #a78bfa; /* Mor-Menekşe */
+    color: #a78bfa;
     transition: color 0.2s ease-in-out;
 }
 a:hover {
@@ -45,145 +45,95 @@ a:hover {
     color: white !important;
 }
 
-/* Kartlar (Koyu Mod Tasarımı) */
+/* Kartlar */
 .bg-white {
-    background-color: #1f2937 !important; /* Koyu Gri Kartlar */
+    background-color: #1f2937 !important;
     color: #f3f4f6 !important;
     border: 1px solid #374151 !important;
 }
 
-/* Başlıklar ve Metinler */
-h1, h2, h3, h4, h5, h6 {
-    color: #ffffff !important;
-}
-p, li {
-    color: #d1d5db !important;
-}
-.text-gray-800 { color: #f3f4f6 !important; }
-.text-gray-700 { color: #d1d5db !important; }
-.text-gray-600 { color: #9ca3af !important; }
-.text-gray-500 { color: #6b7280 !important; }
+/* Genel Metin Renkleri */
+h1, h2, h3, h4, h5, h6 { color: #ffffff !important; }
+p, li { color: #d1d5db !important; }
 
-/* Butonlar */
-.read-more-btn {
-    background: #374151 !important;
-    color: white !important;
-    border: 1px solid #4b5563 !important;
-    padding: 0.5rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 600;
-    transition: all 0.2s;
-    text-align: center;
-}
-.read-more-btn:hover {
-    background: #4b5563 !important;
-    border-color: #a78bfa !important;
-    transform: translateY(-2px);
-}
-
-/* --- MOBİL MENÜ --- */
-.hamburger-button {
-    display: none !important; 
-}
-@media (max-width: 767px) {
-    .hamburger-button {
-        display: block !important;
-        color: white;
-        font-size: 1.8rem;
-        cursor: pointer;
-    }
-    #desktop-nav {
-        display: none !important;
-    }
-}
-#mobile-menu-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 10, 10, 0.98);
-    z-index: 100;
-}
-#mobile-menu-overlay.open {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-#mobile-menu-overlay a {
-    color: white !important;
-    font-size: 2rem;
-    margin: 1rem 0;
-    font-weight: 700;
-}
-
-/* --- MARKDOWN / PROSE STİLLERİ --- */
+/* --- MARKDOWN / PROSE STİLLERİ (TEMAYA ÖZEL) --- */
 
 .prose {
     color: #d1d5db !important;
     max-width: none !important;
 }
-.prose h1, .prose h2, .prose h3, .prose h4 {
+
+/* Başlıklar */
+.prose h1, .prose h2, .prose h3 {
     color: #ffffff !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     margin-top: 2em !important;
-    margin-bottom: 1em !important;
+    margin-bottom: 0.8em !important;
+    border-left: 5px solid #7c3aed; /* Mor vurgu çizgisi */
+    padding-left: 1rem;
 }
-.prose strong {
-    color: #f3f4f6 !important; /* Parlak Beyaz */
-    font-weight: 700 !important;
-    text-shadow: 0 0 8px rgba(167, 139, 250, 0.3); /* Hafif Mor Parlama */
-    padding: 0 2px;
+
+/* Kalın Yazılar (Strong) - Tüm Markdown çıktılarında */
+.prose strong, strong {
+    color: #f3f4f6 !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.4); /* Mor parıltı */
+    border-bottom: 1px dashed #7c3aed; /* İnce mor alt çizgi */
 }
+
+/* İtalik Yazılar (Em) */
+.prose em, em {
+    color: #c4b5fd !important; /* Açık mor */
+    font-style: italic;
+}
+
+/* Linkler (Markdown içi) */
 .prose a {
     color: #a78bfa !important;
-    text-decoration: underline;
+    text-decoration: none;
+    border-bottom: 2px solid #7c3aed;
+    transition: all 0.2s;
 }
+.prose a:hover {
+    background-color: rgba(124, 58, 237, 0.1);
+    color: #c4b5fd !important;
+}
+
+/* Listeler */
 .prose ul > li::marker {
-    color: #a78bfa !important;
+    color: #7c3aed !important; /* Mor madde işaretleri */
+    font-weight: bold;
+}
+.prose ol > li::marker {
+    color: #a78bfa !important; /* Mor sayılar */
+    font-weight: bold;
 }
 
-/* KOD BLOKLARI DÜZELTMESİ (ÖNEMLİ) */
-
-/* 1. Sadece satır içi kodları hedefle */
-.prose code:not(pre code) {
-    color: #f472b6 !important; 
-    background: #2d2d2d;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
+/* Alıntılar (Blockquote) */
+.prose blockquote {
+    border-left: 4px solid #7c3aed !important;
+    background: linear-gradient(to right, #111827, #1f2937) !important;
+    padding: 1.5rem !important;
+    font-style: italic;
+    color: #9ca3af !important;
+    border-radius: 0 0.75rem 0.75rem 0;
 }
 
-/* 2. Blok kodlar (pre içindeki) için renkleri SIFIRLA */
-/* Highlight.js kendi temasını kullanacak */
-.prose pre {
-    background: transparent !important; /* Wrapper arka planı var */
-    color: inherit !important;
-    border: none !important;
-    padding: 1.25rem !important;
-    margin: 0 !important;
-    overflow-x: auto;
-}
-
-.prose pre code {
-    background: transparent !important;
-    color: inherit !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    font-family: 'Fira Code', 'Consolas', monospace !important;
-    font-size: 0.95em !important;
-    font-weight: normal !important;
+/* Yatay Çizgi */
+.prose hr {
+    border-color: #374151 !important;
+    border-top-width: 2px !important;
+    margin: 3rem 0 !important;
 }
 
 /* --- KOD BLOKLARI (Mac Tarzı) --- */
 
 .code-wrapper {
     position: relative;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
     border-radius: 0.75rem;
-    background-color: #1a1b26; /* Tokyo Night Arka Planı */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background-color: #1a1b26;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     border: 1px solid #2f334d;
     overflow: hidden;
 }
@@ -193,28 +143,22 @@ p, li {
     align-items: center;
     justify-content: space-between;
     background-color: #16161e;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border-bottom: 1px solid #2f334d;
 }
 
-.window-dots {
-    display: flex;
-    gap: 6px;
-}
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
+.window-dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot-red { background-color: #ff5f56; }
 .dot-yellow { background-color: #ffbd2e; }
 .dot-green { background-color: #27c93f; }
 
 .language-label {
     color: #787c99;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .copy-btn {
@@ -222,22 +166,34 @@ p, li {
     border: none;
     color: #787c99;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: color 0.2s;
+    font-size: 0.85rem;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
 }
-.copy-btn:hover {
-    color: white;
+.copy-btn:hover { color: #ffffff; }
+
+.prose pre {
+    background: transparent !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    margin: 0 !important;
 }
 
-.prose blockquote {
-    border-left: 4px solid #a78bfa;
-    color: #9ca3af !important;
-    background: #111827;
-    padding: 1rem;
-    font-style: italic;
+.prose pre code {
+    font-family: 'Fira Code', monospace !important;
+    font-size: 0.9rem !important;
+}
+
+/* Satır içi kod */
+.prose code:not(pre code) {
+    color: #f472b6 !important;
+    background: rgba(244, 114, 182, 0.1) !important;
+    padding: 0.2em 0.5em;
+    border-radius: 0.4em;
+    font-weight: 600;
+    border: 1px solid rgba(244, 114, 182, 0.2);
 }
 
 /* Footer */
