@@ -14,6 +14,10 @@ def build():
         shutil.rmtree(BUILD_DIR)
     os.makedirs(BUILD_DIR)
 
+    # .nojekyll dosyası oluştur (GitHub Pages için)
+    with open(os.path.join(BUILD_DIR, '.nojekyll'), 'w') as f:
+        pass
+
     # Static klasörünü kopyala
     print("Statik dosyalar kopyalanıyor...")
     
@@ -106,12 +110,12 @@ def generate_sitemap(pages):
     
     today = datetime.date.today().isoformat()
     
-    for route, _ in pages:
-        if route == '/':
+    for route, output_path in pages:
+        if route == '/' or output_path == 'index.html':
             url = SITE_URL
             priority = '1.0'
         else:
-            url = f"{SITE_URL}{route}"
+            url = f"{SITE_URL}/{output_path}"
             priority = '0.8'
             
         sitemap_content.append('  <url>')
