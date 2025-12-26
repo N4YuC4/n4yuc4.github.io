@@ -56,6 +56,120 @@ a:hover {
 h1, h2, h3, h4, h5, h6 { color: #ffffff !important; }
 p, li { color: #d1d5db !important; }
 
+/* Butonlar */
+.read-more-btn {
+    background: #374151 !important;
+    color: white !important;
+    border: 1px solid #4b5563 !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-align: center;
+}
+.read-more-btn:hover {
+    background: #4b5563 !important;
+    border-color: #a78bfa !important;
+    transform: translateY(-2px);
+}
+
+/* --- MOBİL MENÜ (TEMİZ VE SAĞLAM YAPILANDIRMA) --- */
+
+/* 1. Hamburger Butonu */
+/* Masaüstünde (md ve üzeri) kesinlikle gizli */
+.hamburger-button {
+    display: none !important;
+}
+
+/* Mobilde (md altı) görünür */
+@media (max-width: 767px) {
+    .hamburger-button {
+        display: block !important;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 60;
+    }
+    
+    /* Mobilde masaüstü menüyü gizle */
+    #desktop-nav {
+        display: none !important;
+    }
+}
+
+/* 2. Mobil Menü Overlay */
+#mobile-menu-overlay {
+    display: none !important; /* Varsayılan olarak her yerde gizli */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.98); /* Koyu yarı saydam arka plan */
+    z-index: 100; /* En üstte */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* SADECE Mobilde ve .open sınıfı varsa göster */
+@media (max-width: 767px) {
+    #mobile-menu-overlay.open {
+        display: flex !important; /* Flex ile ortala */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+}
+
+/* Masaüstünde (768px ve üzeri) ASLA gösterme (.open olsa bile) */
+@media (min-width: 768px) {
+    #mobile-menu-overlay,
+    #mobile-menu-overlay.open {
+        display: none !important;
+    }
+}
+
+/* Overlay İçeriği */
+#mobile-menu-overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+#mobile-menu-overlay li {
+    margin: 1.5rem 0;
+}
+
+#mobile-menu-overlay a {
+    color: white !important;
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#mobile-menu-overlay a:hover {
+    color: #a78bfa !important; /* Mor vurgu */
+}
+
+/* Kapatma Butonu */
+.close-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.close-button:hover {
+    transform: rotate(90deg);
+    color: #a78bfa;
+}
+
 /* --- MARKDOWN / PROSE STİLLERİ (TEMAYA ÖZEL) --- */
 
 .prose {
