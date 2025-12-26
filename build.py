@@ -90,7 +90,8 @@ def build():
             # HTML içeriğini yaz
             html_content = response.data.decode('utf-8')
             
-            # Localhost adreslerini gerçek site adresiyle değiştir (SEO için)
+            # Localhost adreslerini (portlu veya portsuz) gerçek site adresiyle değiştir
+            html_content = html_content.replace('http://localhost:5000/', f'{SITE_URL}/')
             html_content = html_content.replace('http://localhost/', f'{SITE_URL}/')
             
             with open(full_path, 'w', encoding='utf-8') as f:
@@ -106,23 +107,19 @@ def generate_sitemap(pages):
     print("Sitemap.xml oluşturuluyor...")
     
     sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
-    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">')
+    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
     
     today = datetime.date.today().isoformat()
     
     for route, output_path in pages:
         if route == '/' or output_path == 'index.html':
             url = f"{SITE_URL}/"
-            priority = '1.0'
         else:
             url = f"{SITE_URL}/{output_path}"
-            priority = '0.8'
             
         sitemap_content.append('  <url>')
         sitemap_content.append(f'    <loc>{url}</loc>')
         sitemap_content.append(f'    <lastmod>{today}</lastmod>')
-        sitemap_content.append('    <changefreq>weekly</changefreq>')
-        sitemap_content.append(f'    <priority>{priority}</priority>')
         sitemap_content.append('  </url>')
         
     sitemap_content.append('</urlset>')
