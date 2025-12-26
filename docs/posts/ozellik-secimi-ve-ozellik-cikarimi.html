@@ -146,7 +146,7 @@
 <h3 id="ozellik-secimi-feature-selection">Özellik Seçimi (Feature Selection) 🎯</h3>
 <p>Özellik Seçimi, modelin hedef değişkenini açıklama gücü en yüksek olan <strong>orijinal özelliklerin bir alt kümesini belirleme</strong> sürecidir. Esasen, gereksiz ve ilgisiz veriyi filtreleyerek sinyali gürültüden ayırmayı amaçlar.</p>
 <p>Örneğin, bir konut fiyatı regresyon modelini ele alalım. 'Metrekare', 'oda sayısı' ve 'konum' gibi özellikler hedef değişkenle yüksek korelasyona sahipken; 'kapı zili markası' gibi özellikler muhtemelen ilgisizdir. Özellik seçimi, bu ilgisiz özellikleri sistematik olarak eler.</p>
-<p><img alt="Özellik Seçimi" src="../images/blog-images/ozellik-secimi.png" /></p>
+<p><img alt="Özellik Seçimi" src="/static/images/blog-images/ozellik-secimi.png" /></p>
 <p>Bu yöntemin birincil hedefleri:</p>
 <ol>
 <li>Modelin karmaşıklığını azaltmak ve hesaplama verimliliğini artırmak.</li>
@@ -182,7 +182,7 @@ Seçilen en iyi 2 özellik: [&#39;petal length (cm)&#39;, &#39;petal width (cm)&
 <p>Özellik Çıkarımı, mevcut özellik uzayını <strong>matematiksel olarak dönüştürerek</strong> daha düşük boyutlu yeni bir uzay yaratan bir tekniktir. Bu yeni özellikler, orijinal verinin birer <em>kombinasyonudur</em>.</p>
 <p>Buradaki amaç, orijinal verideki varyansın veya bilginin büyük bir kısmını, daha az sayıda <em>yeni</em> özelliğe 'yoğunlaştırmaktır'.</p>
 <p>Görüntü işleme buna klasik bir örnektir. 1000x1000 piksellik bir görüntü, 1 milyon özellik anlamına gelir. Bu yüksek boyutlulukla çalışmak verimsizdir. Özellik çıkarımı, bu 1 milyon pikseli, verinin yapısını temsil eden 100-200 adet "bileşene" dönüştürebilir.</p>
-<p><img alt="Özellik Çıkarımı" src="../images/blog-images/ozellik-cikarimi.png" /></p>
+<p><img alt="Özellik Çıkarımı" src="/static/images/blog-images/ozellik-cikarimi.png" /></p>
 <p>En yaygın tekniklerden biri olan <strong>PCA (Principal Component Analysis - Temel Bileşen Analizi)</strong>, verideki maksimum varyansı açıklayan yeni, ortogonal (birbirine dik) eksenler (bileşenler) bulur. Aynı Iris verisi üzerinde uygulayalım:</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>

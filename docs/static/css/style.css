@@ -14,12 +14,12 @@ body {
 
 /* Genel bağlantı stilleri */
 a {
-    color: #ffb6c1; /* Belirgin bir pembe tonu */
+    color: #a78bfa; /* Açık mor */
     transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-    color: #ffc1e0; /* Hover durumunda daha açık pembe */
+    color: #c4b5fd; /* Hover durumunda daha açık mor */
     text-decoration: none;
 }
 
@@ -50,543 +50,199 @@ body.no-scroll {
 
 /* Başlık küçültme stilleri */
 .main-header {
+    background: #18141a !important;
+    border-bottom: 1px solid #7c3aed !important; /* Mor sınır */
     transition: all 0.3s ease-in-out;
-    /* Başlık değişiklikleri için yumuşak geçiş */
 }
 
 .main-header.shrunk {
     padding-top: 1rem;
-    /* p-4 */
     padding-bottom: 1rem;
-    /* p-4 */
 }
 
 .main-header.shrunk .header-title {
     font-size: 2.25rem;
-    /* text-4xl */
 }
 
 .main-header.shrunk .header-nav-link {
     font-size: 1rem;
-    /* text-base */
 }
 
-/* Küçültme için duyarlı ayarlamalar */
 @media (min-width: 768px) {
-
-    /* md kırılma noktası */
     .main-header.shrunk {
         padding-top: 0.75rem;
-        /* md:p-3 */
         padding-bottom: 0.75rem;
-        /* md:p-3 */
     }
 
     .main-header.shrunk .header-title {
         font-size: 3rem;
-        /* md:text-5xl */
     }
 
     .main-header.shrunk .header-nav-link {
         font-size: 1.125rem;
-        /* md:text-lg */
     }
 }
 
-/* Kod blokları için stil (önceden biçimlendirilmiş metin) */
-/* Highlight.js kodun içindeki arka plan rengini ve metin renklerini halledecek */
+/* Kod blokları için stil */
 .content-area pre,
 .content-area pre code,
 pre,
 pre code {
-    background: #181a20 !important;
-    color: #bfc4cc !important; /* Kodda da daha koyu beyaz */
-    border-radius: 2rem !important;
-    border: none !important;
+    background: #1e1e1e !important; /* VS Code tarzı koyu gri */
+    color: #d4d4d4 !important; 
+    border-radius: 0.5rem !important;
+    border: 1px solid #333 !important;
     padding: 1.5rem;
     overflow-x: auto;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     font-weight: 500;
     line-height: 1.6;
+    font-size: 0.95em;
 }
 
 /* Satır içi kod parçacıkları için stil */
-.content-area code {
-    background-color: #23242a;
-    color: #bfc4cc;
-    /* Satır içi kod için belirgin turuncu-kahverengi renk */
-    padding: 0.3em 0.6em;
-    /* Daha fazla dolgu */
-    border-radius: 1em;
-    /* Köşeleri daha da yuvarladık */
+.content-area code:not(pre code) {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.9rem;
-    /* Blok koddan biraz daha küçük */
-    font-weight: 700;
-    /* Vurgu için kalın */
+    font-size: 0.9em;
+    font-weight: 600;
 }
-
 
 /* İçerik alanındaki görseller için stil */
 .content-area img {
     border-radius: 0.75rem;
-    box-shadow: 0 6px 12px rgba(255, 182, 193, 0.25);
-    /* Pembe gölge */
-}
-
-/* Mobil Menü Özelleştirmeleri */
-.hamburger-button {
-    display: none;
-    /* Varsayılan olarak gizle */
-    cursor: pointer;
-    font-size: 1.8rem;
-    /* İkon boyutu */
-    color: white;
-}
-
-@media (max-width: 767px) {
-
-    /* Mobil cihazlar için (md breakpoint altı) */
-    .hamburger-button {
-        display: block;
-        /* Hamburger butonunu göster */
-    }
-
-    /* Masaüstü navigasyonunu gizle */
-    #desktop-nav {
-        display: none !important;
-    }
-
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        /* Yarı şeffaf arka plan */
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .mobile-menu-overlay.open {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .mobile-menu-overlay .close-button {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-    }
-
-    .mobile-menu-overlay ul {
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
-
-    .mobile-menu-overlay ul li {
-        margin-bottom: 1.5rem;
-    }
-
-    .mobile-menu-overlay ul li a {
-        color: white;
-        font-size: 1.8rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .mobile-menu-overlay ul li a:hover {
-        color: #a78bfa;
-        /* purple-300 */
-    }
-
-}
-
-/* Mobil menü overlay sadece mobilde görünür */
-#mobile-menu-overlay {
-    display: none;
-}
-
-@media (max-width: 767px) {
-    #mobile-menu-overlay {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(30, 27, 75, 0.97);
-        /* Açık modda koyu mor */
-        z-index: 1000;
-        padding: 2rem 1.5rem;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    #mobile-menu-overlay.open {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    #mobile-menu-overlay .close-button {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        font-size: 2rem;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    #mobile-menu-overlay ul {
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
-
-    #mobile-menu-overlay ul li {
-        margin-bottom: 1.5rem;
-    }
-
-    #mobile-menu-overlay ul li a {
-        color: #fff;
-        font-size: 1.8rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: color 0.3s;
-    }
-
-    #mobile-menu-overlay ul li a:hover {
-        color: #ffc1e0;
-        /* Hover rengi */
-    }
-
-}
-
-/* --- PEMBE PALET GÜNCELLEMELERİ --- */
-
-/* Kart arka planı ve kenarlıklar */
-.bg-white {
-    background-color: #181a1f !important;
-    color: #bfc4cc !important;
-    border-color: #7a7f8c !important;
-}
-
-/* Başlıklar ve metinler */
-.text-gray-800,
-.header-title {
-    color: #a3b1c6 !important; /* Koyu mavi-gri */
-}
-.text-gray-700 {
-    color: #8a99ad !important;
-}
-.text-gray-500 {
-    color: #6c7684 !important;
-}
-.border-gray-100 {
-    border-color: #7a7f8c !important;
-}
-
-/* Devamını Oku ve iletişim butonları */
-.read-more-btn,
-.contact-submit-btn {
-    background: linear-gradient(90deg, #23242a 0%, #3a4151 100%) !important;
-    color: #bfc4cc !important;
-    border: 1.5px solid #7a7f8c !important;
-    font-weight: 600;
-    border-radius: 2rem !important;
-    box-shadow: 0 2px 12px rgba(35,36,42,0.12);
-    transition: background 0.2s, color 0.2s, border 0.2s;
-}
-.read-more-btn:hover,
-.contact-submit-btn:hover {
-    background: linear-gradient(90deg, #3a4151 0%, #23242a 100%) !important;
-    color: #a3b1c6 !important;
-    border-color: #a3b1c6 !important;
-}
-
-/* Modern butonlar */
-.modern-button {
-    background-image: linear-gradient(to right, #ffb6c1, #ffc1e0) !important;
-    color: #18141a !important;
-}
-.modern-button:hover {
-    background-image: linear-gradient(to right, #ffc1e0, #ffb6c1) !important;
-    color: #18141a !important;
-}
-
-/* Mobil menü linkleri */
-@media (max-width: 767px) {
-    .mobile-menu-overlay ul li a,
-    #mobile-menu-overlay ul li a {
-        color: #a3b1c6 !important;
-    }
-    .mobile-menu-overlay ul li a:hover,
-    #mobile-menu-overlay ul li a:hover {
-        color: #8a99ad !important;
-    }
-    .mobile-menu-overlay .close-button,
-    #mobile-menu-overlay .close-button {
-        color: #a3b1c6 !important;
-    }
-}
-
-/* Navbar linkleri ve arka planı için pembe palet */
-.header-nav-link {
-    color: #a3b1c6 !important;
-    transition: color 0.2s;
-}
-.header-nav-link:hover,
-.header-nav-link.active {
-    color: #8a99ad !important;
-    text-shadow: 0 2px 8px #23242a;
-}
-
-.main-header {
-    background: #18141a !important;
-    border-bottom: 1px solid #ffb6c1 !important;
-}
-
-/* Eğer navbar veya benzeri bir sınıf varsa */
-.navbar {
-    background: #18141a !important;
-    border-bottom: 1px solid #ffb6c1 !important;
-}
-
-/* Footer için pembe-siyah tema */
-footer {
-    background: #0a0a0a !important;
-    color: #bfc4cc !important;
-    border-top: 1px solid #ffb6c1 !important;
-    padding: 2rem 0;
-    text-align: center;
-    font-size: 1rem;
-    letter-spacing: 0.03em;
-}
-
-footer a {
-    color: #8a99ad !important;
-    text-decoration: underline;
-    transition: color 0.2s;
-}
-footer a:hover {
-    color: #a3b1c6 !important;
-    text-decoration: none;
-}
-
-/* Hamburger (mobil) menü overlay ve linkleri için pembe-siyah tema */
-.mobile-menu-overlay,
-#mobile-menu-overlay {
-    background: rgba(10, 10, 10, 0.97) !important;
-}
-
-.mobile-menu-overlay ul li a,
-#mobile-menu-overlay ul li a {
-    color: #a3b1c6 !important;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-
-.mobile-menu-overlay ul li a:hover,
-#mobile-menu-overlay ul li a:hover {
-    color: #8a99ad !important;
-    text-shadow: 0 2px 8px #a3b1c6;
-}
-
-.mobile-menu-overlay .close-button,
-#mobile-menu-overlay .close-button {
-    color: #a3b1c6 !important;
-    font-size: 2rem;
-    transition: color 0.2s;
-}
-
-.mobile-menu-overlay .close-button:hover,
-#mobile-menu-overlay .close-button:hover {
-    color: #8a99ad !important;
-}
-
-.content-area h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #a3b1c6;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-.content-area h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #8a99ad;
-    margin-top: 1.8rem;
-    margin-bottom: 0.9rem;
-    line-height: 1.25;
-}
-.content-area h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #a3b1c6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     margin-top: 1.5rem;
-    margin-bottom: 0.7rem;
-    line-height: 1.3;
-}
-.content-area h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #8a99ad;
-    margin-top: 1.2rem;
-    margin-bottom: 0.6rem;
-    line-height: 1.35;
-}
-.content-area h5 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #a3b1c6;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-}
-.content-area h6 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #8a99ad;
-    margin-top: 0.8rem;
-    margin-bottom: 0.4rem;
-    line-height: 1.45;
+    margin-bottom: 1.5rem;
 }
 
-/* İçerik alanındaki "Devamını Oku" butonları için stil */
-.content-area .read-more-btn {
-    background: linear-gradient(90deg, #23242a 0%, #3a4151 100%) !important;
-    color: #bfc4cc !important;
-    border: 1.5px solid #7a7f8c !important;
-    border-radius: 2rem !important;
-    font-weight: 600;
-    box-shadow: 0 2px 12px rgba(35,36,42,0.12);
-    transition: background 0.2s, color 0.2s, border 0.2s;
+/* --- MARKDOWN İÇERİK STİLLERİ (PROSE) --- */
+/* Tailwind Typography (prose) için koyu mod düzeltmeleri */
+
+.prose {
+    color: #d1d5db !important; /* text-gray-300 */
+    max-width: none !important;
 }
 
-.content-area .read-more-btn:hover {
-    background: linear-gradient(90deg, #3a4151 0%, #23242a 100%) !important;
-    color: #a3b1c6 !important;
-    border-color: #a3b1c6 !important;
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #f3f4f6 !important; /* text-gray-100 (Neredeyse beyaz) */
+    font-weight: 700 !important;
+    margin-top: 2em !important;
+    margin-bottom: 1em !important;
+    line-height: 1.3 !important;
 }
 
-.content-area ul, .content-area ol {
-  margin-left: 2em;
-  margin-bottom: 1em;
-  padding-left: 1.5em;
-  list-style-type: disc;
-}
-.content-area ol {
-  list-style-type: decimal;
-}
-.content-area li {
-  margin-bottom: 0.5em;
-  padding-left: 0.2em;
-}
-.content-area p {
-  margin-bottom: 1em;
+.prose h1 { font-size: 2.25em !important; border-bottom: 1px solid #374151; padding-bottom: 0.3em; }
+.prose h2 { font-size: 1.75em !important; }
+.prose h3 { font-size: 1.5em !important; }
+.prose h4 { font-size: 1.25em !important; }
+
+.prose strong {
+    color: #fff !important;
+    font-weight: 700 !important;
 }
 
-.content-area table {
+.prose a {
+    color: #a78bfa !important; /* text-purple-400 */
+    text-decoration: underline;
+    font-weight: 500;
+}
+.prose a:hover {
+    color: #c4b5fd !important; /* text-purple-300 */
+}
+
+.prose ul, .prose ol {
+    margin-top: 1.25em !important;
+    margin-bottom: 1.25em !important;
+    padding-left: 1.625em !important;
+}
+
+.prose li {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+.prose ul > li::marker {
+    color: #9ca3af !important; /* text-gray-400 */
+}
+.prose ol > li::marker {
+    color: #9ca3af !important;
+}
+
+.prose blockquote {
+    border-left-color: #7c3aed !important; /* Mor çizgi */
+    background-color: #1f2937; /* Koyu gri arka plan */
+    padding: 1em;
+    font-style: italic;
+    color: #e5e7eb !important;
+    border-radius: 0.5rem;
+}
+
+.prose hr {
+    border-color: #374151 !important;
+    margin-top: 3em !important;
+    margin-bottom: 3em !important;
+}
+
+.prose table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
-.content-area th, .content-area td {
-    border: 1px solid #7a7f8c;
-    padding: 0.5em;
+.prose th, .prose td {
+    border: 1px solid #374151;
+    padding: 0.75em;
     text-align: left;
 }
 
-.content-area th {
-    background-color: #23242a;
+.prose th {
+    background-color: #1f2937;
+    color: #fff !important;
+    font-weight: 600;
 }
 
-.content-area .admonition {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+/* --- KART VE GENEL UI STİLLERİ --- */
+
+/* Kart arka planı ve kenarlıklar (Koyu mod) */
+.bg-white {
+    background-color: #111827 !important; /* bg-gray-900 (Koyu gri) */
+    color: #d1d5db !important;
+    border: 1px solid #374151 !important; /* border-gray-700 */
 }
 
-.content-area .admonition-title {
-    font-weight: bold;
+/* Header başlık */
+.header-title {
+    color: #f3f4f6 !important;
 }
 
-.content-area .admonition.note {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+/* Footer */
+footer {
+    background: #0f0f0f !important;
+    color: #9ca3af !important;
+    border-top: 1px solid #374151 !important;
 }
 
-.content-area .admonition.warning {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
+/* Mobil Menü */
+.hamburger-button {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #f3f4f6;
 }
 
-.content-area .footnotes {
-    border-top: 1px solid #7a7f8c;
-    margin-top: 20px;
-    padding-top: 20px;
-}
-
-.content-area .toc {
-    border: 1px solid #7a7f8c;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-}
-
-.content-area .toc ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.content-area .toc ul li {
-    margin-bottom: 5px;
-}
-
-.content-area .toc ul li a {
-    text-decoration: none;
-    color: #a3b1c6;
-}
-
-.content-area .toc ul li a:hover {
-    color: #8a99ad;
-}
-
-.content-area pre {
-    font-size: 1.25em;
-
-}
-
-/* İçerik alanındaki bağlantılar için stil */
-.content-area a {
-    color: #ffb6c1; /* Belirgin bir pembe tonu */
-    text-decoration: underline;
-    transition: color 0.2s ease-in-out;
-}
-
-.content-area a:hover {
-    color: #ffc1e0; /* Hover durumunda daha açık pembe */
-    text-decoration: none;
+@media (max-width: 767px) {
+    .hamburger-button { display: block; }
+    #desktop-nav { display: none !important; }
+    
+    #mobile-menu-overlay {
+        background: rgba(17, 24, 39, 0.98) !important;
+    }
+    #mobile-menu-overlay ul li a {
+        color: #f3f4f6 !important;
+    }
 }
