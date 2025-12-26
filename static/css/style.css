@@ -3,9 +3,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    /* Arka plan görseli main.js tarafından atanıyor, yedeği: */
-    background-color: #f3f4f6; 
-    color: #1f2937; /* Koyu Gri Metin */
+    background-color: #0a0a0a; /* Koyu Arka Plan */
+    color: #e5e7eb; /* Açık Gri Metin */
     transition: background-color 0.3s ease, color 0.3s ease;
     background-size: cover;
     background-position: center;
@@ -15,17 +14,18 @@ body {
 
 /* Linkler */
 a {
-    color: #7c3aed; /* Mor */
+    color: #a78bfa; /* Mor-Menekşe */
     transition: color 0.2s ease-in-out;
 }
 a:hover {
-    color: #9333ea;
+    color: #c4b5fd;
     text-decoration: none;
 }
 
 /* Header (Başlık) */
 .main-header {
-    /* Tailwind sınıfları (bg-gradient...) base.html'de var, burada üzerine yazmıyoruz */
+    background: #111827 !important;
+    border-bottom: 1px solid #374151 !important;
     transition: all 0.3s ease-in-out;
 }
 .main-header.shrunk {
@@ -33,195 +33,140 @@ a:hover {
     padding-bottom: 0.5rem;
 }
 .header-title {
-    color: white !important; /* Header başlığı her zaman beyaz */
+    color: white !important;
 }
 .header-nav-link {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: #9ca3af !important;
 }
-.header-nav-link:hover {
+.header-nav-link:hover, .header-nav-link.active {
     color: white !important;
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
-/* Kartlar (Blog, Portfolyo vb.) */
+/* Kartlar (Koyu Mod Tasarımı) */
 .bg-white {
-    background-color: rgba(255, 255, 255, 0.95) !important; /* Hafif şeffaf beyaz */
-    color: #1f2937 !important; /* Koyu metin */
-    border: 1px solid #e5e7eb !important;
+    background-color: #1f2937 !important; /* Koyu Gri Kartlar */
+    color: #f3f4f6 !important;
+    border: 1px solid #374151 !important;
 }
 
-/* Metin Renkleri - Okunabilirlik İçin */
+/* Başlıklar ve Metinler */
 h1, h2, h3, h4, h5, h6 {
-    color: #111827 !important; /* Neredeyse siyah */
+    color: #ffffff !important;
 }
 p, li {
-    color: #374151 !important; /* Koyu gri */
+    color: #d1d5db !important;
 }
-.text-gray-500 {
-    color: #6b7280 !important;
-}
+.text-gray-800 { color: #f3f4f6 !important; }
+.text-gray-700 { color: #d1d5db !important; }
+.text-gray-600 { color: #9ca3af !important; }
+.text-gray-500 { color: #6b7280 !important; }
 
 /* Butonlar */
-.read-more-btn, .modern-button {
-    background: linear-gradient(90deg, #7c3aed 0%, #4f46e5 100%) !important;
+.read-more-btn {
+    background: #374151 !important;
     color: white !important;
-    border: none !important;
+    border: 1px solid #4b5563 !important;
     padding: 0.5rem 1.5rem;
     border-radius: 9999px;
     font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s;
+    text-align: center;
 }
 .read-more-btn:hover {
+    background: #4b5563 !important;
+    border-color: #a78bfa !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
-/* --- MOBİL MENÜ DÜZELTMESİ --- */
+/* --- MOBİL MENÜ DÜZELTMESİ (KESİN ÇÖZÜM) --- */
 
-/* Varsayılan (Masaüstü): Mobil menü butonu ve overlay GİZLİ */
+/* Masaüstü: Buton gizli */
 .hamburger-button {
     display: none !important; 
 }
-#mobile-menu-overlay {
-    display: none !important;
-}
 
-/* Sadece Mobil (768px altı) */
+/* Mobil (768px altı) */
 @media (max-width: 767px) {
     .hamburger-button {
         display: block !important;
-        font-size: 1.5rem;
         color: white;
+        font-size: 1.8rem;
         cursor: pointer;
     }
-    
     #desktop-nav {
         display: none !important;
     }
-
-    #mobile-menu-overlay {
-        /* display: flex; JS ile kontrol edilecek, ama açıkken flex olacak */
-        /* JS 'flex' stilini inline olarak verebilir veya class ekleyebilir */
-        /* Biz burada varsayılanı gizli yapıyoruz, 'open' classı gelince gösteriyoruz */
-        display: none !important; 
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(17, 24, 39, 0.98); /* Koyu arka plan */
-        z-index: 50;
-    }
-    
-    #mobile-menu-overlay.open {
-        display: flex !important;
-    }
-
-    #mobile-menu-overlay ul {
-        text-align: center;
-    }
-    #mobile-menu-overlay ul li {
-        margin: 1.5rem 0;
-    }
-    #mobile-menu-overlay a {
-        color: white !important;
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-    .close-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        color: white;
-        font-size: 2rem;
-        cursor: pointer;
-    }
 }
 
-/* --- MARKDOWN / PROSE STİLLERİ --- */
-/* Blog yazı içi stilleri - Açık tema uyumlu */
-
-.prose {
-    color: #374151 !important;
-    max-width: none !important;
+/* Mobil Overlay */
+#mobile-menu-overlay {
+    display: none; /* JS 'open' class'ı ile kontrol edecek */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.98);
+    z-index: 100;
 }
-
-.prose h1, .prose h2, .prose h3 {
-    color: #111827 !important;
-    font-weight: 700 !important;
-    margin-top: 1.5em !important;
-    margin-bottom: 0.8em !important;
+#mobile-menu-overlay.open {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-
-.prose strong {
-    color: #111827 !important;
+#mobile-menu-overlay a {
+    color: white !important;
+    font-size: 2rem;
+    margin: 1rem 0;
     font-weight: 700;
 }
 
+/* --- MARKDOWN / PROSE (KOYU MOD OKUNABİLİRLİK) --- */
+
+.prose {
+    color: #d1d5db !important;
+    max-width: none !important;
+}
+.prose h1, .prose h2, .prose h3, .prose h4 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    margin-top: 2em !important;
+    margin-bottom: 1em !important;
+}
+.prose strong {
+    color: #ffffff !important;
+}
 .prose a {
-    color: #7c3aed !important;
+    color: #a78bfa !important;
     text-decoration: underline;
 }
-
+.prose ul > li::marker {
+    color: #a78bfa !important;
+}
 .prose code {
-    color: #c026d3 !important; /* Fuşya rengi */
-    background-color: #f3f4f6;
+    color: #f472b6 !important; /* Pembe kod vurgusu */
+    background: #2d2d2d;
     padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-    font-weight: 600;
+    border-radius: 0.3em;
 }
-
 .prose pre {
-    background-color: #1f2937 !important; /* Kod blokları koyu kalsın */
-    color: #e5e7eb !important;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    overflow-x: auto;
+    background: #181818 !important;
+    border: 1px solid #333;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
 }
-.prose pre code {
-    background-color: transparent !important;
-    color: inherit !important;
-    padding: 0;
-}
-
 .prose blockquote {
-    border-left: 4px solid #7c3aed;
-    background-color: #f9fafb;
+    border-left: 4px solid #a78bfa;
+    color: #9ca3af !important;
+    background: #111827;
     padding: 1rem;
     font-style: italic;
-    color: #4b5563 !important;
-}
-
-.prose img {
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin: 2rem 0;
-}
-
-.prose ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
-}
-.prose ol {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
 }
 
 /* Footer */
 footer {
-    background-color: #111827 !important; /* Koyu footer */
-    color: #9ca3af !important;
-    text-align: center;
-    padding: 2rem;
-}
-footer a {
-    color: #d1d5db !important;
-}
-footer a:hover {
-    color: white !important;
+    background-color: #050505 !important;
+    border-top: 1px solid #1f2937 !important;
+    padding: 3rem 0;
 }
