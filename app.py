@@ -96,6 +96,13 @@ def portfolio_detail(slug):
     
     return render_template('portfolio_detail.html', item={'content': html_content, **item})
 
+# Tüm Blog Yazıları Listesi
+@app.route('/blog')
+def blog_list():
+    with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
+        posts = json.load(f)
+    return render_template('blog.html', posts=posts)
+
 # Hakkımda sayfası
 @app.route('/about')
 def about():

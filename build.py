@@ -41,6 +41,7 @@ def build():
     # Oluşturulacak sayfaları belirle
     pages = [
         ('/', 'index.html'),
+        ('/blog', 'blog.html'),
         ('/about', 'about.html'),
         ('/contact', 'contact.html'),
         ('/portfolio', 'portfolio.html'),

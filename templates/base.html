@@ -99,6 +99,9 @@
                     <li><a href="{{ url_for('index') }}" id="nav-home"
                             class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Ana
                             Sayfa</a></li>
+                    <li><a href="{{ url_for('blog_list') }}" id="nav-blog"
+                            class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Blog</a>
+                    </li>
                     <li><a href="{{ url_for('portfolio_list') }}" id="nav-portfolio"
                             class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Portfolyo</a>
                     </li>
@@ -120,6 +123,7 @@
         </div>
         <ul>
             <li><a href="{{ url_for('index') }}" class="mobile-nav-link" data-target="home">Ana Sayfa</a></li>
+            <li><a href="{{ url_for('blog_list') }}" class="mobile-nav-link" data-target="blog">Blog</a></li>
             <li><a href="{{ url_for('portfolio_list') }}" class="mobile-nav-link" data-target="portfolio">Portfolyo</a></li>
             <li><a href="{{ url_for('about') }}" class="mobile-nav-link" data-target="about">Hakkımda</a></li>
             <li><a href="{{ url_for('contact') }}" class="mobile-nav-link" data-target="contact">İletişim</a></li>
