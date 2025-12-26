@@ -94,8 +94,15 @@ a:hover {
 }
 
 /* Genel Metin Renkleri */
-h1, h2, h3, h4, h5, h6 { color: var(--text-heading) !important; letter-spacing: -0.02em; }
-p, li { color: var(--text-main) !important; line-height: 1.75; }
+h1, h2, h3, h4, h5, h6 { 
+    color: var(--text-heading) !important; 
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Arkaplandan ayırmak için kritik gölge */
+}
+p, li { 
+    color: var(--text-main) !important; 
+    line-height: 1.75;
+}
 .text-gray-800 { color: var(--text-heading) !important; }
 .text-gray-700 { color: var(--text-main) !important; }
 .text-gray-600 { color: #a3a3a3 !important; }
