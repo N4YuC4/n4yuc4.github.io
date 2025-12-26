@@ -48,19 +48,4 @@ document.addEventListener('DOMContentLoaded', async () => {
             closeMobileMenu(mobileMenuOverlay, document.body);
         }
     });
-
-    // Header başlık animasyonu (_ karakteri kadar boşluk bırak)
-    const headerTitleText = document.getElementById('header-title-text');
-    if (headerTitleText) {
-        let toggle = false;
-        setInterval(() => {
-            if (toggle) {
-                headerTitleText.innerHTML = "N4YuC4_Blog";
-            } else {
-                // "_" karakteri yerine aynı uzunlukta boşluk bırak
-                headerTitleText.innerHTML = "N4YuC4&nbsp;&nbsp;&nbsp;&nbsp;Blog";
-            }
-            toggle = !toggle;
-        }, 1000);
-    }
 });
