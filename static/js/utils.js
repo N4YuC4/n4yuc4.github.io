@@ -59,7 +59,7 @@ export function setupCodeBlocks() {
         if (pre.parentElement.classList.contains('code-wrapper')) return;
 
         // Dil sınıfını bul (language-python gibi)
-        let language = 'Kod';
+        let language = 'KOD';
         codeBlock.classList.forEach(cls => {
             if (cls.startsWith('language-')) {
                 language = cls.replace('language-', '').toUpperCase();
@@ -120,5 +120,10 @@ export function setupCodeBlocks() {
         wrapper.appendChild(header);
         // pre elementini wrapper'ın içine taşı
         wrapper.appendChild(pre);
+
+        // Highlight.js'i manuel tetikle (Eğer yüklüyse)
+        if (window.hljs) {
+            window.hljs.highlightElement(codeBlock);
+        }
     });
 }
