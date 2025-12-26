@@ -154,28 +154,26 @@
 <li>Modelin yorumlanabilirliğini korumak veya artırmak.</li>
 </ol>
 <p>Python'daki <code>scikit-learn</code> kütüphanesi, bu işlem için çeşitli mekanizmalar sunar. Örneğin <code>SelectKBest</code> sınıfı, ANOVA F-testi gibi istatistiksel yöntemler kullanarak en yüksek puana sahip 'k' adet özelliği filtreler:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">f_classif</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<pre><code class="language-python">import pandas as pd
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.datasets import load_iris
 
-<span class="c1"># Iris veri setini yükleyelim</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orijinal özellik sayısı (</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> adet): </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# Iris veri setini yükleyelim
+X, y = load_iris(return_X_y=True, as_frame=True)
+print(f&quot;Orijinal özellik sayısı ({X.shape[1]} adet): {list(X.columns)}&quot;)
 
-<span class="c1"># İstatistiksel olarak en iyi 2 özelliği seçmeyi hedefleyelim</span>
-<span class="n">selector</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">X_new</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+# İstatistiksel olarak en iyi 2 özelliği seçmeyi hedefleyelim
+selector = SelectKBest(score_func=f_classif, k=2)
+X_new = selector.fit_transform(X, y)
 
-<span class="c1"># Seçilen özelliklerin isimlerini alalım</span>
-<span class="n">selected_features</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seçilen en iyi 2 özellik: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">selected_features</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+# Seçilen özelliklerin isimlerini alalım
+selected_features = selector.get_feature_names_out()
+print(f&quot;Seçilen en iyi 2 özellik: {list(selected_features)}&quot;)
+</code></pre>
 <p><strong>Çıktı:</strong></p>
-<div class="codehilite"><pre><span></span><code>Orijinal özellik sayısı (4 adet): [&#39;sepal length (cm)&#39;, &#39;sepal width (cm)&#39;, &#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
-Seçilen en iyi 2 özellik: [&#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
-</code></pre></div>
-
+<pre><code>Orijinal özellik sayısı (4 adet): ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+Seçilen en iyi 2 özellik: ['petal length (cm)', 'petal width (cm)']
+</code></pre>
 <p>Görüldüğü üzere, 4 orijinal özellikten, hedef değişkeni (çiçek türü) açıklamada en başarılı olan 2 tanesi korunmuş, diğerleri elenmiştir.</p>
 <hr />
 <h3 id="ozellik-ckarm-feature-extraction">Özellik Çıkarımı (Feature Extraction) ✨</h3>
@@ -184,27 +182,26 @@ Seçilen en iyi 2 özellik: [&#39;petal length (cm)&#39;, &#39;petal width (cm)&
 <p>Görüntü işleme buna klasik bir örnektir. 1000x1000 piksellik bir görüntü, 1 milyon özellik anlamına gelir. Bu yüksek boyutlulukla çalışmak verimsizdir. Özellik çıkarımı, bu 1 milyon pikseli, verinin yapısını temsil eden 100-200 adet "bileşene" dönüştürebilir.</p>
 <p><img alt="Özellik Çıkarımı" src="/static/images/blog-images/ozellik-cikarimi.png" /></p>
 <p>En yaygın tekniklerden biri olan <strong>PCA (Principal Component Analysis - Temel Bileşen Analizi)</strong>, verideki maksimum varyansı açıklayan yeni, ortogonal (birbirine dik) eksenler (bileşenler) bulur. Aynı Iris verisi üzerinde uygulayalım:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<pre><code class="language-python">import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.datasets import load_iris
 
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orijinal özellik sayısı: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+X, y = load_iris(return_X_y=True, as_frame=True)
+print(f&quot;Orijinal özellik sayısı: {X.shape[1]}&quot;)
 
-<span class="c1"># Orijinal 4 özelliği 2 yeni bileşene dönüştürelim</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">X_new_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+# Orijinal 4 özelliği 2 yeni bileşene dönüştürelim
+pca = PCA(n_components=2)
+X_new_pca = pca.fit_transform(X)
 
-<span class="c1"># Yeni bileşenleri DataFrame olarak görelim</span>
-<span class="n">pca_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X_new_pca</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Bileşen 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Bileşen 2&#39;</span><span class="p">])</span>
+# Yeni bileşenleri DataFrame olarak görelim
+pca_df = pd.DataFrame(data=X_new_pca, columns=['Bileşen 1', 'Bileşen 2'])
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Yeni özellik sayısı: </span><span class="si">{</span><span class="n">pca_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dönüşüm sonrası yeni özellikler (ilk 5 satır):&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pca_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-</code></pre></div>
-
+print(f&quot;Yeni özellik sayısı: {pca_df.shape[1]}&quot;)
+print(&quot;Dönüşüm sonrası yeni özellikler (ilk 5 satır):&quot;)
+print(pca_df.head())
+</code></pre>
 <p><strong>Çıktı:</strong></p>
-<div class="codehilite"><pre><span></span><code>Orijinal özellik sayısı: 4
+<pre><code>Orijinal özellik sayısı: 4
 Yeni özellik sayısı: 2
 Dönüşüm sonrası yeni özellikler (ilk 5 satır):
    Bileşen 1  Bileşen 2
@@ -213,8 +210,7 @@ Dönüşüm sonrası yeni özellikler (ilk 5 satır):
 2  -2.888991  -0.144949
 3  -2.745343  -0.318299
 4  -2.728717   0.326755
-</code></pre></div>
-
+</code></pre>
 <p>Dikkat edilirse, "Bileşen 1" ve "Bileşen 2" olarak adlandırılan yeni özellikler, orijinal "çanak yaprak uzunluğu" gibi doğrudan yorumlanabilir özelliklerin yerini almıştır.</p>
 <hr />
 <h3 id="temel-farkllklar-ve-stratejik-secim">Temel Farklılıklar ve Stratejik Seçim</h3>

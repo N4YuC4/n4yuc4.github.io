@@ -25,7 +25,7 @@ def index():
         about_data_list = json.load(f)
     about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
     if 'content' in about_data:
-        html_content = markdown(about_data['content'], extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+        html_content = markdown(about_data['content'], extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
         # Resim yollarını düzelt
         html_content = html_content.replace('src="images/', 'src="/static/images/')
         html_content = html_content.replace('src="../images/', 'src="/static/images/')
@@ -60,7 +60,7 @@ def post_detail(slug):
         abort(404)
     with open(content_path, encoding='utf-8') as f:
         content = f.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+    html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     
     # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')
@@ -88,7 +88,7 @@ def portfolio_detail(slug):
         abort(404)
     with open(detail_path, encoding='utf-8') as f:
         content = f.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+    html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     
     # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')
@@ -103,7 +103,7 @@ def about():
         data = json.load(f)
     about_data = data[0] if isinstance(data, list) and data else {}
     if 'content' in about_data:
-        html_content = markdown(about_data['content'], extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+        html_content = markdown(about_data['content'], extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
         # Resim yollarını düzelt
         html_content = html_content.replace('src="images/', 'src="/static/images/')
         html_content = html_content.replace('src="../images/', 'src="/static/images/')
@@ -128,7 +128,7 @@ def privacy():
         abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+    html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     
     # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')
@@ -146,7 +146,7 @@ def terms():
         abort(404)
     with open(content_path, encoding='utf-8') as f_md:
         content = f_md.read()
-    html_content = markdown(content, extensions=['fenced_code', 'codehilite', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
+    html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
     
     # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')

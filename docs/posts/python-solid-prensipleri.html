@@ -195,74 +195,74 @@
 </ul>
 <h3 id="yanls-ornek-her-seyi-yapan-bir-ogrenci-snf">Yanlış Örnek: "Her Şeyi Yapan" Bir Öğrenci Sınıfı</h3>
 <p>Bu örnekte, <code>Ogrenci</code> sınıfı hem <strong>öğrenci bilgilerini yönetiyor</strong>, hem <strong>not ortalamasını hesaplıyor</strong> hem de <strong>öğrenci bilgilerini bir dosyaya kaydediyor</strong>. Bu durum, sınıfın <strong>üç farklı değişim nedeni</strong> olduğunu gösterir: öğrenci bilgilerinin yapısı değişirse, not ortalaması hesaplama mantığı değişirse veya veri kaydetme mekanizması (dosya yerine veritabanı gibi) değişirse sınıfı güncellemeniz gerekir. Bu durum <strong>SRP'ye aykırıdır</strong>.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ogrenci</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">soyad</span><span class="p">,</span> <span class="n">numara</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad</span> <span class="o">=</span> <span class="n">ad</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">soyad</span> <span class="o">=</span> <span class="n">soyad</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">numara</span> <span class="o">=</span> <span class="n">numara</span>
+<pre><code class="language-Python">class Ogrenci:
+    def __init__(self, ad, soyad, numara):
+        self.ad = ad
+        self.soyad = soyad
+        self.numara = numara
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">tam_ad_getir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Bu kısım öğrencinin kimlik bilgisini yönetiyor.</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ad</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">soyad</span><span class="si">}</span><span class="s2">&quot;</span>
+    def tam_ad_getir(self):
+        # Bu kısım öğrencinin kimlik bilgisini yönetiyor.
+        return f&quot;{self.ad} {self.soyad}&quot;
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">ortalama_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notlar</span><span class="p">):</span>
-        <span class="c1"># Bu kısım not hesaplama mantığını yönetiyor.</span>
-        <span class="n">toplam</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-        <span class="n">ortalama</span> <span class="o">=</span> <span class="n">toplam</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ortalama</span>
+    def ortalama_hesapla(self, notlar):
+        # Bu kısım not hesaplama mantığını yönetiyor.
+        toplam = sum(notlar)
+        ortalama = toplam / len(notlar)
+        return ortalama
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">bilgileri_kaydet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dosya_adi</span><span class="o">=</span><span class="s2">&quot;ogrenci.txt&quot;</span><span class="p">):</span>
-        <span class="c1"># Bu kısım öğrenci bilgilerini kaydetme sorumluluğunu üstleniyor.</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dosya_adi</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ad: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ad</span><span class="si">}</span><span class="s2">, Soyad: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">soyad</span><span class="si">}</span><span class="s2">, Numara: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numara</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Öğrenci bilgileri </span><span class="si">{</span><span class="n">dosya_adi</span><span class="si">}</span><span class="s2"> dosyasına kaydedildi.&quot;</span><span class="p">)</span>
+    def bilgileri_kaydet(self, dosya_adi=&quot;ogrenci.txt&quot;):
+        # Bu kısım öğrenci bilgilerini kaydetme sorumluluğunu üstleniyor.
+        with open(dosya_adi, &quot;a&quot;) as f:
+            f.write(f&quot;Ad: {self.ad}, Soyad: {self.soyad}, Numara: {self.numara}\n&quot;)
+        print(f&quot;Öğrenci bilgileri {dosya_adi} dosyasına kaydedildi.&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">ogrenci1</span> <span class="o">=</span> <span class="n">Ogrenci</span><span class="p">(</span><span class="s2">&quot;Ahmet&quot;</span><span class="p">,</span> <span class="s2">&quot;Yılmaz&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
-<span class="n">notlar</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">75</span><span class="p">]</span>
-<span class="n">ortalama</span> <span class="o">=</span> <span class="n">ogrenci1</span><span class="o">.</span><span class="n">ortalama_hesapla</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogrenci1</span><span class="o">.</span><span class="n">tam_ad_getir</span><span class="p">()</span><span class="si">}</span><span class="s2"> öğrencisinin ortalaması: </span><span class="si">{</span><span class="n">ortalama</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">ogrenci1</span><span class="o">.</span><span class="n">bilgileri_kaydet</span><span class="p">()</span>
-</code></pre></div>
+# Kullanım
+ogrenci1 = Ogrenci(&quot;Ahmet&quot;, &quot;Yılmaz&quot;, 123)
+notlar = [80, 90, 75]
+ortalama = ogrenci1.ortalama_hesapla(notlar)
+print(f&quot;{ogrenci1.tam_ad_getir()} öğrencisinin ortalaması: {ortalama}&quot;)
+ogrenci1.bilgileri_kaydet()
 
+</code></pre>
 <h3 id="dogru-ornek-sorumluluklar-ayrma">Doğru Örnek: Sorumlulukları Ayırma</h3>
 <p>Burada, <strong>sorumlulukları üç farklı sınıfa ayırdık</strong>: <code>Ogrenci</code> sınıfı <strong>sadece öğrencinin kimlik ve temel bilgilerini yönetir</strong>. <code>NotHesaplayici</code> sınıfı <strong>sadece not ortalaması hesaplama</strong> sorumluluğunu üstlenir. <code>OgrenciKaydedici</code> sınıfı ise <strong>öğrenci bilgilerini kalıcı hale getirme (kaydetme)</strong> sorumluluğunu üstlenir. Böylece <strong>her sınıfın tek bir değişim nedeni</strong> olur ve daha <strong>modüler, anlaşılır</strong> bir yapıya sahip oluruz.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ogrenci</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">soyad</span><span class="p">,</span> <span class="n">numara</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad</span> <span class="o">=</span> <span class="n">ad</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">soyad</span> <span class="o">=</span> <span class="n">soyad</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">numara</span> <span class="o">=</span> <span class="n">numara</span>
+<pre><code class="language-Python">class Ogrenci:
+    def __init__(self, ad, soyad, numara):
+        self.ad = ad
+        self.soyad = soyad
+        self.numara = numara
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">tam_ad_getir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ad</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">soyad</span><span class="si">}</span><span class="s2">&quot;</span>
+    def tam_ad_getir(self):
+        return f&quot;{self.ad} {self.soyad}&quot;
 
-<span class="k">class</span><span class="w"> </span><span class="nc">NotHesaplayici</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notlar</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">notlar</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mf">0.0</span>
-        <span class="n">toplam</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-        <span class="n">ortalama</span> <span class="o">=</span> <span class="n">toplam</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ortalama</span>
+class NotHesaplayici:
+    def hesapla(self, notlar):
+        if not notlar:
+            return 0.0
+        toplam = sum(notlar)
+        ortalama = toplam / len(notlar)
+        return ortalama
 
-<span class="k">class</span><span class="w"> </span><span class="nc">OgrenciKaydedici</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">kaydet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ogrenci</span><span class="p">:</span> <span class="n">Ogrenci</span><span class="p">,</span> <span class="n">dosya_adi</span><span class="o">=</span><span class="s2">&quot;ogrenci.txt&quot;</span><span class="p">):</span>
-        <span class="c1"># Sadece öğrenci bilgilerini kaydetme sorumluluğu.</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dosya_adi</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ad: </span><span class="si">{</span><span class="n">ogrenci</span><span class="o">.</span><span class="n">ad</span><span class="si">}</span><span class="s2">, Soyad: </span><span class="si">{</span><span class="n">ogrenci</span><span class="o">.</span><span class="n">soyad</span><span class="si">}</span><span class="s2">, Numara: </span><span class="si">{</span><span class="n">ogrenci</span><span class="o">.</span><span class="n">numara</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Öğrenci bilgileri </span><span class="si">{</span><span class="n">dosya_adi</span><span class="si">}</span><span class="s2"> dosyasına kaydedildi.&quot;</span><span class="p">)</span>
+class OgrenciKaydedici:
+    def kaydet(self, ogrenci: Ogrenci, dosya_adi=&quot;ogrenci.txt&quot;):
+        # Sadece öğrenci bilgilerini kaydetme sorumluluğu.
+        with open(dosya_adi, &quot;a&quot;) as f:
+            f.write(f&quot;Ad: {ogrenci.ad}, Soyad: {ogrenci.soyad}, Numara: {ogrenci.numara}\n&quot;)
+        print(f&quot;Öğrenci bilgileri {dosya_adi} dosyasına kaydedildi.&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">ogrenci1</span> <span class="o">=</span> <span class="n">Ogrenci</span><span class="p">(</span><span class="s2">&quot;Ahmet&quot;</span><span class="p">,</span> <span class="s2">&quot;Yılmaz&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
-<span class="n">notlar</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">75</span><span class="p">]</span>
+# Kullanım
+ogrenci1 = Ogrenci(&quot;Ahmet&quot;, &quot;Yılmaz&quot;, 123)
+notlar = [80, 90, 75]
 
-<span class="n">hesaplayici</span> <span class="o">=</span> <span class="n">NotHesaplayici</span><span class="p">()</span>
-<span class="n">ortalama</span> <span class="o">=</span> <span class="n">hesaplayici</span><span class="o">.</span><span class="n">hesapla</span><span class="p">(</span><span class="n">notlar</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ogrenci1</span><span class="o">.</span><span class="n">tam_ad_getir</span><span class="p">()</span><span class="si">}</span><span class="s2"> öğrencisinin ortalaması: </span><span class="si">{</span><span class="n">ortalama</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+hesaplayici = NotHesaplayici()
+ortalama = hesaplayici.hesapla(notlar)
+print(f&quot;{ogrenci1.tam_ad_getir()} öğrencisinin ortalaması: {ortalama}&quot;)
 
-<span class="n">kaydedici</span> <span class="o">=</span> <span class="n">OgrenciKaydedici</span><span class="p">()</span>
-<span class="n">kaydedici</span><span class="o">.</span><span class="n">kaydet</span><span class="p">(</span><span class="n">ogrenci1</span><span class="p">)</span>
-</code></pre></div>
+kaydedici = OgrenciKaydedici()
+kaydedici.kaydet(ogrenci1)
 
+</code></pre>
 <ul>
 <li>
 <p><code>Ogrenci</code> sınıfı artık <strong>sadece öğrenci bilgilerini tutmakla sorumludur</strong>.</p>
@@ -291,86 +291,86 @@
 </ul>
 <h3 id="yanls-ornek-if-elif-cehennemi">Yanlış Örnek: <code>if-elif</code> Cehennemi</h3>
 <p>Bu <code>Sekil</code> sınıfı, yeni bir şekil tipi (örneğin, <code>Üçgen</code> veya <code>Elips</code>) eklendiğinde <code>alan_hesapla</code> metodu içindeki <strong><code>if-elif</code> bloğunun değiştirilmesini gerektirir</strong>. Bu, sınıfın "<strong>değişikliğe kapalı</strong>" olmadığını gösterir. Her yeni şekil için bu sınıfı tekrar açıp düzenlemeniz gerekir, bu da <strong>kodun karmaşıklaşmasına ve gelecekte hatalara yol açabilir</strong>.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Sekil</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sekil_tipi</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sekil_tipi</span> <span class="o">=</span> <span class="n">sekil_tipi</span>
+<pre><code class="language-Python">class Sekil:
+    def __init__(self, sekil_tipi):
+        self.sekil_tipi = sekil_tipi
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">,</span> <span class="n">genislik</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yaricap</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sekil_tipi</span> <span class="o">==</span> <span class="s2">&quot;kare&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">uzunluk</span> <span class="o">*</span> <span class="n">uzunluk</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">sekil_tipi</span> <span class="o">==</span> <span class="s2">&quot;dikdörtgen&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">uzunluk</span> <span class="o">*</span> <span class="n">genislik</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">sekil_tipi</span> <span class="o">==</span> <span class="s2">&quot;daire&quot;</span><span class="p">:</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">yaricap</span> <span class="o">*</span> <span class="n">yaricap</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Geçersiz şekil tipi&quot;</span><span class="p">)</span>
+    def alan_hesapla(self, uzunluk, genislik=0, yaricap=0):
+        if self.sekil_tipi == &quot;kare&quot;:
+            return uzunluk * uzunluk
+        elif self.sekil_tipi == &quot;dikdörtgen&quot;:
+            return uzunluk * genislik
+        elif self.sekil_tipi == &quot;daire&quot;:
+            import math
+            return math.pi * yaricap * yaricap
+        else:
+            raise ValueError(&quot;Geçersiz şekil tipi&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">sekil1</span> <span class="o">=</span> <span class="n">Sekil</span><span class="p">(</span><span class="s2">&quot;kare&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kare alanı: </span><span class="si">{</span><span class="n">sekil1</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# Kullanım
+sekil1 = Sekil(&quot;kare&quot;)
+print(f&quot;Kare alanı: {sekil1.alan_hesapla(5)}&quot;)
 
-<span class="n">sekil2</span> <span class="o">=</span> <span class="n">Sekil</span><span class="p">(</span><span class="s2">&quot;dikdörtgen&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dikdörtgen alanı: </span><span class="si">{</span><span class="n">sekil2</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+sekil2 = Sekil(&quot;dikdörtgen&quot;)
+print(f&quot;Dikdörtgen alanı: {sekil2.alan_hesapla(4, 6)}&quot;)
 
-<span class="n">sekil3</span> <span class="o">=</span> <span class="n">Sekil</span><span class="p">(</span><span class="s2">&quot;daire&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Daire alanı: </span><span class="si">{</span><span class="n">sekil3</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
+sekil3 = Sekil(&quot;daire&quot;)
+print(f&quot;Daire alanı: {sekil3.alan_hesapla(0, 0, 3)}&quot;)
 
+</code></pre>
 <h3 id="dogru-ornek-soyutlama-ve-polimorfizm-kullanm">Doğru Örnek: Soyutlama ve Polimorfizm Kullanımı</h3>
 <p>Bu yaklaşımda, <code>Sekil</code> adında <strong>soyut bir temel sınıf</strong> (veya Python'da <code>abc</code> modülü ile soyut sınıf) tanımlıyoruz. Bu soyut sınıf, tüm şekillerin sahip olması gereken ortak davranışı (<code>alan_hesapla</code> metodu) tanımlar. Daha sonra, her yeni şekil tipi için bu soyut sınıfı miras alan <strong>yeni bir somut sınıf</strong> oluştururuz. Bu, <strong>mevcut <code>Sekil</code> sınıfını değiştirmeden</strong> sisteme yeni şekiller eklememizi sağlar; yani "<strong>genişlemeye açık, değişikliğe kapalı</strong>"dır.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<pre><code class="language-Python">from abc import ABC, abstractmethod
+import math
 
-<span class="c1"># Soyut Temel Sınıf</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Sekil</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Her türemiş sınıf kendi alanını hesaplama sorumluluğunu üstlenir.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+# Soyut Temel Sınıf
+class Sekil(ABC):
+    @abstractmethod
+    def alan_hesapla(self) -&gt; float:
+        &quot;&quot;&quot;Her türemiş sınıf kendi alanını hesaplama sorumluluğunu üstlenir.&quot;&quot;&quot;
+        pass
 
-<span class="c1"># Somut Sınıflar (genişlemeye açık)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Kare</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kenar</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span> <span class="o">=</span> <span class="n">kenar</span>
+# Somut Sınıflar (genişlemeye açık)
+class Kare(Sekil):
+    def __init__(self, kenar):
+        self.kenar = kenar
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span>
+    def alan_hesapla(self) -&gt; float:
+        return self.kenar * self.kenar
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Dikdortgen</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">,</span> <span class="n">genislik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uzunluk</span> <span class="o">=</span> <span class="n">uzunluk</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">genislik</span> <span class="o">=</span> <span class="n">genislik</span>
+class Dikdortgen(Sekil):
+    def __init__(self, uzunluk, genislik):
+        self.uzunluk = uzunluk
+        self.genislik = genislik
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uzunluk</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">genislik</span>
+    def alan_hesapla(self) -&gt; float:
+        return self.uzunluk * self.genislik
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Daire</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaricap</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yaricap</span> <span class="o">=</span> <span class="n">yaricap</span>
+class Daire(Sekil):
+    def __init__(self, yaricap):
+        self.yaricap = yaricap
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaricap</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaricap</span>
+    def alan_hesapla(self) -&gt; float:
+        return math.pi * self.yaricap * self.yaricap
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Ucgen</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taban</span><span class="p">,</span> <span class="n">yukseklik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">taban</span> <span class="o">=</span> <span class="n">taban</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yukseklik</span> <span class="o">=</span> <span class="n">yukseklik</span>
+class Ucgen(Sekil):
+    def __init__(self, taban, yukseklik):
+        self.taban = taban
+        self.yukseklik = yukseklik
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">taban</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">yukseklik</span>
+    def alan_hesapla(self) -&gt; float:
+        return 0.5 * self.taban * self.yukseklik
 
-<span class="c1"># Kullanım (Şekil sınıfını değiştirmeden yeni şekiller ekleyebiliriz)</span>
-<span class="n">kare</span> <span class="o">=</span> <span class="n">Kare</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">dikdortgen</span> <span class="o">=</span> <span class="n">Dikdortgen</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">daire</span> <span class="o">=</span> <span class="n">Daire</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ucgen</span> <span class="o">=</span> <span class="n">Ucgen</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+# Kullanım (Şekil sınıfını değiştirmeden yeni şekiller ekleyebiliriz)
+kare = Kare(5)
+dikdortgen = Dikdortgen(4, 6)
+daire = Daire(3)
+ucgen = Ucgen(4, 3)
 
-<span class="n">sekiller</span> <span class="o">=</span> <span class="p">[</span><span class="n">kare</span><span class="p">,</span> <span class="n">dikdortgen</span><span class="p">,</span> <span class="n">daire</span><span class="p">,</span> <span class="n">ucgen</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">sekil</span> <span class="ow">in</span> <span class="n">sekiller</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Şekil Alanı: </span><span class="si">{</span><span class="n">sekil</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
+sekiller = [kare, dikdortgen, daire, ucgen]
+for sekil in sekiller:
+    print(f&quot;Şekil Alanı: {sekil.alan_hesapla()}&quot;)
 
+</code></pre>
 <ul>
 <li>
 <p>Soyut bir sınıf (<code>Sekil</code>): Tüm şekillerin ortak özelliklerini (alan hesaplama) tanımlar.</p>
@@ -399,92 +399,92 @@
 </ul>
 <h3 id="yanls-ornek-karenin-dikdortgen-gibi-davranmamas">Yanlış Örnek: Kare'nin Dikdörtgen Gibi Davranmaması</h3>
 <p>Matematiksel olarak bir kare özel bir dikdörtgen olsa da, nesne yönelimli tasarımda <code>Kare</code>'yi <code>Dikdortgen</code>'den türetmek <strong>LSP ihlaline</strong> yol açabilir. Çünkü bir <code>Dikdortgen</code>'in genişliği ve uzunluğu bağımsız olarak değiştirilebilirken, bir <code>Kare</code>'nin tüm kenarları her zaman eşit olmalıdır. <code>Dikdortgen</code> sınıfının davranışlarını <code>Kare</code> sınıfına uyguladığımızda <strong>beklenmedik sonuçlar</strong> ortaya çıkar. Aşağıdaki <code>alan_test_et</code> fonksiyonu bir <code>Dikdortgen</code> bekler ve onun davranışlarını değiştirmeye çalışır; ancak bir <code>Kare</code> nesnesiyle çağrıldığında <strong>beklenen sonucu vermez</strong>, bu da bir LSP ihlalidir.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Dikdortgen</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">,</span> <span class="n">genislik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_boy</span> <span class="o">=</span> <span class="n">uzunluk</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_en</span> <span class="o">=</span> <span class="n">genislik</span>
+<pre><code class="language-Python">class Dikdortgen:
+    def __init__(self, uzunluk, genislik):
+        self._boy = uzunluk
+        self._en = genislik
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">uzunluk_ayarla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_boy</span> <span class="o">=</span> <span class="n">uzunluk</span>
+    def uzunluk_ayarla(self, uzunluk):
+        self._boy = uzunluk
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">genislik_ayarla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genislik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_en</span> <span class="o">=</span> <span class="n">genislik</span>
+    def genislik_ayarla(self, genislik):
+        self._en = genislik
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boy</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_en</span>
+    def alan_hesapla(self):
+        return self._boy * self._en
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Kare</span><span class="p">(</span><span class="n">Dikdortgen</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kenar</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">kenar</span><span class="p">,</span> <span class="n">kenar</span><span class="p">)</span>
+class Kare(Dikdortgen):
+    def __init__(self, kenar):
+        super().__init__(kenar, kenar)
 
-    <span class="c1"># Kare&#39;nin kenarları her zaman eşit olmalı. Bu metotlar Dikdörtgen&#39;in davranışını bozuyor.</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">uzunluk_ayarla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_boy</span> <span class="o">=</span> <span class="n">uzunluk</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_en</span> <span class="o">=</span> <span class="n">uzunluk</span>
+    # Kare'nin kenarları her zaman eşit olmalı. Bu metotlar Dikdörtgen'in davranışını bozuyor.
+    def uzunluk_ayarla(self, uzunluk):
+        self._boy = uzunluk
+        self._en = uzunluk
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">genislik_ayarla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genislik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_boy</span> <span class="o">=</span> <span class="n">genislik</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_en</span> <span class="o">=</span> <span class="n">genislik</span>
+    def genislik_ayarla(self, genislik):
+        self._boy = genislik
+        self._en = genislik
 
-<span class="c1"># Kullanım örneği (LSP ihlali gösterimi)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">alan_test_et</span><span class="p">(</span><span class="n">dikdortgen_nesnesi</span><span class="p">:</span> <span class="n">Dikdortgen</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Başlangıç uzunluk: </span><span class="si">{</span><span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">_boy</span><span class="si">}</span><span class="s2">, genişlik: </span><span class="si">{</span><span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">_en</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">uzunluk_ayarla</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">genislik_ayarla</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Yeni uzunluk: </span><span class="si">{</span><span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">_boy</span><span class="si">}</span><span class="s2">, yeni genişlik: </span><span class="si">{</span><span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">_en</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Beklenen Alan: 20 (Dikdörtgen için), Gerçekleşen Alan: </span><span class="si">{</span><span class="n">dikdortgen_nesnesi</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# Kullanım örneği (LSP ihlali gösterimi)
+def alan_test_et(dikdortgen_nesnesi: Dikdortgen):
+    print(f&quot;Başlangıç uzunluk: {dikdortgen_nesnesi._boy}, genişlik: {dikdortgen_nesnesi._en}&quot;)
+    dikdortgen_nesnesi.uzunluk_ayarla(5)
+    dikdortgen_nesnesi.genislik_ayarla(4)
+    print(f&quot;Yeni uzunluk: {dikdortgen_nesnesi._boy}, yeni genişlik: {dikdortgen_nesnesi._en}&quot;)
+    print(f&quot;Beklenen Alan: 20 (Dikdörtgen için), Gerçekleşen Alan: {dikdortgen_nesnesi.alan_hesapla()}&quot;)
 
-<span class="n">dikdortgen</span> <span class="o">=</span> <span class="n">Dikdortgen</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">kare</span> <span class="o">=</span> <span class="n">Kare</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+dikdortgen = Dikdortgen(2, 3)
+kare = Kare(3)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Dikdörtgen için test ---&quot;</span><span class="p">)</span>
-<span class="n">alan_test_et</span><span class="p">(</span><span class="n">dikdortgen</span><span class="p">)</span>
+print(&quot;--- Dikdörtgen için test ---&quot;)
+alan_test_et(dikdortgen)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Kare için test (LSP ihlali) ---&quot;</span><span class="p">)</span>
-<span class="n">alan_test_et</span><span class="p">(</span><span class="n">kare</span><span class="p">)</span>
-</code></pre></div>
+print(&quot;\n--- Kare için test (LSP ihlali) ---&quot;)
+alan_test_et(kare)
 
+</code></pre>
 <h3 id="dogru-ornek-ortak-bir-soyutlamadan-turetme">Doğru Örnek: Ortak Bir Soyutlamadan Türetme</h3>
 <p>LSP'yi doğru uygulamak için, <code>Kare</code> ve <code>Dikdortgen</code> gibi birbirine benzer ama davranışsal olarak farklı olan sınıfları <strong>ortak bir soyut sınıftan</strong> (örneğin <code>Sekil</code>) türetmeliyiz. Her bir sınıf kendi özelliklerini ve alan hesaplama mantığını bağımsız olarak uygular. Böylece, <code>Sekil</code> bekleyen herhangi bir kod, <code>Kare</code> veya <code>Dikdortgen</code> nesneleriyle <strong>güvenle çalışabilir</strong>, çünkü her ikisi de <code>Sekil</code>'in <strong>sözleşmesine uygun</strong> davranır.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<pre><code class="language-Python">from abc import ABC, abstractmethod
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Sekil</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Soyut alan hesaplama metodu.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+class Sekil(ABC):
+    @abstractmethod
+    def alan_hesapla(self) -&gt; float:
+        &quot;&quot;&quot;Soyut alan hesaplama metodu.&quot;&quot;&quot;
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Dikdortgen</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uzunluk</span><span class="p">,</span> <span class="n">genislik</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uzunluk</span> <span class="o">=</span> <span class="n">uzunluk</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">genislik</span> <span class="o">=</span> <span class="n">genislik</span>
+class Dikdortgen(Sekil):
+    def __init__(self, uzunluk, genislik):
+        self.uzunluk = uzunluk
+        self.genislik = genislik
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uzunluk</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">genislik</span>
+    def alan_hesapla(self) -&gt; float:
+        return self.uzunluk * self.genislik
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Kare</span><span class="p">(</span><span class="n">Sekil</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kenar</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span> <span class="o">=</span> <span class="n">kenar</span>
+class Kare(Sekil):
+    def __init__(self, kenar):
+        self.kenar = kenar
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">alan_hesapla</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">kenar</span>
+    def alan_hesapla(self) -&gt; float:
+        return self.kenar * self.kenar
 
-<span class="c1"># Kullanım (LSP&#39;ye uygun)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">sekil_alani_yazdir</span><span class="p">(</span><span class="n">sekil_nesnesi</span><span class="p">:</span> <span class="n">Sekil</span><span class="p">):</span>
-    <span class="c1"># Bu fonksiyon Sekil türünde bir nesne bekler ve sadece alan_hesapla metodunu çağırır.</span>
-    <span class="c1"># Kare veya Dikdortgen nesnesi geldiğinde beklenmedik bir durum olmaz.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Şekil Alanı: </span><span class="si">{</span><span class="n">sekil_nesnesi</span><span class="o">.</span><span class="n">alan_hesapla</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# Kullanım (LSP'ye uygun)
+def sekil_alani_yazdir(sekil_nesnesi: Sekil):
+    # Bu fonksiyon Sekil türünde bir nesne bekler ve sadece alan_hesapla metodunu çağırır.
+    # Kare veya Dikdortgen nesnesi geldiğinde beklenmedik bir durum olmaz.
+    print(f&quot;Şekil Alanı: {sekil_nesnesi.alan_hesapla()}&quot;)
 
-<span class="n">dikdortgen_nesnesi</span> <span class="o">=</span> <span class="n">Dikdortgen</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">kare_nesnesi</span> <span class="o">=</span> <span class="n">Kare</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+dikdortgen_nesnesi = Dikdortgen(4, 6)
+kare_nesnesi = Kare(5)
 
-<span class="n">sekil_alani_yazdir</span><span class="p">(</span><span class="n">dikdortgen_nesnesi</span><span class="p">)</span>
-<span class="n">sekil_alani_yazdir</span><span class="p">(</span><span class="n">kare_nesnesi</span><span class="p">)</span>
+sekil_alani_yazdir(dikdortgen_nesnesi)
+sekil_alani_yazdir(kare_nesnesi)
 
-<span class="c1"># Her iki nesne de Sekil türünde bir değişkene atanabilir ve</span>
-<span class="c1"># alan_hesapla metodunu kendi doğal davranışlarına göre çağırabilirler.</span>
-</code></pre></div>
+# Her iki nesne de Sekil türünde bir değişkene atanabilir ve
+# alan_hesapla metodunu kendi doğal davranışlarına göre çağırabilirler.
 
+</code></pre>
 <ul>
 <li>
 <p><code>Kare</code> ve <code>Dikdortgen</code> sınıfları <strong>ortak bir temel sınıf</strong> olan <code>Sekil</code> sınıfından türetilir.</p>
@@ -513,97 +513,97 @@
 </ul>
 <h3 id="yanls-ornek-dev-bir-yazc-arayuzu">Yanlış Örnek: "Dev" Bir Yazıcı Arayüzü</h3>
 <p><code>IYaziciOrtak</code> arayüzü, yazdırma, tarama, faks ve fotokopi gibi <strong>tüm olası yazıcı işlevlerini içeriyor</strong>. Ancak, gerçek dünyada tüm yazıcılar bu işlevlerin hepsini sunmaz. Örneğin, basit bir lazer yazıcı tarama, faks veya fotokopi özelliğine sahip olmayabilir. Bu durumda, <code>LazerYazici</code> sınıfı, <strong>aslında yapmadığı bu metotları zorunlu olarak implemente etmek zorunda kalır</strong> (boş veya hata fırlatan implementasyonlarla). Bu durum <strong>ISP'yi ihlal eder</strong>.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IYaziciOrtak</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_tara</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">faks_gonder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fotokopi_cek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<pre><code class="language-Python">class IYaziciOrtak:
+    def belge_yazdir(self):
+        pass
+    def belge_tara(self):
+        pass
+    def faks_gonder(self):
+        pass
+    def fotokopi_cek(self):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">LazerYazici</span><span class="p">(</span><span class="n">IYaziciOrtak</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lazer yazıcı ile belge yazdırılıyor...&quot;</span><span class="p">)</span>
+class LazerYazici(IYaziciOrtak):
+    def belge_yazdir(self):
+        print(&quot;Lazer yazıcı ile belge yazdırılıyor...&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_tara</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Lazer yazıcı genellikle tarama yapmaz.</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Bu lazer yazıcı tarama yapamaz.&quot;</span><span class="p">)</span>
+    def belge_tara(self):
+        # Lazer yazıcı genellikle tarama yapmaz.
+        raise NotImplementedError(&quot;Bu lazer yazıcı tarama yapamaz.&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">faks_gonder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Lazer yazıcı genellikle faks göndermez.</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Bu lazer yazıcı faks gönderemez.&quot;</span><span class="p">)</span>
+    def faks_gonder(self):
+        # Lazer yazıcı genellikle faks göndermez.
+        raise NotImplementedError(&quot;Bu lazer yazıcı faks gönderemez.&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">fotokopi_cek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Lazer yazıcı genellikle fotokopi çekmez.</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Bu lazer yazıcı fotokopi çekemez.&quot;</span><span class="p">)</span>
+    def fotokopi_cek(self):
+        # Lazer yazıcı genellikle fotokopi çekmez.
+        raise NotImplementedError(&quot;Bu lazer yazıcı fotokopi çekemez.&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">OfisCokIslevliYazici</span><span class="p">(</span><span class="n">IYaziciOrtak</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Çok işlevli yazıcı ile belge yazdırılıyor...&quot;</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">belge_tara</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Çok işlevli yazıcı ile belge taranıyor...&quot;</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">faks_gonder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Çok işlevli yazıcı ile faks gönderiliyor...&quot;</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fotokopi_cek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Çok işlevli yazıcı ile fotokopi çekiliyor...&quot;</span><span class="p">)</span>
+class OfisCokIslevliYazici(IYaziciOrtak):
+    def belge_yazdir(self):
+        print(&quot;Çok işlevli yazıcı ile belge yazdırılıyor...&quot;)
+    def belge_tara(self):
+        print(&quot;Çok işlevli yazıcı ile belge taranıyor...&quot;)
+    def faks_gonder(self):
+        print(&quot;Çok işlevli yazıcı ile faks gönderiliyor...&quot;)
+    def fotokopi_cek(self):
+        print(&quot;Çok işlevli yazıcı ile fotokopi çekiliyor...&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">lazer_yazici</span> <span class="o">=</span> <span class="n">LazerYazici</span><span class="p">()</span>
-<span class="n">lazer_yazici</span><span class="o">.</span><span class="n">belge_yazdir</span><span class="p">()</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">lazer_yazici</span><span class="o">.</span><span class="n">belge_tara</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">NotImplementedError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hata: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
+# Kullanım
+lazer_yazici = LazerYazici()
+lazer_yazici.belge_yazdir()
+try:
+    lazer_yazici.belge_tara()
+except NotImplementedError as e:
+    print(f&quot;Hata: {e}&quot;)
 
+</code></pre>
 <h3 id="dogru-ornek-arayuzleri-ayrma">Doğru Örnek: Arayüzleri Ayırma</h3>
 <p>Burada, genel <code>IYaziciOrtak</code> arayüzünü <strong>daha küçük ve spesifik arayüzlere ayırıyoruz</strong>: <code>IYazici</code>, <code>ITarayici</code>, <code>IFaks</code> ve <code>IFotokopici</code>. Artık sınıflar, <strong>sadece gerçekten ihtiyaç duydukları arayüzleri implemente edebilir</strong>. Bu sayede, <code>LazerYazici</code> sadece <code>IYazici</code> arayüzünü implemente ederken, çok işlevli bir yazıcı birden fazla arayüzü implemente edebilir.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IYazici</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<pre><code class="language-Python">class IYazici:
+    def yazdir(self):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">ITarayici</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">tara</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+class ITarayici:
+    def tara(self):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">IFaks</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">faks_gonder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+class IFaks:
+    def faks_gonder(self):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">IFotokopici</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fotokopi_cek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+class IFotokopici:
+    def fotokopi_cek(self):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">LazerYazici</span><span class="p">(</span><span class="n">IYazici</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lazer yazıcı ile yazdırılıyor...&quot;</span><span class="p">)</span>
+class LazerYazici(IYazici):
+    def yazdir(self):
+        print(&quot;Lazer yazıcı ile yazdırılıyor...&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">CokIslevliAgYazicisi</span><span class="p">(</span><span class="n">IYazici</span><span class="p">,</span> <span class="n">ITarayici</span><span class="p">,</span> <span class="n">IFaks</span><span class="p">,</span> <span class="n">IFotokopici</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">yazdir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ağ yazıcısı ile yazdırılıyor...&quot;</span><span class="p">)</span>
+class CokIslevliAgYazicisi(IYazici, ITarayici, IFaks, IFotokopici):
+    def yazdir(self):
+        print(&quot;Ağ yazıcısı ile yazdırılıyor...&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">tara</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ağ üzerinden tarama yapılıyor...&quot;</span><span class="p">)</span>
+    def tara(self):
+        print(&quot;Ağ üzerinden tarama yapılıyor...&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">faks_gonder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ağ üzerinden faks gönderiliyor...&quot;</span><span class="p">)</span>
+    def faks_gonder(self):
+        print(&quot;Ağ üzerinden faks gönderiliyor...&quot;)
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">fotokopi_cek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ağ üzerinden fotokopi çekiliyor...&quot;</span><span class="p">)</span>
+    def fotokopi_cek(self):
+        print(&quot;Ağ üzerinden fotokopi çekiliyor...&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">lazer_yazici</span> <span class="o">=</span> <span class="n">LazerYazici</span><span class="p">()</span>
-<span class="n">lazer_yazici</span><span class="o">.</span><span class="n">yazdir</span><span class="p">()</span>
+# Kullanım
+lazer_yazici = LazerYazici()
+lazer_yazici.yazdir()
 
-<span class="n">cok_islevli_yazici</span> <span class="o">=</span> <span class="n">CokIslevliAgYazicisi</span><span class="p">()</span>
-<span class="n">cok_islevli_yazici</span><span class="o">.</span><span class="n">yazdir</span><span class="p">()</span>
-<span class="n">cok_islevli_yazici</span><span class="o">.</span><span class="n">tara</span><span class="p">()</span>
-<span class="n">cok_islevli_yazici</span><span class="o">.</span><span class="n">faks_gonder</span><span class="p">()</span>
-<span class="n">cok_islevli_yazici</span><span class="o">.</span><span class="n">fotokopi_cek</span><span class="p">()</span>
-</code></pre></div>
+cok_islevli_yazici = CokIslevliAgYazicisi()
+cok_islevli_yazici.yazdir()
+cok_islevli_yazici.tara()
+cok_islevli_yazici.faks_gonder()
+cok_islevli_yazici.fotokopi_cek()
 
+</code></pre>
 <ul>
 <li>
 <p><strong>Farklı işlemler için farklı arayüzler tanımlanmıştır</strong>.</p>
@@ -640,29 +640,29 @@
 </ul>
 <h3 id="yanls-ornek-yuksek-seviyeli-modulun-dusuk-seviyeli-detaya-bagmllg">Yanlış Örnek: Yüksek Seviyeli Modülün Düşük Seviyeli Detaya Bağımlılığı</h3>
 <p><code>Uygulamam</code> (<strong>yüksek seviyeli modül</strong>), doğrudan <strong>somut bir sınıf</strong> olan <code>DosyaKayitci</code>'ya (<strong>düşük seviyeli detay</strong>) bağımlıdır. <code>Uygulamam</code> sınıfının yapıcı metodu içinde <strong>doğrudan <code>DosyaKayitci</code> nesnesini yaratması</strong>, bu <strong>sıkı bağımlılığın</strong> temel nedenidir. Eğer kayitlama işlemini farklı bir şekilde (örneğin, veritabanına kayitlamak veya bulut servisine göndermek) yapmak istersek, <code>Uygulamam</code> sınıfında <strong>değişiklik yapmamız gerekir</strong>. Bu, yüksek seviyeli modülün detaya bağımlı olduğunu ve <strong>DIP'yi ihlal ettiğini</strong> gösterir.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DosyaKayitci</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesaj</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;uygulama.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dosya Kaydı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dosyaya kayitlandı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<pre><code class="language-Python">class DosyaKayitci:
+    def log(self, mesaj):
+        with open(&quot;uygulama.log&quot;, &quot;a&quot;) as f:
+            f.write(f&quot;Dosya Kaydı: {mesaj}\n&quot;)
+        print(f&quot;Dosyaya kayitlandı: {mesaj}&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Uygulamam</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Doğrudan DosyaKayitci&#39;ya bağımlılık - Yanlış!</span>
-        <span class="c1"># Bu satır, Uygulamam&#39;ın DosyaKayitci&#39;ya sıkıca bağlanmasına neden olur.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span> <span class="o">=</span> <span class="n">DosyaKayitci</span><span class="p">()</span>
+class Uygulamam:
+    def __init__(self):
+        # Doğrudan DosyaKayitci'ya bağımlılık - Yanlış!
+        # Bu satır, Uygulamam'ın DosyaKayitci'ya sıkıca bağlanmasına neden olur.
+        self.kayitci = DosyaKayitci()
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">calistir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Uygulama çalıştırılıyor...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Uygulama başarıyla başlatıldı.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Uygulama kapatılıyor...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Uygulama kapatıldı.&quot;</span><span class="p">)</span>
+    def calistir(self):
+        print(&quot;Uygulama çalıştırılıyor...&quot;)
+        self.kayitci.log(&quot;Uygulama başarıyla başlatıldı.&quot;)
+        print(&quot;Uygulama kapatılıyor...&quot;)
+        self.kayitci.log(&quot;Uygulama kapatıldı.&quot;)
 
-<span class="c1"># Kullanım</span>
-<span class="n">uygulama</span> <span class="o">=</span> <span class="n">Uygulamam</span><span class="p">()</span>
-<span class="n">uygulama</span><span class="o">.</span><span class="n">calistir</span><span class="p">()</span>
-</code></pre></div>
+# Kullanım
+uygulama = Uygulamam()
+uygulama.calistir()
 
+</code></pre>
 <h3 id="dogru-ornek-soyutlama-ve-bagmllk-enjeksiyonu-dependency-injection">Doğru Örnek: Soyutlama ve Bağımlılık Enjeksiyonu (Dependency Injection)</h3>
 <p>Burada, <code>IKayitci</code> adında <strong>soyut bir arayüz</strong> (veya soyut sınıf) tanımlıyoruz. Hem <code>DosyaKayitci</code>, <code>VeritabaniKayitci</code> hem de yeni eklenen <code>KonsolKayitci</code> bu arayüzü implemente eder. <code>Uygulamam</code> sınıfı ise <strong>somut bir <code>Kayitci</code> nesnesi almak yerine, <code>IKayitci</code> arayüzü tipinde bir nesne bekler</strong>. Bu nesne dışarıdan (<code>__init__</code> metodu aracılığıyla) <strong>enjekte edilir (Bağımlılık Enjeksiyonu)</strong>.</p>
 <p>Böylece:</p>
@@ -677,59 +677,59 @@
 <p>Hem yüksek seviyeli hem de düşük seviyeli modüller <strong>soyutlamalara bağımlıdır</strong>. Bu, <strong>bağımlılıkların tersine çevrilmesidir</strong>.</p>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<pre><code class="language-Python">from abc import ABC, abstractmethod
 
-<span class="k">class</span><span class="w"> </span><span class="nc">IKayitci</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesaj</span><span class="p">):</span>
-        <span class="k">pass</span>
+class IKayitci(ABC):
+    @abstractmethod
+    def log(self, mesaj):
+        pass
 
-<span class="k">class</span><span class="w"> </span><span class="nc">DosyaKayitci</span><span class="p">(</span><span class="n">IKayitci</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesaj</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;uygulama.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dosya Kaydı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dosyaya kayitlandı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+class DosyaKayitci(IKayitci):
+    def log(self, mesaj):
+        with open(&quot;uygulama.log&quot;, &quot;a&quot;) as f:
+            f.write(f&quot;Dosya Kaydı: {mesaj}\n&quot;)
+        print(f&quot;Dosyaya kayitlandı: {mesaj}&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">VeritabaniKayitci</span><span class="p">(</span><span class="n">IKayitci</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesaj</span><span class="p">):</span>
-        <span class="c1"># Veritabanına kayitlama işlemi simülasyonu</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Veritabanına kayitlandı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+class VeritabaniKayitci(IKayitci):
+    def log(self, mesaj):
+        # Veritabanına kayitlama işlemi simülasyonu
+        print(f&quot;Veritabanına kayitlandı: {mesaj}&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">KonsolKayitci</span><span class="p">(</span><span class="n">IKayitci</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesaj</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Konsol Kaydı: </span><span class="si">{</span><span class="n">mesaj</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+class KonsolKayitci(IKayitci):
+    def log(self, mesaj):
+        print(f&quot;Konsol Kaydı: {mesaj}&quot;)
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Uygulamam</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kayitci</span><span class="p">:</span> <span class="n">IKayitci</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span> <span class="o">=</span> <span class="n">kayitci</span>
+class Uygulamam:
+    def __init__(self, kayitci: IKayitci):
+        self.kayitci = kayitci
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">calistir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Uygulama çalıştırılıyor...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Uygulama başarıyla başlatıldı.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Uygulama kapatılıyor...&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kayitci</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Uygulama kapatıldı.&quot;</span><span class="p">)</span>
+    def calistir(self):
+        print(&quot;Uygulama çalıştırılıyor...&quot;)
+        self.kayitci.log(&quot;Uygulama başarıyla başlatıldı.&quot;)
+        print(&quot;Uygulama kapatılıyor...&quot;)
+        self.kayitci.log(&quot;Uygulama kapatıldı.&quot;)
 
-<span class="c1"># Kullanım: Hangi kayitlayıcının kullanılacağını dışarıdan belirliyoruz.</span>
+# Kullanım: Hangi kayitlayıcının kullanılacağını dışarıdan belirliyoruz.
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Dosya Kayitci ile Uygulama ---&quot;</span><span class="p">)</span>
-<span class="n">dosya_kayitci</span> <span class="o">=</span> <span class="n">DosyaKayitci</span><span class="p">()</span>
-<span class="n">dosya_kayitci_ile_uygulama</span> <span class="o">=</span> <span class="n">Uygulamam</span><span class="p">(</span><span class="n">dosya_kayitci</span><span class="p">)</span>
-<span class="n">dosya_kayitci_ile_uygulama</span><span class="o">.</span><span class="n">calistir</span><span class="p">()</span>
+print(&quot;--- Dosya Kayitci ile Uygulama ---&quot;)
+dosya_kayitci = DosyaKayitci()
+dosya_kayitci_ile_uygulama = Uygulamam(dosya_kayitci)
+dosya_kayitci_ile_uygulama.calistir()
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Veritabanı Kayitci ile Uygulama ---&quot;</span><span class="p">)</span>
-<span class="n">veritabani_kayitci</span> <span class="o">=</span> <span class="n">VeritabaniKayitci</span><span class="p">()</span>
-<span class="n">veritabani_kayitci_ile_uygulama</span> <span class="o">=</span> <span class="n">Uygulamam</span><span class="p">(</span><span class="n">veritabani_kayitci</span><span class="p">)</span>
-<span class="n">veritabani_kayitci_ile_uygulama</span><span class="o">.</span><span class="n">calistir</span><span class="p">()</span>
+print(&quot;\n--- Veritabanı Kayitci ile Uygulama ---&quot;)
+veritabani_kayitci = VeritabaniKayitci()
+veritabani_kayitci_ile_uygulama = Uygulamam(veritabani_kayitci)
+veritabani_kayitci_ile_uygulama.calistir()
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Konsol Kayitci ile Uygulama ---&quot;</span><span class="p">)</span>
-<span class="n">konsol_kayitci</span> <span class="o">=</span> <span class="n">KonsolKayitci</span><span class="p">()</span>
-<span class="n">konsol_kayitci_ile_uygulama</span> <span class="o">=</span> <span class="n">Uygulamam</span><span class="p">(</span><span class="n">konsol_kayitci</span><span class="p">)</span>
-<span class="n">konsol_kayitci_ile_uygulama</span><span class="o">.</span><span class="n">calistir</span><span class="p">()</span>
+print(&quot;\n--- Konsol Kayitci ile Uygulama ---&quot;)
+konsol_kayitci = KonsolKayitci()
+konsol_kayitci_ile_uygulama = Uygulamam(konsol_kayitci)
+konsol_kayitci_ile_uygulama.calistir()
 
-<span class="c1"># İstediğimiz zaman başka bir kayitlama implementasyonu ekleyebiliriz</span>
-<span class="c1"># ve Uygulamam sınıfını değiştirmeden kullanabiliriz.</span>
-</code></pre></div>
+# İstediğimiz zaman başka bir kayitlama implementasyonu ekleyebiliriz
+# ve Uygulamam sınıfını değiştirmeden kullanabiliriz.
 
+</code></pre>
 <ul>
 <li>
 <p><code>IKayitci</code> arayüzü, kayitlama işlemi için bir <strong>soyutlama</strong> sağlar.</p>
