@@ -8,9 +8,10 @@ body {
     background-color: #0a0a0a; /* Koyu Arka Plan */
     color: #e5e7eb; /* Açık Gri Metin */
     transition: background-color 0.3s ease, color 0.3s ease;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* Döşeme (Tiling) Ayarları */
+    background-repeat: repeat !important;
+    background-size: 250px auto !important; /* Bir taşın boyutu gibi */
+    background-position: top left !important;
     background-attachment: fixed;
 }
 
@@ -131,7 +132,10 @@ p, li {
     margin-bottom: 1em !important;
 }
 .prose strong {
-    color: #ffffff !important;
+    color: #f3f4f6 !important; /* Parlak Beyaz */
+    font-weight: 700 !important;
+    text-shadow: 0 0 8px rgba(167, 139, 250, 0.3); /* Hafif Mor Parlama */
+    padding: 0 2px;
 }
 .prose a {
     color: #a78bfa !important;

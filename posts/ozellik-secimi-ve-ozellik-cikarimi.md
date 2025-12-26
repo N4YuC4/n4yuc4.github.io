@@ -22,7 +22,7 @@ Bu yöntemin birincil hedefleri:
 
 1.  Modelin karmaşıklığını azaltmak ve hesaplama verimliliğini artırmak.
 2.  Aşırı öğrenme riskini minimize etmek.
-3.  Modelin yorumlanabilirliğini korumak veya artırmak.
+3.  Modelin yorumlanabilirliğini ,korumak veya artırmak.
 
 Python'daki `scikit-learn` kütüphanesi, bu işlem için çeşitli mekanizmalar sunar. Örneğin `SelectKBest` sınıfı, ANOVA F-testi gibi istatistiksel yöntemler kullanarak en yüksek puana sahip 'k' adet özelliği filtreler:
 
