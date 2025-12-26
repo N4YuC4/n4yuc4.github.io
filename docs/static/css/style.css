@@ -78,14 +78,10 @@ p, li {
     transform: translateY(-2px);
 }
 
-/* --- MOBİL MENÜ DÜZELTMESİ (KESİN ÇÖZÜM) --- */
-
-/* Masaüstü: Buton gizli */
+/* --- MOBİL MENÜ --- */
 .hamburger-button {
     display: none !important; 
 }
-
-/* Mobil (768px altı) */
 @media (max-width: 767px) {
     .hamburger-button {
         display: block !important;
@@ -97,10 +93,8 @@ p, li {
         display: none !important;
     }
 }
-
-/* Mobil Overlay */
 #mobile-menu-overlay {
-    display: none; /* JS 'open' class'ı ile kontrol edecek */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -122,7 +116,7 @@ p, li {
     font-weight: 700;
 }
 
-/* --- MARKDOWN / PROSE (KOYU MOD OKUNABİLİRLİK) --- */
+/* --- MARKDOWN / PROSE STİLLERİ --- */
 
 .prose {
     color: #d1d5db !important;
@@ -144,24 +138,86 @@ p, li {
 .prose ul > li::marker {
     color: #a78bfa !important;
 }
+/* Satır içi kod */
 .prose code {
-    color: #f472b6 !important; /* Pembe kod vurgusu */
+    color: #f472b6 !important; 
     background: #2d2d2d;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
 }
-.prose pre {
-    background: #181818 !important;
-    border: 1px solid #333;
-    padding: 1.5rem;
+
+/* --- KOD BLOKLARI (Mac Tarzı) --- */
+
+/* Kod bloğu kapsayıcısı */
+.code-wrapper {
+    position: relative;
+    margin: 2rem 0;
     border-radius: 0.75rem;
+    background-color: #1a1b26; /* Tokyo Night arka planı */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #2f334d;
+    overflow: hidden;
 }
-.prose blockquote {
-    border-left: 4px solid #a78bfa;
-    color: #9ca3af !important;
-    background: #111827;
-    padding: 1rem;
-    font-style: italic;
+
+/* Kod bloğu başlığı (Mac pencere çubuğu) */
+.code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #16161e; /* Daha koyu başlık */
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #2f334d;
+}
+
+/* Pencere noktaları */
+.window-dots {
+    display: flex;
+    gap: 6px;
+}
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dot-red { background-color: #ff5f56; }
+.dot-yellow { background-color: #ffbd2e; }
+.dot-green { background-color: #27c93f; }
+
+/* Dil etiketi */
+.language-label {
+    color: #787c99;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Kopyala butonu */
+.copy-btn {
+    background: transparent;
+    border: none;
+    color: #787c99;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.copy-btn:hover {
+    color: white;
+}
+.copy-btn i {
+    font-size: 1rem;
+}
+
+/* Asıl kod alanı (Pre) */
+.prose pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important; /* Arka planı wrapper hallediyor */
+    padding: 1.25rem !important;
+    overflow-x: auto;
 }
 
 /* Footer */

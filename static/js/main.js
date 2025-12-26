@@ -4,7 +4,8 @@
 import {
     openMobileMenu,
     closeMobileMenu,
-    initHeaderShrink
+    initHeaderShrink,
+    setupCodeBlocks
 } from './utils.js';
 
 // Rastgele arka plan görseli seçimi
@@ -27,6 +28,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Kaydırma ile başlık küçültme efekti
     initHeaderShrink(document.getElementById('main-header'));
+
+    // Kod bloklarını geliştir (Mac penceresi, Kopyala butonu)
+    // Highlight.js zaten base.html'de çalışıyor, bu fonksiyon üzerine ekleme yapar.
+    setupCodeBlocks();
 
     // Mobil menü olay dinleyicileri
     hamburgerButton.addEventListener('click', () => openMobileMenu(mobileMenuOverlay, document.body));
