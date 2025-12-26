@@ -1,52 +1,69 @@
 /* Modern Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 /* Kod Fontu */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
+:root {
+    --bg-main: #050505;
+    --bg-card: #0a0a0a;
+    --bg-header: #0a0a0a;
+    --border-color: #262626;
+    --text-main: #d4d4d4;
+    --text-heading: #ffffff;
+    --accent-color: #14b8a6; /* Teal-500 */
+    --accent-hover: #2dd4bf; /* Teal-400 */
+    --accent-dim: rgba(20, 184, 166, 0.1);
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #0f172a; /* Slate-900: Çok koyu mat lacivert-gri */
-    color: #cbd5e1; /* Slate-300: Okunabilir mat gri */
+    background-color: var(--bg-main);
+    color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
-    /* Arka plan döşeme ayarları */
+    /* Arka plan döşeme */
     background-repeat: repeat !important;
     background-size: auto !important;
     background-position: top left !important;
     background-attachment: fixed;
 }
 
-/* Linkler - Parlak mor yerine mat indigo */
+/* Linkler */
 a {
-    color: #818cf8; /* Indigo-400 */
-    transition: color 0.2s ease-in-out;
+    color: var(--accent-color);
+    transition: all 0.2s ease-in-out;
 }
 a:hover {
-    color: #a5b4fc; /* Indigo-300 */
+    color: var(--accent-hover);
     text-decoration: none;
+    text-shadow: 0 0 8px var(--accent-dim);
 }
 
-/* Header (Başlık) - Mat ve düz */
+/* Header (Başlık) */
 .main-header {
-    background: #1e293b !important; /* Slate-800 */
-    border-bottom: 1px solid #334155 !important; /* Slate-700 */
+    background: var(--bg-header) !important;
+    border-bottom: 1px solid var(--border-color) !important;
     transition: all 0.3s ease-in-out;
-    box-shadow: none !important; /* Gölge yok */
+    box-shadow: none !important;
 }
 .main-header.shrunk {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+    background: rgba(10, 10, 10, 0.95) !important; /* Hafif transparanlık */
+    backdrop-filter: blur(10px);
 }
 .header-title {
-    color: #f1f5f9 !important; /* Slate-100 */
+    color: var(--text-heading) !important;
     font-weight: 700;
     display: flex;
     align-items: center;
+    letter-spacing: -0.03em;
 }
 .blinking-cursor {
     display: inline-block;
-    color: #818cf8; /* İndigo */
+    color: var(--accent-color);
     animation: blink 1s step-end infinite;
-    margin-left: 2px;
+    margin-left: 4px;
+    font-weight: 400;
 }
 @keyframes blink {
     0%, 100% { opacity: 1; }
@@ -54,227 +71,180 @@ a:hover {
 }
 
 .header-nav-link {
-    color: #94a3b8 !important; /* Slate-400 */
+    color: #737373 !important; /* Neutral-500 */
+    font-weight: 500;
 }
 .header-nav-link:hover, .header-nav-link.active {
-    color: #f8fafc !important; /* Slate-50 */
-    text-shadow: none !important; /* Parlama yok */
+    color: var(--text-heading) !important;
 }
 
-/* Kartlar - Düz ve çerçeveli */
+/* Kartlar - Minimalist ve Karanlık */
 .bg-white {
-    background-color: #1e293b !important; /* Slate-800 */
-    color: #e2e8f0 !important;
-    border: 1px solid #334155 !important; /* Slate-700 */
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
     box-shadow: none !important;
+    border-radius: 0.5rem;
 }
-/* Kart hover efekti */
+/* Kart hover efekti - Hafif aydınlanma */
 .bg-white:hover {
-    border-color: #475569 !important; /* Slate-600 */
+    border-color: #404040 !important; /* Neutral-700 */
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
 }
 
 /* Genel Metin Renkleri */
-h1, h2, h3, h4, h5, h6 { color: #f1f5f9 !important; letter-spacing: -0.025em; }
-p, li { color: #cbd5e1 !important; line-height: 1.7; }
-.text-gray-800 { color: #f1f5f9 !important; }
-.text-gray-700 { color: #cbd5e1 !important; }
-.text-gray-600 { color: #94a3b8 !important; }
-.text-gray-500 { color: #64748b !important; }
+h1, h2, h3, h4, h5, h6 { color: var(--text-heading) !important; letter-spacing: -0.02em; }
+p, li { color: var(--text-main) !important; line-height: 1.75; }
+.text-gray-800 { color: var(--text-heading) !important; }
+.text-gray-700 { color: var(--text-main) !important; }
+.text-gray-600 { color: #a3a3a3 !important; }
+.text-gray-500 { color: #737373 !important; }
 
-/* Butonlar - Mat ve Düz */
+/* Butonlar - Outline Stil */
 .read-more-btn {
-    background: #334155 !important; /* Slate-700 */
-    color: #e2e8f0 !important;
-    border: 1px solid #475569 !important;
-    padding: 0.5rem 1.25rem;
-    border-radius: 0.5rem;
+    background: transparent !important;
+    color: var(--accent-color) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
     font-weight: 500;
     transition: all 0.2s;
     text-align: center;
-    box-shadow: none !important;
+    font-size: 0.9rem;
 }
 .read-more-btn:hover {
-    background: #475569 !important; /* Slate-600 */
-    border-color: #64748b !important;
-    color: #ffffff !important;
-    transform: none !important;
+    background: var(--accent-dim) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--text-heading) !important;
 }
 
-/* --- MOBİL MENÜ (TEMİZ VE SAĞLAM YAPILANDIRMA) --- */
-
-/* 1. Hamburger Butonu */
-/* Masaüstünde (md ve üzeri) kesinlikle gizli */
-.hamburger-button {
-    display: none !important;
-}
-
-/* Mobilde (md altı) görünür */
+/* --- MOBİL MENÜ --- */
+.hamburger-button { display: none !important; }
 @media (max-width: 767px) {
     .hamburger-button {
         display: block !important;
-        color: white;
-        font-size: 1.8rem;
+        color: var(--text-main);
+        font-size: 1.5rem;
         cursor: pointer;
         z-index: 60;
     }
-    
-    /* Mobilde masaüstü menüyü gizle */
-    #desktop-nav {
-        display: none !important;
-    }
+    #desktop-nav { display: none !important; }
 }
-
-/* 2. Mobil Menü Overlay */
 #mobile-menu-overlay {
-    display: none !important; /* Varsayılan olarak her yerde gizli */
+    display: none !important;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 10, 10, 0.98); /* Koyu yarı saydam arka plan */
-    z-index: 100; /* En üstte */
+    background: #000000; /* Tam Siyah */
+    z-index: 100;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
-/* SADECE Mobilde ve .open sınıfı varsa göster */
 @media (max-width: 767px) {
     #mobile-menu-overlay.open {
-        display: flex !important; /* Flex ile ortala */
+        display: flex !important;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         opacity: 1;
     }
 }
-
-/* Masaüstünde (768px ve üzeri) ASLA gösterme (.open olsa bile) */
 @media (min-width: 768px) {
-    #mobile-menu-overlay,
-    #mobile-menu-overlay.open {
-        display: none !important;
-    }
+    #mobile-menu-overlay.open { display: none !important; }
 }
-
-/* Overlay İçeriği */
-#mobile-menu-overlay ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-#mobile-menu-overlay li {
-    margin: 1.5rem 0;
-}
-
+#mobile-menu-overlay ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+#mobile-menu-overlay li { margin: 2rem 0; }
 #mobile-menu-overlay a {
-    color: white !important;
-    font-size: 2rem;
+    color: var(--text-main) !important;
+    font-size: 1.75rem;
     font-weight: 700;
     text-decoration: none;
     transition: color 0.3s;
 }
-
-#mobile-menu-overlay a:hover {
-    color: #a78bfa !important; /* Mor vurgu */
-}
-
-/* Kapatma Butonu */
+#mobile-menu-overlay a:hover { color: var(--accent-color) !important; }
 .close-button {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    color: white;
-    font-size: 2.5rem;
+    color: var(--text-main);
+    font-size: 2rem;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: all 0.3s;
 }
+.close-button:hover { color: var(--accent-color); transform: rotate(90deg); }
 
-.close-button:hover {
-    transform: rotate(90deg);
-    color: #a78bfa;
-}
-
-/* --- MARKDOWN / PROSE STİLLERİ (MAT VE OKUNAKLI) --- */
+/* --- MARKDOWN / PROSE STİLLERİ --- */
 
 .prose {
-    color: #cbd5e1 !important;
+    color: var(--text-main) !important;
     max-width: none !important;
 }
 
-/* Başlıklar - Süslemesiz */
+/* Başlıklar - Minimalist */
 .prose h1, .prose h2, .prose h3 {
-    color: #f8fafc !important;
+    color: var(--text-heading) !important;
     font-weight: 700 !important;
     margin-top: 2.5em !important;
     margin-bottom: 1em !important;
-    border: none !important; /* Yan çizgileri kaldırdım */
+    border: none !important;
     padding-left: 0 !important;
 }
+.prose h1 { font-size: 2.25em !important; }
+.prose h2 { font-size: 1.75em !important; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem !important; }
 
-.prose h1 { font-size: 2.25em !important; letter-spacing: -0.03em; }
-.prose h2 { font-size: 1.75em !important; border-bottom: 1px solid #334155; padding-bottom: 0.5rem !important; }
-
-/* Kalın Yazılar (Strong) - Sadece renk farkı, parlama yok */
+/* Kalın Yazılar (Strong) */
 .prose strong, strong {
-    color: #f1f5f9 !important; /* Daha açık beyaz */
+    color: var(--accent-color) !important;
     font-weight: 600 !important;
-    text-shadow: none !important; /* Parlama Kaldırıldı */
-    border: none !important; /* Alt çizgi Kaldırıldı */
-}
-
-/* İtalik */
-.prose em, em {
-    color: #94a3b8 !important;
-    font-style: italic;
+    text-shadow: none !important;
+    border: none !important;
 }
 
 /* Linkler */
 .prose a {
-    color: #818cf8 !important;
+    color: var(--accent-color) !important;
     text-decoration: none;
-    border-bottom: 1px solid #818cf8; /* Basit alt çizgi */
+    border-bottom: 1px solid transparent;
     transition: all 0.2s;
 }
 .prose a:hover {
-    background-color: transparent !important;
-    color: #a5b4fc !important;
-    border-bottom-color: #a5b4fc;
+    border-bottom-color: var(--accent-color);
 }
 
 /* Listeler */
-.prose ul > li::marker { color: #64748b !important; }
-.prose ol > li::marker { color: #64748b !important; }
+.prose ul > li::marker { color: #525252 !important; } /* Neutral-600 */
+.prose ol > li::marker { color: var(--accent-color) !important; }
 
-/* Alıntılar - Basit gri blok */
+/* Alıntılar */
 .prose blockquote {
-    background-color: #1e293b !important; /* Slate-800 Kutu */
-    border-left: 4px solid #6366f1 !important; /* İndigo yan çizgi */
-    border-radius: 0.5rem;
-    padding: 1.5rem !important;
-    font-style: italic;
-    color: #e2e8f0 !important;
+    background-color: var(--bg-card) !important;
+    border-left: 3px solid var(--accent-color) !important;
+    border-radius: 0.375rem;
+    padding: 1.25rem !important;
+    font-style: normal !important; /* İtalik değil normal */
+    color: #a3a3a3 !important;
     margin: 2rem 0 !important;
     box-shadow: none !important;
 }
 
 /* Yatay Çizgi */
 .prose hr {
-    border-color: #334155 !important;
+    border-color: var(--border-color) !important;
     margin: 3rem 0 !important;
 }
 
-/* --- KOD BLOKLARI (Sadeleştirilmiş Mac Tarzı) --- */
+/* --- KOD BLOKLARI --- */
 
 .code-wrapper {
     position: relative;
     margin: 2rem 0;
     border-radius: 0.5rem;
-    background-color: #0f1117; /* Kod arka planı */
-    border: 1px solid #334155;
-    box-shadow: none !important; /* Gölge yok */
+    background-color: #0d0d0d; /* Daha da koyu kod alanı */
+    border: 1px solid var(--border-color);
+    box-shadow: none !important;
     overflow: hidden;
 }
 
@@ -282,36 +252,33 @@ p, li { color: #cbd5e1 !important; line-height: 1.7; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #1e293b;
+    background-color: #121212;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Noktaları biraz daha soluk yapalım */
-.window-dots { display: flex; gap: 6px; opacity: 0.7; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-red { background-color: #ef4444; }
-.dot-yellow { background-color: #eab308; }
-.dot-green { background-color: #22c55e; }
+.window-dots { display: flex; gap: 6px; opacity: 0.5; grayscale: 100%; } /* Gri noktalar */
+.dot { width: 10px; height: 10px; border-radius: 50%; background-color: #525252; }
 
 .language-label {
-    color: #64748b;
+    color: #737373;
     font-size: 0.75rem;
     font-weight: 600;
     font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
 }
 
 .copy-btn {
     background: transparent;
     border: none;
-    color: #64748b;
+    color: #737373;
     font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.4rem;
     transition: color 0.2s;
 }
-.copy-btn:hover { color: #94a3b8; }
+.copy-btn:hover { color: var(--text-main); }
 
 .prose pre {
     background: transparent !important;
@@ -321,33 +288,40 @@ p, li { color: #cbd5e1 !important; line-height: 1.7; }
 }
 
 .prose pre code {
-    font-family: 'JetBrains Mono', monospace !important; /* Daha okunaklı kod fontu */
+    font-family: 'JetBrains Mono', monospace !important;
     font-size: 0.9em !important;
+    background: transparent !important;
 }
 
-/* Satır içi kod - Mat kutu */
+/* Satır içi kod */
 .prose code:not(pre code) {
-    color: #e2e8f0 !important;
-    background: #334155 !important; /* Slate-700 */
+    color: var(--accent-color) !important;
+    background: rgba(20, 184, 166, 0.1) !important;
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
     font-weight: 500;
     font-family: 'JetBrains Mono', monospace;
-    border: none !important;
+    border: 1px solid rgba(20, 184, 166, 0.2);
 }
 
-/* İçerik alanındaki görseller için stil */
+/* İçerik Resimleri */
 .content-area img {
     border-radius: 0.5rem;
-    box-shadow: none !important; /* Gölge yok */
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #334155; /* İnce çerçeve */
+    box-shadow: none !important;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    opacity: 0.9; /* Biraz matlaştır */
+    transition: opacity 0.3s;
 }
+.content-area img:hover { opacity: 1; }
 
 /* Footer */
 footer {
-    background-color: #0f172a !important;
-    border-top: 1px solid #1e293b !important;
-    padding: 3rem 0;
+    background-color: #000000 !important;
+    border-top: 1px solid var(--border-color) !important;
+    padding: 4rem 0;
+    color: #525252 !important;
 }
+footer a { color: #737373 !important; text-decoration: none; }
+footer a:hover { color: var(--text-main) !important; }

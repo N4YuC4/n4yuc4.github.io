@@ -46,8 +46,8 @@
         <!-- Son Yazılar Bölümü -->
         <section>
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-purple-600 pl-3">Son Yazılar</h3>
-                <a href="{{ url_for('blog_list') }}" class="text-purple-400 hover:text-purple-300 font-medium text-sm transition">Tümünü Gör →</a>
+                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-600 pl-3">Son Yazılar</h3>
+                <a href="{{ url_for('blog_list') }}" class="text-gray-400 hover:text-white font-medium text-sm transition">Tümünü Gör →</a>
             </div>
             <div class="space-y-6">
                 {% for post in posts %}
@@ -72,8 +72,8 @@
         <!-- Son Çalışmalar Bölümü -->
         <section>
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-indigo-600 pl-3">Son Çalışmalar</h3>
-                <a href="{{ url_for('portfolio_list') }}" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm transition">Tümünü Gör →</a>
+                <h3 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-600 pl-3">Son Çalışmalar</h3>
+                <a href="{{ url_for('portfolio_list') }}" class="text-gray-400 hover:text-white font-medium text-sm transition">Tümünü Gör →</a>
             </div>
             <div class="space-y-6">
                 {% for item in portfolio %}
