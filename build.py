@@ -8,6 +8,32 @@ from app import app
 BUILD_DIR = 'docs'
 SITE_URL = 'https://n4yuc4.github.io'
 
+def parse_turkish_date(date_str):
+    """
+    '27 Ekim 2025' formatındaki Türkçe tarihi '2025-10-27' (ISO) formatına çevirir.
+    Hata olursa None döner.
+    """
+    if not date_str:
+        return None
+        
+    months = {
+        'Ocak': '01', 'Şubat': '02', 'Mart': '03', 'Nisan': '04', 'Mayıs': '05', 'Haziran': '06',
+        'Temmuz': '07', 'Ağustos': '08', 'Eylül': '09', 'Ekim': '10', 'Kasım': '11', 'Aralık': '12'
+    }
+    
+    try:
+        parts = date_str.split()
+        if len(parts) == 3:
+            day = parts[0].zfill(2)
+            month = months.get(parts[1])
+            year = parts[2]
+            if month:
+                return f"{year}-{month}-{day}"
+    except Exception as e:
+        print(f"Tarih çevirme hatası ({date_str}): {e}")
+    
+    return None
+
 def build():
     # Eski build klasörünü temizle
     if os.path.exists(BUILD_DIR):
@@ -42,15 +68,16 @@ def build():
                 d = os.path.join(BUILD_DIR, item)
                 shutil.copy2(s, d)
 
-    # Oluşturulacak sayfaları belirle
+    # Oluşturulacak sayfaları belirle 
+    # Yapı: (route, output_path, source_file, explicit_date)
     pages = [
-        ('/', 'index.html'),
-        ('/blog.html', 'blog.html'),
-        ('/about.html', 'about.html'),
-        ('/contact.html', 'contact.html'),
-        ('/portfolio.html', 'portfolio.html'),
-        ('/privacy.html', 'privacy.html'),
-        ('/terms.html', 'terms.html'),
+        ('/', 'index.html', 'templates/home.html', None),
+        ('/blog.html', 'blog.html', 'templates/blog.html', None),
+        ('/about.html', 'about.html', 'data/aboutPageData.json', None),
+        ('/contact.html', 'contact.html', 'data/contactPageData.json', None),
+        ('/portfolio.html', 'portfolio.html', 'data/portfolioItems.json', None),
+        ('/privacy.html', 'privacy.html', 'data/privacy.md', None),
+        ('/terms.html', 'terms.html', 'data/terms.md', None),
     ]
 
     # Blog yazılarını metadata dosyasından oku
@@ -58,7 +85,10 @@ def build():
         with open('data/blogPostsMetadata.json', 'r', encoding='utf-8') as f:
             posts = json.load(f)
             for post in posts:
-                pages.append((f"/posts/{post['slug']}.html", f"posts/{post['slug']}.html"))
+                # JSON'dan tarihi al
+                date_str = post.get('date')
+                iso_date = parse_turkish_date(date_str)
+                pages.append((f"/posts/{post['slug']}.html", f"posts/{post['slug']}.html", post['contentFile'], iso_date))
     except Exception as e:
         print(f"Blog metadataları okunamadı: {e}")
 
@@ -67,7 +97,10 @@ def build():
         with open('data/portfolioItems.json', 'r', encoding='utf-8') as f:
             items = json.load(f)
             for item in items:
-                pages.append((f"/portfolio/{item['slug']}.html", f"portfolio/{item['slug']}.html"))
+                # JSON'dan tarihi al
+                date_str = item.get('date')
+                iso_date = parse_turkish_date(date_str)
+                pages.append((f"/portfolio/{item['slug']}.html", f"portfolio/{item['slug']}.html", item['detailFile'], iso_date))
     except Exception as e:
         print(f"Portfolyo metadataları okunamadı: {e}")
 
@@ -75,7 +108,7 @@ def build():
 
     # Flask test client kullanarak sayfaları render et
     with app.test_client() as client:
-        for route, output_path in pages:
+        for route, output_path, source_file, _ in pages:
             # print(f"İşleniyor: {route}")
             
             response = client.get(route)
@@ -103,28 +136,39 @@ def build():
     print("\nİşlem Başarıyla Tamamlandı!")
     print(f"Statik site '{BUILD_DIR}' klasörüne oluşturuldu.")
 
+def get_lastmod(file_path):
+    """Dosyanın son değiştirilme tarihini ISO formatında döndürür."""
+    if os.path.exists(file_path):
+        mtime = os.path.getmtime(file_path)
+        return datetime.datetime.fromtimestamp(mtime).date().isoformat()
+    return datetime.date.today().isoformat()
+
 def generate_sitemap(pages):
     print("Sitemap (XML ve TXT) oluşturuluyor...")
     
     # XML Sitemap
     sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
-    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    sitemap_content.append('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">')
     
     # TXT Sitemap (Daha basit alternatif)
     txt_content = []
     
-    today = datetime.date.today().isoformat()
-    
-    for route, output_path in pages:
+    for route, output_path, source_file, explicit_date in pages:
         if route == '/' or output_path == 'index.html':
             url = f"{SITE_URL}/"
         else:
             url = f"{SITE_URL}/{output_path}"
-            
+        
+        # Eğer JSON'dan gelen tarih varsa onu kullan, yoksa dosya modification time
+        if explicit_date:
+            lastmod = explicit_date
+        else:
+            lastmod = get_lastmod(source_file)
+        
         # XML için ekle
         sitemap_content.append('  <url>')
         sitemap_content.append(f'    <loc>{url}</loc>')
-        sitemap_content.append(f'    <lastmod>{today}</lastmod>')
+        sitemap_content.append(f'    <lastmod>{lastmod}</lastmod>')
         sitemap_content.append('  </url>')
         
         # TXT için ekle
