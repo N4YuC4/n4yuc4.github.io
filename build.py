@@ -146,41 +146,42 @@ def get_lastmod(file_path):
 def generate_sitemap(pages):
     print("Sitemap (XML ve TXT) oluşturuluyor...")
     
-    # XML Sitemap
+    # --- DÜZELTME BAŞLANGICI ---
+    # XML Sitemap - Temiz ve Standart Başlık
     sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
-    sitemap_content.append('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">')
+    # Sadece standart sitemap şemasını kullanıyoruz. Gereksiz video/news/image namespace'leri kaldırıldı.
+    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    # --- DÜZELTME BİTİŞİ ---
     
-    # TXT Sitemap (Daha basit alternatif)
+    # TXT Sitemap
     txt_content = []
     
     for route, output_path, source_file, explicit_date in pages:
         if route == '/' or output_path == 'index.html':
             url = f"{SITE_URL}/"
         else:
+            # URL sonuna .html eklenmesi doğru (statik dosya yapısı için)
             url = f"{SITE_URL}/{output_path}"
         
-        # Eğer JSON'dan gelen tarih varsa onu kullan, yoksa dosya modification time
         if explicit_date:
             lastmod = explicit_date
         else:
             lastmod = get_lastmod(source_file)
         
-        # XML için ekle
+        # XML
         sitemap_content.append('  <url>')
         sitemap_content.append(f'    <loc>{url}</loc>')
         sitemap_content.append(f'    <lastmod>{lastmod}</lastmod>')
         sitemap_content.append('  </url>')
         
-        # TXT için ekle
+        # TXT
         txt_content.append(url)
         
     sitemap_content.append('</urlset>')
     
-    # XML dosyasını yaz
     with open(os.path.join(BUILD_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
         f.write('\n'.join(sitemap_content))
         
-    # TXT dosyasını yaz
     with open(os.path.join(BUILD_DIR, 'sitemap.txt'), 'w', encoding='utf-8') as f:
         f.write('\n'.join(txt_content))
 
