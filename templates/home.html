@@ -54,9 +54,11 @@
                 <a href="{{ url_for('post_detail', slug=post.slug) }}" class="block group">
                     <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                         <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
-                            <img src="{{ url_for('static', filename=post.imageUrl) }}" 
-                                 alt="{{ post.title }}" 
-                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            
+                            <img src="{{ post.thumbnail_url }}" 
+                                                             alt="{{ post.title }}" 
+                                                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            
                         </div>
                         <div class="flex-1">
                             <h4 class="text-xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors mb-2 line-clamp-2">{{ post.title }}</h4>

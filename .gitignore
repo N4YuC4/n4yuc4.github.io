@@ -23,3 +23,6 @@ Thumbs.db
 _project_docs/
 GEMINI.md
 .venv
+pyproject.toml
+.python-version
+uv.lock
