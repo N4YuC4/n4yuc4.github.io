@@ -82,9 +82,11 @@
                 <a href="{{ url_for('portfolio_detail', slug=item.slug) }}" class="block group">
                     <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                         <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
-                            <img src="{{ url_for('static', filename=item.imageUrl) }}" 
+                            
+                            <img src="{{ item.thumbnail_url }}" 
                                  alt="{{ item.title }}" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            
                         </div>
                         <div class="flex-1">
                             <h4 class="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors mb-2">{{ item.title }}</h4>
