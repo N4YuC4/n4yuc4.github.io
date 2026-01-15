@@ -24,12 +24,15 @@ def generate_thumbnail(image_path, size=THUMBNAIL_SIZE):
         str: The URL path to the generated thumbnail (e.g., '/static/images/thumbnails/thumb_image.jpg').
              Returns the original image path if thumbnail generation fails or if the image is an SVG.
     """
-    if not os.path.exists(image_path):
-        print(f"Original image not found: {image_path}")
-        return '/' + image_path # Return original path if not found (or a placeholder image URL)
+    print(f"--- Generating thumbnail for: {image_path} ---") # DEBUG
+    if not image_path or not os.path.exists(image_path):
+        print(f"DEBUG: Original image not found or path is empty: '{image_path}'")
+        # Return a placeholder or the original path if it was meant to be a URL
+        return f"/{image_path}" if image_path else ""
 
     # For SVG files, return the original path as Pillow doesn't handle them directly for resizing
     if image_path.lower().endswith('.svg'):
+        print("DEBUG: SVG file detected, returning original path.")
         return '/' + image_path
 
     # Create a unique filename for the thumbnail
@@ -40,22 +43,22 @@ def generate_thumbnail(image_path, size=THUMBNAIL_SIZE):
     thumbnail_url = '/' + thumbnail_path.replace('\\', '/') # For URL usage
 
     if os.path.exists(thumbnail_path):
+        print(f"DEBUG: Thumbnail already exists: {thumbnail_url}")
         return thumbnail_url
 
     try:
         with Image.open(image_path) as img:
             img.thumbnail(size)
-            # Ensure the thumbnail directory exists before saving
             os.makedirs(os.path.dirname(thumbnail_path), exist_ok=True)
             img.save(thumbnail_path)
+            print(f"DEBUG: Thumbnail created successfully: {thumbnail_url}")
         return thumbnail_url
     except Exception as e:
-        print(f"Error generating thumbnail for {image_path}: {e}")
+        print(f"ERROR: Error generating thumbnail for {image_path}: {e}")
         return '/' + image_path # Fallback to original image if thumbnail generation fails
 
 @app.route('/sitemap.xml')
 def sitemap():
-    # Artık build.py dinamik üretiyor ama local dev için static'ten varsa sunsun yoksa 404
     try:
         return send_from_directory('docs', 'sitemap.xml')
     except:
@@ -73,7 +76,6 @@ def index():
     about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
     if 'content' in about_data:
         html_content = markdown(about_data['content'], extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-        # Resim yollarını düzelt
         html_content = html_content.replace('src="images/', 'src="/static/images/')
         html_content = html_content.replace('src="../images/', 'src="/static/images/')
         about_data['content'] = html_content
@@ -82,24 +84,22 @@ def index():
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
         posts = json.load(f)
     for post in posts:
-        if 'image' in post and post['image']:
-            # Convert URL to file path
-            image_file_path = post['image'].lstrip('/')
+        if 'imageUrl' in post and post['imageUrl']:
+            image_file_path = os.path.join('static', post['imageUrl'])
             post['thumbnail_url'] = generate_thumbnail(image_file_path)
         else:
-            post['thumbnail_url'] = '' # No image, no thumbnail
+            post['thumbnail_url'] = ''
     latest_posts = posts[:3] 
 
     # Son 3 Portfolyo Öğesi
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         portfolio_items = json.load(f)
     for item in portfolio_items:
-        if 'image' in item and item['image']:
-            # Convert URL to file path
-            image_file_path = item['image'].lstrip('/')
+        if 'imageUrl' in item and item['imageUrl']:
+            image_file_path = os.path.join('static', item['imageUrl'])
             item['thumbnail_url'] = generate_thumbnail(image_file_path)
         else:
-            item['thumbnail_url'] = '' # No image, no thumbnail
+            item['thumbnail_url'] = ''
     latest_portfolio = portfolio_items[:3]
 
     return render_template('home.html', about=about_data, posts=latest_posts, portfolio=latest_portfolio)
@@ -122,11 +122,8 @@ def post_detail(slug):
     with open(content_path, encoding='utf-8') as f:
         content = f.read()
     html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-    
-    # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')
     html_content = html_content.replace('src="../images/', 'src="/static/images/')
-    
     return render_template('post.html', post={'content': html_content, **post})
 
 # Portfolyo listesi
@@ -135,8 +132,8 @@ def portfolio_list():
     with open('data/portfolioItems.json', encoding='utf-8') as f:
         items = json.load(f)
     for item in items:
-        if 'image' in item and item['image']:
-            image_file_path = item['image'].lstrip('/')
+        if 'imageUrl' in item and item['imageUrl']:
+            image_file_path = os.path.join('static', item['imageUrl'])
             item['thumbnail_url'] = generate_thumbnail(image_file_path)
         else:
             item['thumbnail_url'] = ''
@@ -156,161 +153,72 @@ def portfolio_detail(slug):
     with open(detail_path, encoding='utf-8') as f:
         content = f.read()
     html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-    
-    # Resim yollarını düzelt
     html_content = html_content.replace('src="images/', 'src="/static/images/')
     html_content = html_content.replace('src="../images/', 'src="/static/images/')
-    
     return render_template('portfolio_detail.html', item={'content': html_content, **item})
 
-
-
-    # Tüm Blog Yazıları Listesi
-
+# Tüm Blog Yazıları Listesi
 @app.route('/blog.html')
-
 def blog_list():
-
     with open('data/blogPostsMetadata.json', encoding='utf-8') as f:
-
         posts = json.load(f)
-
     for post in posts:
-
-        if 'image' in post and post['image']:
-
-            # Convert URL to file path
-
-            image_file_path = post['image'].lstrip('/')
-
+        if 'imageUrl' in post and post['imageUrl']:
+            image_file_path = os.path.join('static', post['imageUrl'])
             post['thumbnail_url'] = generate_thumbnail(image_file_path)
-
         else:
-
-            post['thumbnail_url'] = '' # No image, no thumbnail
-
+            post['thumbnail_url'] = ''
     return render_template('blog.html', posts=posts)
 
-
-
 # Hakkımda sayfası
-
 @app.route('/about.html')
-
 def about():
-
     with open('data/aboutPageData.json', encoding='utf-8') as f:
-
         data = json.load(f)
-
     about_data = data[0] if isinstance(data, list) and data else {}
-
     if 'content' in about_data:
-
         html_content = markdown(about_data['content'], extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-
-        # Resim yollarını düzelt
-
         html_content = html_content.replace('src="images/', 'src="/static/images/')
-
         html_content = html_content.replace('src="../images/', 'src="/static/images/')
-
         about_data['content'] = html_content
-
-        
-
     return render_template('about.html', about=about_data)
 
-
-
 # İletişim sayfası
-
 @app.route('/contact.html')
-
 def contact():
-
     with open('data/contactPageData.json', encoding='utf-8') as f:
-
         data = json.load(f)
-
     return render_template('contact.html', contact=data)
 
-
-
 # Gizlilik Politikası sayfası
-
 @app.route('/privacy.html')
-
 def privacy():
-
     with open('data/privacyPolicyData.json', encoding='utf-8') as f:
-
         data = json.load(f)
-
     content_path = data['contentFile']
-
     if not os.path.exists(content_path):
-
         abort(404)
-
     with open(content_path, encoding='utf-8') as f_md:
-
         content = f_md.read()
-
     html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-
-    
-
-    # Resim yollarını düzelt
-
     html_content = html_content.replace('src="images/', 'src="/static/images/')
-
     html_content = html_content.replace('src="../images/', 'src="/static/images/')
-
-    
-
     return render_template('privacy.html', privacy={'content': html_content, 'title': data['title']})
 
-
-
 # Kullanım Koşulları sayfası
-
 @app.route('/terms.html')
-
 def terms():
-
     with open('data/termsOfUseData.json', encoding='utf-8') as f:
-
         data = json.load(f)
-
     content_path = data['contentFile']
-
     if not os.path.exists(content_path):
-
         abort(404)
-
     with open(content_path, encoding='utf-8') as f_md:
-
         content = f_md.read()
-
     html_content = markdown(content, extensions=['fenced_code', 'tables', 'toc', 'footnotes', 'attr_list', 'admonition'])
-
-    
-
-    # Resim yollarını düzelt
-
     html_content = html_content.replace('src="images/', 'src="/static/images/')
-
     html_content = html_content.replace('src="../images/', 'src="/static/images/')
-
-    
-
     return render_template('terms.html', terms={'content': html_content, 'title': data['title']})
 
-
-
 if __name__ == '__main__':
-
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-
