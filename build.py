@@ -5,6 +5,7 @@ import datetime
 import subprocess
 import sys
 from app import app
+from PIL import Image
 
 # Çıktı klasörü
 BUILD_DIR = 'docs'
@@ -45,6 +46,16 @@ def build():
     # .nojekyll dosyası oluştur (GitHub Pages için)
     with open(os.path.join(BUILD_DIR, '.nojekyll'), 'w') as f:
         pass
+
+    # Favicon.ico oluştur
+    try:
+        img = Image.open('static/images/icon.png')
+        img.save(os.path.join(BUILD_DIR, 'favicon.ico'), format='ICO', sizes=[(32, 32)])
+        print("favicon.ico oluşturuldu.")
+    except FileNotFoundError:
+        print("HATA: static/images/icon.png bulunamadı, favicon oluşturulamadı.")
+    except Exception as e:
+        print(f"Favicon oluşturma sırasında bir hata oluştu: {e}")
 
     # Static klasörünü kopyala
     print("Statik dosyalar kopyalanıyor...")
