@@ -44,6 +44,10 @@ def build():
     with open(os.path.join(BUILD_DIR, '.nojekyll'), 'w') as f:
         pass
 
+    # google search console doğrulama dosyası oluştur
+    with open(os.path.join(BUILD_DIR, 'google7478c6ae82046a3c.html'), 'w') as f:
+        f.write('google-site-verification: google7478c6ae82046a3c.html')
+
     # Static klasörünü kopyala
     print("Statik dosyalar kopyalanıyor...")
     
