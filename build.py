@@ -2,6 +2,8 @@ import os
 import shutil
 import json
 import datetime
+import subprocess
+import sys
 from app import app
 
 # Çıktı klasörü
@@ -131,8 +133,22 @@ def build():
                 f.write(html_content)
 
     # Sitemap oluştur
-    generate_sitemap(pages)
+    # generate_sitemap(pages)
+    print("Sitemap oluşturuluyor...")
+    try:
+        # python-sitemap-generator.py betiğini çalıştır
+        subprocess.run([sys.executable, 'python-sitemap-generator.py'], check=True)
+        
+        # Oluşturulan sitemap.xml'i build dizinine taşı
+        if os.path.exists('sitemap.xml'):
+            shutil.move('sitemap.xml', os.path.join(BUILD_DIR, 'sitemap.xml'))
+            print("sitemap.xml başarıyla oluşturuldu ve taşındı.")
+        else:
+            print("HATA: sitemap.xml oluşturulamadı.")
 
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"Sitemap oluşturma sırasında bir hata oluştu: {e}")
+        
     print("\nİşlem Başarıyla Tamamlandı!")
     print(f"Statik site '{BUILD_DIR}' klasörüne oluşturuldu.")
 

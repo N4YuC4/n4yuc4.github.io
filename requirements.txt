@@ -1,3 +1,6 @@
 Flask
 markdown
 Pygments
+beautifulsoup4
+var_dump
+lxml
