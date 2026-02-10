@@ -20,7 +20,7 @@ body {
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
-
+    font-size: 0.85rem;
 }
 
 /* --- Custom Scrollbar --- */
@@ -234,6 +234,11 @@ p, li {
 .prose {
     color: var(--text-main) !important;
     max-width: none !important;
+    font-size: 0.9rem;
+}
+
+.prose p, .prose li {
+    font-size: 0.9rem !important;
 }
 
 /* Başlıklar - Minimalist */
@@ -392,4 +397,10 @@ footer a:hover { color: var(--text-main) !important; }
 .prose table th {
     color: var(--text-heading); /* Make table header text lighter */
     background-color: var(--bg-card); /* Add background color */
+}
+
+@media (min-width: 1024px) {
+    #content-area {
+        padding: 4rem 16rem !important; /* Vertical p-16, Horizontal p-32 equivalent */
+    }
 }
