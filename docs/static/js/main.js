@@ -8,17 +8,6 @@ import {
     setupCodeBlocks
 } from './utils.js';
 
-// Rastgele arka plan görseli seçimi
-const backgrounds = [
-    '/static/images/bg/bg_1.gif',
-    '/static/images/bg/bg_2.gif',
-    '/static/images/bg/bg_3.gif',
-    '/static/images/bg/bg_4.gif',
-    '/static/images/bg/bg_5.gif',
-];
-const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-document.body.style.backgroundImage = `url('${randomBg}')`;
-
 document.addEventListener('DOMContentLoaded', async () => {
     // DOM elemanlarına referanslar
     const hamburgerButton = document.getElementById('hamburger-button');
