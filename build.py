@@ -150,12 +150,8 @@ def build():
         # python-sitemap-generator.py betiğini çalıştır
         subprocess.run([sys.executable, 'python-sitemap-generator.py'], check=True)
         
-        # Oluşturulan sitemap.xml'i build dizinine taşı
-        if os.path.exists('sitemap.xml'):
-            shutil.move('sitemap.xml', os.path.join(BUILD_DIR, 'sitemap.xml'))
-            print("sitemap.xml başarıyla oluşturuldu ve taşındı.")
-        else:
-            print("HATA: sitemap.xml oluşturulamadı.")
+        # sitemap.xml doğrudan python-sitemap-generator.py tarafından BUILD_DIR'a oluşturulduğu varsayılır.
+        print("sitemap.xml başarıyla oluşturuldu.")
 
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         print(f"Sitemap oluşturma sırasında bir hata oluştu: {e}")
@@ -163,54 +159,7 @@ def build():
     print("\nİşlem Başarıyla Tamamlandı!")
     print(f"Statik site '{BUILD_DIR}' klasörüne oluşturuldu.")
 
-def get_lastmod(file_path):
-    """Dosyanın son değiştirilme tarihini ISO formatında döndürür."""
-    if os.path.exists(file_path):
-        mtime = os.path.getmtime(file_path)
-        return datetime.datetime.fromtimestamp(mtime).date().isoformat()
-    return datetime.date.today().isoformat()
 
-def generate_sitemap(pages):
-    print("Sitemap (XML ve TXT) oluşturuluyor...")
-    
-    # --- DÜZELTME BAŞLANGICI ---
-    # XML Sitemap - Temiz ve Standart Başlık
-    sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
-    # Sadece standart sitemap şemasını kullanıyoruz. Gereksiz video/news/image namespace'leri kaldırıldı.
-    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-    # --- DÜZELTME BİTİŞİ ---
-    
-    # TXT Sitemap
-    txt_content = []
-    
-    for route, output_path, source_file, explicit_date in pages:
-        if route == '/' or output_path == 'index.html':
-            url = f"{SITE_URL}/"
-        else:
-            # URL sonuna .html eklenmesi doğru (statik dosya yapısı için)
-            url = f"{SITE_URL}/{output_path}"
-        
-        if explicit_date:
-            lastmod = explicit_date
-        else:
-            lastmod = get_lastmod(source_file)
-        
-        # XML
-        sitemap_content.append('  <url>')
-        sitemap_content.append(f'    <loc>{url}</loc>')
-        sitemap_content.append(f'    <lastmod>{lastmod}</lastmod>')
-        sitemap_content.append('  </url>')
-        
-        # TXT
-        txt_content.append(url)
-        
-    sitemap_content.append('</urlset>')
-    
-    with open(os.path.join(BUILD_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
-        f.write('\n'.join(sitemap_content))
-        
-    with open(os.path.join(BUILD_DIR, 'sitemap.txt'), 'w', encoding='utf-8') as f:
-        f.write('\n'.join(txt_content))
 
 if __name__ == "__main__":
     build()

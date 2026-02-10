@@ -1,51 +1,81 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://n4yuc4.github.io/</loc>
-    <lastmod>2026-01-20</lastmod>
+    <loc>https://n4yuc4.github.io/about.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://n4yuc4.github.io/blog.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/about.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/posts/ozellik-secimi-ve-ozellik-cikarimi.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/portfolio.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/posts/aciklanabilir-yapay-zeka.html</loc>
-    <lastmod>2026-01-20</lastmod>
-  </url>
-  <url>
-    <loc>https://n4yuc4.github.io/privacy.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://n4yuc4.github.io/contact.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.github.io/portfolio/zettelkasten-ai-notes.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <loc>https://n4yuc4.github.io/google7478c6ae82046a3c.html</loc>
+    <lastmod>2026-01-20T22:48:57-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/portfolio.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/privacy.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://n4yuc4.github.io/terms.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/portfolio/zettelkasten-ai-notes.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/posts/aciklanabilir-yapay-zeka.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/posts/ozellik-secimi-ve-ozellik-cikarimi.html</loc>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://n4yuc4.github.io/posts/python-solid-prensipleri.html</loc>
-    <lastmod>2026-01-20</lastmod>
+    <lastmod>2026-02-10T22:33:50-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
 
