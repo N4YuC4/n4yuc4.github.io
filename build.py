@@ -1,165 +1,189 @@
 import os
 import shutil
 import json
-import datetime
-import subprocess
-import sys
-from app import app
-from PIL import Image
+import markdown
+import feedparser
+import time
+from jinja2 import Environment, FileSystemLoader
 
-# Çıktı klasörü
+# --- CONFIGURATION ---
 BUILD_DIR = 'docs'
-SITE_URL = 'https://n4yuc4.github.io'
+TEMPLATES_DIR = 'templates'
+DATA_DIR = 'data'
+STATIC_DIR = 'static'
+PORTFOLIO_CONTENT_DIR = 'portfolio'
+POSTS_REDIRECT_DIR = os.path.join(BUILD_DIR, 'posts')
+MEDIUM_RSS_URL = 'https://medium.com/feed/@n4yuc4'
 
-def parse_turkish_date(date_str):
-    """
-    '27 Ekim 2025' formatındaki Türkçe tarihi '2025-10-27' (ISO) formatına çevirir.
-    Hata olursa None döner.
-    """
-    if not date_str:
-        return None
-        
-    months = {
-        'Ocak': '01', 'Şubat': '02', 'Mart': '03', 'Nisan': '04', 'Mayıs': '05', 'Haziran': '06',
-        'Temmuz': '07', 'Ağustos': '08', 'Eylül': '09', 'Ekim': '10', 'Kasım': '11', 'Aralık': '12'
-    }
+# --- JINJA2 SETUP ---
+env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+
+def fetch_medium_posts(rss_url, max_posts=5):
+    """Fetches and parses the latest posts from a Medium RSS feed."""
+    print(f"Fetching Medium posts from: {rss_url}")
+    feed = feedparser.parse(rss_url)
     
+    if feed.bozo:
+        print(f"Warning: feedparser reported a problem with the feed: {feed.bozo_exception}")
+
+    posts = []
+    for entry in feed.entries[:max_posts]:
+        # Format the date like '27 Ekim 2025'
+        try:
+            # The 'published_parsed' is a time.struct_time
+            published_date = time.strftime("%d %B %Y", entry.published_parsed)
+            # A simple way to translate month names to Turkish
+            tr_months = {
+                'January': 'Ocak', 'February': 'Şubat', 'March': 'Mart', 'April': 'Nisan',
+                'May': 'Mayıs', 'June': 'Haziran', 'July': 'Temmuz', 'August': 'Ağustos',
+                'September': 'Eylül', 'October': 'Ekim', 'November': 'Kasım', 'December': 'Aralık'
+            }
+            for en, tr in tr_months.items():
+                published_date = published_date.replace(en, tr)
+        except AttributeError:
+            published_date = "Tarih bilgisi yok"
+
+        posts.append({
+            'title': entry.title,
+            'link': entry.link,
+            'published': published_date,
+            'summary': entry.get('summary', '')
+        })
+    print(f"Found {len(posts)} posts.")
+    return posts
+
+def render_template(template_name, output_path, context={}):
+    """Renders a Jinja2 template to a file."""
+    template = env.get_template(template_name)
+    html_content = template.render(context)
+    
+    full_path = os.path.join(BUILD_DIR, output_path)
+    os.makedirs(os.path.dirname(full_path), exist_ok=True)
+    
+    with open(full_path, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    # print(f"Rendered: {output_path}")
+
+def read_json_file(file_path):
+    """Reads and parses a JSON file."""
     try:
-        parts = date_str.split()
-        if len(parts) == 3:
-            day = parts[0].zfill(2)
-            month = months.get(parts[1])
-            year = parts[2]
-            if month:
-                return f"{year}-{month}-{day}"
-    except Exception as e:
-        print(f"Tarih çevirme hatası ({date_str}): {e}")
-    
-    return None
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error reading {file_path}: {e}")
+        return None
+
+def read_md_file(file_path):
+    """Reads a Markdown file and returns its content."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"Error reading {file_path}: File not found.")
+        return ""
+
+def convert_markdown_to_html(md_content):
+    """Converts a Markdown string to HTML."""
+    return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite'])
 
 def build():
-    # Eski build klasörünü temizle
+    """Main function to build the static site."""
+    print("Starting static site build...")
+
+    # 1. Clean and recreate build directory
     if os.path.exists(BUILD_DIR):
         shutil.rmtree(BUILD_DIR)
     os.makedirs(BUILD_DIR)
+    print(f"Cleaned and created build directory: '{BUILD_DIR}'")
 
-    # .nojekyll dosyası oluştur (GitHub Pages için)
+    # 2. Copy static files
+    if os.path.exists(STATIC_DIR):
+        shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, 'static'))
+        print("Copied 'static' directory.")
+
+    # 3. Create .nojekyll for GitHub Pages
     with open(os.path.join(BUILD_DIR, '.nojekyll'), 'w') as f:
         pass
 
-    # Favicon.ico oluştur
-    try:
-        img = Image.open('static/images/icon.png')
-        img.save(os.path.join(BUILD_DIR, 'favicon.ico'), format='ICO', sizes=[(32, 32)])
-        print("favicon.ico oluşturuldu.")
-    except FileNotFoundError:
-        print("HATA: static/images/icon.png bulunamadı, favicon oluşturulamadı.")
-    except Exception as e:
-        print(f"Favicon oluşturma sırasında bir hata oluştu: {e}")
-
-    # Static klasörünü kopyala
-    print("Statik dosyalar kopyalanıyor...")
-    
-    # Hedef static klasörü (docs/static)
-    dest_static = os.path.join(BUILD_DIR, 'static')
-    os.makedirs(dest_static, exist_ok=True)
-
-    if os.path.exists('static'):
-        for item in os.listdir('static'):
-            s = os.path.join('static', item)
-            
-            # Klasörleri (css, js, images) docs/static/ altına koy
-            if os.path.isdir(s):
-                d = os.path.join(dest_static, item)
-                shutil.copytree(s, d)
-            
-            # Dosyaları (robots.txt vb.) docs/ altına koy (Kök dizine)
-            else:
-                # sitemap.xml hariç (dinamik oluşturulacak)
-                if item == 'sitemap.xml':
-                    continue
-                d = os.path.join(BUILD_DIR, item)
-                shutil.copy2(s, d)
-
-    # Oluşturulacak sayfaları belirle 
-    # Yapı: (route, output_path, source_file, explicit_date)
-    pages = [
-        ('/', 'index.html', 'templates/home.html', None),
-        ('/blog.html', 'blog.html', 'templates/blog.html', None),
-        ('/about.html', 'about.html', 'data/aboutPageData.json', None),
-        ('/contact.html', 'contact.html', 'data/contactPageData.json', None),
-        ('/portfolio.html', 'portfolio.html', 'data/portfolioItems.json', None),
-        ('/privacy.html', 'privacy.html', 'data/privacy.md', None),
-        ('/terms.html', 'terms.html', 'data/terms.md', None),
-    ]
-
-    # Blog yazılarını metadata dosyasından oku
-    try:
-        with open('data/blogPostsMetadata.json', 'r', encoding='utf-8') as f:
-            posts = json.load(f)
-            for post in posts:
-                # JSON'dan tarihi al
-                date_str = post.get('date')
-                iso_date = parse_turkish_date(date_str)
-                pages.append((f"/posts/{post['slug']}.html", f"posts/{post['slug']}.html", post['contentFile'], iso_date))
-    except Exception as e:
-        print(f"Blog metadataları okunamadı: {e}")
-
-    # Portfolyo detaylarını metadata dosyasından oku
-    try:
-        with open('data/portfolioItems.json', 'r', encoding='utf-8') as f:
-            items = json.load(f)
-            for item in items:
-                # JSON'dan tarihi al
-                date_str = item.get('date')
-                iso_date = parse_turkish_date(date_str)
-                pages.append((f"/portfolio/{item['slug']}.html", f"portfolio/{item['slug']}.html", item['detailFile'], iso_date))
-    except Exception as e:
-        print(f"Portfolyo metadataları okunamadı: {e}")
-
-    print(f"Toplam {len(pages)} sayfa oluşturuluyor ve Sitemap hazırlanıyor...")
-
-    # Flask test client kullanarak sayfaları render et
-    with app.test_client() as client:
-        for route, output_path, source_file, _ in pages:
-            # print(f"İşleniyor: {route}")
-            
-            response = client.get(route)
-            if response.status_code != 200:
-                print(f"HATA: {route} alınamadı (Kod: {response.status_code})")
-                continue
-
-            # Dosya yolunu oluştur
-            full_path = os.path.join(BUILD_DIR, output_path)
-            os.makedirs(os.path.dirname(full_path), exist_ok=True)
-
-            # HTML içeriğini yaz
-            html_content = response.data.decode('utf-8')
-            
-            # Localhost adreslerini (portlu veya portsuz) gerçek site adresiyle değiştir
-            html_content = html_content.replace('http://localhost:5000/', f'{SITE_URL}/')
-            html_content = html_content.replace('http://localhost/', f'{SITE_URL}/')
-            
-            with open(full_path, 'w', encoding='utf-8') as f:
+    # 4. Generate redirect pages for old blog posts
+    print("Generating redirect pages...")
+    redirects_data = read_json_file(os.path.join(DATA_DIR, 'redirects.json'))
+    if redirects_data:
+        os.makedirs(POSTS_REDIRECT_DIR, exist_ok=True)
+        redirect_template_str = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>This page has moved</title>
+    <link rel="canonical" href="{{ url }}"/>
+    <meta http-equiv="refresh" content="0; url={{ url }}">
+</head>
+<body>
+    <p>This page has moved. If you are not redirected automatically, follow this <a href="{{ url }}">link</a>.</p>
+</body>
+</html>
+        """
+        redirect_template = env.from_string(redirect_template_str)
+        
+        default_url = redirects_data.get('default', '/')
+        for slug, new_url in redirects_data.get('posts', {}).items():
+            target_url = new_url if new_url else default_url
+            html_content = redirect_template.render(url=target_url)
+            with open(os.path.join(POSTS_REDIRECT_DIR, f"{slug}.html"), 'w', encoding='utf-8') as f:
                 f.write(html_content)
+        print(f"Generated {len(redirects_data.get('posts', {}))} redirect pages.")
 
-    # Sitemap oluştur
-    # generate_sitemap(pages)
-    print("Sitemap oluşturuluyor...")
-    try:
-        # python-sitemap-generator.py betiğini çalıştır
-        subprocess.run([sys.executable, 'python-sitemap-generator.py'], check=True)
-        
-        # sitemap.xml doğrudan python-sitemap-generator.py tarafından BUILD_DIR'a oluşturulduğu varsayılır.
-        print("sitemap.xml başarıyla oluşturuldu.")
+    # 5. Load all data into memory
+    print("Loading data from JSON files...")
+    portfolio_items = read_json_file(os.path.join(DATA_DIR, 'portfolioItems.json'))
+    about_data = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json'))
+    contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
+    privacy_data = read_json_file(os.path.join(DATA_DIR, 'privacyPolicyData.json'))
+    terms_data = read_json_file(os.path.join(DATA_DIR, 'termsOfUseData.json'))
+    
+    # 6. Fetch Medium Posts
+    medium_posts = fetch_medium_posts(MEDIUM_RSS_URL)
 
-    except (subprocess.CalledProcessError, FileNotFoundError) as e:
-        print(f"Sitemap oluşturma sırasında bir hata oluştu: {e}")
-        
-    print("\nİşlem Başarıyla Tamamlandı!")
-    print(f"Statik site '{BUILD_DIR}' klasörüne oluşturuldu.")
+    # 7. Render main pages
+    print("Rendering main pages...")
+    render_template('home.html', 'index.html', {'about': about_data, 'portfolio': portfolio_items})
+    render_template('about.html', 'about.html', {'data': about_data})
+    render_template('contact.html', 'contact.html', {'data': contact_data})
+    render_template('portfolio.html', 'portfolio.html', {'items': portfolio_items})
+    render_template('blog.html', 'blog.html', {'posts': medium_posts})
 
+    if privacy_data and 'contentFile' in privacy_data:
+        privacy_md_content = read_md_file(privacy_data['contentFile'])
+        privacy_html = convert_markdown_to_html(privacy_md_content)
+        render_template('privacy.html', 'privacy.html', {'data': {'title': privacy_data['title'], 'content': privacy_html}})
 
+    if terms_data and 'contentFile' in terms_data:
+        terms_md_content = read_md_file(terms_data['contentFile'])
+        terms_html = convert_markdown_to_html(terms_md_content)
+        render_template('terms.html', 'terms.html', {'data': {'title': terms_data['title'], 'content': terms_html}})
+    
+    # 8. Render portfolio detail pages
+    print("Rendering portfolio detail pages...")
+    if portfolio_items:
+        for item in portfolio_items:
+            slug = item.get('slug')
+            md_file_path = item.get('detailFile')
+            if slug and md_file_path:
+                portfolio_md_content = read_md_file(md_file_path)
+                item['content'] = convert_markdown_to_html(portfolio_md_content)
+                render_template(
+                    'portfolio_detail.html',
+                    os.path.join('portfolio', f"{slug}.html"),
+                    {'item': item}
+                )
+        print(f"Rendered {len(portfolio_items)} portfolio detail pages.")
+
+    # 9. Note about sitemap
+    # The external sitemap generator should be run after this script.
+    # We are assuming it will inspect the 'docs' folder.
+    print("\nBuild process complete.")
+    print("Next step: Generate sitemap by running 'python-sitemap-generator.py'")
+    print(f"Static site is available in '{BUILD_DIR}' folder.")
 
 if __name__ == "__main__":
     build()

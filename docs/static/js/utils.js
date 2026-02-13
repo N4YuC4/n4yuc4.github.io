@@ -1,23 +1,6 @@
 // utils.js - Genel yardımcı fonksiyonlar
 
 /**
- * 404 (Sayfa Bulunamadı) sayfasını render eder.
- * @param {HTMLElement} contentArea - İçeriğin render edileceği DOM elemanı
- */
-export function renderNotFoundPage(contentArea) {
-    contentArea.innerHTML = `
-        <div class="max-w-3xl mx-auto text-center py-10">
-            <h2 class="text-4xl font-bold text-red-600 mb-4">404 - Yazı Bulunamadı</h2>
-            <p class="text-lg text-gray-700">Aradığınız sayfa mevcut değil veya yanlış bir URL kullandınız.</p>
-            <a href="#/" class="mt-6 inline-block text-white py-3 px-6 rounded-full hover:bg-purple-700 transition duration-300 font-semibold modern-button
-                    bg-gradient-to-r from-purple-500 to-purple-600 shadow-lg">Ana Sayfaya Dön</a>
-        </div>
-    `;
-    contentArea.classList.remove('grid-container');
-    document.title = "404 - Sayfa Bulunamadı";
-}
-
-/**
  * Mobil menüyü açar.
  */
 export function openMobileMenu(mobileMenuOverlay, bodyElement) {

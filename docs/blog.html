@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Tüm Yazılar - N4YuC4</title>
+    <title>Blog - N4YuC4</title>
 
     <!-- SEO Meta Etiketleri -->
     <meta name="description"
@@ -12,14 +12,14 @@
     <meta name="keywords"
         content="veri bilimi, makine öğrenmesi, derin öğrenme, yapay zeka, AI, ML, DL, Python, algoritmalar, analitik, büyük veri">
     <meta name="author" content="Nazmi Yücel Çan">
-    <link rel="canonical" href="https://n4yuc4.github.io/blog.html">
+    <link rel="canonical" href="https://n4yuc4.dev">
 
     <!-- Open Graph Meta Etiketleri -->
     <meta property="og:title" content="N4YuC4 - Veri Bilimi ve Yapay Zeka Keşifleri">
     <meta property="og:description"
         content="N4YuC4'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
-    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
-    <meta property="og:url" content="https://n4yuc4.github.io/blog.html">
+    <meta property="og:image" content="/static/images/meta_image.png">
+    <meta property="og:url" content="https://n4yuc4.dev">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Meta Etiketleri -->
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="N4YuC4 - Veri Bilimi ve Yapay Zeka Keşifleri">
     <meta name="twitter:description"
         content="N4YuC4'da veri bilimi, makine öğrenimi, derin öğrenme ve yapay zeka konularında güncel ve derinlemesine makaleleri keşfedin.">
-    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta name="twitter:image" content="/static/images/meta_image.png">
 
     <!-- Tailwind CSS CDN ve Typography Plugin -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -82,7 +82,7 @@
     <header id="main-header"
         class="main-header text-white p-6 rounded-b-xl sticky top-0 z-10">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <a href="/">
+            <a href="/index.html">
                 <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 md:mb-0 tracking-tight">
                     <span id="header-title-text">N4YuC4</span><span class="blinking-cursor">_</span>
                 </h1>
@@ -96,7 +96,7 @@
             <!-- Masaüstü Navigasyon Menüsü -->
             <nav id="desktop-nav" class="hidden md:flex items-center">
                 <ul class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-8 text-xl">
-                    <li><a href="/" id="nav-home"
+                    <li><a href="/index.html" id="nav-home"
                             class="header-nav-link block text-white hover:text-purple-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-purple-200 pb-1">Ana
                             Sayfa</a></li>
                     <li><a href="/blog.html" id="nav-blog"
@@ -122,75 +122,38 @@
             <i class="fas fa-times"></i>
         </div>
         <ul>
-            <li><a href="/" class="mobile-nav-link" data-target="home">Ana Sayfa</a></li>
-            <li><a href="/blog.html" class="mobile-nav-link" data-target="blog">Blog</a></li>
-            <li><a href="/portfolio.html" class="mobile-nav-link" data-target="portfolio">Portfolyo</a></li>
-            <li><a href="/about.html" class="mobile-nav-link" data-target="about">Hakkımda</a></li>
-            <li><a href="/contact.html" class="mobile-nav-link" data-target="contact">İletişim</a></li>
+            <li><a href="/index.html" class="mobile-nav-link">Ana Sayfa</a></li>
+            <li><a href="/blog.html" class="mobile-nav-link">Blog</a></li>
+            <li><a href="/portfolio.html" class="mobile-nav-link">Portfolyo</a></li>
+            <li><a href="/about.html" class="mobile-nav-link">Hakkımda</a></li>
+            <li><a href="/contact.html" class="mobile-nav-link">İletişim</a></li>
         </ul>
     </div>
 
     <!-- Ana İçerik Alanı -->
     <main id="content-area" class="container mx-auto my-12 p-4 flex-grow">
         
-<div class="mb-12 bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-white/5 shadow-2xl">
-    <div class="border-l-4 border-teal-500 pl-6">
-        <h2 class="text-4xl font-bold text-white tracking-tight">Tüm Yazılar</h2>
-        <p class="text-gray-300 mt-3 text-lg font-medium">Veri bilimi ve yapay zeka üzerine paylaştığım tüm makaleler.</p>
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Blog</h1>
+        <p class="text-lg text-gray-600 mt-4">Medium'da yayınlanan en son yazılarım.</p>
     </div>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-    
-    <div class="bg-white p-6 rounded-xl shadow-lg relative border border-gray-100 flex flex-col group hover:transform hover:-translate-y-2 transition-all duration-300">
-        <div class="overflow-hidden rounded-lg mb-6 shadow-md">
-            <img src="/static/images/thumbnails/thumb_ozellik-secimi-ve-ozellik-cikarimi_200x200.png" 
-                 alt="Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark" 
-                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-400 transition-colors">Veri Biliminde Boyutluluk: Özellik Seçimi ve Özellik Çıkarımı Arasındaki Kritik Fark</h3>
-        <p class="text-gray-500 text-sm mb-4">27 Ekim 2025</p>
-        <p class="text-gray-400 mb-6 flex-grow line-clamp-3">Veri bilimi ve makine öğrenimi alanlarında, bir modelin performansı, kendisine sağlanan verinin kalitesiyle doğrudan ilişkilidir. &#34;Garbage in, garbage out&#34; (Çöp giren, çöp çıkar) ilkesi, bu alandaki temel gerçeklerden biridir.
- Modern veri setleri, genellikle &#34;yüksek boyutluluk laneti&#34; (curse of dimensionality) olarak bilinen bir zorlukla birlikte gelir: Binlerce özellik (feature), hesaplama maliyetini artırır ve modelin ilgisiz &#34;gürültü&#34; (noise) üzerinde aşırı öğrenmesine (overfitting) neden olabilir.</p>
-        <a href="/posts/ozellik-secimi-ve-ozellik-cikarimi.html" class="read-more-btn block text-center py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto">Devamını Oku</a>
+    <div class="space-y-8">
+        
+            
+            <a href="https://medium.com/@n4yuc4/python-ile-solid-prensipleri-yaz%C4%B1l%C4%B1m-geli%C5%9Ftirmede-temel-ta%C5%9Flar-e9fee84eb1a4?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
+                <article class="bg-white p-6 md:p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300 mb-2">Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar</h2>
+                    <p class="text-gray-500 mb-4">13 Şubat 2026</p>
+                    
+                        <p class="text-gray-700 leading-relaxed">SOLID prensipleri, nesne yönelimli programlamada (OOP) daha sağlam, bakımı kolay ve esnek yazılımlar tasarlamak için kullanılan beş temel prensibin kısaltmasıdır. Bu prensipler, yazılım tasarımını......</p>
+                    
+                </article>
+            </a>
+            
+        
     </div>
-    
-    <div class="bg-white p-6 rounded-xl shadow-lg relative border border-gray-100 flex flex-col group hover:transform hover:-translate-y-2 transition-all duration-300">
-        <div class="overflow-hidden rounded-lg mb-6 shadow-md">
-            <img src="/static/images/thumbnails/thumb_black-box_200x200.jpg" 
-                 alt="Yapay Zeka Artık &#39;Sihirli Bir Kara Kutu&#39; Değil! AYZ ile Şeffaflık ve Güven Çağı" 
-                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-400 transition-colors">Yapay Zeka Artık &#39;Sihirli Bir Kara Kutu&#39; Değil! AYZ ile Şeffaflık ve Güven Çağı</h3>
-        <p class="text-gray-500 text-sm mb-4">5 Eylül 2025</p>
-        <p class="text-gray-400 mb-6 flex-grow line-clamp-3">Yapay zeka hayatımızın her köşesini hızla ele geçiriyor. Akıllı telefonlarımızdan bankacılık işlemlerimize, sağlık uygulamalarımızdan sosyal medya akışlarımıza kadar her yerde karşımıza çıkıyor. Ama bu hızla gelişen teknolojiyle birlikte kafamızda bir soru beliriyor: Peki ya bu yapay zeka kararları nasıl alıyor? İşte tam bu noktada, devasa sinir ağlarından oluşan bu &#34;kara kutu&#34;ların içini göremiyoruz. Neden kredi başvurumuz reddedildi, ya da bir teşhis nasıl konuldu? Bu bilinmezlik, güven ve adalet konularında ciddi endişeler yaratıyor.</p>
-        <a href="/posts/aciklanabilir-yapay-zeka.html" class="read-more-btn block text-center py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto">Devamını Oku</a>
-    </div>
-    
-    <div class="bg-white p-6 rounded-xl shadow-lg relative border border-gray-100 flex flex-col group hover:transform hover:-translate-y-2 transition-all duration-300">
-        <div class="overflow-hidden rounded-lg mb-6 shadow-md">
-            <img src="/static/images/thumbnails/thumb_k-fold-cross-validation-banner_200x200.png" 
-                 alt="Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?" 
-                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-400 transition-colors">Modelinizi Sınava Sokmak: Çapraz Doğrulama ve K-Katlı Çapraz Doğrulama Nedir?</h3>
-        <p class="text-gray-500 text-sm mb-4">13 Temmuz 2025</p>
-        <p class="text-gray-400 mb-6 flex-grow line-clamp-3">Makine öğrenimiyle uğraşan herkesin aslında tek bir dileği var: Kurduğumuz model, okulda öğrendiği her şeyi unutup gerçek hayatta karşısına çıkan bambaşka verilerle de başarılı olsun. Yani, modelimiz öyle sadece ezber yapmasın, konuyu gerçekten anlasın. Tıpkı sınava hazırlanan bir öğrencinin, sadece soru ezberlemekle kalmayıp, konuyu kökünden anlayıp önüne gelen her türlü soruyu çözebilmesi gibi.</p>
-        <a href="/posts/capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir.html" class="read-more-btn block text-center py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto">Devamını Oku</a>
-    </div>
-    
-    <div class="bg-white p-6 rounded-xl shadow-lg relative border border-gray-100 flex flex-col group hover:transform hover:-translate-y-2 transition-all duration-300">
-        <div class="overflow-hidden rounded-lg mb-6 shadow-md">
-            <img src="/static/images/thumbnails/thumb_SOLID-Prensibleri_200x200.png" 
-                 alt="Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar" 
-                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-400 transition-colors">Python ile SOLID Prensipleri: Yazılım Geliştirmede Temel Taşlar</h3>
-        <p class="text-gray-500 text-sm mb-4">25 Haziran 2025</p>
-        <p class="text-gray-400 mb-6 flex-grow line-clamp-3">SOLID prensipleri, nesne yönelimli programlamada (OOP) daha sağlam, bakımı kolay ve esnek yazılımlar tasarlamak için kullanılan beş temel prensibin kısaltmasıdır. Bu prensipler, yazılım tasarımını ve mimarisini iyileştirerek, zamanla değişen gereksinimlere daha kolay adapte olabilen sistemler oluşturmanıza yardımcı olur.</p>
-        <a href="/posts/python-solid-prensipleri.html" class="read-more-btn block text-center py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto">Devamını Oku</a>
-    </div>
-    
 </div>
 
     </main>

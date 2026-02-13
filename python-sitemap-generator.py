@@ -21,7 +21,7 @@ from lxml import etree
 
 
 # DEFINE YOUR URL - CUSTOM URL!
-InitialURL = 'https://n4yuc4.github.io/'
+InitialURL = 'https://n4yuc4.dev/'
 InitialURLBase = InitialURL
 
 
@@ -52,11 +52,17 @@ class Sitemap:
 
     def _discover_local_files(self):
         docs_dir = 'docs'
+        posts_redirect_dir = os.path.join(docs_dir, 'posts') # Exclude this directory
+        
         if not os.path.exists(docs_dir):
             print(f"Error: Directory '{docs_dir}' not found.")
             return
 
         for root, _, files in os.walk(docs_dir):
+            # Skip the posts_redirect_dir
+            if root == posts_redirect_dir:
+                continue
+
             for file in files:
                 if file.endswith('.html'):
                     local_file_path = os.path.join(root, file)
