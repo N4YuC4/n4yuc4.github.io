@@ -4,6 +4,8 @@ import json
 import markdown
 import feedparser
 import time
+import subprocess
+import sys
 from jinja2 import Environment, FileSystemLoader
 
 # --- CONFIGURATION ---
@@ -136,7 +138,8 @@ def build():
     # 5. Load all data into memory
     print("Loading data from JSON files...")
     portfolio_items = read_json_file(os.path.join(DATA_DIR, 'portfolioItems.json'))
-    about_data = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json'))
+    about_data_list = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json'))
+    about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
     contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
     privacy_data = read_json_file(os.path.join(DATA_DIR, 'privacyPolicyData.json'))
     terms_data = read_json_file(os.path.join(DATA_DIR, 'termsOfUseData.json'))
@@ -178,11 +181,17 @@ def build():
                 )
         print(f"Rendered {len(portfolio_items)} portfolio detail pages.")
 
-    # 9. Note about sitemap
-    # The external sitemap generator should be run after this script.
-    # We are assuming it will inspect the 'docs' folder.
+    # 9. Generate Sitemap
+    print("Generating sitemap...")
+    try:
+        # Use sys.executable to ensure we're using the same python interpreter
+        subprocess.run([sys.executable, 'python-sitemap-generator.py'], check=True)
+        print("sitemap.xml successfully generated.")
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"Error during sitemap generation: {e}")
+
+    # 10. Final message
     print("\nBuild process complete.")
-    print("Next step: Generate sitemap by running 'python-sitemap-generator.py'")
     print(f"Static site is available in '{BUILD_DIR}' folder.")
 
 if __name__ == "__main__":
