@@ -1,9 +1,10 @@
 {
   "default": "https://medium.com/@n4yuc4",
   "posts": {
-    "aciklanabilir-yapay-zeka": null,
-    "capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir": null,
-    "ozellik-secimi-ve-ozellik-cikarimi": null,
+    "aciklanabilir-yapay-zeka": "https://medium.com/@n4yuc4/yapay-zeka-art%C4%B1k-sihirli-bir-kara-kutu-de%C4%9Fil-ayz-ile-%C5%9Feffafl%C4%B1k-ve-g%C3%BCven-%C3%A7a%C4%9F%C4%B1-a057e0b39408",
+    "capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir": "https://medium.com/@n4yuc4/modelinizi-s%C4%B1nava-sokmak-%C3%A7apraz-do%C4%9Frulama-ve-k-katl%C4%B1-%C3%A7apraz-do%C4%9Frulama-nedir-f26ecd9b947b",
+    "ozellik-secimi-ve-ozellik-cikarimi": "https://medium.com/@n4yuc4/veri-biliminde-boyutluluk-%C3%B6zellik-se%C3%A7imi-ve-%C3%B6zellik-%C3%A7%C4%B1kar%C4%B1m%C4%B1-aras%C4%B1ndaki-kritik-fark-b629bbcf327a",
     "python-solid-prensipleri": "https://medium.com/@n4yuc4/python-ile-solid-prensipleri-yaz%C4%B1l%C4%B1m-geli%C5%9Ftirmede-temel-ta%C5%9Flar-e9fee84eb1a4"
   }
+
 }
