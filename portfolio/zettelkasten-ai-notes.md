@@ -1,23 +1,23 @@
 # Zettelkasten AI Notes
 
-Zettelkasten yöntemini kullanarak verimli bilgi yönetimi için `PyQt5` ile oluşturulmuş bir masaüstü uygulamasıdır. Kullanıcıların notları oluşturmasına, düzenlemesine ve bağlamasına olanak tanır, zengin içerik için `Markdown`'ı destekler ve gerçek zamanlı bir önizleme sunar. Tüm verileri yerel bir `SQLite` veritabanında saklar. Önemli bir özelliği, PDF belgelerinden Zettelkasten tarzı notlar oluşturmak için `Google Gemini AI`'ı kullanabilmesi ve aralarında otomatik olarak ilgili bağlantılar önermesidir.
+A desktop application built with `PyQt5` for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports `Markdown` for rich content, and provides a real-time preview. It stores all data in a local `SQLite` database. A key feature is its ability to use `Google Gemini AI` to generate Zettelkasten-style notes from PDF documents and automatically suggest relevant links between them.
 
-## Key Features (Temel Özellikler)
+## Key Features
 
-*   **Intuitive User Interface:** Sorunsuz not yönetimi için temiz ve duyarlı bir `GUI`.
-*   **Note Creation and Management:** Bireysel notları kolayca oluşturun, kaydedin, yeniden adlandırın ve silin.
-*   **Markdown Support with Live Preview:** Notlarınızı `Markdown`'da yazın ve oluşturulan çıktıyı gerçek zamanlı olarak görün.
-*   **Categorization:** Daha iyi filtreleme ve gezinme için notları özel kategorilere ayırın.
-*   **AI-Powered Note Generation from PDF:** PDF belgelerinden metin çıkarın ve önerilen ilgili bağlantılarla otomatik olarak Zettelkasten tarzı notlar oluşturmak için `Google Gemini AI`'ı kullanın.
-*   **Mind Map Visualization:** Notlarınızı ve bağlantılarını etkileşimli bir zihin haritası olarak görüntüleyin. Bu, fikirleriniz arasındaki ilişkileri görselleştirmenize ve bilgi tabanınızda daha etkili bir şekilde gezinmenize yardımcı olur.
-*   **Smart Note Linking:** Bilginizin zengin, birbirine bağlı bir grafiğini oluşturmak için notlar arasında açık bağlantılar oluşturun.
-*   **Theming:** Uygulamanın görünümünü özelleştirmek için aydınlık ve karanlık temalar arasında seçim yapın.
-*   **SQLite Database:** Tüm notlarınız ve ilişkileri için sağlam ve güvenilir yerel depolama.
+*   **Intuitive User Interface:** A clean and responsive `GUI` for seamless note management.
+*   **Note Creation and Management:** Easily create, save, rename, and delete individual notes.
+*   **Markdown Support with Live Preview:** Write your notes in `Markdown` and see the generated output in real-time.
+*   **Categorization:** Organize notes into custom categories for better filtering and navigation.
+*   **AI-Powered Note Generation from PDF:** Extract text from PDF documents and use `Google Gemini AI` to automatically generate Zettelkasten-style notes with suggested relevant links.
+*   **Mind Map Visualization:** View your notes and their links as an interactive mind map. This helps you visualize relationships between your ideas and navigate your knowledge base more effectively.
+*   **Smart Note Linking:** Create explicit links between notes to build a rich, interconnected graph of your knowledge.
+*   **Theming:** Choose between light and dark themes to customize the application's appearance.
+*   **SQLite Database:** Robust and reliable local storage for all your notes and their relationships.
 
-## Github Linki
+## Github Link
 
-Proje ile ilgili daha ayrıntılı bilgi için (nasıl kurulacağı ve nasıl kullanılacağı) github linkinden projenin tamamına ulaşabilirsiniz:
+For more detailed information about the project (how to install and how to use it), you can access the entire project from the GitHub link:
 
-Github Repo: [ZettelKasten AI Notes][github_link]
+GitHub Repo: [ZettelKasten AI Notes][github_link]
 
 [github_link]: https://github.com/N4YuC4/ZettelKasten-AI-Notes

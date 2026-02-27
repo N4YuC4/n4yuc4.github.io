@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Portfolyo - N4YuC4{% endblock %}
+{% block title %}Portfolio - N4YuC4{% endblock %}
 
 {% block content %}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -9,7 +9,7 @@
         <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ item.title }}</h3>
         <p class="text-gray-700 mb-4 flex-grow">{{ item.description }}</p>
-        <a href="/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto text-center">İncele</a>
+        <a href="/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 mt-auto text-center">View Details</a>
     </div>
     {% endfor %}
 </div>

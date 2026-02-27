@@ -5,14 +5,14 @@
 {% block content %}
 <section id="about-section" class="container mx-auto p-8 bg-white rounded-xl shadow-lg flex-grow">
     <div class="max-w-3xl mx-auto text-center">
-    <img src="/static/{{ data.profileImageUrl }}" alt="Kullanıcının profil resmi" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
+    <img src="/static/{{ data.profileImageUrl }}" alt="User profile picture" class="rounded-full w-40 h-40 object-cover mx-auto mb-6 shadow-md border-4 border-purple-300">
         <h2 class="text-4xl font-bold text-gray-800 mb-4">{{ data.title }}</h2>
         <div class="text-lg text-gray-700 leading-relaxed content-area-text">
             {{ data.content | safe }}
         </div>
         <div class="mt-8 flex justify-center space-x-6">
             {% for link in data.socialMediaLinks %}
-            <a href="{{ link.url }}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="{{ link.platform }} Profili">
+            <a href="{{ link.url }}" class="text-gray-500 hover:text-purple-600 transition duration-300 text-2xl" aria-label="{{ link.platform }} Profile">
                 <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     {% if link.svgCircle %}<circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>{% endif %}
                     <path {% if not link.svgCircle %}fill-rule="evenodd"{% endif %} d="{{ link.svgPath }}"></path>

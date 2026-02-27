@@ -1,47 +1,47 @@
-# N4YuC4_Blog Kullanım Koşulları
+# N4YuC4_Blog Terms of Use
 
-N4YuC4_Blog web sitesini ziyaret ederek ve kullanarak, aşağıda belirtilen kullanım koşullarını kabul etmiş olursunuz. Bu koşullar, web sitemizden en iyi şekilde faydalanmanızı sağlamak ve yasal çerçeveyi belirlemek amacıyla hazırlanmıştır. Lütfen bu koşulları dikkatlice okuyunuz.
+By visiting and using the N4YuC4_Blog website, you agree to the terms of use stated below. These terms have been prepared to ensure that you benefit from our website in the best way possible and to define the legal framework. Please read these terms carefully.
 
-## 1. Koşulların Kabulü
+## 1. Acceptance of Terms
 
-Web sitemizi kullanmaya başlamanızla birlikte, bu Kullanım Koşulları'nı ve Gizlilik Politikası'nı okuduğunuzu, anladığınızı ve kabul ettiğinizi beyan etmiş olursunuz. Bu koşulları kabul etmiyorsanız, lütfen web sitemizi kullanmayınız.
+By starting to use our website, you declare that you have read, understood, and accepted these Terms of Use and the Privacy Policy. If you do not accept these terms, please do not use our website.
 
-## 2. İçeriğin Kullanımı ve Telif Hakları
+## 2. Use of Content and Copyrights
 
-Bu web sitesinde yer alan tüm içerik (metinler, görseller, grafikler, logolar, videolar, yazılım kodları ve diğer materyaller) N4YuC4_Blog'a veya ilgili içerik sağlayıcılarına aittir ve uluslararası telif hakkı yasaları ile korunmaktadır. Tüm hakları saklıdır.
+All content on this website (texts, images, graphics, logos, videos, software codes, and other materials) belongs to N4YuC4_Blog or the relevant content providers and is protected by international copyright laws. All rights reserved.
 
-*   **Kişisel Kullanım:** Web sitesindeki içeriği yalnızca kişisel, ticari olmayan amaçlar için görüntüleyebilir, okuyabilir ve indirebilirsiniz.
-*   **Yasaklı Kullanım:** İçeriğin herhangi bir bölümünü N4YuC4_Blog'un açık yazılı izni olmaksızın kopyalamak, çoğaltmak, dağıtmak, değiştirmek, yayınlamak, uyarlamak, kamuya açık olarak sergilemek, ticari amaçlarla kullanmak veya türev çalışmalar oluşturmak kesinlikle yasaktır.
-*   **Atıf Zorunluluğu:** İçeriği yasal sınırlar içinde ve izin verilen şekilde kullanmanız durumunda dahi, N4YuC4_Blog'a uygun atıfta bulunmanız zorunludur.
+*   **Personal Use:** You may view, read, and download the content on the website only for personal, non-commercial purposes.
+*   **Prohibited Use:** It is strictly prohibited to copy, reproduce, distribute, modify, publish, adapt, publicly display, use for commercial purposes, or create derivative works from any part of the content without the express written permission of N4YuC4_Blog.
+*   **Attribution Requirement:** Even if you use the content within legal limits and as permitted, you are required to provide appropriate attribution to N4YuC4_Blog.
 
-## 3. Sorumluluk Reddi
+## 3. Disclaimer
 
-N4YuC4_Blog web sitesinde sunulan bilgiler, genel bilgilendirme ve eğitim amaçlıdır. Bu bilgilerin doğruluğu, eksiksizliği, güncelliği veya belirli bir amaca uygunluğu konusunda açık veya zımni hiçbir garanti verilmemektedir. Web sitesindeki bilgilere dayanarak alacağınız kararlardan tamamen siz sorumlusunuz.
+The information provided on the N4YuC4_Blog website is for general informational and educational purposes. No express or implied warranty is given regarding the accuracy, completeness, timeliness, or suitability of this information for a particular purpose. You are solely responsible for any decisions you make based on the information on the website.
 
-*   **Kesintisizlik ve Hata:** Web sitesinin kesintisiz, hatasız veya virüslerden arındırılmış olacağına dair herhangi bir garanti verilmez. Web sitesinin kullanımından kaynaklanabilecek herhangi bir donanım veya yazılım arızasından N4YuC4_Blog sorumlu değildir.
-*   **Doğrudan/Dolaylı Zararlar:** Web sitesinin kullanımından veya kullanılamamasından kaynaklanan hiçbir doğrudan, dolaylı, arızi, özel veya sonuç olarak ortaya çıkan zararlardan (kar kaybı, veri kaybı veya iş kesintisi dahil ancak bunlarla sınırlı olmamak üzere) N4YuC4_Blog sorumlu tutulamaz.
+*   **Interruption and Error:** No guarantee is given that the website will be uninterrupted, error-free, or free of viruses. N4YuC4_Blog is not responsible for any hardware or software failure that may arise from using the website.
+*   **Direct/Indirect Damages:** N4YuC4_Blog cannot be held responsible for any direct, indirect, incidental, special, or consequential damages (including but not limited to loss of profit, loss of data, or business interruption) resulting from the use or inability to use the website.
 
-## 4. Üçüncü Taraf Bağlantıları
+## 4. Third-Party Links
 
-Web sitemiz, kolaylık sağlamak amacıyla üçüncü taraf web sitelerine veya kaynaklara bağlantılar içerebilir. Bu bağlantılar, N4YuC4_Blog tarafından onaylandığı anlamına gelmez. Üçüncü taraf sitelerin içeriği, gizlilik politikaları veya uygulamaları üzerinde hiçbir kontrolümüz yoktur ve bunlardan sorumlu değiliz. Herhangi bir üçüncü taraf sitesini ziyaret etmeden önce ilgili kullanım koşullarını ve gizlilik politikalarını dikkatlice incelemenizi tavsiye ederiz.
+Our website may contain links to third-party websites or resources for convenience. These links do not imply endorsement by N4YuC4_Blog. We have no control over and are not responsible for the content, privacy policies, or practices of third-party sites. We recommend carefully reviewing the relevant terms of use and privacy policies before visiting any third-party site.
 
-## 5. Kullanıcı Davranışı
+## 5. User Conduct
 
-Web sitemizi kullanırken aşağıdaki kurallara uymayı kabul edersiniz:
+By using our website, you agree to comply with the following rules:
 
-*   Yasalara ve genel ahlak kurallarına uygun davranmak.
-*   Web sitesinin güvenliğini tehlikeye atacak veya işleyişini bozacak eylemlerde bulunmamak.
-*   Diğer kullanıcıların web sitesini kullanmasını engellememek veya rahatsız etmemek.
-*   Web sitesi üzerinden spam, virüs veya kötü amaçlı yazılım göndermemek.
+*   Acting in accordance with laws and general moral rules.
+*   Not engaging in actions that would jeopardize the security of the website or disrupt its operation.
+*   Not preventing or disturbing other users from using the website.
+*   Not sending spam, viruses, or malicious software through the website.
 
-Bu kurallara uyulmaması durumunda, N4YuC4_Blog'un web sitesine erişiminizi askıya alma veya sonlandırma hakkı saklıdır.
+In case of non-compliance with these rules, N4YuC4_Blog reserves the right to suspend or terminate your access to the website.
 
-## 6. Koşullardaki Değişiklikler
+## 6. Changes in Terms
 
-N4YuC4_Blog, bu Kullanım Koşulları'nı dilediği zaman önceden bildirimde bulunmaksızın değiştirme hakkını saklı tutar. Değişiklikler, güncellenmiş koşulların web sitesinde yayınlandığı tarihte derhal yürürlüğe girer. Web sitesini kullanmaya devam etmeniz, bu değişiklikleri kabul ettiğiniz anlamına gelir.
+N4YuC4_Blog reserves the right to change these Terms of Use at any time without prior notice. Changes take effect immediately on the date the updated terms are posted on the website. Your continued use of the website signifies your acceptance of these changes.
 
-## 7. İletişim
+## 7. Contact
 
-Bu Kullanım Koşulları hakkında herhangi bir sorunuz veya endişeniz varsa, lütfen bizimle iletişime geçmekten çekinmeyin.
+If you have any questions or concerns about these Terms of Use, please feel free to contact us.
 
-**Son Güncelleme Tarihi:** 20 Ağustos 2025
+**Last Updated Date:** August 20, 2025

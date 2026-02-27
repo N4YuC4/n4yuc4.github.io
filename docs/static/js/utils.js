@@ -57,7 +57,7 @@ export function setupCodeBlocks() {
         const header = document.createElement('div');
         header.className = 'code-header';
         
-        // Header HTML içeriği
+        // Header HTML content
         header.innerHTML = `
             <div class="window-dots">
                 <span class="dot dot-red"></span>
@@ -65,34 +65,34 @@ export function setupCodeBlocks() {
                 <span class="dot dot-green"></span>
             </div>
             <div class="language-label">${language}</div>
-            <button class="copy-btn" title="Kodu Kopyala">
+            <button class="copy-btn" title="Copy Code">
                 <i class="far fa-copy"></i>
-                <span>Kopyala</span>
+                <span>Copy</span>
             </button>
         `;
 
-        // Butona event listener ekle
+        // Add event listener to button
         const copyBtn = header.querySelector('.copy-btn');
         copyBtn.addEventListener('click', () => {
-            const codeText = codeBlock.innerText; // Sadece metni al
+            const codeText = codeBlock.innerText; // Get only text
             
             navigator.clipboard.writeText(codeText).then(() => {
-                // Başarılı kopyalama efekti
+                // Successful copy effect
                 const icon = copyBtn.querySelector('i');
                 const text = copyBtn.querySelector('span');
                 
                 icon.className = 'fas fa-check';
-                text.innerText = 'Kopyalandı!';
-                copyBtn.style.color = '#27c93f'; // Yeşil
+                text.innerText = 'Copied!';
+                copyBtn.style.color = '#27c93f'; // Green
 
                 setTimeout(() => {
                     icon.className = 'far fa-copy';
-                    text.innerText = 'Kopyala';
+                    text.innerText = 'Copy';
                     copyBtn.style.color = '';
                 }, 2000);
             }).catch(err => {
-                console.error('Kopyalama hatası:', err);
-                alert('Kopyalama başarısız oldu.');
+                console.error('Copy error:', err);
+                alert('Copy failed.');
             });
         });
 

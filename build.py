@@ -30,20 +30,12 @@ def fetch_medium_posts(rss_url, max_posts=5):
 
     posts = []
     for entry in feed.entries[:max_posts]:
-        # Format the date like '27 Ekim 2025'
+        # Format the date like '27 October 2025'
         try:
             # The 'published_parsed' is a time.struct_time
             published_date = time.strftime("%d %B %Y", entry.published_parsed)
-            # A simple way to translate month names to Turkish
-            tr_months = {
-                'January': 'Ocak', 'February': 'Şubat', 'March': 'Mart', 'April': 'Nisan',
-                'May': 'Mayıs', 'June': 'Haziran', 'July': 'Temmuz', 'August': 'Ağustos',
-                'September': 'Eylül', 'October': 'Ekim', 'November': 'Kasım', 'December': 'Aralık'
-            }
-            for en, tr in tr_months.items():
-                published_date = published_date.replace(en, tr)
         except AttributeError:
-            published_date = "Tarih bilgisi yok"
+            published_date = "No date information"
 
         posts.append({
             'title': entry.title,

@@ -1,9 +1,9 @@
 [
     {
         "title": "Zettelkasten AI Notes",
-        "date": "27 Ekim 2025",
+        "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "Zettelkasten yöntemini kullanarak verimli bilgi yönetimi için PyQt5 ile oluşturulmuş bir masaüstü uygulamasıdır. Kullanıcıların notları oluşturmasına, düzenlemesine ve bağlamasına olanak tanır, zengin içerik için Markdown'ı destekler ve gerçek zamanlı bir önizleme sunar. Tüm verileri yerel bir SQLite veritabanında saklar. Önemli bir özelliği, PDF belgelerinden Zettelkasten tarzı notlar oluşturmak için Google Gemini AI'ı kullanabilmesi ve aralarında otomatik olarak ilgili bağlantılar önermesidir.",
+        "description": "A desktop application built with PyQt5 for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports Markdown for rich content, and provides a real-time preview. It stores all data in a local SQLite database. A key feature is its ability to use Google Gemini AI to generate Zettelkasten-style notes from PDF documents and automatically suggest relevant links between them.",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes"
     }

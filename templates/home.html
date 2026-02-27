@@ -5,11 +5,11 @@
     <!-- Hakkımda Bölümü -->
     <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
         <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <!-- Profil Resmi -->
+            <!-- Profile Picture -->
             <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-indigo-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
                 <img src="/static/{{ about.profileImageUrl }}" 
-                     alt="Profil Resmi" 
+                     alt="Profile Picture" 
                      class="w-full h-full object-cover rounded-full shadow-2xl relative z-10 border-4 border-white">
             </div>
             
@@ -42,11 +42,11 @@
         </div>
     </section>
 
-    <!-- Son Çalışmalar Bölümü -->
+    <!-- Recent Works Section -->
     <section>
         <div class="flex justify-between items-center mb-6 bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-white/5">
-            <h3 class="text-2xl font-bold text-gray-100 border-l-4 border-teal-500 pl-3">Son Çalışmalar</h3>
-            <a href="/portfolio.html" class="text-teal-400 hover:text-teal-300 font-medium text-sm transition">Tümünü Gör →</a>
+            <h3 class="text-2xl font-bold text-gray-100 border-l-4 border-teal-500 pl-3">Recent Works</h3>
+            <a href="/portfolio.html" class="text-teal-400 hover:text-teal-300 font-medium text-sm transition">View All →</a>
         </div>
         <div class="space-y-6">
             {% for item in portfolio %}
