@@ -1,10 +1,10 @@
 {
   "default": "https://medium.com/@n4yuc4",
   "posts": {
-    "aciklanabilir-yapay-zeka": "https://medium.com/@n4yuc4/yapay-zeka-art%C4%B1k-sihirli-bir-kara-kutu-de%C4%9Fil-ayz-ile-%C5%9Feffafl%C4%B1k-ve-g%C3%BCven-%C3%A7a%C4%9F%C4%B1-a057e0b39408",
-    "capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir": "https://medium.com/@n4yuc4/modelinizi-s%C4%B1nava-sokmak-%C3%A7apraz-do%C4%9Frulama-ve-k-katl%C4%B1-%C3%A7apraz-do%C4%9Frulama-nedir-f26ecd9b947b",
-    "ozellik-secimi-ve-ozellik-cikarimi": "https://medium.com/@n4yuc4/veri-biliminde-boyutluluk-%C3%B6zellik-se%C3%A7imi-ve-%C3%B6zellik-%C3%A7%C4%B1kar%C4%B1m%C4%B1-aras%C4%B1ndaki-kritik-fark-b629bbcf327a",
-    "python-solid-prensipleri": "https://medium.com/@n4yuc4/python-ile-solid-prensipleri-yaz%C4%B1l%C4%B1m-geli%C5%9Ftirmede-temel-ta%C5%9Flar-e9fee84eb1a4"
+    "aciklanabilir-yapay-zeka": "https://medium.com/@n4yuc4/ai-is-no-longer-a-magical-black-box-the-era-of-transparency-and-trust-with-xai-333d36f94c1d",
+    "capraz-dogrulama-ve-k-katli-capraz-dogrulama-nedir": "https://medium.com/@n4yuc4/putting-your-model-to-the-test-what-is-cross-validation-and-k-fold-cross-validation-cc2c2b8cda08",
+    "ozellik-secimi-ve-ozellik-cikarimi": "https://medium.com/@n4yuc4/dimensionality-in-data-science-the-critical-difference-between-feature-selection-and-feature-ad745f0f7bcb",
+    "python-solid-prensipleri": "https://medium.com/@n4yuc4/solid-principles-with-python-cornerstones-in-software-development-7801857515d8"
   }
 
 }
