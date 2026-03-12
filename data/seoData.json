@@ -1,0 +1,38 @@
+
+{
+  "home": {
+    "title": "N4YuC4 - Home | Software, Technology and Art",
+    "description": "N4YuC4's personal blog and portfolio. Articles and projects on software development, artificial intelligence, data science and machine learning.",
+    "keywords": "n4yuc4, blog, portfolio, software, technology, artificial intelligence, art, programming, coding"
+  },
+  "blog": {
+    "title": "N4YuC4 - Blog | Latest Articles",
+    "description": "The latest and most informative blog posts on software, data science, artificial intelligence, and technology.",
+    "keywords": "technology blog, software articles, artificial intelligence, data science, python, javascript"
+  },
+  "portfolio": {
+    "title": "N4YuC4 - Portfolio | My Projects",
+    "description": "A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.",
+    "keywords": "software portfolio, projects, github, web development, mobile development, open source"
+  },
+  "about": {
+    "title": "N4YuC4 - About Me | My Story",
+    "description": "Learn more about my skills, experience, and passion for technology.",
+    "keywords": "who is n4yuc4, about, biography, software developer, resume"
+  },
+  "contact": {
+    "title": "N4YuC4 - Contact | Get in Touch",
+    "description": "Get in touch with me. I'm here for project proposals, collaborations, or just to say hello.",
+    "keywords": "contact, email, social media, connection, n4yuc4 contact"
+  },
+  "privacy": {
+    "title": "N4YuC4 - Privacy Policy",
+    "description": "Learn how your data is protected when using my website. Detailed information about our privacy policy.",
+    "keywords": "privacy policy, data protection, cookies, user information"
+  },
+  "terms": {
+    "title": "N4YuC4 - Terms of Use",
+    "description": "Terms and conditions of use for my website. Please read these terms before using my site.",
+    "keywords": "terms of use, terms of service, legal, site rules"
+  }
+}

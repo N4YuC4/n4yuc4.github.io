@@ -4,20 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}N4YuC4 - AI, Data Science, Machine Learning, Deep Learning{% endblock %}</title>
+    <title>{% if seo.title %}{{ seo.title }}{% else %}N4YuC4 - AI, Data Science, Machine Learning, Deep Learning{% endif %}</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Current and in-depth articles and works on AI, data science, machine learning, and deep learning.">
-    <meta name="keywords"
-        content="data science, machine learning, deep learning, artificial intelligence, AI, ML, DL, Python, algorithms">
+    <meta name="description" content="{% if seo.description %}{{ seo.description }}{% else %}Current and in-depth articles and works on AI, data science, machine learning, and deep learning.{% endif %}">
+    <meta name="keywords" content="{% if seo.keywords %}{{ seo.keywords }}{% else %}data science, machine learning, deep learning, artificial intelligence, AI, ML, DL, Python, algorithms{% endif %}">
     <meta name="author" content="Nazmi Yücel Çan">
     <link rel="canonical" href="https://n4yuc4.github.io/">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="N4YuC4 - Data Science and Machine Learning">
-    <meta property="og:description"
-        content="Current and in-depth articles and works on AI, data science, machine learning, and deep learning.">
+    <meta property="og:title" content="{% if seo.title %}{{ seo.title }}{% else %}N4YuC4 - Data Science and Machine Learning{% endif %}">
+    <meta property="og:description" content="{% if seo.description %}{{ seo.description }}{% else %}Current and in-depth articles and works on AI, data science, machine learning, and deep learning.{% endif %}">
     <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
     <meta property="og:url" content="https://n4yuc4.github.io/">
     <meta property="og:type" content="website">
@@ -26,9 +23,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@N4YuC4">
     <meta name="twitter:creator" content="@N4YuC4">
-    <meta name="twitter:title" content="N4YuC4 - Data Science and Machine Learning">
-    <meta name="twitter:description"
-        content="Current and in-depth articles and works on AI, data science, machine learning, and deep learning.">
+    <meta name="twitter:title" content="{% if seo.title %}{{ seo.title }}{% else %}N4YuC4 - Data Science and Machine Learning{% endif %}">
+    <meta name="twitter:description" content="{% if seo.description %}{{ seo.description }}{% else %}Current and in-depth articles and works on AI, data science, machine learning, and deep learning.{% endif %}">
     <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->

@@ -135,27 +135,50 @@ def build():
     contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
     privacy_data = read_json_file(os.path.join(DATA_DIR, 'privacyPolicyData.json'))
     terms_data = read_json_file(os.path.join(DATA_DIR, 'termsOfUseData.json'))
+    seo_data = read_json_file(os.path.join(DATA_DIR, 'seoData.json'))
     
     # 6. Fetch Medium Posts
     medium_posts = fetch_medium_posts(MEDIUM_RSS_URL)
 
     # 7. Render main pages
     print("Rendering main pages...")
-    render_template('home.html', 'index.html', {'about': about_data, 'portfolio': portfolio_items})
-    render_template('about.html', 'about.html', {'data': about_data})
-    render_template('contact.html', 'contact.html', {'data': contact_data})
-    render_template('portfolio.html', 'portfolio.html', {'items': portfolio_items})
-    render_template('blog.html', 'blog.html', {'posts': medium_posts})
+    render_template('home.html', 'index.html', {
+        'about': about_data,
+        'portfolio': portfolio_items,
+        'seo': seo_data.get('home', {})
+    })
+    render_template('about.html', 'about.html', {
+        'data': about_data,
+        'seo': seo_data.get('about', {})
+    })
+    render_template('contact.html', 'contact.html', {
+        'data': contact_data,
+        'seo': seo_data.get('contact', {})
+    })
+    render_template('portfolio.html', 'portfolio.html', {
+        'items': portfolio_items,
+        'seo': seo_data.get('portfolio', {})
+    })
+    render_template('blog.html', 'blog.html', {
+        'posts': medium_posts,
+        'seo': seo_data.get('blog', {})
+    })
 
     if privacy_data and 'contentFile' in privacy_data:
         privacy_md_content = read_md_file(privacy_data['contentFile'])
         privacy_html = convert_markdown_to_html(privacy_md_content)
-        render_template('privacy.html', 'privacy.html', {'data': {'title': privacy_data['title'], 'content': privacy_html}})
+        render_template('privacy.html', 'privacy.html', {
+            'data': {'title': privacy_data['title'], 'content': privacy_html},
+            'seo': seo_data.get('privacy', {})
+        })
 
     if terms_data and 'contentFile' in terms_data:
         terms_md_content = read_md_file(terms_data['contentFile'])
         terms_html = convert_markdown_to_html(terms_md_content)
-        render_template('terms.html', 'terms.html', {'data': {'title': terms_data['title'], 'content': terms_html}})
+        render_template('terms.html', 'terms.html', {
+            'data': {'title': terms_data['title'], 'content': terms_html},
+            'seo': seo_data.get('terms', {})
+        })
     
     # 8. Render portfolio detail pages
     print("Rendering portfolio detail pages...")
@@ -169,7 +192,7 @@ def build():
                 render_template(
                     'portfolio_detail.html',
                     os.path.join('portfolio', f"{slug}.html"),
-                    {'item': item}
+                    {'item': item, 'seo': seo_data.get('portfolio', {})} # Using 'portfolio' seo for detail pages
                 )
         print(f"Rendered {len(portfolio_items)} portfolio detail pages.")
 
