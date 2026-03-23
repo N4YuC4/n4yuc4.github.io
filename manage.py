@@ -1,6 +1,5 @@
 import os
 import json
-import datetime
 import unicodedata
 import re
 import sys
@@ -8,9 +7,7 @@ import subprocess
 import readline  # For better input handling
 
 # --- Configuration ---
-BLOG_METADATA_FILE = 'data/blogPostsMetadata.json'
 PORTFOLIO_METADATA_FILE = 'data/portfolioItems.json'
-POSTS_DIR = 'posts'
 PORTFOLIO_DIR = 'portfolio'
 
 # --- Helpers ---
@@ -119,7 +116,7 @@ class ContentManager:
             return
 
         # Delete content file
-        file_key = 'contentFile' if self.item_type == 'post' else 'detailFile'
+        file_key = 'detailFile'
         file_path = item.get(file_key)
         
         if file_path and os.path.exists(file_path):
@@ -146,68 +143,6 @@ class ContentManager:
         except Exception as e:
             print(f"{Colors.FAIL}Hata (Dosya Oluşturma): {e}{Colors.ENDC}")
             return False
-
-# --- Blog Manager ---
-class BlogManager(ContentManager):
-    def __init__(self):
-        super().__init__(BLOG_METADATA_FILE, POSTS_DIR, 'post')
-
-    def create(self):
-        print(f"\n{Colors.HEADER}--- YENİ BLOG YAZISI ---{Colors.ENDC}")
-        title = get_input("Başlık")
-        if not title: return
-        
-        excerpt = get_input("Kısa Özet")
-        slug = slugify(title)
-        
-        # Date handling
-        now = datetime.datetime.now()
-        months = {
-            "January": "Ocak", "February": "Şubat", "March": "Mart", "April": "Nisan", 
-            "May": "Mayıs", "June": "Haziran", "July": "Temmuz", "August": "Ağustos", 
-            "September": "Eylül", "October": "Ekim", "November": "Kasım", "December": "Aralık"
-        }
-        date_str = now.strftime("%d %B %Y")
-        for eng, tr in months.items():
-            date_str = date_str.replace(eng, tr)
-            
-        date_input = get_input("Tarih", default=date_str)
-        image_url = get_input("Görsel Yolu", default="images/blog-images/black-box.jpg")
-
-        filename = os.path.join(self.content_dir, f"{slug}.md")
-        
-        new_entry = {
-            "imageUrl": image_url,
-            "title": title,
-            "date": date_input,
-            "excerpt": excerpt,
-            "slug": slug,
-            "contentFile": filename
-        }
-
-        self.data.insert(0, new_entry)
-        if save_json(self.metadata_file, self.data):
-            self.create_content_file(filename, title, "Buraya yazınızı yazmaya başlayın...")
-            print(f"{Colors.GREEN}✓ Blog yazısı başarıyla oluşturuldu.{Colors.ENDC}")
-
-    def update(self):
-        idx = self.select_item()
-        if idx is None: return
-        
-        item = self.data[idx]
-        print(f"\n{Colors.HEADER}--- DÜZENLE: {item['title']} ---{Colors.ENDC}")
-        
-        item['title'] = get_input("Başlık", item['title'])
-        item['excerpt'] = get_input("Özet", item.get('excerpt', ''))
-        item['date'] = get_input("Tarih", item['date'])
-        item['imageUrl'] = get_input("Görsel Yolu", item['imageUrl'])
-        
-        # Slug update logic could be complex (requires file rename), skipping for safety unless explicitly requested.
-        # But we update the JSON.
-        
-        if save_json(self.metadata_file, self.data):
-             print(f"{Colors.GREEN}✓ Kayıt güncellendi.{Colors.ENDC}")
-             print(f"{Colors.BLUE}İçerik dosyasını düzenlemek için: {item['contentFile']}{Colors.ENDC}")
 
 # --- Portfolio Manager ---
 class PortfolioManager(ContentManager):
@@ -260,26 +195,22 @@ def build_site():
     subprocess.run(["touch", "docs/.nojekyll"])
 
 def main_menu():
-    blog_mgr = BlogManager()
     portfolio_mgr = PortfolioManager()
 
     while True:
         # clear_screen() # Optional: keep history visible
         print(f"\n{Colors.BOLD}{Colors.HEADER}=== N4YuC4 Blog Yönetim Paneli ==={Colors.ENDC}")
-        print("1. Blog Yazıları")
-        print("2. Portfolyo Öğeleri")
-        print("3. Siteyi Derle (Build)")
-        print("4. Çıkış")
+        print("1. Portfolyo Öğeleri")
+        print("2. Siteyi Derle (Build)")
+        print("3. Çıkış")
         
         choice = input(f"\n{Colors.BLUE}Seçiminiz: {Colors.ENDC}").strip()
         
         if choice == '1':
-            sub_menu(blog_mgr, "Blog")
-        elif choice == '2':
             sub_menu(portfolio_mgr, "Portfolyo")
-        elif choice == '3':
+        elif choice == '2':
             build_site()
-        elif choice == '4':
+        elif choice == '3':
             print("Güle güle!")
             break
         else:

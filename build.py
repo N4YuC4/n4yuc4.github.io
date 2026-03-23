@@ -7,6 +7,7 @@ import time
 import subprocess
 import sys
 from jinja2 import Environment, FileSystemLoader
+from bs4 import BeautifulSoup
 
 # --- CONFIGURATION ---
 BUILD_DIR = 'docs'
@@ -37,11 +38,21 @@ def fetch_medium_posts(rss_url, max_posts=5):
         except AttributeError:
             published_date = "No date information"
 
+        # Try to find an image in the content
+        image_url = None
+        content = entry.get('content', [{}])[0].get('value', entry.get('summary', ''))
+        if content:
+            soup = BeautifulSoup(content, 'html.parser')
+            img_tag = soup.find('img')
+            if img_tag:
+                image_url = img_tag.get('src')
+
         posts.append({
             'title': entry.title,
             'link': entry.link,
             'published': published_date,
-            'summary': entry.get('summary', '')
+            'summary': entry.get('summary', ''),
+            'imageUrl': image_url
         })
     print(f"Found {len(posts)} posts.")
     return posts
@@ -145,6 +156,7 @@ def build():
     render_template('home.html', 'index.html', {
         'about': about_data,
         'portfolio': portfolio_items,
+        'posts': medium_posts[:3],
         'seo': seo_data.get('home', {})
     })
     render_template('about.html', 'about.html', {
