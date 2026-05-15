@@ -146,13 +146,31 @@ def build():
 
     # 1. Clean and recreate build directory
     if os.path.exists(BUILD_DIR):
-        shutil.rmtree(BUILD_DIR)
-    os.makedirs(BUILD_DIR)
-    print(f"Cleaned and created build directory: '{BUILD_DIR}'")
+        print(f"Cleaning build directory: '{BUILD_DIR}'")
+        for root, dirs, files in os.walk(BUILD_DIR, topdown=False):
+            for name in files:
+                file_path = os.path.join(root, name)
+                if not name.startswith('.fuse_hidden'):
+                    try:
+                        os.remove(file_path)
+                    except OSError as e:
+                        print(f"Warning: Could not remove {file_path}: {e}")
+            for name in dirs:
+                dir_path = os.path.join(root, name)
+                try:
+                    os.rmdir(dir_path)
+                except OSError:
+                    # Dirs might not be empty due to .fuse_hidden files
+                    pass
+    
+    os.makedirs(BUILD_DIR, exist_ok=True)
+    print(f"Ensured build directory exists: '{BUILD_DIR}'")
 
     # 2. Copy static files
     if os.path.exists(STATIC_DIR):
-        shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, 'static'))
+        # Using dirs_exist_ok=True to handle cases where directories remain 
+        # due to busy files.
+        shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, 'static'), dirs_exist_ok=True)
         print("Copied 'static' directory.")
 
     # 3. Create .nojekyll for GitHub Pages

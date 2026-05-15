@@ -4,15 +4,36 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-    --bg-main: #050505;
-    --bg-card: #0a0a0a;
-    --bg-header: #0a0a0a;
-    --border-color: #262626;
-    --text-main: #d4d4d4;
-    --text-heading: #ffffff;
-    --accent-color: #14b8a6; /* Teal-500 */
-    --accent-hover: #2dd4bf; /* Teal-400 */
-    --accent-dim: rgba(20, 184, 166, 0.1);
+    /* Arka planlar */
+    --bg-main: #0f0f0f;
+    --bg-card: #161616;
+    --bg-header: #0f0f0f;
+    --bg-code: #0d0d0d;
+    --bg-code-header: #121212;
+    --bg-tooltip: #0ea5e9;
+    --bg-badge: rgba(14, 165, 233, 0.1);
+
+    /* Kenarlıklar */
+    --border-color: #1e293b;
+    --border-hover: #334155;
+
+    /* Metin */
+    --text-heading: #00d4ff;      /* Neon Mavi - ana vurgu */
+    --text-main: #cbd5e1;          /* Açık gri - ana metin */
+    --text-muted: #94a3b8;         /* Orta gri */
+    --text-dim: #64748b;           /* Koyu gri - az önemli */
+
+    /* Mavi ailesi - 4 farklı ton (kullanım alanları) */
+    --neon-blue: #00d4ff;          /* En parlak - nav:hover, linkler, buton metni, cursor */
+    --cyber-blue: #007cf0;         /* Hover durumları, kart:hover border */
+    --ice-blue: #22d3ee;           /* Gradient glow, soluk başlıklar, section subtitle */
+    --deep-blue: #0ea5e9;          /* Arka plan overlay, tooltip bg, badge bg */
+
+    /* Kullanıcı dostu alias'lar */
+    --accent-color: var(--neon-blue);
+    --accent-hover: var(--cyber-blue);
+    --accent-dim: rgba(14, 165, 233, 0.1);
+    --accent-glow: rgba(34, 211, 238, 0.15);
 }
 
 body {
@@ -94,7 +115,7 @@ a:hover {
 .main-header.shrunk {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    background: rgba(10, 10, 10, 0.95) !important; /* Hafif transparanlık */
+    background: rgba(15, 15, 15, 0.95) !important; /* Hafif transparanlık */
     backdrop-filter: blur(10px);
 }
 .header-title {
@@ -117,7 +138,7 @@ a:hover {
 }
 
 .header-nav-link {
-    color: #737373 !important; /* Neutral-500 */
+    color: var(--text-dim) !important; /* Az önemli metin */
     font-weight: 500;
 }
 .header-nav-link:hover, .header-nav-link.active {
@@ -134,7 +155,7 @@ a:hover {
 }
 /* Kart hover efekti - Hafif aydınlanma */
 .bg-white:hover {
-    border-color: #404040 !important; /* Neutral-700 */
+    border-color: var(--border-color) !important; /* Tutarlı border */
     transform: translateY(-2px);
     transition: all 0.3s ease;
 }
@@ -149,10 +170,12 @@ p, li {
     color: var(--text-main) !important; 
     line-height: 1.75;
 }
-.text-gray-800 { color: var(--text-heading) !important; }
-.text-gray-700 { color: var(--text-main) !important; }
-.text-gray-600 { color: #a3a3a3 !important; }
-.text-gray-500 { color: #737373 !important; }
+
+/* Tailwind gri override'ları — kendi renk paletimize map edilmiş */
+.text-gray-800 { color: var(--text-heading) !important; }    /* Neon Mavi - kart başlıkları */
+.text-gray-700 { color: var(--text-main) !important; }        /* Açık gri - kart içi metin */
+.text-gray-600 { color: var(--text-muted) !important; }       /* Orta gri - özet, açıklama */
+.text-gray-500 { color: var(--text-dim) !important; }         /* Koyu gri - tarih, az önemli */
 
 /* Butonlar - Outline Stil */
 .read-more-btn {
@@ -283,7 +306,7 @@ p, li {
     border-radius: 0.375rem;
     padding: 1.25rem !important;
     font-style: normal !important; /* İtalik değil normal */
-    color: #a3a3a3 !important;
+    color: var(--text-muted) !important;
     margin: 2rem 0 !important;
     box-shadow: none !important;
 }
@@ -300,7 +323,7 @@ p, li {
     position: relative;
     margin: 2rem 0;
     border-radius: 0.5rem;
-    background-color: #0d0d0d; /* Daha da koyu kod alanı */
+    background-color: var(--bg-code) !important;
     border: 1px solid var(--border-color);
     box-shadow: none !important;
     overflow: visible; /* Allow child scrollbar to be visible */
@@ -310,17 +333,16 @@ p, li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #121212;
+    background-color: var(--bg-code-header);
     padding: 0.5rem 1rem;
     border-bottom: 1px solid var(--border-color);
 }
 
 .window-dots { display: flex; gap: 6px; opacity: 0.5; grayscale: 100%; } /* Gri noktalar */
-.dot { width: 10px; height: 10px; border-radius: 50%; background-color: #525252; }
+.dot { width: 10px; height: 10px; border-radius: 50%;     background-color: var(--text-dim); }
 
 .language-label {
-    color: #737373;
-    font-size: 0.75rem;
+    color: var(--text-dim);
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
@@ -329,8 +351,7 @@ p, li {
 .copy-btn {
     background: transparent;
     border: none;
-    color: #737373;
-    font-size: 0.8rem;
+    color: var(--text-dim);
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -355,12 +376,12 @@ p, li {
 /* Satır içi kod */
 .prose code:not(pre code) {
     color: var(--accent-color) !important;
-    background: rgba(20, 184, 166, 0.1) !important;
+    background: rgba(14, 165, 233, 0.1) !important;
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
     font-weight: 500;
     font-family: 'JetBrains Mono', monospace;
-    border: 1px solid rgba(20, 184, 166, 0.2);
+    border: 1px solid rgba(14, 165, 233, 0.2);
 }
 
 /* İçerik Resimleri */
@@ -377,12 +398,12 @@ p, li {
 
 /* Footer */
 footer {
-    background-color: #000000 !important;
+    background-color: var(--bg-main) !important;
     border-top: 1px solid var(--border-color) !important;
     padding: 4rem 0;
-    color: #525252 !important;
+    color: var(--text-dim) !important;
 }
-footer a { color: #737373 !important; text-decoration: none; }
+footer a { color: var(--text-muted) !important; text-decoration: none; }
 footer a:hover { color: var(--text-main) !important; }
 
 /* Tablolar */

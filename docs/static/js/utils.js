@@ -83,7 +83,7 @@ export function setupCodeBlocks() {
                 
                 icon.className = 'fas fa-check';
                 text.innerText = 'Copied!';
-                copyBtn.style.color = '#27c93f'; // Green
+                copyBtn.style.color = '#00d4ff'; // Neon mavi
 
                 setTimeout(() => {
                     icon.className = 'far fa-copy';
