@@ -6,6 +6,9 @@ import feedparser
 import time
 import subprocess
 import sys
+import re
+import requests
+import xml.etree.ElementTree as ET
 from jinja2 import Environment, FileSystemLoader
 from bs4 import BeautifulSoup
 
@@ -91,6 +94,52 @@ def convert_markdown_to_html(md_content):
     """Converts a Markdown string to HTML."""
     return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite'])
 
+def fetch_publication_metadata(url, cache):
+    """Fetches publication metadata from DOI or ArXiv APIs."""
+    if url in cache:
+        # print(f"Using cached data for: {url}")
+        return cache[url]
+
+    print(f"Fetching metadata for: {url}")
+    data = {'title': 'Unknown Title', 'authors': 'Unknown Authors', 'abstract': '', 'journal': '', 'year': '', 'link': url}
+
+    try:
+        if 'doi.org' in url:
+            doi = url.split('doi.org/')[-1]
+            response = requests.get(f"https://api.crossref.org/works/{doi}", timeout=10)
+            if response.status_code == 200:
+                item = response.json().get('message', {})
+                data['title'] = item.get('title', ['Unknown Title'])[0]
+                authors = [f"{a.get('given', '')} {a.get('family', '')}".strip() for a in item.get('author', [])]
+                data['authors'] = ", ".join(authors)
+                data['journal'] = item.get('container-title', [''])[0]
+                data['year'] = str(item.get('published-print', item.get('published-online', {})).get('date-parts', [[ '']])[0][0])
+                # Crossref abstracts are often absent or in weird XML-like format
+                abstract = item.get('abstract', '')
+                if abstract:
+                    # Remove JATS XML tags if present
+                    data['abstract'] = re.sub('<[^<]+?>', '', abstract).strip()
+        
+        elif 'arxiv.org' in url:
+            arxiv_id = url.split('/abs/')[-1].split('/pdf/')[-1]
+            response = requests.get(f"http://export.arxiv.org/api/query?id_list={arxiv_id}", timeout=10)
+            if response.status_code == 200:
+                root = ET.fromstring(response.text)
+                entry = root.find('{http://www.w3.org/2005/Atom}entry')
+                if entry is not None:
+                    data['title'] = entry.find('{http://www.w3.org/2005/Atom}title').text.strip().replace('\n', ' ')
+                    authors = [a.find('{http://www.w3.org/2005/Atom}name').text for a in entry.findall('{http://www.w3.org/2005/Atom}author')]
+                    data['authors'] = ", ".join(authors)
+                    data['abstract'] = entry.find('{http://www.w3.org/2005/Atom}summary').text.strip().replace('\n', ' ')
+                    data['year'] = entry.find('{http://www.w3.org/2005/Atom}published').text[:4]
+                    data['journal'] = 'ArXiv'
+        
+        cache[url] = data
+        return data
+    except Exception as e:
+        print(f"Error fetching {url}: {e}")
+        return data
+
 def build():
     """Main function to build the static site."""
     print("Starting static site build...")
@@ -141,6 +190,23 @@ def build():
     # 5. Load all data into memory
     print("Loading data from JSON files...")
     portfolio_items = read_json_file(os.path.join(DATA_DIR, 'portfolioItems.json'))
+    publication_urls = read_json_file(os.path.join(DATA_DIR, 'publications.json'))
+    
+    # Cache management for publications
+    cache_path = os.path.join(DATA_DIR, '.publications_cache.json')
+    publications_cache = read_json_file(cache_path) or {}
+    
+    publications_items = []
+    if publication_urls:
+        print(f"Processing {len(publication_urls)} publication links...")
+        for url in publication_urls:
+            pub_data = fetch_publication_metadata(url, publications_cache)
+            publications_items.append(pub_data)
+        
+        # Save cache back
+        with open(cache_path, 'w', encoding='utf-8') as f:
+            json.dump(publications_cache, f, ensure_ascii=False, indent=4)
+
     about_data_list = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json'))
     about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
     contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
@@ -170,6 +236,10 @@ def build():
     render_template('portfolio.html', 'portfolio.html', {
         'items': portfolio_items,
         'seo': seo_data.get('portfolio', {})
+    })
+    render_template('publications.html', 'publications.html', {
+        'items': publications_items,
+        'seo': seo_data.get('publications', {})
     })
     render_template('blog.html', 'blog.html', {
         'posts': medium_posts,

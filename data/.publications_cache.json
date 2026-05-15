@@ -1,0 +1,10 @@
+{
+    "https://doi.org/10.31202/ecjse.1747013": {
+        "title": "Deep Learning Models Integrating Attention Mechanisms For Military Camouflaged Object Detection",
+        "authors": "Nilgün Şengöz, Gül Karaman, Mert Samet Çeliker, Nazmi Yücel Çan",
+        "abstract": ": The Adaptive Camouflage Data Set (ACD1K) is a carefully curated collection of high-quality images developed to facilitate research in camouflage detection and segmentation tasks. This dataset is categorized into training, validation, and testing subsets, enabling comprehensive evaluation of deep learning models. Models including Attention U-Net, built upon the ResNet-50 architecture, and U-Net++, enhanced with attention mechanisms, were employed for robust feature extraction. Performance evaluation was carried out using common metrics such as accuracy, precision, recall, F1-score, and intersection over union. The Attention U-Net model, in conjunction with CLAHE preprocessing, Adamax optimizer, a learning rate of 1e-5, and a dropout rate of 0.2, achieved an accuracy of 96.88% and an intersection over union of 92.01%. Under similar experimental conditions, the Attention U-Net++ model using the Adam optimizer achieved an accuracy of 98.32% and an intersection over union of 82.09%. These findings highlight the effectiveness of CNN-based architectures in accurately identifying camouflaged objects within visually complex environments.",
+        "journal": "El-Cezeri Fen ve Mühendislik Dergisi",
+        "year": "2026",
+        "link": "https://doi.org/10.31202/ecjse.1747013"
+    }
+}
