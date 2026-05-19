@@ -144,6 +144,9 @@ a:hover {
 .header-nav-link:hover, .header-nav-link.active {
     color: var(--text-heading) !important;
 }
+.header-nav-link.active {
+    border-bottom-color: var(--accent-color) !important;
+}
 
 /* Kartlar - Minimalist ve Karanlık */
 .bg-white {
@@ -240,7 +243,7 @@ p, li {
     text-decoration: none;
     transition: color 0.3s;
 }
-#mobile-menu-overlay a:hover { color: var(--accent-color) !important; }
+#mobile-menu-overlay a:hover, #mobile-menu-overlay a.active { color: var(--accent-color) !important; }
 .close-button {
     position: absolute;
     top: 2rem;

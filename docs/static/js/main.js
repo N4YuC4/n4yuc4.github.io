@@ -5,7 +5,8 @@ import {
     openMobileMenu,
     closeMobileMenu,
     initHeaderShrink,
-    setupCodeBlocks
+    setupCodeBlocks,
+    highlightActiveLink
 } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -17,6 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Kaydırma ile başlık küçültme efekti
     initHeaderShrink(document.getElementById('main-header'));
+
+    // Aktif navigasyon linkini vurgula
+    highlightActiveLink();
 
     // Kod bloklarını geliştir (Mac penceresi, Kopyala butonu)
     // Highlight.js zaten base.html'de çalışıyor, bu fonksiyon üzerine ekleme yapar.

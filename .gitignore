@@ -21,7 +21,7 @@ Thumbs.db
 
 # Project specific
 _project_docs/
-GEMINI.md
+AGENTS.md
 .venv
 pyproject.toml
 .python-version

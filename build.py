@@ -241,6 +241,7 @@ def build():
         'about': about_data,
         'portfolio': portfolio_items,
         'posts': medium_posts[:3],
+        'publications': publications_items[:3],
         'seo': seo_data.get('home', {})
     })
     render_template('about.html', 'about.html', {

@@ -110,3 +110,41 @@ export function setupCodeBlocks() {
         }
     });
 }
+
+/**
+ * Mevcut sayfaya göre navigasyon linklerini vurgular.
+ */
+export function highlightActiveLink() {
+    const path = window.location.pathname;
+    
+    // Link ID'lerini ve yollarını eşleştir
+    const navMap = {
+        '/index.html': 'home',
+        '/': 'home',
+        '/blog.html': 'blog',
+        '/portfolio.html': 'portfolio',
+        '/publications.html': 'publications',
+        '/about.html': 'about',
+        '/contact.html': 'contact'
+    };
+
+    // Alt sayfalar için kontrol (örn: /portfolio/proje.html)
+    let activeKey = navMap[path];
+    if (!activeKey) {
+        if (path.includes('/portfolio/')) activeKey = 'portfolio';
+    }
+
+    if (activeKey) {
+        // Desktop linkini vurgula
+        const desktopLink = document.getElementById(`nav-${activeKey}`);
+        if (desktopLink) {
+            desktopLink.classList.add('active');
+        }
+
+        // Mobil linkini vurgula
+        const mobileLink = document.getElementById(`mobile-nav-${activeKey}`);
+        if (mobileLink) {
+            mobileLink.classList.add('active');
+        }
+    }
+}
