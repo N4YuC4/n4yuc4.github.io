@@ -1,4 +1,4 @@
-# N4YuC4 Privacy Policy
+# Privacy Policy
 
 This Privacy Policy explains that the N4YuC4 Personal Website is a static website and does not collect, store, or process any personal data from its visitors.
 
@@ -18,7 +18,7 @@ Our website contains links to third-party platforms (such as Medium, LinkedIn, a
 
 ## 4. Changes to This Privacy Policy
 
-We may update this Privacy Policy if the website's functionality changes in the future. Any updates will be posted on this page.
+We may update this Privacy Policy if the website's functionality changes in the future.
 
 ## 5. Contact
 

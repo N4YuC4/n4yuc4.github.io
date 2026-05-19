@@ -1,4 +1,4 @@
-# N4YuC4 Terms of Use
+# Terms of Use
 
 By visiting and using the N4YuC4 Personal Website, you agree to the terms of use stated below. This website is a personal portfolio and informational site.
 
@@ -27,6 +27,6 @@ This site links to external platforms like Medium, LinkedIn, and GitHub. The web
 
 ## 5. Changes to Terms
 
-The website owner reserves the right to update these terms at any time. Changes are effective immediately upon being posted here.
+The website owner reserves the right to update these terms at any time.
 
 **Last Updated Date:** May 19, 2026
