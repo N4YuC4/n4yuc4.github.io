@@ -199,7 +199,7 @@ def main_menu():
 
     while True:
         # clear_screen() # Optional: keep history visible
-        print(f"\n{Colors.BOLD}{Colors.HEADER}=== N4YuC4 Blog Yönetim Paneli ==={Colors.ENDC}")
+        print(f"\n{Colors.BOLD}{Colors.HEADER}=== N4YuC4 Yönetim Paneli ==={Colors.ENDC}")
         print("1. Portfolyo Öğeleri")
         print("2. Siteyi Derle (Build)")
         print("3. Çıkış")

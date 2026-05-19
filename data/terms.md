@@ -1,47 +1,32 @@
-# N4YuC4_Blog Terms of Use
+# N4YuC4 Terms of Use
 
-By visiting and using the N4YuC4_Blog website, you agree to the terms of use stated below. These terms have been prepared to ensure that you benefit from our website in the best way possible and to define the legal framework. Please read these terms carefully.
+By visiting and using the N4YuC4 Personal Website, you agree to the terms of use stated below. This website is a personal portfolio and informational site.
 
 ## 1. Acceptance of Terms
 
-By starting to use our website, you declare that you have read, understood, and accepted these Terms of Use and the Privacy Policy. If you do not accept these terms, please do not use our website.
+By using this website, you acknowledge that you have read and understood these terms. If you do not agree, please refrain from using the site.
 
-## 2. Use of Content and Copyrights
+## 2. Content Ownership and Use
 
-All content on this website (texts, images, graphics, logos, videos, software codes, and other materials) belongs to N4YuC4_Blog or the relevant content providers and is protected by international copyright laws. All rights reserved.
+All content on this website, including text, projects, and images (unless otherwise noted), is the property of the website owner and is protected by copyright laws.
 
-*   **Personal Use:** You may view, read, and download the content on the website only for personal, non-commercial purposes.
-*   **Prohibited Use:** It is strictly prohibited to copy, reproduce, distribute, modify, publish, adapt, publicly display, use for commercial purposes, or create derivative works from any part of the content without the express written permission of N4YuC4_Blog.
-*   **Attribution Requirement:** Even if you use the content within legal limits and as permitted, you are required to provide appropriate attribution to N4YuC4_Blog.
+*   **Personal Use:** You are welcome to view and read the content for your personal, non-commercial information.
+*   **Prohibited Use:** You may not copy, redistribute, or use the content for commercial purposes without express written permission from the website owner.
+*   **Attribution:** If you share or reference the content within legal limits, you must provide clear attribution to the website owner.
 
-## 3. Disclaimer
+## 3. Disclaimer of Liability
 
-The information provided on the N4YuC4_Blog website is for general informational and educational purposes. No express or implied warranty is given regarding the accuracy, completeness, timeliness, or suitability of this information for a particular purpose. You are solely responsible for any decisions you make based on the information on the website.
+The information on this website is provided "as is" for general informational purposes only.
 
-*   **Interruption and Error:** No guarantee is given that the website will be uninterrupted, error-free, or free of viruses. N4YuC4_Blog is not responsible for any hardware or software failure that may arise from using the website.
-*   **Direct/Indirect Damages:** N4YuC4_Blog cannot be held responsible for any direct, indirect, incidental, special, or consequential damages (including but not limited to loss of profit, loss of data, or business interruption) resulting from the use or inability to use the website.
+*   **Accuracy:** While I strive for accuracy, the website owner makes no guarantees regarding the completeness or timeliness of the information.
+*   **Technical Issues:** The website owner is not responsible for any technical issues, viruses, or damages that may result from using this website or following external links.
 
-## 4. Third-Party Links
+## 4. External Links
 
-Our website may contain links to third-party websites or resources for convenience. These links do not imply endorsement by N4YuC4_Blog. We have no control over and are not responsible for the content, privacy policies, or practices of third-party sites. We recommend carefully reviewing the relevant terms of use and privacy policies before visiting any third-party site.
+This site links to external platforms like Medium, LinkedIn, and GitHub. The website owner is not responsible for the content or availability of these third-party sites.
 
-## 5. User Conduct
+## 5. Changes to Terms
 
-By using our website, you agree to comply with the following rules:
+The website owner reserves the right to update these terms at any time. Changes are effective immediately upon being posted here.
 
-*   Acting in accordance with laws and general moral rules.
-*   Not engaging in actions that would jeopardize the security of the website or disrupt its operation.
-*   Not preventing or disturbing other users from using the website.
-*   Not sending spam, viruses, or malicious software through the website.
-
-In case of non-compliance with these rules, N4YuC4_Blog reserves the right to suspend or terminate your access to the website.
-
-## 6. Changes in Terms
-
-N4YuC4_Blog reserves the right to change these Terms of Use at any time without prior notice. Changes take effect immediately on the date the updated terms are posted on the website. Your continued use of the website signifies your acceptance of these changes.
-
-## 7. Contact
-
-If you have any questions or concerns about these Terms of Use, please feel free to contact us.
-
-**Last Updated Date:** August 20, 2025
+**Last Updated Date:** May 19, 2026
