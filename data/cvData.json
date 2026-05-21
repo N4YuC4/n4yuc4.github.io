@@ -1,0 +1,48 @@
+{
+  "personalInfo": {
+    "firstName": "Nazmi Yücel",
+    "lastName": "Çan",
+    "title": "Data Scientist | Student",
+    "profileImage": "images/profile.jpg"
+  },
+  "professionalSummary": "Aspiring Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. Top 10 finalist in the \"Pupilica AI Hackathon,\" demonstrating practical skills in integrating AI APIs into user-friendly applications. Passionate about Natural Language Processing (NLP) and building scalable data solutions. Proven ability to apply various ML algorithms for classification tasks and currently expanding expertise in advanced NLP architectures.",
+  "skills": [
+    {
+      "category": "Programming Languages",
+      "skill_list": ["Python (Advanced)", "SQL", "Bash/Shell Scripting"]
+    },
+    {
+      "category": "Machine Learning & AI",
+      "skill_list": ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Google Gemini API"]
+    },
+    {
+      "category": "Tools & Platforms",
+      "skill_list": ["Git/GitHub", "Linux (Ubuntu/Debian)", "VS Code", "Jupyter Notebooks"]
+    },
+    {
+      "category": "Core Concepts",
+      "skill_list": ["Supervised/Unsupervised Learning", "Data Preprocessing", "Model Evaluation", "OOP", "API Integration"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science",
+      "field": "Information Systems and Technologies",
+      "institution": "Burdur Mehmet Akif Ersoy University",
+      "startYear": "09/2022",
+      "endYear": "06/2026 (Expected)",
+      "gpa": ""
+    }
+  ],
+  "languages": [
+    {
+      "language": "Turkish",
+      "level": "Native"
+    },
+    {
+      "language": "English",
+      "level": "Intermediate"
+    }
+  ],
+  "publications": []
+}

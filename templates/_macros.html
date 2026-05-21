@@ -1,0 +1,34 @@
+{% macro social_links_list(links, variant='icon') %}
+{% for link in links %}
+<a href="{{ link.url }}" target="_blank" rel="noopener noreferrer"
+   class="{% if variant == 'card' %}group relative p-3 bg-gray-100 rounded-full hover:bg-gradient-to-r hover:from-cyan-600 hover:to-sky-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1{% else %}text-sky-400 hover:text-sky-300 transition duration-300{% endif %}"
+   aria-label="{{ link.platform }} Profile">
+    {% if link.isImg %}
+    <span class="flex w-6 h-6 items-center justify-center overflow-hidden{% if variant != 'card' %} w-8 h-8{% endif %}">
+        <img src="{{ link.imgUrl }}" alt="{{ link.platform }} logo" class="max-w-full max-h-full object-contain{% if variant == 'card' %} transition-transform duration-300 group-hover:scale-110{% endif %}">
+    </span>
+    {% else %}
+    <svg class="{% if variant == 'card' %}w-6 h-6 fill-current text-gray-700 group-hover:text-white transition-colors duration-300{% else %}w-8 h-8{% endif %}"
+         fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        {% if link.svgCircle %}<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="0" fill="currentColor"></circle>{% endif %}
+        <path {% if not link.svgCircle %}fill-rule="evenodd"{% endif %} d="{{ link.svgPath }}"></path>
+    </svg>
+    {% endif %}
+    {% if variant == 'card' %}
+    <span class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-20 pointer-events-none">
+        {{ link.platform }}
+    </span>
+    {% endif %}
+</a>
+{% endfor %}
+{% endmacro %}
+
+{% macro cv_download_button(size='normal') %}
+<a href="/Nazmi-Yucel-Can_CV.pdf" download
+   class="inline-flex items-center gap-2 {% if size == 'small' %}px-5 py-2.5 text-sm font-semibold{% else %}px-6 py-3 font-bold{% endif %} bg-gradient-to-r from-cyan-600 to-sky-600 text-white rounded-full hover:from-cyan-500 hover:to-sky-500 transition-all duration-300 shadow-lg hover:shadow-xl">
+    <svg class="w-{% if size == 'small' %}4{% else %}5{% endif %} h-{% if size == 'small' %}4{% else %}5{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+    Download CV (PDF)
+</a>
+{% endmacro %}

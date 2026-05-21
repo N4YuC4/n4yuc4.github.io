@@ -6,7 +6,14 @@
 <article class="bg-white p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
     <div class="mb-8">
         <a href="/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; Back to Portfolio</a>
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">{{ item.title }}</h1>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">{{ item.title }}</h1>
+        {% if item.techStack %}
+        <div class="flex flex-wrap gap-2 mb-4">
+            {% for tech in item.techStack.split(', ') %}
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">{{ tech }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }} image" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
     </div>
 

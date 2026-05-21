@@ -12,6 +12,16 @@ import xml.etree.ElementTree as ET
 from jinja2 import Environment, FileSystemLoader
 from bs4 import BeautifulSoup
 
+# Auto-detect weasyprint; re-execute via venv if needed
+try:
+    import weasyprint
+except ImportError:
+    venv_python = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.venv', 'bin', 'python')
+    if os.path.exists(venv_python):
+        os.execv(venv_python, [venv_python] + sys.argv)
+    else:
+        print("Warning: weasyprint not available. CV PDF will not be generated.")
+
 # --- CONFIGURATION ---
 BUILD_DIR = 'docs'
 TEMPLATES_DIR = 'templates'
@@ -34,7 +44,7 @@ def fetch_medium_posts(rss_url, max_posts=5):
 
     posts = []
     for entry in feed.entries[:max_posts]:
-        # Format the date like '27 October 2025'
+        # Format the date like '27 October 2026'
         try:
             # The 'published_parsed' is a time.struct_time
             published_date = time.strftime("%d %B %Y", entry.published_parsed)
@@ -60,7 +70,17 @@ def fetch_medium_posts(rss_url, max_posts=5):
     print(f"Found {len(posts)} posts.")
     return posts
 
-def render_template(template_name, output_path, context={}):
+def _max_mtime(paths):
+    mtimes = [os.path.getmtime(p) for p in paths if os.path.exists(p)]
+    return max(mtimes) if mtimes else None
+
+def _set_source_mtime(output_path, *extra_sources):
+    sources = ['templates/base.html', 'templates/_macros.html'] + list(extra_sources)
+    mtime = _max_mtime(sources)
+    if mtime:
+        os.utime(output_path, (mtime, mtime))
+
+def render_template(template_name, output_path, context={}, sources=[]):
     """Renders a Jinja2 template to a file."""
     template = env.get_template(template_name)
     html_content = template.render(context)
@@ -70,7 +90,8 @@ def render_template(template_name, output_path, context={}):
     
     with open(full_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
-    # print(f"Rendered: {output_path}")
+    
+    _set_source_mtime(full_path, os.path.join(TEMPLATES_DIR, template_name), *sources)
 
 def read_json_file(file_path):
     """Reads and parses a JSON file."""
@@ -93,6 +114,22 @@ def read_md_file(file_path):
 def convert_markdown_to_html(md_content):
     """Converts a Markdown string to HTML."""
     return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite'])
+
+def generate_cv_pdf(cv_data, social_links):
+    """Generates docs/Nazmi-Yucel-Can_CV.pdf from the cv_pdf.html template using WeasyPrint."""
+    try:
+        from weasyprint import HTML
+        template = env.get_template('cv_pdf.html')
+        html_content = template.render({'cv': cv_data, 'socialLinks': social_links})
+        pdf_path = os.path.join(BUILD_DIR, 'Nazmi-Yucel-Can_CV.pdf')
+        project_root = os.path.dirname(os.path.abspath(__file__))
+        HTML(string=html_content, base_url=project_root).write_pdf(pdf_path)
+        _set_source_mtime(pdf_path, 'templates/cv_pdf.html', 'data/cvData.json', 'data/socialLinks.json', 'data/portfolioItems.json', 'data/publications.json', 'data/.publications_cache.json')
+        print(f"Generated CV PDF: {os.path.relpath(pdf_path)}")
+        return True
+    except Exception as e:
+        print(f"Warning: CV PDF generation failed: {e}")
+        return False
 
 def fetch_publication_metadata(url, cache):
     """Fetches publication metadata from DOI or ArXiv APIs."""
@@ -201,8 +238,10 @@ def build():
         for slug, new_url in redirects_data.get('posts', {}).items():
             target_url = new_url if new_url else default_url
             html_content = redirect_template.render(url=target_url)
-            with open(os.path.join(POSTS_REDIRECT_DIR, f"{slug}.html"), 'w', encoding='utf-8') as f:
+            redirect_path = os.path.join(POSTS_REDIRECT_DIR, f"{slug}.html")
+            with open(redirect_path, 'w', encoding='utf-8') as f:
                 f.write(html_content)
+            _set_source_mtime(redirect_path, os.path.join(DATA_DIR, 'redirects.json'))
         print(f"Generated {len(redirects_data.get('posts', {}))} redirect pages.")
 
     # 5. Load all data into memory
@@ -225,12 +264,39 @@ def build():
         with open(cache_path, 'w', encoding='utf-8') as f:
             json.dump(publications_cache, f, ensure_ascii=False, indent=4)
 
-    about_data_list = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json'))
-    about_data = about_data_list[0] if isinstance(about_data_list, list) and about_data_list else {}
+    about_data = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json')) or {}
     contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
     privacy_data = read_json_file(os.path.join(DATA_DIR, 'privacyPolicyData.json'))
     terms_data = read_json_file(os.path.join(DATA_DIR, 'termsOfUseData.json'))
     seo_data = read_json_file(os.path.join(DATA_DIR, 'seoData.json'))
+    cv_data = read_json_file(os.path.join(DATA_DIR, 'cvData.json'))
+    social_links = read_json_file(os.path.join(DATA_DIR, 'socialLinks.json'))
+    
+    # Auto-populate CV with portfolio items and publications
+    if cv_data:
+        # Add portfolio items as projects
+        if portfolio_items:
+            cv_projects = []
+            for item in portfolio_items:
+                project = {
+                    'title': item.get('title', ''),
+                    'description': item.get('description', ''),
+                    'techStack': item.get('techStack', ''),
+                    'slug': item.get('slug', ''),
+                }
+                # Extract GitHub link from the detail markdown
+                md_path = item.get('detailFile', '')
+                if md_path:
+                    md_content = read_md_file(md_path)
+                    gh_links = re.findall(r'https://github\.com/\S+', md_content)
+                    if gh_links:
+                        project['links'] = [{'label': 'GitHub', 'url': gh_links[0]}]
+                cv_projects.append(project)
+            cv_data['projects'] = cv_projects
+        
+        # Add publications
+        if publications_items:
+            cv_data['publications'] = publications_items
     
     # 6. Fetch Medium Posts
     medium_posts = fetch_medium_posts(MEDIUM_RSS_URL)
@@ -242,46 +308,56 @@ def build():
         'portfolio': portfolio_items,
         'posts': medium_posts[:3],
         'publications': publications_items[:3],
-        'seo': seo_data.get('home', {})
-    })
+        'seo': seo_data.get('home', {}),
+        'socialLinks': social_links
+    }, sources=['data/aboutPageData.json', 'data/portfolioItems.json', 'data/socialLinks.json', 'data/seoData.json'])
     render_template('about.html', 'about.html', {
         'data': about_data,
-        'seo': seo_data.get('about', {})
-    })
+        'seo': seo_data.get('about', {}),
+        'socialLinks': social_links
+    }, sources=['data/aboutPageData.json', 'data/socialLinks.json', 'data/seoData.json'])
     render_template('contact.html', 'contact.html', {
         'data': contact_data,
-        'seo': seo_data.get('contact', {})
-    })
+        'seo': seo_data.get('contact', {}),
+        'socialLinks': social_links
+    }, sources=['data/contactPageData.json', 'data/socialLinks.json', 'data/seoData.json'])
     render_template('portfolio.html', 'portfolio.html', {
         'items': portfolio_items,
-        'seo': seo_data.get('portfolio', {})
-    })
+        'seo': seo_data.get('portfolio', {}),
+        'socialLinks': social_links
+    }, sources=['data/portfolioItems.json', 'data/seoData.json'])
     render_template('publications.html', 'publications.html', {
         'items': publications_items,
-        'seo': seo_data.get('publications', {})
-    })
+        'seo': seo_data.get('publications', {}),
+        'socialLinks': social_links
+    }, sources=['data/publications.json', 'data/.publications_cache.json', 'data/seoData.json'])
     render_template('blog.html', 'blog.html', {
         'posts': medium_posts,
-        'seo': seo_data.get('blog', {})
-    })
+        'seo': seo_data.get('blog', {}),
+        'socialLinks': social_links
+    }, sources=['data/seoData.json'])
 
-    if privacy_data and 'contentFile' in privacy_data:
-        privacy_md_content = read_md_file(privacy_data['contentFile'])
-        privacy_html = convert_markdown_to_html(privacy_md_content)
-        render_template('privacy.html', 'privacy.html', {
-            'data': {'title': privacy_data['title'], 'content': privacy_html},
-            'seo': seo_data.get('privacy', {})
-        })
-
-    if terms_data and 'contentFile' in terms_data:
-        terms_md_content = read_md_file(terms_data['contentFile'])
-        terms_html = convert_markdown_to_html(terms_md_content)
-        render_template('terms.html', 'terms.html', {
-            'data': {'title': terms_data['title'], 'content': terms_html},
-            'seo': seo_data.get('terms', {})
-        })
+    legal_pages = [
+        ('privacy', privacy_data, 'privacy-policy-section', 'data/privacyPolicyData.json', 'data/privacy.md'),
+        ('terms', terms_data, 'terms-of-use-section', 'data/termsOfUseData.json', 'data/terms.md'),
+    ]
+    for page_key, page_data, section_id, data_json, content_md in legal_pages:
+        if page_data and 'contentFile' in page_data:
+            md_content = read_md_file(page_data['contentFile'])
+            html_content = convert_markdown_to_html(md_content)
+            render_template('_legal_page.html', f'{page_key}.html', {
+                'data': {'title': page_data['title'], 'content': html_content},
+                'section_id': section_id,
+                'seo': seo_data.get(page_key, {}),
+                'socialLinks': social_links
+            }, sources=[data_json, content_md, 'data/seoData.json'])
     
-    # 8. Render portfolio detail pages
+    # 8. Generate CV PDF (no separate CV page anymore)
+    print("Generating CV PDF...")
+    if cv_data:
+        generate_cv_pdf(cv_data, social_links)
+    
+    # 9. Render portfolio detail pages
     print("Rendering portfolio detail pages...")
     if portfolio_items:
         for item in portfolio_items:
@@ -293,11 +369,12 @@ def build():
                 render_template(
                     'portfolio_detail.html',
                     os.path.join('portfolio', f"{slug}.html"),
-                    {'item': item, 'seo': seo_data.get('portfolio', {})} # Using 'portfolio' seo for detail pages
+                    {'item': item, 'seo': seo_data.get('portfolio', {}), 'socialLinks': social_links},
+                    sources=[md_file_path, 'data/portfolioItems.json', 'data/seoData.json']
                 )
         print(f"Rendered {len(portfolio_items)} portfolio detail pages.")
 
-    # 9. Generate Sitemap
+    # 10. Generate Sitemap
     print("Generating sitemap...")
     try:
         # Use sys.executable to ensure we're using the same python interpreter
@@ -306,7 +383,7 @@ def build():
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         print(f"Error during sitemap generation: {e}")
 
-    # 10. Final message
+    # 11. Final message
     print("\nBuild process complete.")
     print(f"Static site is available in '{BUILD_DIR}' folder.")
 

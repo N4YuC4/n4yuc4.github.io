@@ -192,7 +192,6 @@ class PortfolioManager(ContentManager):
 def build_site():
     print(f"\n{Colors.HEADER}--- SİTE DERLENİYOR (BUILD) ---{Colors.ENDC}")
     subprocess.run([sys.executable, "build.py"])
-    subprocess.run(["touch", "docs/.nojekyll"])
 
 def main_menu():
     portfolio_mgr = PortfolioManager()

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: A4;
+    margin: 0;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    color: #1e293b;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 8mm 10mm;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 5mm;
+    padding-bottom: 4mm;
+    border-bottom: 2.5px solid #0ea5e9;
+    margin-bottom: 4mm;
+}
+.header-img {
+    width: 30mm;
+    height: 30mm;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0ea5e9;
+    flex-shrink: 0;
+}
+.header-info {
+    flex: 1;
+}
+.header-name {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.15;
+    margin-bottom: 0.5mm;
+}
+.header-title {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2mm;
+}
+.header-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm 3mm;
+    font-size: 7.5pt;
+    color: #475569;
+}
+.header-contact a {
+    color: #0369a1;
+    text-decoration: none;
+    font-weight: 500;
+}
+.header-contact a:hover {
+    text-decoration: underline;
+}
+
+/* SECTIONS */
+.section {
+    margin-bottom: 3.5mm;
+}
+.section-heading {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-bottom: 1mm;
+    margin-bottom: 2mm;
+    border-bottom: 1.5px solid #0ea5e9;
+}
+
+/* SUMMARY */
+.summary-text {
+    font-size: 8.5pt;
+    line-height: 1.55;
+    color: #334155;
+    text-align: justify;
+}
+
+/* SKILLS */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm 4mm;
+}
+.skill-group {
+    min-width: 60mm;
+    flex: 1;
+}
+.skill-cat {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.3mm;
+}
+.skill-list {
+    font-size: 8pt;
+    color: #475569;
+    line-height: 1.5;
+}
+
+/* PROJECTS */
+.project-item {
+    margin-bottom: 2.5mm;
+    break-inside: avoid;
+}
+.project-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.2mm;
+}
+.project-tech {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #0284c7;
+    margin-bottom: 0.5mm;
+}
+.project-highlights {
+    padding-left: 3.5mm;
+    margin: 0;
+}
+.project-highlights li {
+    font-size: 8pt;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 0.2mm;
+}
+.project-links {
+    margin-top: 0.3mm;
+    font-size: 7.5pt;
+}
+.project-links a {
+    color: #0369a1;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 2mm;
+}
+
+/* EDUCATION */
+.edu-item {
+    margin-bottom: 2mm;
+    break-inside: avoid;
+}
+.edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2mm;
+}
+.edu-degree {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #0f172a;
+}
+.edu-date {
+    font-size: 7.5pt;
+    color: #64748b;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.edu-school {
+    font-size: 8pt;
+    color: #475569;
+}
+
+/* PUBLICATIONS */
+.pub-item {
+    font-size: 8pt;
+    color: #475569;
+    margin-bottom: 1mm;
+    line-height: 1.5;
+    break-inside: avoid;
+    padding-left: 3.5mm;
+}
+.pub-item strong {
+    color: #0f172a;
+    font-weight: 600;
+}
+.pub-item em {
+    color: #64748b;
+}
+
+/* LANGUAGES */
+.lang-line {
+    font-size: 8pt;
+    color: #475569;
+}
+.lang-line strong {
+    font-weight: 600;
+    color: #0f172a;
+}
+</style>
+</head>
+<body>
+<div class="page">
+    <div class="header">
+        <img src="static/{{ cv.personalInfo.profileImage }}" alt="Profile photo of {{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}" class="header-img">
+        <div class="header-info">
+            <div class="header-name">{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}</div>
+            <div class="header-title">{{ cv.personalInfo.title }}</div>
+            <div class="header-contact">
+                <span>{{ socialLinks.email }}</span>
+                <a href="{{ socialLinks.website.url }}">{{ socialLinks.website.display }}</a>
+                {% for link in socialLinks.links %}
+                <a href="{{ link.url }}">{{ link.display }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if cv.professionalSummary %}
+    <div class="section">
+        <div class="section-heading">Professional Summary</div>
+        <p class="summary-text">{{ cv.professionalSummary }}</p>
+    </div>
+    {% endif %}
+
+    {% if cv.skills %}
+    <div class="section">
+        <div class="section-heading">Skills</div>
+        <div class="skills-grid">
+            {% for skill_group in cv.skills %}
+            <div class="skill-group">
+                <div class="skill-cat">{{ skill_group.category }}</div>
+                <div class="skill-list">{{ skill_group.skill_list | join(', ') }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if cv.languages %}
+        <div style="margin-top:1.5mm;font-size:8pt;color:#475569;">
+            <strong style="color:#0f172a;font-weight:600;">Languages:</strong>
+            {% for lang in cv.languages %}{{ lang.language }} ({{ lang.level }}){% if not loop.last %}, {% endif %}{% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if cv.projects %}
+    <div class="section">
+        <div class="section-heading">Projects</div>
+        {% for project in cv.projects %}
+        <div class="project-item">
+            <div class="project-title">{{ project.title }}</div>
+            {% if project.techStack %}<div class="project-tech">{{ project.techStack }}</div>{% endif %}
+            <ul class="project-highlights">
+                <li>{{ project.description }}</li>
+            </ul>
+            {% if project.links %}
+            <div class="project-links">
+                {% for link in project.links %}
+                <a href="{{ link.url }}">{{ link.label }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if cv.publications %}
+    <div class="section">
+        <div class="section-heading">Publications</div>
+        {% for pub in cv.publications %}
+        <div class="pub-item">
+            <strong>{{ pub.title }}</strong>{% if pub.authors %} — {{ pub.authors }}{% endif %}
+            {% if pub.journal or pub.year %}<br><em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if cv.education %}
+    {% set ns = namespace(has_edu=false) %}
+    {% for edu in cv.education %}
+    {% if edu.degree and edu.institution %}{% set ns.has_edu = true %}{% endif %}
+    {% endfor %}
+    {% if ns.has_edu %}
+    <div class="section">
+        <div class="section-heading">Education</div>
+        {% for edu in cv.education %}
+        {% if edu.degree and edu.institution %}
+        <div class="edu-item">
+            <div class="edu-row">
+                <span class="edu-degree">{{ edu.degree }}{% if edu.field %} in {{ edu.field }}{% endif %}</span>
+                <span class="edu-date">{{ edu.startYear }} – {{ edu.endYear }}</span>
+            </div>
+            <div class="edu-school">{{ edu.institution }}</div>
+            {% if edu.gpa %}<div style="font-size:7.5pt;color:#64748b;">GPA: {{ edu.gpa }}</div>{% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+</body>
+</html>
