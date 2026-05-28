@@ -64,17 +64,23 @@ body {
 }
 .header-contact {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.5mm 3mm;
+    justify-content: space-between;
+    gap: 3mm;
+    width: 100%;
+}
+.contact-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5mm;
     font-size: 7.5pt;
     color: #475569;
 }
-.header-contact a {
+.contact-col a {
     color: #0369a1;
     text-decoration: none;
     font-weight: 500;
 }
-.header-contact a:hover {
+.contact-col a:hover {
     text-decoration: underline;
 }
 
@@ -224,11 +230,23 @@ body {
             <div class="header-name">{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}</div>
             <div class="header-title">{{ cv.personalInfo.title }}</div>
             <div class="header-contact">
-                <span>{{ socialLinks.email }}</span>
-                <a href="{{ socialLinks.website.url }}">{{ socialLinks.website.display }}</a>
-                {% for link in socialLinks.links %}
-                <a href="{{ link.url }}">{{ link.display }}</a>
-                {% endfor %}
+                <div class="contact-col">
+                    <a href="mailto:{{ socialLinks.email }}">{{ socialLinks.email }}</a>
+                    <a href="{{ socialLinks.website.url }}">{{ socialLinks.website.display }}</a>
+                    {% for link in socialLinks.links %}{% if link.platform == 'LinkedIn' %}
+                    <a href="{{ link.url }}">{{ link.display }}</a>
+                    {% endif %}{% endfor %}
+                </div>
+                <div class="contact-col">
+                    {% for link in socialLinks.links %}{% if link.platform in ['GitHub', 'Kaggle'] %}
+                    <a href="{{ link.url }}">{{ link.display }}</a>
+                    {% endif %}{% endfor %}
+                </div>
+                <div class="contact-col">
+                    {% for link in socialLinks.links %}{% if link.platform in ['ORCID', 'DergiPark'] %}
+                    <a href="{{ link.url }}">{{ link.display }}</a>
+                    {% endif %}{% endfor %}
+                </div>
             </div>
         </div>
     </div>
