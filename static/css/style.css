@@ -32,6 +32,7 @@
     /* Kullanıcı dostu alias'lar */
     --accent-color: var(--neon-blue);
     --accent-hover: var(--cyber-blue);
+    --accent-secondary: #06b6d4;   /* Cyan-500 ikincil vurgu */
     --accent-dim: rgba(14, 165, 233, 0.1);
     --accent-glow: rgba(34, 211, 238, 0.15);
 }
@@ -39,6 +40,10 @@
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-main);
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 0.85rem;
@@ -127,7 +132,7 @@ a:hover {
 }
 .blinking-cursor {
     display: inline-block;
-    color: var(--accent-color);
+    color: var(--accent-secondary);
     animation: blink 1s step-end infinite;
     margin-left: 4px;
     font-weight: 400;
@@ -153,14 +158,17 @@ a:hover {
     background-color: var(--bg-card) !important;
     color: var(--text-main) !important;
     border: 1px solid var(--border-color) !important;
+    border-left-width: 1px !important;
     box-shadow: none !important;
     border-radius: 0.5rem;
-}
-/* Kart hover efekti - Hafif aydınlanma */
-.bg-white:hover {
-    border-color: var(--border-color) !important; /* Tutarlı border */
-    transform: translateY(-2px);
     transition: all 0.3s ease;
+}
+/* Kart hover efekti - Hafif aydınlanma ve aktif panel hissi */
+.bg-white:hover {
+    border-color: var(--border-color) !important;
+    border-left-width: 4px !important;
+    border-left-color: var(--accent-secondary) !important;
+    transform: translateY(-2px);
 }
 
 /* Genel Metin Renkleri */
@@ -171,7 +179,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 p, li { 
     color: var(--text-main) !important; 
-    line-height: 1.75;
+    line-height: 1.8;
+    margin-bottom: 1.25em;
 }
 
 /* Tailwind gri override'ları — kendi renk paletimize map edilmiş */
