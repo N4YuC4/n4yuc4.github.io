@@ -3,7 +3,7 @@
         "title": "Zettelkasten AI Notes",
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "A desktop application built with PyQt5 for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports Markdown for rich content, and provides a real-time preview. It stores all data in a local SQLite database. A key feature is its ability to use Google Gemini AI to generate Zettelkasten-style notes from PDF documents and automatically suggest relevant links between them.",
+        "description": "I built this desktop application with PyQt5 to make knowledge management more efficient using the Zettelkasten method. It allows you to create, edit, and link notes with full Markdown support and real-time previews, storing everything locally in an SQLite database. I also integrated Google Gemini AI to automatically generate Zettelkasten-style notes from PDF documents and suggest relevant links between your notes.",
         "techStack": "Python, PyQt5, SQLite, Google Gemini AI",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes"

@@ -209,6 +209,20 @@ def build():
         # due to busy files.
         shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, 'static'), dirs_exist_ok=True)
         print("Copied 'static' directory.")
+        
+        # Optimize profile image if it exists
+        try:
+            from PIL import Image
+            profile_img_path = os.path.join(BUILD_DIR, 'static', 'images', 'profile.png')
+            if os.path.exists(profile_img_path):
+                with Image.open(profile_img_path) as img:
+                    img.thumbnail((800, 800))
+                    img.save(profile_img_path, optimize=True)
+                print("Optimized profile image.")
+        except ImportError:
+            print("Pillow not installed. Skipping image optimization.")
+        except Exception as e:
+            print(f"Warning: Failed to optimize image: {e}")
 
     # 3. Create .nojekyll for GitHub Pages
     with open(os.path.join(BUILD_DIR, '.nojekyll'), 'w') as f:

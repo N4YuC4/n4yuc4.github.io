@@ -3,9 +3,9 @@
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
     "title": "Data Scientist | Student",
-    "profileImage": "images/profile.jpg"
+    "profileImage": "images/profile.png"
   },
-  "professionalSummary": "Aspiring Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. Top 10 finalist in the \"Pupilica AI Hackathon,\" demonstrating practical skills in integrating AI APIs into user-friendly applications. Passionate about Natural Language Processing (NLP) and building scalable data solutions. Proven ability to apply various ML algorithms for classification tasks and currently expanding expertise in advanced NLP architectures.",
+  "professionalSummary": "I am an aspiring Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. As a top 10 finalist in the \"Pupilica AI Hackathon,\" I demonstrated practical skills in integrating AI APIs into user-friendly applications. I am passionate about Natural Language Processing (NLP) and building scalable data solutions. I have a proven ability to apply various ML algorithms for classification tasks and I'm currently expanding my expertise in advanced NLP architectures.",
   "skills": [
     {
       "category": "Programming Languages",
