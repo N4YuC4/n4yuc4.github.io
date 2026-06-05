@@ -298,13 +298,7 @@ def build():
                     'techStack': item.get('techStack', ''),
                     'slug': item.get('slug', ''),
                 }
-                # Extract GitHub link from the detail markdown
-                md_path = item.get('detailFile', '')
-                if md_path:
-                    md_content = read_md_file(md_path)
-                    gh_links = re.findall(r'https://github\.com/\S+', md_content)
-                    if gh_links:
-                        project['links'] = [{'label': 'GitHub', 'url': gh_links[0]}]
+                project['links'] = item.get('links', [])
                 cv_projects.append(project)
             cv_data['projects'] = cv_projects
         

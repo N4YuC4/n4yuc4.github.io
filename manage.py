@@ -67,6 +67,26 @@ def confirm_action(prompt_text):
     response = input(f"{Colors.WARNING}{prompt_text} (y/n): {Colors.ENDC}").lower()
     return response == 'y'
 
+def get_links_input(existing_links=None):
+    links = existing_links or []
+    print(f"\n{Colors.BLUE}--- Proje Linkleri (GitHub, Kaggle, Canlı Demo vb.) ---{Colors.ENDC}")
+    if existing_links:
+        print("Mevcut linkler:")
+        for idx, link in enumerate(links):
+            print(f"  {idx+1}. {link.get('label')}: {link.get('url')}")
+        if not confirm_action("Linkleri yeniden düzenlemek ister misiniz? (Hayır derseniz mevcutlar korunur)"):
+            return links
+        links = []
+    
+    while True:
+        label = get_input("Link Etiketi (örn: GitHub, Kaggle, Canlı Demo - Bitirmek için boş bırakın)")
+        if not label:
+            break
+        url = get_input(f"{label} URL'si")
+        if url:
+            links.append({"label": label, "url": url})
+    return links
+
 # --- Base Manager ---
 class ContentManager:
     def __init__(self, metadata_file, content_dir, item_type):
@@ -165,7 +185,8 @@ class PortfolioManager(ContentManager):
             "imageUrl": image_url,
             "description": description,
             "detailFile": filename,
-            "slug": slug
+            "slug": slug,
+            "links": get_links_input()
         }
 
         self.data.insert(0, new_entry)
@@ -183,6 +204,7 @@ class PortfolioManager(ContentManager):
         item['title'] = get_input("Proje Adı", item['title'])
         item['description'] = get_input("Açıklama", item.get('description', ''))
         item['imageUrl'] = get_input("Görsel Yolu", item['imageUrl'])
+        item['links'] = get_links_input(item.get('links', []))
 
         if save_json(self.metadata_file, self.data):
              print(f"{Colors.GREEN}✓ Kayıt güncellendi.{Colors.ENDC}")
