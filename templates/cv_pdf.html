@@ -211,6 +211,33 @@ body {
     color: #64748b;
 }
 
+/* REFERENCES */
+.refs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm 3mm;
+}
+.ref-item {
+    width: calc(33.333% - 2mm);
+    break-inside: avoid;
+}
+.ref-name {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 8.5pt;
+    margin-bottom: 0.5mm;
+}
+.ref-title {
+    font-size: 7.5pt;
+    color: #0284c7;
+    margin-bottom: 0.5mm;
+}
+.ref-contact {
+    font-size: 7.5pt;
+    color: #475569;
+    line-height: 1.4;
+}
+
 /* LANGUAGES */
 .lang-line {
     font-size: 8pt;
@@ -353,6 +380,24 @@ body {
         {% endfor %}
     </div>
     {% endif %}
+    {% endif %}
+
+    {% if cv.references %}
+    <div class="section">
+        <div class="section-heading">References</div>
+        <div class="refs-grid">
+            {% for ref in cv.references %}
+            <div class="ref-item">
+                <div class="ref-name">{{ ref.name }}</div>
+                <div class="ref-title">{{ ref.title }}{% if ref.company %} - {{ ref.company }}{% endif %}</div>
+                <div class="ref-contact">
+                    {% if ref.email %}{{ ref.email }}<br>{% endif %}
+                    {% if ref.phone %}{{ ref.phone }}{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endif %}
 </div>
 </body>
