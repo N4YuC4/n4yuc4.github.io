@@ -13,6 +13,9 @@
     <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
         <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ item.title }}</h3>
+        {% if item.date %}
+        <p class="text-sky-600 text-sm font-medium mb-3">{{ item.date }}</p>
+        {% endif %}
         <p class="text-gray-700 mb-4 flex-grow">{{ item.description }}</p>
         <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <a href="/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>

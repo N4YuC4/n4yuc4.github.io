@@ -9,19 +9,41 @@
   "skills": [
     {
       "category": "Programming Languages",
-      "skill_list": ["Python (Advanced)", "SQL", "Bash/Shell Scripting"]
+      "skill_list": [
+        "Python (Advanced)",
+        "SQL",
+        "Bash/Shell Scripting"
+      ]
     },
     {
       "category": "Machine Learning & AI",
-      "skill_list": ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Google Gemini API"]
+      "skill_list": [
+        "TensorFlow",
+        "Keras",
+        "Scikit-learn",
+        "Pandas",
+        "NumPy",
+        "Google Gemini API"
+      ]
     },
     {
       "category": "Tools & Platforms",
-      "skill_list": ["Git/GitHub", "Linux (Ubuntu/Debian)", "VS Code", "Jupyter Notebooks"]
+      "skill_list": [
+        "Git/GitHub",
+        "Linux (Ubuntu/Debian)",
+        "VS Code",
+        "Jupyter Notebooks"
+      ]
     },
     {
       "category": "Core Concepts",
-      "skill_list": ["Supervised/Unsupervised Learning", "Data Preprocessing", "Model Evaluation", "OOP", "API Integration"]
+      "skill_list": [
+        "Supervised/Unsupervised Learning",
+        "Data Preprocessing",
+        "Model Evaluation",
+        "OOP",
+        "API Integration"
+      ]
     }
   ],
   "education": [
@@ -32,6 +54,15 @@
       "startYear": "09/2022",
       "endYear": "06/2026 (Expected)",
       "gpa": ""
+    }
+  ],
+  "experiences": [
+    {
+      "title": "Machine Learning Intern",
+      "company": "Deep Think Technology",
+      "startDate": "02/2026",
+      "endDate": "06/2026",
+      "description": "Successfully developed an \"Apple Detection and Quality Analysis System\" which was the core project required for the internship program. This role allowed me to bridge the gap between software and hardware by working extensively with both machine learning models and embedded systems. I gained hands-on experience in training computer vision algorithms to identify fruit quality and deploying these models onto embedded devices for real-time inference. Through this process, I significantly deepened my understanding of data preprocessing, model evaluation, and the practical challenges of edge AI computing."
     }
   ],
   "languages": [

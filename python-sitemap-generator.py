@@ -4,7 +4,7 @@ import time
 import email.utils as eut
 from lxml import etree
 
-BASE_URL = 'https://n4yuc4.dev/'
+BASE_URL = 'https://n4yuc4.github.io/'
 SITEMAP_PATH = 'docs/sitemap.xml'
 
 

@@ -278,6 +278,25 @@ body {
     </div>
     {% endif %}
 
+    {% if cv.experiences %}
+    <div class="section">
+        <div class="section-heading">Experience</div>
+        {% for exp in cv.experiences %}
+        <div class="project-item">
+            <div class="edu-row">
+                <span class="edu-degree">{{ exp.title }} <span style="font-weight:400;color:#475569;">at</span> {{ exp.company }}</span>
+                <span class="edu-date">{{ exp.startDate }} – {{ exp.endDate }}</span>
+            </div>
+            {% if exp.description %}
+            <ul class="project-highlights" style="margin-top:1.5mm;">
+                <li>{{ exp.description }}</li>
+            </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     {% if cv.projects %}
     <div class="section">
         <div class="section-heading">Projects</div>

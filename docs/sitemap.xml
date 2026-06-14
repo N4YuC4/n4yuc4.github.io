@@ -1,55 +1,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://n4yuc4.dev/about.html</loc>
+    <loc>https://n4yuc4.github.io/about.html</loc>
     <lastmod>2026-05-31T03:20:46-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/blog.html</loc>
+    <loc>https://n4yuc4.github.io/blog.html</loc>
     <lastmod>2026-05-29T00:44:53-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/contact.html</loc>
+    <loc>https://n4yuc4.github.io/contact.html</loc>
     <lastmod>2026-05-31T03:22:58-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/</loc>
-    <lastmod>2026-06-05T11:24:35-00:00</lastmod>
+    <loc>https://n4yuc4.github.io/</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/portfolio.html</loc>
-    <lastmod>2026-06-05T11:24:35-00:00</lastmod>
+    <loc>https://n4yuc4.github.io/portfolio.html</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/privacy.html</loc>
+    <loc>https://n4yuc4.github.io/privacy.html</loc>
     <lastmod>2026-05-29T00:44:53-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/publications.html</loc>
-    <lastmod>2026-06-05T11:33:59-00:00</lastmod>
+    <loc>https://n4yuc4.github.io/publications.html</loc>
+    <lastmod>2026-06-14T03:54:52-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/terms.html</loc>
+    <loc>https://n4yuc4.github.io/terms.html</loc>
     <lastmod>2026-05-29T00:44:53-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://n4yuc4.dev/portfolio/zettelkasten-ai-notes.html</loc>
-    <lastmod>2026-06-05T11:33:35-00:00</lastmod>
+    <loc>https://n4yuc4.github.io/portfolio/arduino-pc-system-monitor.html</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/portfolio/elma-tespit-kalite-analizi.html</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/portfolio/mt5-en-tr-translation.html</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://n4yuc4.github.io/portfolio/zettelkasten-ai-notes.html</loc>
+    <lastmod>2026-06-14T03:35:35-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

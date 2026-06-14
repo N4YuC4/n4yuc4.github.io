@@ -1,5 +1,50 @@
 [
     {
+        "title": "Arduino PC System Monitor",
+        "date": "1 May 2026",
+        "imageUrl": "images/portfolio-images/arduino-pc-monitor.png",
+        "description": "A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically changes the power mode by classifying the current load using an SVM model running on an Arduino Leonardo.",
+        "techStack": "Python, Arduino (C++), PlatformIO, TinyML (SVM), scikit-learn",
+        "detailFile": "portfolio/arduino-pc-system-monitor.md",
+        "slug": "arduino-pc-system-monitor",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
+            }
+        ]
+    },
+    {
+        "title": "Apple Detection and Quality Analysis System",
+        "date": "March 2026",
+        "imageUrl": "images/portfolio-images/elma-tespit-figures/genel_gorunum.png",
+        "description": "An industrial desktop application built with PyQt5 for real-time apple detection, physical dimension measurement, and CIEDE2000 color quality analysis using YOLOv8-seg. Developed during an internship, I focused on designing the GUI and integrating the core system modules.",
+        "techStack": "Python, PyQt5, OpenCV, YOLOv8, MVS SDK",
+        "detailFile": "portfolio/elma-tespit-kalite-analizi.md",
+        "slug": "elma-tespit-kalite-analizi",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/elma_tespit_ve_kalite_analizi"
+            }
+        ]
+    },
+    {
+        "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
+        "date": "",
+        "imageUrl": "images/portfolio-images/mt5-en-tr.png",
+        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR). The model was optimized using ONNX and INT8 quantization specifically for mobile deployment via ONNX Runtime (ORT Mobile). Achieved a METEOR score of 0.6245 while significantly reducing VRAM usage.",
+        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, SLM",
+        "detailFile": "portfolio/mt5-en-tr-translation.md",
+        "slug": "mt5-en-tr-translation",
+        "links": [
+            {
+                "label": "Kaggle",
+                "url": "https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation"
+            }
+        ]
+    },
+    {
         "title": "Zettelkasten AI Notes",
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
