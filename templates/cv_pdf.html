@@ -398,7 +398,7 @@ body {
             {% for ref in cv.references %}
             <div class="ref-item">
                 <h3 class="ref-name">{{ ref.name }}</h3>
-                <div class="ref-title">{{ ref.title }}{% if ref.company %} - {{ ref.company }}{% endif %}</div>
+                <div class="ref-title">{{ ref.title }}{% if ref.company %}<br>{{ ref.company }}{% endif %}</div>
                 <div class="ref-contact">
                     {% if ref.email %}{{ ref.email }}<br>{% endif %}
                     {% if ref.phone %}{{ ref.phone }}{% endif %}
