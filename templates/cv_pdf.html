@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }} – CV</title>
+<meta name="author" content="{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}">
+<meta name="description" content="CV of {{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }} – {{ cv.personalInfo.title }}">
+<meta name="keywords" content="{{ cv.personalInfo.title }}, CV, Resume{% if cv.skills %}{% for sg in cv.skills %}, {{ sg.skill_list | join(', ') }}{% endfor %}{% endif %}">
 <style>
 @page {
     size: A4;
@@ -250,12 +254,12 @@ body {
 </style>
 </head>
 <body>
-<div class="page">
-    <div class="header">
+<div class="page" role="main">
+    <header class="header">
         <img src="static/{{ cv.personalInfo.profileImage }}" alt="Profile photo of {{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}" class="header-img">
         <div class="header-info">
-            <div class="header-name">{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}</div>
-            <div class="header-title">{{ cv.personalInfo.title }}</div>
+            <h1 class="header-name">{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }}</h1>
+            <p class="header-title">{{ cv.personalInfo.title }}</p>
             <div class="header-contact">
                 <div class="contact-col">
                     <a href="mailto:{{ socialLinks.email }}">{{ socialLinks.email }}</a>
@@ -276,22 +280,22 @@ body {
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
     {% if cv.professionalSummary %}
-    <div class="section">
-        <div class="section-heading">Professional Summary</div>
+    <section class="section">
+        <h2 class="section-heading">Professional Summary</h2>
         <p class="summary-text">{{ cv.professionalSummary }}</p>
-    </div>
+    </section>
     {% endif %}
 
     {% if cv.skills %}
-    <div class="section">
-        <div class="section-heading">Skills</div>
+    <section class="section">
+        <h2 class="section-heading">Skills</h2>
         <div class="skills-grid">
             {% for skill_group in cv.skills %}
             <div class="skill-group">
-                <div class="skill-cat">{{ skill_group.category }}</div>
+                <h3 class="skill-cat">{{ skill_group.category }}</h3>
                 <div class="skill-list">{{ skill_group.skill_list | join(', ') }}</div>
             </div>
             {% endfor %}
@@ -302,12 +306,12 @@ body {
             {% for lang in cv.languages %}{{ lang.language }} ({{ lang.level }}){% if not loop.last %}, {% endif %}{% endfor %}
         </div>
         {% endif %}
-    </div>
+    </section>
     {% endif %}
 
     {% if cv.experiences %}
-    <div class="section">
-        <div class="section-heading">Experience</div>
+    <section class="section">
+        <h2 class="section-heading">Experience</h2>
         {% for exp in cv.experiences %}
         <div class="project-item">
             <div class="edu-row">
@@ -321,15 +325,15 @@ body {
             {% endif %}
         </div>
         {% endfor %}
-    </div>
+    </section>
     {% endif %}
 
     {% if cv.projects %}
-    <div class="section">
-        <div class="section-heading">Projects</div>
+    <section class="section">
+        <h2 class="section-heading">Projects</h2>
         {% for project in cv.projects %}
         <div class="project-item">
-            <div class="project-title">{{ project.title }}</div>
+            <h3 class="project-title">{{ project.title }}</h3>
             {% if project.techStack %}<div class="project-tech">{{ project.techStack }}</div>{% endif %}
             <ul class="project-highlights">
                 <li>{{ project.description }}</li>
@@ -343,19 +347,19 @@ body {
             {% endif %}
         </div>
         {% endfor %}
-    </div>
+    </section>
     {% endif %}
 
     {% if cv.publications %}
-    <div class="section">
-        <div class="section-heading">Publications</div>
+    <section class="section">
+        <h2 class="section-heading">Publications</h2>
         {% for pub in cv.publications %}
         <div class="pub-item">
             <strong>{{ pub.title }}</strong>{% if pub.authors %} — {{ pub.authors }}{% endif %}
             {% if pub.journal or pub.year %}<br><em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}
         </div>
         {% endfor %}
-    </div>
+    </section>
     {% endif %}
 
     {% if cv.education %}
@@ -364,8 +368,8 @@ body {
     {% if edu.degree and edu.institution %}{% set ns.has_edu = true %}{% endif %}
     {% endfor %}
     {% if ns.has_edu %}
-    <div class="section">
-        <div class="section-heading">Education</div>
+    <section class="section">
+        <h2 class="section-heading">Education</h2>
         {% for edu in cv.education %}
         {% if edu.degree and edu.institution %}
         <div class="edu-item">
@@ -378,17 +382,17 @@ body {
         </div>
         {% endif %}
         {% endfor %}
-    </div>
+    </section>
     {% endif %}
     {% endif %}
 
     {% if cv.references %}
-    <div class="section">
-        <div class="section-heading">References</div>
+    <section class="section">
+        <h2 class="section-heading">References</h2>
         <div class="refs-grid">
             {% for ref in cv.references %}
             <div class="ref-item">
-                <div class="ref-name">{{ ref.name }}</div>
+                <h3 class="ref-name">{{ ref.name }}</h3>
                 <div class="ref-title">{{ ref.title }}{% if ref.company %} - {{ ref.company }}{% endif %}</div>
                 <div class="ref-contact">
                     {% if ref.email %}{{ ref.email }}<br>{% endif %}
@@ -397,7 +401,7 @@ body {
             </div>
             {% endfor %}
         </div>
-    </div>
+    </section>
     {% endif %}
 </div>
 </body>
