@@ -5,7 +5,7 @@
     "title": "Machine Learning | Data Scientist",
     "profileImage": "images/profile.png"
   },
-  "professionalSummary": "I am an aspiring Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. As a top 10 finalist in the \"Pupilica AI Hackathon,\" I demonstrated practical skills in integrating AI APIs into user-friendly applications. I am passionate about Natural Language Processing (NLP) and building scalable data solutions. I have a proven ability to apply various ML algorithms for classification tasks and I'm currently expanding my expertise in advanced NLP architectures.",
+  "professionalSummary": "Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. Top 10 finalist in the Pupilica AI Hackathon, with demonstrated ability to integrate AI APIs into production-ready applications. Focused on Natural Language Processing (NLP) and scalable data solutions, with hands-on experience in model training, quantization, and edge AI deployment.",
   "skills": [
     {
       "category": "Programming Languages",
@@ -16,14 +16,23 @@
       ]
     },
     {
-      "category": "Machine Learning & AI",
+      "category": "ML & AI Frameworks",
       "skill_list": [
         "TensorFlow",
+        "PyTorch",
         "Keras",
         "Scikit-learn",
-        "Pandas",
-        "NumPy",
-        "Google Gemini API"
+        "Hugging Face (LoRA/PEFT)",
+        "ONNX Runtime"
+      ]
+    },
+    {
+      "category": "Core Domains",
+      "skill_list": [
+        "Computer Vision (OpenCV, YOLOv8)",
+        "NLP (Transformers)",
+        "Data Preprocessing",
+        "Model Evaluation & Quantization"
       ]
     },
     {
@@ -31,18 +40,10 @@
       "skill_list": [
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
+        "PyQt5",
+        "Google Gemini API",
         "VS Code",
         "Jupyter Notebooks"
-      ]
-    },
-    {
-      "category": "Core Concepts",
-      "skill_list": [
-        "Supervised/Unsupervised Learning",
-        "Data Preprocessing",
-        "Model Evaluation",
-        "OOP",
-        "API Integration"
       ]
     }
   ],
@@ -53,7 +54,7 @@
       "institution": "Burdur Mehmet Akif Ersoy University",
       "startYear": "09/2022",
       "endYear": "06/2026",
-      "gpa": "3,17"
+      "gpa": "3.17/4.00"
     }
   ],
   "experiences": [
@@ -62,7 +63,12 @@
       "company": "Deep Think Technology",
       "startDate": "02/2026",
       "endDate": "06/2026",
-      "description": "Successfully developed an \"Apple Detection and Quality Analysis System\" which was the core project required for the internship program. This role allowed me to bridge the gap between software and hardware by working extensively with both machine learning models and embedded systems. I gained hands-on experience in training computer vision algorithms to identify fruit quality and deploying these models onto embedded devices for real-time inference. Through this process, I significantly deepened my understanding of data preprocessing, model evaluation, and the practical challenges of edge AI computing."
+      "description": [
+        "Developed an \"Apple Detection and Quality Analysis System\" using YOLOv8-seg for real-time fruit detection and CIEDE2000 color quality analysis.",
+        "Designed and implemented a desktop GUI with PyQt5, integrating camera SDK, ML inference, and physical dimension measurement modules.",
+        "Trained and deployed computer vision models on embedded devices for real-time edge AI inference.",
+        "Gained hands-on experience in data preprocessing, model evaluation, and the practical challenges of edge computing."
+      ]
     }
   ],
   "languages": [

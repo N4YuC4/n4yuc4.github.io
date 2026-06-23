@@ -9,7 +9,7 @@
 <style>
 @page {
     size: A4;
-    margin: 0;
+    margin: 12mm 10mm;
 }
 * {
     margin: 0;
@@ -26,9 +26,7 @@ body {
     print-color-adjust: exact;
 }
 .page {
-    width: 210mm;
-    min-height: 297mm;
-    padding: 8mm 10mm;
+    width: 100%;
 }
 
 /* HEADER */
@@ -90,17 +88,18 @@ body {
 
 /* SECTIONS */
 .section {
-    margin-bottom: 3.5mm;
+    margin-bottom: 4.5mm;
 }
 .section-heading {
-    font-size: 8.5pt;
-    font-weight: 700;
+    font-size: 10.5pt;
+    font-weight: 800;
     color: #0f172a;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding-bottom: 1mm;
-    margin-bottom: 2mm;
-    border-bottom: 1.5px solid #0ea5e9;
+    letter-spacing: 0.06em;
+    padding-bottom: 1.5mm;
+    margin-bottom: 3mm;
+    margin-top: 1.5mm;
+    border-bottom: 2px solid #0ea5e9;
 }
 
 /* SUMMARY */
@@ -320,7 +319,13 @@ body {
             </div>
             {% if exp.description %}
             <ul class="project-highlights" style="margin-top:1.5mm;">
+                {% if exp.description is string %}
                 <li>{{ exp.description }}</li>
+                {% else %}
+                {% for desc in exp.description %}
+                <li>{{ desc }}</li>
+                {% endfor %}
+                {% endif %}
             </ul>
             {% endif %}
         </div>
@@ -356,7 +361,7 @@ body {
         {% for pub in cv.publications %}
         <div class="pub-item">
             <strong>{{ pub.title }}</strong>{% if pub.authors %} — {{ pub.authors }}{% endif %}
-            {% if pub.journal or pub.year %}<br><em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}
+            {% if pub.journal or pub.year %}<br><em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}{% if pub.link %} — <a href="{{ pub.link }}" style="color: #0369a1; text-decoration: none;">{{ pub.link }}</a>{% endif %}
         </div>
         {% endfor %}
     </section>
