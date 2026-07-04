@@ -140,7 +140,7 @@ def generate_cv_pdf(cv_data, social_links):
             if os.path.exists(src_path):
                 cv_profile_path = os.path.join(project_root, 'static', 'images', '_cv_profile.jpg')
                 with PILImage.open(src_path) as img:
-                    img.convert('RGB').save(cv_profile_path, 'JPEG', quality=97, optimize=True)
+                    img.convert('RGB').save(cv_profile_path, 'JPEG', quality=90, optimize=True)
         
         template = env.get_template('cv_pdf.html')
         html_content = template.render({'cv': cv_data, 'socialLinks': social_links})
