@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio Items Schema",
+  "description": "Schema for validating and editing Nazmi Yucel Can portfolio items",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string", "description": "Title of the project" },
+      "date": { "type": "string", "description": "Date or period of the project (e.g. March 2026)" },
+      "imageUrl": { "type": "string", "description": "Path to the project card image in static directory (e.g., images/portfolio-images/image.png)" },
+      "description": { "type": "string", "description": "Short description of the project" },
+      "techStack": { "type": "string", "description": "Comma-separated list of technologies used (e.g., Python, PyQt5, OpenCV)" },
+      "detailFile": { "type": "string", "description": "Path to the project markdown detail file (e.g., portfolio/slug.md)" },
+      "slug": { "type": "string", "description": "URL-friendly unique identifier (e.g., my-awesome-project)" },
+      "links": {
+        "type": "array",
+        "description": "Relevant project links (GitHub, Live Demo, Kaggle, etc.)",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": { "type": "string", "description": "Label of the link (e.g. GitHub, Kaggle, Canlı Demo)" },
+            "url": { "type": "string", "description": "Full URL of the link" }
+          },
+          "required": ["label", "url"]
+        }
+      }
+    },
+    "required": ["title", "description", "detailFile", "slug"]
+  }
+}

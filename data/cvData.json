@@ -1,4 +1,5 @@
 {
+  "$schema": "./schemas/cv-schema.json",
   "personalInfo": {
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",

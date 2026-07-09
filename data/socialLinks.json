@@ -1,4 +1,5 @@
 {
+  "$schema": "./schemas/social-schema.json",
   "email": "yucelcan028@gmail.com",
   "website": {
     "url": "https://n4yuc4.github.io",
