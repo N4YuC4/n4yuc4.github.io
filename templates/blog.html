@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Blog - N4YuC4{% endblock %}
+{% block title %}{{ t.nav_blog }} - N4YuC4{% endblock %}
 
 {% block content %}
 <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Blog</h1>
-        <p class="text-lg text-gray-600 mt-4">My latest articles published on Medium.</p>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">{{ t.nav_blog }}</h1>
+        <p class="text-lg text-gray-600 mt-4">{{ t.blog_subtitle }}</p>
     </div>
 
     <div class="grid gap-8">
@@ -23,7 +23,7 @@
                     {% endif %}
                     <div class="p-6 md:p-8 flex-1 flex flex-col justify-center">
                         <div class="mb-2">
-                            <span class="text-sm font-medium text-sky-400 bg-slate-800 px-3 py-1 rounded-full">Medium Article</span>
+                            <span class="text-sm font-medium text-sky-400 bg-slate-800 px-3 py-1 rounded-full">{{ t.medium_article }}</span>
                         </div>
                         <h2 class="text-2xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors duration-300 mb-3">{{ post.title }}</h2>
                         <div class="flex items-center text-gray-500 text-sm mb-4">
@@ -38,7 +38,7 @@
                             </p>
                         {% endif %}
                         <div class="mt-4 flex items-center text-sky-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                            Read on Medium
+                            {{ t.read_on_medium }}
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
@@ -49,7 +49,7 @@
             {% endfor %}
         {% else %}
             <div class="text-center py-12 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <p class="text-slate-600">Posts could not be loaded or no posts have been published yet.</p>
+                <p class="text-slate-600">{{ t.no_posts }}</p>
             </div>
         {% endif %}
     </div>

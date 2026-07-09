@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Portfolio - N4YuC4{% endblock %}
+{% block title %}{{ t.nav_portfolio }} - N4YuC4{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Portfolio</h1>
-        <p class="text-lg text-gray-600 mt-4">A showcase of my projects and technical works.</p>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">{{ t.nav_portfolio }}</h1>
+        <p class="text-lg text-gray-600 mt-4">{{ t.portfolio_subtitle }}</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
     {% for item in items %}
     <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
         <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
@@ -18,7 +18,7 @@
         {% endif %}
         <p class="text-gray-700 mb-4 flex-grow">{{ item.description }}</p>
         <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <a href="/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>
+            <a href="{{ lang_prefix }}/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">{{ t.view_details }}</a>
             {% if item.links %}
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 {% for link in item.links %}

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Pencere boyutu değiştiğinde mobil menüyü kapat (tablet ve üstü için)
     window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 1024) {
             closeMobileMenu(mobileMenuOverlay, document.body);
         }
     });

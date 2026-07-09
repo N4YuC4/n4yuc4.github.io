@@ -80,12 +80,12 @@ def _set_source_mtime(output_path, *extra_sources):
     if mtime:
         os.utime(output_path, (mtime, mtime))
 
-def render_template(template_name, output_path, context={}, sources=[]):
+def render_template(template_name, output_path, context={}, sources=[], output_dir=BUILD_DIR):
     """Renders a Jinja2 template to a file."""
     template = env.get_template(template_name)
     html_content = template.render(context)
     
-    full_path = os.path.join(BUILD_DIR, output_path)
+    full_path = os.path.join(output_dir, output_path)
     os.makedirs(os.path.dirname(full_path), exist_ok=True)
     
     with open(full_path, 'w', encoding='utf-8') as f:
@@ -115,8 +115,8 @@ def convert_markdown_to_html(md_content):
     """Converts a Markdown string to HTML."""
     return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite'])
 
-def generate_cv_pdf(cv_data, social_links):
-    """Generates docs/Nazmi-Yucel-Can_CV.pdf from the cv_pdf.html template using WeasyPrint.
+def generate_cv_pdf(cv_data, social_links, lang='en', t={}):
+    """Generates docs/Nazmi-Yucel-Can_CV.pdf or docs/tr/Nazmi-Yucel-Can_CV.pdf from the cv_pdf.html template using WeasyPrint.
     
     Optimization strategy:
     - Pre-converts the RGBA PNG profile image to an optimized JPEG (quality 97)
@@ -143,7 +143,7 @@ def generate_cv_pdf(cv_data, social_links):
                     img.convert('RGB').save(cv_profile_path, 'JPEG', quality=90, optimize=True)
         
         template = env.get_template('cv_pdf.html')
-        html_content = template.render({'cv': cv_data, 'socialLinks': social_links})
+        html_content = template.render({'cv': cv_data, 'socialLinks': social_links, 'lang': lang, 't': t})
         
         # Point to the optimized JPEG instead of the original PNG
         if cv_profile_path and profile_src:
@@ -152,7 +152,13 @@ def generate_cv_pdf(cv_data, social_links):
                 'static/images/_cv_profile.jpg'
             )
         
-        pdf_path = os.path.join(BUILD_DIR, 'Nazmi-Yucel-Can_CV.pdf')
+        if lang == 'en':
+            pdf_path = os.path.join(BUILD_DIR, 'Nazmi-Yucel-Can_CV_EN.pdf')
+        else:
+            pdf_path = os.path.join(BUILD_DIR, lang, f'Nazmi-Yucel-Can_CV_{lang.upper()}.pdf')
+            
+        os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+        
         HTML(string=html_content, base_url=project_root).write_pdf(
             pdf_path,
             pdf_tags=True,
@@ -165,10 +171,10 @@ def generate_cv_pdf(cv_data, social_links):
         
         pdf_size = os.path.getsize(pdf_path)
         _set_source_mtime(pdf_path, 'templates/cv_pdf.html', 'data/cvData.json', 'data/socialLinks.json', 'data/portfolioItems.json', 'data/publications.json')
-        print(f"Generated CV PDF: {os.path.relpath(pdf_path)} ({pdf_size / 1024:.0f} KB)")
+        print(f"Generated CV PDF ({lang}): {os.path.relpath(pdf_path)} ({pdf_size / 1024:.0f} KB)")
         return True
     except Exception as e:
-        print(f"Warning: CV PDF generation failed: {e}")
+        print(f"Warning: CV PDF generation failed for {lang}: {e}")
         return False
 
 def fetch_publication_metadata(url, cache):
@@ -298,9 +304,7 @@ def build():
             _set_source_mtime(redirect_path, os.path.join(DATA_DIR, 'redirects.json'))
         print(f"Generated {len(redirects_data.get('posts', {}))} redirect pages.")
 
-    # 5. Load all data into memory
-    print("Loading data from JSON files...")
-    portfolio_items = read_json_file(os.path.join(DATA_DIR, 'portfolioItems.json'))
+    # 5. Load publications and Medium posts (shared between languages to save API queries)
     publication_urls = read_json_file(os.path.join(DATA_DIR, 'publications.json'))
     
     # Cache management for publications
@@ -315,129 +319,182 @@ def build():
             pub_data = fetch_publication_metadata(url, publications_cache)
             publications_items.append(pub_data)
         
-        # Save cache only if content actually changed (avoids mtime bump → sitemap churn)
+        # Save cache only if content actually changed
         new_cache = json.dumps(publications_cache, ensure_ascii=False, sort_keys=True)
         if new_cache != cache_snapshot:
             with open(cache_path, 'w', encoding='utf-8') as f:
                 json.dump(publications_cache, f, ensure_ascii=False, indent=4)
             print("Publications cache updated.")
 
-    about_data = read_json_file(os.path.join(DATA_DIR, 'aboutPageData.json')) or {}
-    contact_data = read_json_file(os.path.join(DATA_DIR, 'contactPageData.json'))
-    privacy_data = read_json_file(os.path.join(DATA_DIR, 'privacyPolicyData.json'))
-    terms_data = read_json_file(os.path.join(DATA_DIR, 'termsOfUseData.json'))
-    seo_data = read_json_file(os.path.join(DATA_DIR, 'seoData.json'))
-    cv_data = read_json_file(os.path.join(DATA_DIR, 'cvData.json'))
-    social_links = read_json_file(os.path.join(DATA_DIR, 'socialLinks.json'))
-    
-    # Auto-populate CV with portfolio items and publications
-    if cv_data:
-        # Add portfolio items as projects
-        if portfolio_items:
-            cv_projects = []
-            for item in portfolio_items:
-                project = {
-                    'title': item.get('title', ''),
-                    'description': item.get('description', ''),
-                    'techStack': item.get('techStack', ''),
-                    'slug': item.get('slug', ''),
-                }
-                project['links'] = item.get('links', [])
-                cv_projects.append(project)
-            cv_data['projects'] = cv_projects
-        
-        # Add publications
-        if publications_items:
-            cv_data['publications'] = publications_items
-    
-    # 6. Fetch Medium Posts
     medium_posts = fetch_medium_posts(MEDIUM_RSS_URL)
-
-    # 7. Render main pages
-    print("Rendering main pages...")
-    render_template('home.html', 'index.html', {
-        'about': about_data,
-        'portfolio': portfolio_items,
-        'posts': medium_posts[:3],
-        'publications': publications_items[:3],
-        'seo': seo_data.get('home', {}),
-        'socialLinks': social_links
-    }, sources=['data/aboutPageData.json', 'data/portfolioItems.json', 'data/socialLinks.json', 'data/seoData.json'])
-    render_template('about.html', 'about.html', {
-        'data': about_data,
-        'seo': seo_data.get('about', {}),
-        'socialLinks': social_links
-    }, sources=['data/aboutPageData.json', 'data/socialLinks.json', 'data/seoData.json'])
-    render_template('contact.html', 'contact.html', {
-        'data': contact_data,
-        'seo': seo_data.get('contact', {}),
-        'socialLinks': social_links
-    }, sources=['data/contactPageData.json', 'data/socialLinks.json', 'data/seoData.json'])
-    render_template('portfolio.html', 'portfolio.html', {
-        'items': portfolio_items,
-        'seo': seo_data.get('portfolio', {}),
-        'socialLinks': social_links
-    }, sources=['data/portfolioItems.json', 'data/seoData.json'])
-    render_template('publications.html', 'publications.html', {
-        'items': publications_items,
-        'seo': seo_data.get('publications', {}),
-        'socialLinks': social_links
-    }, sources=['data/publications.json', 'data/seoData.json'])
-    render_template('blog.html', 'blog.html', {
-        'posts': medium_posts,
-        'seo': seo_data.get('blog', {}),
-        'socialLinks': social_links
-    }, sources=['data/seoData.json'])
-
-    legal_pages = [
-        ('privacy', privacy_data, 'privacy-policy-section', 'data/privacyPolicyData.json', 'data/privacy.md'),
-        ('terms', terms_data, 'terms-of-use-section', 'data/termsOfUseData.json', 'data/terms.md'),
-    ]
-    for page_key, page_data, section_id, data_json, content_md in legal_pages:
-        if page_data and 'contentFile' in page_data:
-            md_content = read_md_file(page_data['contentFile'])
-            html_content = convert_markdown_to_html(md_content)
-            render_template('_legal_page.html', f'{page_key}.html', {
-                'data': {'title': page_data['title'], 'content': html_content},
-                'section_id': section_id,
-                'seo': seo_data.get(page_key, {}),
-                'socialLinks': social_links
-            }, sources=[data_json, content_md, 'data/seoData.json'])
     
-    # 8. Generate CV PDF (no separate CV page anymore)
-    print("Generating CV PDF...")
-    if cv_data:
-        generate_cv_pdf(cv_data, social_links)
-    
-    # 9. Render portfolio detail pages
-    print("Rendering portfolio detail pages...")
-    if portfolio_items:
-        for item in portfolio_items:
-            slug = item.get('slug')
-            md_file_path = item.get('detailFile')
-            if slug and md_file_path:
-                portfolio_md_content = read_md_file(md_file_path)
-                item['content'] = convert_markdown_to_html(portfolio_md_content)
-                render_template(
-                    'portfolio_detail.html',
-                    os.path.join('portfolio', f"{slug}.html"),
-                    {'item': item, 'seo': seo_data.get('portfolio', {}), 'socialLinks': social_links},
-                    sources=[md_file_path, 'data/portfolioItems.json', 'data/seoData.json']
-                )
-        print(f"Rendered {len(portfolio_items)} portfolio detail pages.")
+    # Load UI translations
+    ui_translations = read_json_file(os.path.join(DATA_DIR, 'translations.json')) or {}
 
-    # 10. Generate Sitemap
-    print("Generating sitemap...")
+    # 6. Build loop for each active language
+    languages = ['en', 'tr']
+    for lang in languages:
+        print(f"\n--- Building site for language: {lang} ---")
+        
+        if lang == 'en':
+            lang_prefix = ""
+            output_dir = BUILD_DIR
+        else:
+            lang_prefix = f"/{lang}"
+            output_dir = os.path.join(BUILD_DIR, lang)
+            
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Helper to retrieve translated files with fallback to default English
+        def get_lang_file(filename):
+            if lang == 'en':
+                return os.path.join(DATA_DIR, filename)
+            lang_path = os.path.join(DATA_DIR, lang, filename)
+            if os.path.exists(lang_path):
+                return lang_path
+            return os.path.join(DATA_DIR, filename)
+
+        about_data = read_json_file(get_lang_file('aboutPageData.json')) or {}
+        contact_data = read_json_file(get_lang_file('contactPageData.json'))
+        privacy_data = read_json_file(get_lang_file('privacyPolicyData.json'))
+        terms_data = read_json_file(get_lang_file('termsOfUseData.json'))
+        seo_data = read_json_file(get_lang_file('seoData.json'))
+        cv_data = read_json_file(get_lang_file('cvData.json'))
+        social_links = read_json_file(get_lang_file('socialLinks.json'))
+        portfolio_items = read_json_file(get_lang_file('portfolioItems.json'))
+
+        # Auto-populate CV with portfolio items and publications
+        if cv_data:
+            if portfolio_items:
+                cv_projects = []
+                for item in portfolio_items:
+                    project = {
+                        'title': item.get('title', ''),
+                        'description': item.get('description', ''),
+                        'techStack': item.get('techStack', ''),
+                        'slug': item.get('slug', ''),
+                    }
+                    project['links'] = item.get('links', [])
+                    cv_projects.append(project)
+                cv_data['projects'] = cv_projects
+            
+            if publications_items:
+                cv_data['publications'] = publications_items
+        
+        # UI Translations dictionary for current language
+        t = ui_translations.get(lang, {})
+        
+        # Common context shared by all templates
+        common_context = {
+            'lang': lang,
+            'lang_prefix': lang_prefix,
+            't': t,
+            'socialLinks': social_links,
+            'build_time': int(time.time())
+        }
+        
+        # Helper to inject common variables and current page path
+        def render_lang_template(template_name, output_path, page_context={}, sources=[]):
+            full_context = common_context.copy()
+            full_context.update(page_context)
+            full_context['current_page'] = output_path
+            render_template(template_name, output_path, full_context, sources=sources, output_dir=output_dir)
+
+        # Render main pages
+        print(f"Rendering templates for {lang}...")
+        render_lang_template('home.html', 'index.html', {
+            'about': about_data,
+            'portfolio': portfolio_items,
+            'posts': medium_posts[:3],
+            'publications': publications_items[:3],
+            'seo': seo_data.get('home', {}),
+        }, sources=[get_lang_file('aboutPageData.json'), get_lang_file('portfolioItems.json'), 'data/socialLinks.json', get_lang_file('seoData.json')])
+        
+        render_lang_template('about.html', 'about.html', {
+            'data': about_data,
+            'seo': seo_data.get('about', {}),
+        }, sources=[get_lang_file('aboutPageData.json'), 'data/socialLinks.json', get_lang_file('seoData.json')])
+        
+        render_lang_template('contact.html', 'contact.html', {
+            'data': contact_data,
+            'seo': seo_data.get('contact', {}),
+        }, sources=[get_lang_file('contactPageData.json'), 'data/socialLinks.json', get_lang_file('seoData.json')])
+        
+        render_lang_template('portfolio.html', 'portfolio.html', {
+            'items': portfolio_items,
+            'seo': seo_data.get('portfolio', {}),
+        }, sources=[get_lang_file('portfolioItems.json'), get_lang_file('seoData.json')])
+        
+        render_lang_template('publications.html', 'publications.html', {
+            'items': publications_items,
+            'seo': seo_data.get('publications', {}),
+        }, sources=['data/publications.json', get_lang_file('seoData.json')])
+        
+        render_lang_template('blog.html', 'blog.html', {
+            'posts': medium_posts,
+            'seo': seo_data.get('blog', {}),
+        }, sources=[get_lang_file('seoData.json')])
+
+        legal_pages = [
+            ('privacy', privacy_data, 'privacy-policy-section', get_lang_file('privacyPolicyData.json'), get_lang_file('privacy.md')),
+            ('terms', terms_data, 'terms-of-use-section', get_lang_file('termsOfUseData.json'), get_lang_file('terms.md')),
+        ]
+        for page_key, page_data, section_id, data_json, content_md in legal_pages:
+            if page_data and 'contentFile' in page_data:
+                md_content = read_md_file(content_md)
+                html_content = convert_markdown_to_html(md_content)
+                render_lang_template('_legal_page.html', f'{page_key}.html', {
+                    'data': {'title': page_data['title'], 'content': html_content},
+                    'section_id': section_id,
+                    'seo': seo_data.get(page_key, {}),
+                }, sources=[data_json, content_md, get_lang_file('seoData.json')])
+
+        # Generate CV PDF (using the correct localized CV data and UI strings)
+        print(f"Generating CV PDF for {lang}...")
+        if cv_data:
+            generate_cv_pdf(cv_data, social_links, lang=lang, t=t)
+
+        # Render portfolio detail pages
+        print(f"Rendering portfolio detail pages for {lang}...")
+        if portfolio_items:
+            for item in portfolio_items:
+                slug = item.get('slug')
+                md_file_path = item.get('detailFile')
+                if slug and md_file_path:
+                    # Resolve full markdown path
+                    if os.path.exists(md_file_path):
+                        full_md_path = md_file_path
+                    else:
+                        # Fallback to English file if Turkish is missing
+                        fallback_path = os.path.join('portfolio', os.path.basename(md_file_path))
+                        print(f"Warning: {md_file_path} not found, falling back to {fallback_path}")
+                        full_md_path = fallback_path
+                        
+                    portfolio_md_content = read_md_file(full_md_path)
+                    item['content'] = convert_markdown_to_html(portfolio_md_content)
+                    
+                    render_lang_template(
+                        'portfolio_detail.html',
+                        os.path.join('portfolio', f"{slug}.html"),
+                        {'item': item, 'seo': seo_data.get('portfolio', {})},
+                        sources=[full_md_path, get_lang_file('portfolioItems.json'), get_lang_file('seoData.json')]
+                    )
+            print(f"Rendered {len(portfolio_items)} portfolio detail pages for {lang}.")
+
+    # 7. Generate Sitemap (runs os.walk on 'docs' so it naturally crawls both root and 'tr/')
+    print("\nGenerating sitemap...")
     try:
-        # Use sys.executable to ensure we're using the same python interpreter
         subprocess.run([sys.executable, 'python-sitemap-generator.py'], check=True)
         print("sitemap.xml successfully generated.")
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         print(f"Error during sitemap generation: {e}")
 
-    # 11. Final message
+    # 8. Final message
     print("\nBuild process complete.")
     print(f"Static site is available in '{BUILD_DIR}' folder.")
+
+if __name__ == "__main__":
+    build()
 
 if __name__ == "__main__":
     build()

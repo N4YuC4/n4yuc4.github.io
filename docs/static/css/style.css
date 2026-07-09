@@ -177,7 +177,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.02em;
     text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Arkaplandan ayırmak için kritik gölge */
 }
-p, li { 
+p, #content-area li { 
     color: var(--text-main) !important; 
     line-height: 1.8;
     margin-bottom: 1.25em;
@@ -209,7 +209,7 @@ p, li {
 
 /* --- MOBİL MENÜ --- */
 .hamburger-button { display: none !important; }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     .hamburger-button {
         display: block !important;
         color: var(--text-main);
@@ -231,7 +231,7 @@ p, li {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     #mobile-menu-overlay.open {
         display: flex !important;
         flex-direction: column;
@@ -240,7 +240,7 @@ p, li {
         opacity: 1;
     }
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     #mobile-menu-overlay.open { display: none !important; }
 }
 #mobile-menu-overlay ul { list-style: none; padding: 0; margin: 0; text-align: center; }
@@ -430,12 +430,6 @@ footer a:hover { color: var(--text-main) !important; }
 .prose table th {
     color: var(--text-heading); /* Make table header text lighter */
     background-color: var(--bg-card); /* Add background color */
-}
-
-@media (min-width: 1024px) {
-    #content-area {
-        padding: 4rem 16rem !important; /* Vertical p-16, Horizontal p-32 equivalent */
-    }
 }
 
 

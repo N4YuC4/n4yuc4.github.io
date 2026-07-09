@@ -1,0 +1,94 @@
+{
+  "personalInfo": {
+    "firstName": "Nazmi Yücel",
+    "lastName": "Çan",
+    "title": "Veri Bilimci & Makine Öğrenimi Uzmanı",
+    "profileImage": "images/profile.png"
+  },
+  "professionalSummary": "Python, Makine Öğrenimi ve Derin Öğrenme alanlarında güçlü bir temele sahip Veri Bilimci. Yapay zeka uygulamalarını ve modellerini canlı sistemlere (production) entegre etme konusunda deneyimlidir. Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girerek pratik çözüm geliştirme yeteneğini kanıtlamıştır. Model eğitimi, kuantizasyon (nicemleme) ve uç yapay zeka (Edge AI) konuşlandırma süreçlerinde yetkin olup, Doğal Dil İşleme (NLP) ve ölçeklenebilir veri çözümlerine odaklanmaktadır.",
+  "skills": [
+    {
+      "category": "Programlama Dilleri",
+      "skill_list": [
+        "Python (İleri Seviye)",
+        "SQL",
+        "Bash/Shell Scripting"
+      ]
+    },
+    {
+      "category": "ML & Yapay Zeka Kütüphaneleri",
+      "skill_list": [
+        "TensorFlow",
+        "PyTorch",
+        "Keras",
+        "Scikit-learn",
+        "Hugging Face (LoRA/PEFT)",
+        "ONNX Runtime"
+      ]
+    },
+    {
+      "category": "Temel Alanlar",
+      "skill_list": [
+        "Bilgisayarlı Görü (OpenCV, YOLOv8)",
+        "Doğal Dil İşleme - NLP (Transformers)",
+        "Veri Önişleme & Temizleme",
+        "Model Değerlendirme & Nicemleme (Quantization)"
+      ]
+    },
+    {
+      "category": "Araçlar & Platformlar",
+      "skill_list": [
+        "Git/GitHub",
+        "Linux (Ubuntu/Debian)",
+        "PyQt5",
+        "Google Gemini API",
+        "VS Code",
+        "Jupyter Notebook"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Lisans",
+      "field": "Bilişim Sistemleri ve Teknolojileri",
+      "institution": "Burdur Mehmet Akif Ersoy Üniversitesi",
+      "startYear": "09/2022",
+      "endYear": "06/2026",
+      "gpa": "3.17/4.00"
+    }
+  ],
+  "experiences": [
+    {
+      "title": "Makine Öğrenimi Stajyeri",
+      "company": "Deep Think Teknoloji",
+      "startDate": "02/2026",
+      "endDate": "06/2026",
+      "description": [
+        "YOLOv8-seg modeli kullanılarak gerçek zamanlı meyve tespiti ve CIEDE2000 standardına göre renk kalitesi analizi yapan 'Elma Tespit ve Kalite Analizi Sistemi'nin geliştirilmesi.",
+        "Kamera entegrasyonu, yapay zeka çıkarım modülleri ve fiziksel boyut ölçüm algoritmalarını içeren PyQt5 tabanlı bir masaüstü arayüzünün (GUI) tasarımı ve kodlanması.",
+        "Gömülü sistemler üzerinde çalışan, gerçek zamanlı ve düşük gecikmeli uç yapay zeka (Edge AI) bilgisayarlı görü modellerinin eğitilmesi ve devreye alınması.",
+        "Veri önişleme, model doğrulama/değerlendirme süreçleri ve uç bilişim (Edge Computing) donanımlarının pratik kısıtları üzerine deneyim kazanılması."
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Türkçe",
+      "level": "Anadil"
+    },
+    {
+      "language": "İngilizce",
+      "level": "Orta Seviye"
+    }
+  ],
+  "publications": [],
+  "references": [
+    {
+      "name": "Dr. Öğr. Üyesi Nilgün ŞENGÖZ",
+      "title": "Doktora Sonrası Araştırmacı, Bilgisayar Bilimleri, Nottingham Üniversitesi",
+      "company": "Bilişim Sistemleri ve Teknolojileri Bölümü, Burdur Mehmet Akif Ersoy Üniversitesi (MAKÜ)",
+      "email": "nilgunsengoz@mehmetakif.edu.tr",
+      "phone": ""
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Publications - N4YuC4{% endblock %}
+{% block title %}{{ t.nav_publications }} - N4YuC4{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto space-y-10">
     <div class="text-center mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Publications</h1>
-        <p class="text-lg text-gray-600 mt-4">My academic research and scholarly publications.</p>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800">{{ t.nav_publications }}</h1>
+        <p class="text-lg text-gray-600 mt-4">{{ t.publications_subtitle }}</p>
     </div>
     {% for item in items %}
     <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col hover:shadow-xl transition-shadow duration-300">
@@ -26,7 +26,7 @@
         </p>
         <div class="mt-auto">
             <a href="{{ item.link }}" target="_blank" class="read-more-btn inline-block py-2 px-6 rounded-full font-semibold shadow-md transition duration-300 text-sm">
-                <i class="fas fa-external-link-alt mr-2"></i> View Publication
+                <i class="fas fa-external-link-alt mr-2"></i> {{ t.view_publication }}
             </a>
         </div>
     </div>

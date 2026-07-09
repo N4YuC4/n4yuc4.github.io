@@ -5,7 +5,7 @@
 {% block content %}
 <article class="bg-white p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
     <div class="mb-8">
-        <a href="/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; Back to Portfolio</a>
+        <a href="{{ lang_prefix }}/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; {{ t.back_to_portfolio }}</a>
         <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">{{ item.title }}</h1>
         {% if item.date %}
         <p class="text-sky-600 font-medium mb-4">{{ item.date }}</p>

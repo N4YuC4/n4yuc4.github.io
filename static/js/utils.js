@@ -117,6 +117,14 @@ export function setupCodeBlocks() {
 export function highlightActiveLink() {
     const path = window.location.pathname;
     
+    // Normalize Turkish paths (e.g., /tr/about.html -> /about.html)
+    let normalizedPath = path;
+    if (path.startsWith('/tr/')) {
+        normalizedPath = path.substring(3);
+    } else if (path === '/tr') {
+        normalizedPath = '/';
+    }
+    
     // Link ID'lerini ve yollarını eşleştir
     const navMap = {
         '/index.html': 'home',
@@ -129,9 +137,9 @@ export function highlightActiveLink() {
     };
 
     // Alt sayfalar için kontrol (örn: /portfolio/proje.html)
-    let activeKey = navMap[path];
+    let activeKey = navMap[normalizedPath];
     if (!activeKey) {
-        if (path.includes('/portfolio/')) activeKey = 'portfolio';
+        if (normalizedPath.includes('/portfolio/')) activeKey = 'portfolio';
     }
 
     if (activeKey) {

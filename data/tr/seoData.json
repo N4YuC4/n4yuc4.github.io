@@ -1,0 +1,42 @@
+{
+  "home": {
+    "title": "N4YuC4 - Ana Sayfa | Yazılım, Teknoloji ve Sanat",
+    "description": "N4YuC4'ün kişisel web sitesi ve portfolyosu. Yazılım geliştirme, yapay zeka, veri bilimi ve makine öğrenimi üzerine yazılar ve projeler.",
+    "keywords": "n4yuc4, portfolyo, yazılım, teknoloji, yapay zeka, sanat, programlama, kodlama"
+  },
+  "blog": {
+    "title": "N4YuC4 - Blog | Son Yazılar",
+    "description": "Yazılım, veri bilimi, yapay zeka ve teknoloji üzerine en güncel ve bilgilendirici blog yazıları.",
+    "keywords": "teknoloji blogu, yazılım makaleleri, yapay zeka, veri bilimi, python, javascript"
+  },
+  "portfolio": {
+    "title": "N4YuC4 - Portfolyo | Projelerim",
+    "description": "Yazılım ve teknoloji alanında geliştirdiğim projelerin bir derlemesi. Web uygulamaları, mobil uygulamalar ve açık kaynaklı katkılar.",
+    "keywords": "yazılım portfolyosu, projeler, github, web geliştirme, mobil geliştirme, açık kaynak"
+  },
+  "about": {
+    "title": "N4YuC4 - Hakkımda | Hikayem",
+    "description": "Yeteneklerim, deneyimlerim ve teknolojiye olan tutkum hakkında daha fazla bilgi edinin.",
+    "keywords": "n4yuc4 kimdir, hakkında, biyografi, yazılım geliştirici, özgeçmiş"
+  },
+  "contact": {
+    "title": "N4YuC4 - İletişim | Bağlantı Kurun",
+    "description": "Benimle iletişime geçin. Proje teklifleri, işbirlikleri veya sadece merhaba demek için buradayım.",
+    "keywords": "iletişim, e-posta, sosyal medya, bağlantı, n4yuc4 iletişim"
+  },
+  "publications": {
+    "title": "N4YuC4 - Yayınlar | Akademik Çalışmalar",
+    "description": "Yazılım ve teknoloji alanındaki akademik yayınlarımın, araştırma makalelerimin ve çalışmalarımın bir koleksiyonu.",
+    "keywords": "akademik yayınlar, araştırma makaleleri, makine öğrenimi makaleleri, yapay zeka araştırmaları"
+  },
+  "privacy": {
+    "title": "N4YuC4 - Gizlilik Politikası",
+    "description": "Web sitemi kullanırken verilerinizin nasıl korunduğunu öğrenin. Gizlilik politikamız hakkında ayrıntılı bilgiler.",
+    "keywords": "gizlilik politikası, veri koruma, çerezler, kullanıcı bilgileri"
+  },
+  "terms": {
+    "title": "N4YuC4 - Kullanım Koşulları",
+    "description": "Web sitemin kullanım şartları ve koşulları. Lütfen sitemi kullanmadan önce bu koşulları okuyun.",
+    "keywords": "kullanım koşulları, hizmet şartları, yasal, site kuralları"
+  }
+}

@@ -75,37 +75,43 @@
     <!-- Header Section -->
     <header id="main-header"
         class="main-header text-white p-6 rounded-b-xl sticky top-0 z-50">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center">
             <a href="/index.html">
-                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 md:mb-0 tracking-tight">
+                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 lg:mb-0 tracking-tight">
                     <span id="header-title-text">N4YuC4</span><span class="blinking-cursor">_</span>
                 </h1>
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <div id="hamburger-button" class="hamburger-button block md:hidden">
+            <div id="hamburger-button" class="hamburger-button block lg:hidden">
                 <i class="fas fa-bars"></i>
             </div>
 
             <!-- Desktop Navigation Menu -->
-            <nav id="desktop-nav" class="hidden md:flex items-center">
-                <ul class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-8 text-xl">
+            <nav id="desktop-nav" class="hidden lg:flex items-center">
+                <ul class="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-4 xl:space-x-8 text-lg xl:text-xl items-center">
                     <li><a href="/index.html" id="nav-home"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">Home</a></li>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Home</a></li>
                     <li><a href="/blog.html" id="nav-blog"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">Blog</a>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Blog</a>
                     </li>
                     <li><a href="/portfolio.html" id="nav-portfolio"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">Portfolio</a>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Portfolio</a>
                     </li>
                     <li><a href="/publications.html" id="nav-publications"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">Publications</a>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Publications</a>
                     </li>
                     <li><a href="/about.html" id="nav-about"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">About</a>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">About</a>
                     </li>
                     <li><a href="/contact.html" id="nav-contact"
-                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1">Contact</a>
+                            class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Contact</a>
+                    </li>
+                    <!-- Language Selector Toggle -->
+                    <li class="flex items-center space-x-2 text-sm font-semibold border-l border-white/20 pl-4 ml-2">
+                        <a href="/portfolio/elma-tespit-kalite-analizi.html" class="text-sky-400 font-bold" aria-label="English Version">EN</a>
+                        <span class="text-white/30">|</span>
+                        <a href="/tr/portfolio/elma-tespit-kalite-analizi.html" class="text-slate-300 hover:text-white transition" aria-label="Türkçe Sürüm">TR</a>
                     </li>
                 </ul>
             </nav>
@@ -113,7 +119,7 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden md:hidden">
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden lg:hidden">
         <div id="close-mobile-menu" class="close-button">
             <i class="fas fa-times"></i>
         </div>
@@ -125,10 +131,16 @@
             <li><a href="/about.html" id="mobile-nav-about" class="mobile-nav-link">About</a></li>
             <li><a href="/contact.html" id="mobile-nav-contact" class="mobile-nav-link">Contact</a></li>
         </ul>
+        <!-- Mobile Language Selector Toggle -->
+        <div class="flex justify-center space-x-4 mt-8 text-xl font-semibold border-t border-white/10 pt-6">
+            <a href="/portfolio/elma-tespit-kalite-analizi.html" class="text-sky-400 font-bold">EN</a>
+            <span class="text-white/20">|</span>
+            <a href="/tr/portfolio/elma-tespit-kalite-analizi.html" class="text-slate-400 hover:text-white transition">TR</a>
+        </div>
     </div>
 
     <!-- Main Content Area -->
-    <main id="content-area" class="container mx-auto my-12 p-4 flex-grow">
+    <main id="content-area" class="container mx-auto my-6 md:my-12 p-4 md:p-6 lg:p-8 flex-grow">
         
 <article class="bg-white p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
     <div class="mb-8">
@@ -220,7 +232,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js"></script>
+    <script type="module" src="/static/js/main.js?v=1783631143"></script>
 
 </body>
 
