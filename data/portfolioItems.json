@@ -1,39 +1,9 @@
 [
     {
-        "title": "Arduino PC System Monitor",
-        "date": "1 May 2026",
-        "imageUrl": "images/portfolio-images/arduino-pc-monitor.png",
-        "description": "A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically changes the power mode by classifying the current load using an SVM model running on an Arduino Leonardo.",
-        "techStack": "Python, Arduino (C++), PlatformIO, TinyML (SVM), scikit-learn",
-        "detailFile": "portfolio/arduino-pc-system-monitor.md",
-        "slug": "arduino-pc-system-monitor",
-        "links": [
-            {
-                "label": "GitHub",
-                "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
-            }
-        ]
-    },
-    {
-        "title": "Apple Detection and Quality Analysis System",
-        "date": "March 2026",
-        "imageUrl": "images/portfolio-images/elma-tespit-figures/genel_gorunum.png",
-        "description": "An industrial desktop application built with PyQt5 for real-time apple detection, physical dimension measurement, and CIEDE2000 color quality analysis using YOLOv8-seg. Developed during an internship, I focused on designing the GUI and integrating the core system modules.",
-        "techStack": "Python, PyQt5, OpenCV, YOLOv8, MVS SDK",
-        "detailFile": "portfolio/elma-tespit-kalite-analizi.md",
-        "slug": "elma-tespit-kalite-analizi",
-        "links": [
-            {
-                "label": "GitHub",
-                "url": "https://github.com/N4YuC4/elma_tespit_ve_kalite_analizi"
-            }
-        ]
-    },
-    {
         "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
-        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR). The model was optimized using ONNX and INT8 quantization specifically for mobile deployment via ONNX Runtime (ORT Mobile). Achieved a METEOR score of 0.6245 while significantly reducing VRAM usage.",
+        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR). Achieved a 5x model size reduction (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
         "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, SLM",
         "detailFile": "portfolio/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",
@@ -45,10 +15,40 @@
         ]
     },
     {
-        "title": "Zettelkasten AI Notes",
+        "title": "Apple Detection and Quality Analysis System",
+        "date": "March 2026",
+        "imageUrl": "images/portfolio-images/elma-tespit-figures/genel_gorunum.png",
+        "description": "An industrial computer vision application featuring real-time object detection, physical dimension measurement, and CIEDE2000 color quality analysis. Focused on system integration, designing the application architecture, and orchestrating the end-to-end pipeline—integrating the camera SDK, real-time YOLOv8-seg model inference, and measurement modules into a unified desktop interface.",
+        "techStack": "Python, PyQt5, OpenCV, YOLOv8, MVS SDK",
+        "detailFile": "portfolio/elma-tespit-kalite-analizi.md",
+        "slug": "elma-tespit-kalite-analizi",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/elma_tespit_ve_kalite_analizi"
+            }
+        ]
+    },
+    {
+        "title": "Arduino PC System Monitor",
+        "date": "1 May 2026",
+        "imageUrl": "images/portfolio-images/arduino-pc-monitor.png",
+        "description": "A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.",
+        "techStack": "Python, Arduino (C++), PlatformIO, TinyML (SVM), scikit-learn",
+        "detailFile": "portfolio/arduino-pc-system-monitor.md",
+        "slug": "arduino-pc-system-monitor",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
+            }
+        ]
+    },
+    {
+        "title": "Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)",
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "I built this desktop application with PyQt5 to make knowledge management more efficient using the Zettelkasten method. It allows you to create, edit, and link notes with full Markdown support and real-time previews, storing everything locally in an SQLite database. I also integrated Google Gemini AI to automatically generate Zettelkasten-style notes from PDF documents and suggest relevant links between your notes.",
+        "description": "A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. All processed content is stored in a local SQLite database.",
         "techStack": "Python, PyQt5, SQLite, Google Gemini AI",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",

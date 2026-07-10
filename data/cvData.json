@@ -3,10 +3,10 @@
   "personalInfo": {
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
-    "title": "Machine Learning | Data Scientist",
+    "title": "Machine Learning Engineer",
     "profileImage": "images/profile.png"
   },
-  "professionalSummary": "I am an Information Systems and Technologies graduate and a Machine Learning Engineer / Data Scientist focused on deploying and optimizing AI models in production environments. I co-authored an academic paper with my team members, published in the El-Cezeri Journal of Science and Engineering (2026), on deep learning models integrating attention mechanisms (Attention U-Net/U-Net++) for military camouflaged object detection. During my internship at Deep Think Technology, I developed industrial computer vision systems featuring real-time YOLOv8-seg inference, PyQt5 GUI design, and camera SDK integration. I am experienced in optimizing Small Language Models (SLMs like mT5) and Edge AI/TinyML applications (SVM on Arduino) using ONNX Runtime and INT8 quantization for resource-constrained devices. I ranked in the top 10 finalists of the Pupilica AI Hackathon with the practical solutions I developed. My primary focus lies in end-to-end model development workflows—from data preprocessing and model training to deployment and optimization in computer vision and natural language processing.",
+  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization and edge AI deployment. Reduced SLM model size 5x (500MB → 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Experienced in real-time computer vision pipelines (YOLOv8-seg) and embedded ML (TinyML/Arduino). Co-authored a deep learning research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon. I share my technical insights and project deep-dives on my personal blog.",
   "skills": [
     {
       "category": "Programming Languages",
@@ -32,8 +32,9 @@
       "skill_list": [
         "Computer Vision (OpenCV, YOLOv8)",
         "NLP (Transformers)",
-        "Data Preprocessing",
-        "Model Evaluation & Quantization"
+        "Data Preprocessing & Evaluation",
+        "Model Optimization (Quantization & Pruning)",
+        "MLOps Fundamentals"
       ]
     },
     {
@@ -42,9 +43,7 @@
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
         "PyQt5",
-        "Google Gemini API",
-        "VS Code",
-        "Jupyter Notebooks"
+        "Google Gemini API"
       ]
     }
   ],
@@ -68,7 +67,7 @@
         "Developed an \"Apple Detection and Quality Analysis System\" using YOLOv8-seg for real-time fruit detection and CIEDE2000 color quality analysis.",
         "Designed and implemented a desktop GUI with PyQt5, integrating camera SDK, ML inference, and physical dimension measurement modules.",
         "Trained and deployed computer vision models on embedded devices for real-time edge AI inference.",
-        "Gained hands-on experience in data preprocessing, model evaluation, and the practical challenges of edge computing."
+        "Implemented data preprocessing and model evaluation workflows for edge computing hardware, addressing real-world latency and resource constraints."
       ]
     }
   ],
@@ -79,7 +78,7 @@
     },
     {
       "language": "English",
-      "level": "Intermediate"
+      "level": "Upper-Intermediate — Professional working proficiency"
     }
   ],
   "publications": [],

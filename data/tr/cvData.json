@@ -3,10 +3,10 @@
   "personalInfo": {
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
-    "title": "Veri Bilimci & Makine Öğrenimi Uzmanı",
+    "title": "Makine Öğrenimi Mühendisi",
     "profileImage": "images/profile.png"
   },
-  "professionalSummary": "Bilişim Sistemleri ve Teknolojileri lisans mezunuyum; yapay zeka modellerini optimize ederek üretim ortamlarına entegre etmeye odaklanan bir Makine Öğrenimi Mühendisi / Veri Bilimciyim. Askeri kamuflajlı nesne tespiti için dikkat mekanizmalı derin öğrenme modelleri (Attention U-Net/U-Net++) üzerine takım arkadaşlarımla hazırladığımız araştırmamız El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayınlanmıştır. Deep Think Teknoloji'deki stajımda YOLOv8-seg, PyQt5 ve kamera SDK entegrasyonlu endüstriyel kalite kontrol sistemleri geliştirdim. ONNX Runtime ve INT8 nicemleme teknikleriyle, küçük dil modelleri (SLM - mT5) ve uç yapay zeka (TinyML - Arduino SVM) uygulamalarını düşük kaynaklı cihazlar için optimize etme konusunda deneyim sahibiyim. Pupilica Yapay Zeka Hackathonu'nda geliştirdiğim pratik çözümlerle ilk 10 finalist arasına girdim. Bilgisayarlı görü ve doğal dil işleme alanlarında; veri önişlemeden model eğitimine, optimizasyondan devreye almaya kadar uçtan uca model geliştirme ve optimizasyon süreçlerine odaklanıyorum.",
+  "professionalSummary": "Model geliştirme, optimizasyonu ve uç yapay zeka (Edge AI) dağıtımlarına odaklanan bir Makine Öğrenimi Mühendisi. SLM model boyutunu budama, 8-bit LoRA ve INT8 nicemleme ile 5 kat küçülttüm (500MB → 100MB). Gerçek zamanlı bilgisayarlı görü ardışık düzenleri (YOLOv8-seg) ve gömülü makine öğrenimi (TinyML/Arduino) alanlarında deneyimliyim. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayınlanan derin öğrenme araştırma makalesinin ortak yazarıyım. Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasında yer aldım. Teknik deneyimlerimi ve proje detaylarını kişisel blogumda paylaşıyorum.",
   "skills": [
     {
       "category": "Programlama Dilleri",
@@ -32,8 +32,9 @@
       "skill_list": [
         "Bilgisayarlı Görü (OpenCV, YOLOv8)",
         "Doğal Dil İşleme - NLP (Transformers)",
-        "Veri Önişleme & Temizleme",
-        "Model Değerlendirme & Nicemleme (Quantization)"
+        "Veri Önişleme & Değerlendirme",
+        "Model Optimizasyonu (Kuantizasyon & Budama)",
+        "Temel MLOps Prensipleri"
       ]
     },
     {
@@ -42,9 +43,7 @@
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
         "PyQt5",
-        "Google Gemini API",
-        "VS Code",
-        "Jupyter Notebook"
+        "Google Gemini API"
       ]
     }
   ],
@@ -68,7 +67,7 @@
         "YOLOv8-seg modeli kullanılarak gerçek zamanlı meyve tespiti ve CIEDE2000 standardına göre renk kalitesi analizi yapan 'Elma Tespit ve Kalite Analizi Sistemi'nin geliştirilmesi.",
         "Kamera entegrasyonu, yapay zeka çıkarım modülleri ve fiziksel boyut ölçüm algoritmalarını içeren PyQt5 tabanlı bir masaüstü arayüzünün (GUI) tasarımı ve kodlanması.",
         "Gömülü sistemler üzerinde çalışan, gerçek zamanlı ve düşük gecikmeli uç yapay zeka (Edge AI) bilgisayarlı görü modellerinin eğitilmesi ve devreye alınması.",
-        "Veri önişleme, model doğrulama/değerlendirme süreçleri ve uç bilişim (Edge Computing) donanımlarının pratik kısıtları üzerine deneyim kazanılması."
+        "Uç bilişim (Edge Computing) donanımlarında veri önişleme ve model doğrulama/değerlendirme süreçlerini uygulayarak, gerçek dünya gecikme ve kaynak kısıtlamalarına yönelik çözümler üretilmesi."
       ]
     }
   ],
@@ -79,7 +78,7 @@
     },
     {
       "language": "İngilizce",
-      "level": "Orta Seviye"
+      "level": "İleri-Orta Seviye — Profesyonel çalışma yetkinliği"
     }
   ],
   "publications": [],
