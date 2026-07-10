@@ -6,7 +6,7 @@
     "title": "Machine Learning | Data Scientist",
     "profileImage": "images/profile.png"
   },
-  "professionalSummary": "Data Scientist with a strong foundation in Python, Machine Learning, and Deep Learning. Top 10 finalist in the Pupilica AI Hackathon, with demonstrated ability to integrate AI APIs into production-ready applications. Focused on Natural Language Processing (NLP) and scalable data solutions, with hands-on experience in model training, quantization, and edge AI deployment.",
+  "professionalSummary": "I am an Information Systems and Technologies graduate and a Machine Learning Engineer / Data Scientist focused on deploying and optimizing AI models in production environments. I co-authored an academic paper with my team members, published in the El-Cezeri Journal of Science and Engineering (2026), on deep learning models integrating attention mechanisms (Attention U-Net/U-Net++) for military camouflaged object detection. During my internship at Deep Think Technology, I developed industrial computer vision systems featuring real-time YOLOv8-seg inference, PyQt5 GUI design, and camera SDK integration. I am experienced in optimizing Small Language Models (SLMs like mT5) and Edge AI/TinyML applications (SVM on Arduino) using ONNX Runtime and INT8 quantization for resource-constrained devices. I ranked in the top 10 finalists of the Pupilica AI Hackathon with the practical solutions I developed. My primary focus lies in end-to-end model development workflows—from data preprocessing and model training to deployment and optimization in computer vision and natural language processing.",
   "skills": [
     {
       "category": "Programming Languages",

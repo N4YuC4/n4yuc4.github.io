@@ -6,7 +6,7 @@
     "title": "Veri Bilimci & Makine Öğrenimi Uzmanı",
     "profileImage": "images/profile.png"
   },
-  "professionalSummary": "Python, Makine Öğrenimi ve Derin Öğrenme alanlarında güçlü bir temele sahip Veri Bilimci. Yapay zeka uygulamalarını ve modellerini canlı sistemlere (production) entegre etme konusunda deneyimlidir. Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girerek pratik çözüm geliştirme yeteneğini kanıtlamıştır. Model eğitimi, kuantizasyon (nicemleme) ve uç yapay zeka (Edge AI) konuşlandırma süreçlerinde yetkin olup, Doğal Dil İşleme (NLP) ve ölçeklenebilir veri çözümlerine odaklanmaktadır.",
+  "professionalSummary": "Bilişim Sistemleri ve Teknolojileri lisans mezunuyum; yapay zeka modellerini optimize ederek üretim ortamlarına entegre etmeye odaklanan bir Makine Öğrenimi Mühendisi / Veri Bilimciyim. Askeri kamuflajlı nesne tespiti için dikkat mekanizmalı derin öğrenme modelleri (Attention U-Net/U-Net++) üzerine takım arkadaşlarımla hazırladığımız araştırmamız El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayınlanmıştır. Deep Think Teknoloji'deki stajımda YOLOv8-seg, PyQt5 ve kamera SDK entegrasyonlu endüstriyel kalite kontrol sistemleri geliştirdim. ONNX Runtime ve INT8 nicemleme teknikleriyle, küçük dil modelleri (SLM - mT5) ve uç yapay zeka (TinyML - Arduino SVM) uygulamalarını düşük kaynaklı cihazlar için optimize etme konusunda deneyim sahibiyim. Pupilica Yapay Zeka Hackathonu'nda geliştirdiğim pratik çözümlerle ilk 10 finalist arasına girdim. Bilgisayarlı görü ve doğal dil işleme alanlarında; veri önişlemeden model eğitimine, optimizasyondan devreye almaya kadar uçtan uca model geliştirme ve optimizasyon süreçlerine odaklanıyorum.",
   "skills": [
     {
       "category": "Programlama Dilleri",
