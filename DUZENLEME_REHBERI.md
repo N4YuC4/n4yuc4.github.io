@@ -13,7 +13,7 @@ Terminal üzerinden çalışan interaktif bir arayüz yardımıyla hiçbir kod v
 ### Çalıştırma:
 Terminali açın ve proje dizininde şu komutu çalıştırın:
 ```bash
-.venv/bin/python manage.py
+.venv/bin/python admin_panel.py
 ```
 
 ### Sunulan Seçenekler:
@@ -63,12 +63,12 @@ JSON dosyalarını el ile düzenledikten sonra sitenizin ve CV PDF'lerinin günc
 Sitenize yeni bir proje eklemek için en pratik iş akışı şöyledir:
 
 1. **Projeyi Tanımlayın:**
-   `manage.py` aracını çalıştırın ve `1` (Portfolyo) -> `2` (Yeni Ekle) adımlarını izleyin. Proje başlığını, kısa açıklamasını ve teknolojilerini girin.
+   `admin_panel.py` aracını çalıştırın ve `1` (Portfolyo) -> `2` (Yeni Ekle) adımlarını izleyin. Proje başlığını, kısa açıklamasını ve teknolojilerini girin.
    * Bu işlem otomatik olarak `portfolio/proje-slug.md` adında boş bir markdown dosyası oluşturacaktır.
 2. **Detayları Yazın:**
    Oluşturulan `portfolio/proje-slug.md` (veya Türkçe için `portfolio/tr/proje-slug.md`) dosyasını bir editörle açın. Projenizin detaylarını, görsellerini ve teknik ayrıntılarını standart **Markdown** formatında yazıp kaydedin.
 3. **Derleyin ve İnceleyin:**
-   `manage.py` üzerinden `7` (Build) seçeneğiyle sitenizi derleyin.
+   `admin_panel.py` üzerinden `7` (Build) seçeneğiyle sitenizi derleyin.
 
 ---
 
@@ -76,7 +76,7 @@ Sitenize yeni bir proje eklemek için en pratik iş akışı şöyledir:
 
 Yaptığınız değişikliklerin tarayıcıda nasıl göründüğünü kontrol etmek için yerel sunucuyu başlatabilirsiniz:
 
-1. `manage.py` içerisinden `8` (Flask Sunucusu) seçeneğini seçin veya doğrudan terminalde çalıştırın:
+1. `admin_panel.py` içerisinden `8` (Flask Sunucusu) seçeneğini seçin veya doğrudan terminalde çalıştırın:
    ```bash
    .venv/bin/python app.py
    ```
