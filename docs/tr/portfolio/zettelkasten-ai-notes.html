@@ -154,11 +154,13 @@
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Python</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">PyQt5</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Flet</span>
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI (google-genai)</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">pypdf</span>
             
         </div>
         
@@ -177,18 +179,19 @@
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
         <h1>Zettelkasten Yapay Zeka Notları</h1>
-<p>Zettelkasten yöntemini kullanarak verimli bilgi yönetimi sağlamak amacıyla <code>PyQt5</code> ile geliştirilmiş bir masaüstü uygulamasıdır. Kullanıcıların notlar oluşturmasına, düzenlemesine ve bunları birbirine bağlamasına olanak tanır. Zengin içerik için <code>Markdown</code> formatını destekler ve gerçek zamanlı önizleme sunar. Tüm verileri yerel bir <code>SQLite</code> veritabanında saklar. Uygulamanın en önemli özelliği, PDF belgelerinden Zettelkasten tarzı notlar üretmek ve bunlar arasında otomatik olarak ilgili bağlantılar önermek için <code>Google Gemini AI</code> kullanmasıdır.</p>
+<p>Zettelkasten yöntemini kullanarak verimli bilgi yönetimi sağlamak amacıyla <code>Flet</code> (Flutter tabanlı Python UI framework'ü) ile geliştirilmiş bir masaüstü uygulamasıdır. Kullanıcıların notlar oluşturmasına, düzenlemesine ve bunları birbirine bağlamasına olanak tanır. Zengin içerik için <code>Markdown</code> formatını destekler ve gerçek zamanlı önizleme sunar. Tüm verileri yerel bir <code>SQLite</code> veritabanında saklar. Uygulamanın en önemli özelliği, PDF belgelerinden (<code>pypdf</code>) Zettelkasten tarzı notlar üretmek ve bunlar arasında otomatik olarak ilgili bağlantılar önermek için <code>Google Gemini AI</code> (<code>google-genai</code> SDK) kullanmasıdır.</p>
 <h2>Temel Özellikler</h2>
 <ul>
-<li><strong>Sezgisel Kullanıcı Arayüzü:</strong> Akıcı bir not yönetimi için temiz ve duyarlı (responsive) bir <code>GUI</code>.</li>
+<li><strong>Modern Kullanıcı Arayüzü:</strong> Akıcı, responsive ve platformlar arası masaüstü deneyimi sunan <code>Flet</code> ile inşa edilmiş temiz arayüz.</li>
 <li><strong>Not Oluşturma ve Yönetimi:</strong> Notları kolayca oluşturun, kaydedin, yeniden adlandırın ve silin.</li>
 <li><strong>Canlı Önizlemeli Markdown Desteği:</strong> Notlarınızı <code>Markdown</code> biçiminde yazın ve biçimlendirilmiş çıktıyı gerçek zamanlı olarak görün.</li>
 <li><strong>Kategorizasyon:</strong> Daha iyi filtreleme ve gezinme için notları özel kategoriler halinde düzenleyin.</li>
-<li><strong>PDF'den Yapay Zeka Destekli Not Üretimi:</strong> PDF belgelerinden metin çıkarın ve önerilen bağlantılarla birlikte otomatik olarak Zettelkasten tarzı notlar oluşturmak için <code>Google Gemini AI</code> kullanın.</li>
-<li><strong>Zihin Haritası Görselleştirme:</strong> Notlarınızı ve bağlantılarını etkileşimli bir zihin haritası olarak görüntüleyin. Bu, fikirleriniz arasındaki ilişkileri görselleştirmenize ve bilgi tabanınızda daha etkili bir şekilde gezinmenize yardımcı olur.</li>
+<li><strong>PDF'den Yapay Zeka Destekli Not Üretimi:</strong> <code>pypdf</code> ile PDF belgelerinden metin çıkarın ve güncel <code>google-genai</code> SDK'sı üzerinden <code>Google Gemini AI</code> kullanarak önerilen bağlantılarla birlikte otomatik Zettelkasten tarzı notlar oluşturun.</li>
+<li><strong>Flet Canvas Zihin Haritası Görselleştirme:</strong> Notlarınızı ve bağlantılarını <code>flet.canvas</code> destekli etkileşimli bir zihin haritası olarak görüntüleyin. Fikirleriniz arasındaki ilişkileri görselleştirerek bilgi tabanınızda daha etkili bir şekilde gezinin.</li>
 <li><strong>Akıllı Not Bağlama:</strong> Bilgileriniz arasında zengin, birbirine bağlı bir grafik oluşturmak için notlar arasında açık bağlantılar kurun.</li>
 <li><strong>Tema Desteği:</strong> Uygulamanın görünümünü özelleştirmek için açık ve karanlık temalar arasında seçim yapın.</li>
 <li><strong>SQLite Veritabanı:</strong> Tüm notlarınız ve bunların ilişkileri için sağlam ve güvenilir yerel depolama.</li>
+<li><strong>Kapsamlı Test Paketi:</strong> Temel veritabanı işlemleri, başlık temizleme (sanitization) ve not mantığı için otomatik birim testleri (unit tests).</li>
 </ul>
     </div>
 </article>
@@ -209,7 +212,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1783712533"></script>
+    <script type="module" src="/static/js/main.js?v=1786136357"></script>
 
 </body>
 

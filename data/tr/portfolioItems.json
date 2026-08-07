@@ -48,8 +48,8 @@
         "title": "Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)",
         "date": "27 Ekim 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.",
-        "techStack": "Python, PyQt5, SQLite, Google Gemini AI",
+        "description": "Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.",
+        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
         "detailFile": "portfolio/tr/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [

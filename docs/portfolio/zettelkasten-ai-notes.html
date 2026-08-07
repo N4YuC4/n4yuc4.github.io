@@ -154,11 +154,13 @@
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Python</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">PyQt5</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Flet</span>
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI (google-genai)</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">pypdf</span>
             
         </div>
         
@@ -177,18 +179,19 @@
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
         <h1>Zettelkasten AI Notes</h1>
-<p>A desktop application built with <code>PyQt5</code> for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports <code>Markdown</code> for rich content, and provides a real-time preview. It stores all data in a local <code>SQLite</code> database. A key feature is its ability to use <code>Google Gemini AI</code> to generate Zettelkasten-style notes from PDF documents and automatically suggest relevant links between them.</p>
+<p>A desktop application built with <code>Flet</code> (Python UI framework based on Flutter) for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports <code>Markdown</code> for rich content, and provides a real-time preview. It stores all data in a local <code>SQLite</code> database. A key feature is its ability to use <code>Google Gemini AI</code> (via the modern <code>google-genai</code> SDK) to generate Zettelkasten-style notes from PDF documents (extracted via <code>pypdf</code>) and automatically suggest relevant links between them.</p>
 <h2>Key Features</h2>
 <ul>
-<li><strong>Intuitive User Interface:</strong> A clean and responsive <code>GUI</code> for seamless note management.</li>
+<li><strong>Modern User Interface:</strong> Built with <code>Flet</code> for a clean, responsive, and cross-platform desktop GUI.</li>
 <li><strong>Note Creation and Management:</strong> Easily create, save, rename, and delete individual notes.</li>
 <li><strong>Markdown Support with Live Preview:</strong> Write your notes in <code>Markdown</code> and see the generated output in real-time.</li>
 <li><strong>Categorization:</strong> Organize notes into custom categories for better filtering and navigation.</li>
-<li><strong>AI-Powered Note Generation from PDF:</strong> Extract text from PDF documents and use <code>Google Gemini AI</code> to automatically generate Zettelkasten-style notes with suggested relevant links.</li>
-<li><strong>Mind Map Visualization:</strong> View your notes and their links as an interactive mind map. This helps you visualize relationships between your ideas and navigate your knowledge base more effectively.</li>
+<li><strong>AI-Powered Note Generation from PDF:</strong> Extract text from PDF documents using <code>pypdf</code> and utilize the <code>google-genai</code> SDK with <code>Google Gemini AI</code> to automatically generate Zettelkasten-style notes with suggested relevant links.</li>
+<li><strong>Flet Canvas Mind Map Visualization:</strong> View your notes and their links as an interactive mind map powered by <code>flet.canvas</code>. This helps you visualize relationships between your ideas and navigate your knowledge base seamlessly.</li>
 <li><strong>Smart Note Linking:</strong> Create explicit links between notes to build a rich, interconnected graph of your knowledge.</li>
 <li><strong>Theming:</strong> Choose between light and dark themes to customize the application's appearance.</li>
 <li><strong>SQLite Database:</strong> Robust and reliable local storage for all your notes and their relationships.</li>
+<li><strong>Comprehensive Test Suite:</strong> Includes automated unit testing for core operations, note title sanitization, and database interactions.</li>
 </ul>
     </div>
 </article>
@@ -209,7 +212,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1783712533"></script>
+    <script type="module" src="/static/js/main.js?v=1786136357"></script>
 
 </body>
 

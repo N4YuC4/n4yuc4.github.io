@@ -48,8 +48,8 @@
         "title": "Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)",
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. All processed content is stored in a local SQLite database.",
-        "techStack": "Python, PyQt5, SQLite, Google Gemini AI",
+        "description": "A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. Modernized by migrating the UI to Flet, integrating flet.canvas for mind map rendering, and upgrading to the google-genai SDK. All processed content is stored in a local SQLite database.",
+        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [
