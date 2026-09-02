@@ -4,9 +4,10 @@
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
     "title": "Machine Learning Engineer",
-    "profileImage": "images/profile.png"
+    "profileImage": "images/profile.png",
+    "location": "Giresun, Türkiye (Open to Relocation / Remote)"
   },
-  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization and edge AI deployment. Reduced SLM model size 5x (500MB → 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Experienced in real-time computer vision pipelines (YOLOv8-seg) and embedded ML (TinyML/Arduino). Co-authored a deep learning research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon. I share my technical insights and project deep-dives on my personal blog.",
+  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (500MB → 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Experienced in real-time computer vision pipelines (YOLOv8-seg) and embedded ML (TinyML/Arduino). Co-authored a deep learning research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon. Actively shares technical insights and project deep-dives on personal blog.",
   "skills": [
     {
       "category": "Programming Languages",
@@ -64,8 +65,7 @@
       "startDate": "02/2026",
       "endDate": "06/2026",
       "description": [
-        "Developed an \"Apple Detection and Quality Analysis System\" using YOLOv8-seg for real-time fruit detection and CIEDE2000 color quality analysis.",
-        "Designed and implemented a desktop GUI with PyQt5, integrating camera SDK, ML inference, and physical dimension measurement modules.",
+        "Developed the industrial \"Apple Detection and Quality Analysis System\", integrating real-time YOLOv8-seg fruit detection, CIEDE2000 color quality analysis, physical dimension measurement, and camera SDK into a unified PyQt5 desktop application.",
         "Trained and deployed computer vision models on embedded devices for real-time edge AI inference.",
         "Implemented data preprocessing and model evaluation workflows for edge computing hardware, addressing real-world latency and resource constraints."
       ]
@@ -78,7 +78,7 @@
     },
     {
       "language": "English",
-      "level": "Upper-Intermediate — Professional working proficiency"
+      "level": "Upper-Intermediate"
     }
   ],
   "publications": [],
@@ -86,7 +86,7 @@
     {
       "name": "Asst. Prof. Dr. Nilgün ŞENGÖZ",
       "title": "Postdoctoral Researcher, Computer Science, University of Nottingham",
-      "company": "Dept. of Information Systems & Technologies, MAKU, Turkiye",
+      "company": "Department of Information Systems & Technologies, MAKU, Türkiye",
       "email": "nilgunsengoz@mehmetakif.edu.tr",
       "phone": ""
     }

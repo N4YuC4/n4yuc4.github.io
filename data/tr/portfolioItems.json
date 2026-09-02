@@ -1,16 +1,31 @@
 [
     {
-        "title": "mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)",
+        "title": "mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
-        "description": "Çift yönlü İngilizce-Türkçe (EN-TR) çeviri amacıyla mT5-small modelinin 8-bit LoRA kullanılarak ince ayar (fine-tune) yapılması. Model budama (pruning), ONNX derlemesi ve INT8 kuantizasyonu uygulanarak model boyutunda 5 kat azalma sağlanmış (500MB → 100MB) ve model ONNX Runtime (ORT Mobile) aracılığıyla mobil cihazlarda çalıştırılmak üzere optimize edilmiştir.",
-        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, SLM",
+        "description": "Çift yönlü İngilizce-Türkçe (EN-TR) makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500MB → 100MB); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.",
+        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, mT5 SLM",
         "detailFile": "portfolio/tr/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",
         "links": [
             {
                 "label": "Kaggle",
                 "url": "https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation"
+            }
+        ]
+    },
+    {
+        "title": "Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)",
+        "date": "27 Ekim 2025",
+        "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
+        "description": "Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.",
+        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
+        "detailFile": "portfolio/tr/zettelkasten-ai-notes.md",
+        "slug": "zettelkasten-ai-notes",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
             }
         ]
     },
@@ -41,21 +56,6 @@
             {
                 "label": "GitHub",
                 "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
-            }
-        ]
-    },
-    {
-        "title": "Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)",
-        "date": "27 Ekim 2025",
-        "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.",
-        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
-        "detailFile": "portfolio/tr/zettelkasten-ai-notes.md",
-        "slug": "zettelkasten-ai-notes",
-        "links": [
-            {
-                "label": "GitHub",
-                "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
             }
         ]
     }

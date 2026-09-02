@@ -150,10 +150,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
     
     <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/mt5-en-tr.png" alt="mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)</h3>
+        <img src="/static/images/portfolio-images/mt5-en-tr.png" alt="mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)</h3>
         
-        <p class="text-gray-700 mb-4 flex-grow">Çift yönlü İngilizce-Türkçe (EN-TR) çeviri amacıyla mT5-small modelinin 8-bit LoRA kullanılarak ince ayar (fine-tune) yapılması. Model budama (pruning), ONNX derlemesi ve INT8 kuantizasyonu uygulanarak model boyutunda 5 kat azalma sağlanmış (500MB → 100MB) ve model ONNX Runtime (ORT Mobile) aracılığıyla mobil cihazlarda çalıştırılmak üzere optimize edilmiştir.</p>
+        <p class="text-gray-700 mb-4 flex-grow">Çift yönlü İngilizce-Türkçe (EN-TR) makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500MB → 100MB); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.</p>
         <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <a href="/tr/portfolio/mt5-en-tr-translation.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">Detayları Gör</a>
             
@@ -161,6 +161,27 @@
                 
                 <a href="https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
                     Kaggle <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
+        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)</h3>
+        
+        <p class="text-sky-600 text-sm font-medium mb-3">27 Ekim 2025</p>
+        
+        <p class="text-gray-700 mb-4 flex-grow">Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.</p>
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a href="/tr/portfolio/zettelkasten-ai-notes.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">Detayları Gör</a>
+            
+            <div class="flex flex-wrap gap-3 text-sm font-medium">
+                
+                <a href="https://github.com/N4YuC4/ZettelKasten-AI-Notes" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                    GitHub <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 
             </div>
@@ -210,27 +231,6 @@
         </div>
     </div>
     
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)</h3>
-        
-        <p class="text-sky-600 text-sm font-medium mb-3">27 Ekim 2025</p>
-        
-        <p class="text-gray-700 mb-4 flex-grow">Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <a href="/tr/portfolio/zettelkasten-ai-notes.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">Detayları Gör</a>
-            
-            <div class="flex flex-wrap gap-3 text-sm font-medium">
-                
-                <a href="https://github.com/N4YuC4/ZettelKasten-AI-Notes" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
-                    GitHub <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
-                
-            </div>
-            
-        </div>
-    </div>
-    
 </div>
 
     </main>
@@ -249,7 +249,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1786136357"></script>
+    <script type="module" src="/static/js/main.js?v=1788377427"></script>
 
 </body>
 

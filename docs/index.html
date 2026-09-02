@@ -263,7 +263,21 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)</h4>
-                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR). Achieved a 5x model size reduction (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).</p>
+                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR), achieving a 0.6245 METEOR score. Reduced model size 5x (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).</p>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="/portfolio/zettelkasten-ai-notes.html" class="block group">
+                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+                        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
+                             alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)</h4>
+                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. Modernized by migrating the UI to Flet, integrating flet.canvas for mind map rendering, and upgrading to the google-genai SDK. All processed content is stored in a local SQLite database.</p>
                     </div>
                 </article>
             </a>
@@ -292,20 +306,6 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Arduino PC System Monitor</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.</p>
-                    </div>
-                </article>
-            </a>
-            
-            <a href="/portfolio/zettelkasten-ai-notes.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
-                        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
-                             alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)</h4>
-                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. Modernized by migrating the UI to Flet, integrating flet.canvas for mind map rendering, and upgrading to the google-genai SDK. All processed content is stored in a local SQLite database.</p>
                     </div>
                 </article>
             </a>
@@ -415,7 +415,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1786136357"></script>
+    <script type="module" src="/static/js/main.js?v=1788377426"></script>
 
 </body>
 

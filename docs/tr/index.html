@@ -258,12 +258,26 @@ Askeri kamuflajlı nesne tespiti için dikkat mekanizmalı derin öğrenme model
                 <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/mt5-en-tr.png" 
-                             alt="mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)" 
+                             alt="mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)</h4>
-                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Çift yönlü İngilizce-Türkçe (EN-TR) çeviri amacıyla mT5-small modelinin 8-bit LoRA kullanılarak ince ayar (fine-tune) yapılması. Model budama (pruning), ONNX derlemesi ve INT8 kuantizasyonu uygulanarak model boyutunda 5 kat azalma sağlanmış (500MB → 100MB) ve model ONNX Runtime (ORT Mobile) aracılığıyla mobil cihazlarda çalıştırılmak üzere optimize edilmiştir.</p>
+                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)</h4>
+                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Çift yönlü İngilizce-Türkçe (EN-TR) makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500MB → 100MB); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.</p>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="/tr/portfolio/zettelkasten-ai-notes.html" class="block group">
+                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+                        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
+                             alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)</h4>
+                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.</p>
                     </div>
                 </article>
             </a>
@@ -292,20 +306,6 @@ Askeri kamuflajlı nesne tespiti için dikkat mekanizmalı derin öğrenme model
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Arduino PC System Monitor</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">PC donanım kaynaklarını (CPU, RAM, GPU, VRAM) izleyen ve güç tüketimini otomatik olarak optimize eden TinyML tabanlı uç sistem. Sistem, donanım telemetrisini gerçek zamanlı olarak çıkarır ve sistemin güç durumunu belirleyip ayarlamak için bir Arduino Leonardo üzerinde cihaz içi SVM sınıflandırma modeli çalıştırır.</p>
-                    </div>
-                </article>
-            </a>
-            
-            <a href="/tr/portfolio/zettelkasten-ai-notes.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
-                        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
-                             alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)</h4>
-                        <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Zettelkasten yöntemi etrafında yapılandırılmış bilgi yönetimi masaüstü uygulaması. PDF belgelerini Google Gemini API'si üzerinden işleyerek atomik notlar çıkaran, bunları özel şablonlar kullanarak otomatik olarak biçimlendiren ve notlar arasındaki bağlantıları organize eden LLM destekli yapılandırılmış bilgi çıkarma ve ayrıştırma mimarisi içerir. Arayüzü PyQt5'ten Flet framework'üne taşınmış, flet.canvas ile zihin haritası görselleştirmesi yenilenmiş ve en güncel google-genai SDK'sına geçirilmiştir. İşlenen tüm içerikler yerel bir SQLite veritabanında saklanır.</p>
                     </div>
                 </article>
             </a>
@@ -415,7 +415,7 @@ Askeri kamuflajlı nesne tespiti için dikkat mekanizmalı derin öğrenme model
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1786136357"></script>
+    <script type="module" src="/static/js/main.js?v=1788377427"></script>
 
 </body>
 

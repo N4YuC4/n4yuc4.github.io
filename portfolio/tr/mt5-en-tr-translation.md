@@ -1,6 +1,6 @@
-# mT5 Çift Yönlü EN-TR Yapay Çeviri (ONNX INT8 & ORT Mobile)
+# mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)
 
-Bu proje, çift yönlü İngilizce-Türkçe Yapay Çeviri (EN<->TR) için `google/mt5-small` modelinin 8-bit LoRA (Low-Rank Adaptation) tekniği kullanılarak ince ayarlanmasını (fine-tune) ve ardından mobil ortamlarda (örneğin Flutter uygulamalarında) verimli çalıştırılması amacıyla modelin ONNX INT8 biçimine optimize edilip kuantize edilmesini içermektedir.
+Bu proje, çift yönlü İngilizce-Türkçe Makine Çevirisi (EN<->TR) için `google/mt5-small` modelinin 8-bit LoRA (Low-Rank Adaptation) tekniği kullanılarak ince ayarlanmasını (fine-tune) ve ardından mobil ortamlarda (örneğin Flutter uygulamalarında) verimli çalıştırılması amacıyla modelin ONNX INT8 biçimine optimize edilip kuantize edilmesini içermektedir.
 
 ## Temel Özellikler & İş Akışı
 

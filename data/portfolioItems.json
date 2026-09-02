@@ -3,14 +3,29 @@
         "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
-        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR). Achieved a 5x model size reduction (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
-        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, SLM",
+        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR), achieving a 0.6245 METEOR score. Reduced model size 5x (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
+        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, mT5 SLM",
         "detailFile": "portfolio/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",
         "links": [
             {
                 "label": "Kaggle",
                 "url": "https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation"
+            }
+        ]
+    },
+    {
+        "title": "Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)",
+        "date": "27 October 2025",
+        "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
+        "description": "A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. Modernized by migrating the UI to Flet, integrating flet.canvas for mind map rendering, and upgrading to the google-genai SDK. All processed content is stored in a local SQLite database.",
+        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
+        "detailFile": "portfolio/zettelkasten-ai-notes.md",
+        "slug": "zettelkasten-ai-notes",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
             }
         ]
     },
@@ -41,21 +56,6 @@
             {
                 "label": "GitHub",
                 "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
-            }
-        ]
-    },
-    {
-        "title": "Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)",
-        "date": "27 October 2025",
-        "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
-        "description": "A knowledge management desktop application built around the Zettelkasten method. Features an LLM-powered structured information extraction and parsing pipeline that processes PDF documents via the Google Gemini API to extract atomic notes, automatically formats them using customized templates, and orchestrates links between notes. Modernized by migrating the UI to Flet, integrating flet.canvas for mind map rendering, and upgrading to the google-genai SDK. All processed content is stored in a local SQLite database.",
-        "techStack": "Python, Flet, SQLite, Google Gemini AI (google-genai), pypdf",
-        "detailFile": "portfolio/zettelkasten-ai-notes.md",
-        "slug": "zettelkasten-ai-notes",
-        "links": [
-            {
-                "label": "GitHub",
-                "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
             }
         ]
     }

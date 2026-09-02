@@ -10,7 +10,8 @@
         "firstName": { "type": "string", "description": "First name of the person" },
         "lastName": { "type": "string", "description": "Last name of the person" },
         "title": { "type": "string", "description": "Professional title (e.g. Machine Learning Scientist)" },
-        "profileImage": { "type": "string", "description": "Path to the profile photo in static directory (e.g., images/profile.png)" }
+        "profileImage": { "type": "string", "description": "Path to the profile photo in static directory (e.g., images/profile.png)" },
+        "location": { "type": "string", "description": "Geographical location and availability (e.g., Giresun, Türkiye (Open to Relocation / Remote))" }
       },
       "required": ["firstName", "lastName", "title"]
     },
