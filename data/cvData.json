@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Giresun, Türkiye (Open to Relocation / Remote)"
   },
-  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (500MB → 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Experienced in real-time computer vision pipelines (YOLOv8-seg) and embedded ML (TinyML/Arduino). Co-authored a deep learning research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon. Actively shares technical insights and project deep-dives on personal blog.",
+  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon.",
   "skills": [
     {
       "category": "Programming Languages",

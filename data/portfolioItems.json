@@ -3,7 +3,7 @@
         "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
-        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation (EN<->TR), achieving a 0.6245 METEOR score. Reduced model size 5x (500MB → 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
+        "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
         "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, mT5 SLM",
         "detailFile": "portfolio/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",

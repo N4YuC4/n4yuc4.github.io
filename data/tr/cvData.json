@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Giresun, Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
   },
-  "professionalSummary": "Model geliştirme, optimizasyon ve uç yapay zeka (Edge AI) sistemlerine odaklanan Makine Öğrenimi Mühendisi. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize etti (500MB → 100MB). Gerçek zamanlı bilgisayarlı görü işlem hatları (YOLOv8-seg) ve gömülü makine öğrenimi (TinyML/Arduino) alanlarında yetkin. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan derin öğrenme araştırma makalesinin ortak yazarı. Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasında yer aldı. Teknik birikimlerini ve proje analizlerini kişisel blogunda paylaşmaktadır.",
+  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica AI Hackathonu'nda ilk 10 finalist arasına girdim.",
   "skills": [
     {
       "category": "Programlama Dilleri",
