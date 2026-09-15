@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Giresun, Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
   },
-  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica AI Hackathonu'nda ilk 10 finalist arasına girdim.",
+  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projemde; hem Google Gemini API'si hem de Vulkan GPU hızlandırmalı çevrimdışı yerel GGUF modelleriyle çalışan çift yapay zeka motorlu bir bilgi yönetimi masaüstü sistemi geliştirdim.",
   "skills": [
     {
       "category": "Programlama Dilleri",
@@ -25,7 +25,8 @@
         "Keras",
         "Scikit-learn",
         "Hugging Face (LoRA/PEFT)",
-        "ONNX Runtime"
+        "ONNX Runtime",
+        "llama-cpp-python"
       ]
     },
     {
@@ -44,6 +45,7 @@
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
         "PyQt5",
+        "Flet",
         "Google Gemini API"
       ]
     }

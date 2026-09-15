@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Giresun, Türkiye (Open to Relocation / Remote)"
   },
-  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Top 10 finalist at the Pupilica AI Hackathon.",
+  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). I developed Zettelkasten AI Notes, a privacy-first desktop knowledge management system powered by Vulkan-accelerated local GGUF models and Google Gemini, ranking in the top 10 finalists of the Pupilica AI Hackathon.",
   "skills": [
     {
       "category": "Programming Languages",
@@ -25,7 +25,8 @@
         "Keras",
         "Scikit-learn",
         "Hugging Face (LoRA/PEFT)",
-        "ONNX Runtime"
+        "ONNX Runtime",
+        "llama-cpp-python"
       ]
     },
     {
@@ -44,6 +45,7 @@
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
         "PyQt5",
+        "Flet",
         "Google Gemini API"
       ]
     }
