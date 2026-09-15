@@ -158,9 +158,9 @@
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI (google-genai)</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">llama-cpp-python (Vulkan GPU)</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">pypdf</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini AI</span>
             
         </div>
         
@@ -179,19 +179,72 @@
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
         <h1>Zettelkasten AI Notes</h1>
-<p>A desktop application built with <code>Flet</code> (Python UI framework based on Flutter) for efficient knowledge management using the Zettelkasten method. It allows users to create, edit, and link notes, supports <code>Markdown</code> for rich content, and provides a real-time preview. It stores all data in a local <code>SQLite</code> database. A key feature is its ability to use <code>Google Gemini AI</code> (via the modern <code>google-genai</code> SDK) to generate Zettelkasten-style notes from PDF documents (extracted via <code>pypdf</code>) and automatically suggest relevant links between them.</p>
-<h2>Key Features</h2>
+<p>A desktop knowledge management system implementing the <strong>Zettelkasten</strong> methodology, built with <strong>Python</strong> and the <strong>Flet</strong> UI framework. Originally recognized as a <strong>Top 10 Finalist at the Pupilica AI Hackathon</strong>, the project has evolved into a privacy-first, modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.</p>
+<p>It features a <strong>Dual AI Engine</strong> offering both cloud-based analysis via Google Gemini and 100% offline local inference using GGUF models accelerated by Vulkan GPU compute, coupled with an interactive canvas mind map, an advanced live Markdown editor, and a smart bidirectional [[WikiLink]] system.</p>
+<hr />
+<h2>Architecture &amp; Core Capabilities</h2>
+<h3>1. Dual AI Extraction Engine (Cloud &amp; Offline Local)</h3>
+<p>The core feature of Zettelkasten AI Notes is its ability to ingest dense PDF documents, extract meaningful atomic insights, and establish semantic relationships:</p>
 <ul>
-<li><strong>Modern User Interface:</strong> Built with <code>Flet</code> for a clean, responsive, and cross-platform desktop GUI.</li>
-<li><strong>Note Creation and Management:</strong> Easily create, save, rename, and delete individual notes.</li>
-<li><strong>Markdown Support with Live Preview:</strong> Write your notes in <code>Markdown</code> and see the generated output in real-time.</li>
-<li><strong>Categorization:</strong> Organize notes into custom categories for better filtering and navigation.</li>
-<li><strong>AI-Powered Note Generation from PDF:</strong> Extract text from PDF documents using <code>pypdf</code> and utilize the <code>google-genai</code> SDK with <code>Google Gemini AI</code> to automatically generate Zettelkasten-style notes with suggested relevant links.</li>
-<li><strong>Flet Canvas Mind Map Visualization:</strong> View your notes and their links as an interactive mind map powered by <code>flet.canvas</code>. This helps you visualize relationships between your ideas and navigate your knowledge base seamlessly.</li>
-<li><strong>Smart Note Linking:</strong> Create explicit links between notes to build a rich, interconnected graph of your knowledge.</li>
-<li><strong>Theming:</strong> Choose between light and dark themes to customize the application's appearance.</li>
-<li><strong>SQLite Database:</strong> Robust and reliable local storage for all your notes and their relationships.</li>
-<li><strong>Comprehensive Test Suite:</strong> Includes automated unit testing for core operations, note title sanitization, and database interactions.</li>
+<li><strong>Cloud AI (Google Gemini API):</strong> Fast, high-throughput extraction utilizing the official <code>google-genai</code> SDK for users with an API key.</li>
+<li><strong>Offline Local AI (GGUF via Vulkan GPU):</strong> Privacy-first, local LLM inference powered by <code>llama-cpp-python</code> with cross-vendor <strong>Vulkan GPU acceleration</strong> (compatible with NVIDIA, AMD, Intel, and Apple Silicon).</li>
+<li><strong>Process-Isolated Execution:</strong> Local inference executes inside a dedicated <code>multiprocessing</code> worker. This prevents GUI thread freezes and deadlocks with Wayland/Vulkan presentation pipelines, keeping the interface fluid while ensuring immediate memory reclamation upon task completion or cancellation.</li>
+<li><strong>Intelligent Response Parsing (<code>AiResponseParser</code>):</strong> A multi-stage JSON recovery pipeline that strips academic citation markers (<code>[1]</code>, <code>[Smith et al.]</code>), ignores structural headings (Figure, Table, Section), and repairs malformed LLM responses into clean graph connections.</li>
+</ul>
+<h3>2. In-App Model Manager &amp; Downloader</h3>
+<p>Users can run local AI without setting up external servers or command-line tools:</p>
+<ul>
+<li><strong>Curated Local Model Catalog:</strong> Pre-configured models tailored for different hardware tiers, including the <strong>Gemma 4 family</strong> (Lightweight E2B 3.2 GB with a 128K context window, Balanced 12B 6.2 GB, and Flagship 26B MoE 13.1 GB).</li>
+<li><strong>Chunked HTTP Downloader:</strong> Integrated background downloader fetching models directly from Hugging Face with live progress indicators, download speed, ETA calculation, and cancellation support.</li>
+</ul>
+<h3>3. Hardware Resource Inspector &amp; OOM Guard</h3>
+<ul>
+<li><strong>Proactive Resource Detection:</strong> Automatically detects host system RAM, CPU cores, GPU devices, and available VRAM.</li>
+<li><strong>Out-Of-Memory (OOM) Protection:</strong> Validates system headroom before downloading or loading models into memory.</li>
+<li><strong>Dynamic Layer Offloading:</strong> Automatically computes the optimal number of GPU offloading layers (<code>n_gpu_layers</code>) based on current hardware capability.</li>
+</ul>
+<h3>4. Advanced Live Markdown Workspace</h3>
+<ul>
+<li><strong>Source &amp; Reading Modes:</strong> Seamlessly toggle between raw Markdown editing and formatted preview using <code>Ctrl+E</code> or the header toolbar button.</li>
+<li><strong>Rich Formatting Toolbar:</strong> One-click shortcuts for Headings (H1–H4), bold (<code>Ctrl+B</code>), italic (<code>Ctrl+I</code>), strikethrough, syntax-highlighted code blocks, blockquotes, lists, tables, and horizontal rules.</li>
+<li><strong>Interactive Task Checklists:</strong> Toggle <code>- [ ]</code> and <code>- [x]</code> checkboxes with direct click interaction in both editing and reading modes.</li>
+<li><strong>LaTeX Math Normalization:</strong> Full support for inline math (<code>$ ... $</code>, <code>\( ... \)</code>) and display math (<code>$$ ... $$</code>, <code>\[ ... \]</code>) rendered cleanly within the Flet Markdown viewer.</li>
+<li><strong>Document Telemetry:</strong> Live counter tracking words, characters, lines, and estimated reading time.</li>
+<li><strong>Debounced Auto-Save:</strong> Background non-blocking auto-save with dirty state indicators (<code>*</code>) to ensure no thoughts are lost.</li>
+</ul>
+<h3>5. Smart Bidirectional [[WikiLink]] System</h3>
+<ul>
+<li><strong>WikiLink Syntax:</strong> Connect concepts effortlessly using <code>[[Note Title]]</code> or <code>[[Target Note|Custom Alias]]</code>.</li>
+<li><strong>Interactive Navigation &amp; Auto-Creation:</strong> Clicking any WikiLink jumps straight to that note. If the target note does not exist yet, the application prompts to create and link it in a single click.</li>
+<li><strong>Quick Link Picker (<code>Ctrl+K</code>):</strong> Fast search modal to quickly insert links and establish directional or bidirectional connections between notes.</li>
+</ul>
+<h3>6. Interactive Canvas Mind Map &amp; Knowledge Graph</h3>
+<ul>
+<li><strong>Canvas Rendering:</strong> Hardware-accelerated dynamic graph rendering via <code>flet.canvas</code> with automatic node layout calculation using <code>PyGraphviz</code>.</li>
+<li><strong>Pan &amp; Zoom Navigation:</strong> Smooth, fluid navigation powered by <code>InteractiveViewer</code> controls.</li>
+<li><strong>Direct Interaction:</strong> Clicking any node on the graph canvas instantly focuses and opens the note in the editor workspace.</li>
+</ul>
+<h3>7. Modular 3-Pane Responsive Layout</h3>
+<ul>
+<li><strong>Left Sidebar:</strong> Filter collections, search in real-time, view note counts, and access configuration settings.</li>
+<li><strong>Center Workspace:</strong> Markdown editor, reading preview, and note action buttons.</li>
+<li><strong>Right Panel:</strong> Interactive Mind Map canvas and Linked Notes relationship inspector.</li>
+<li><strong>Collapsible Narrow Rails:</strong> Minimize the left sidebar (<code>Ctrl+[</code>) or right panel (<code>Ctrl+]</code>) into compact 50px icon rails to maximize editor focus.</li>
+<li><strong>Draggable Splitters:</strong> Adjust pane widths smoothly with draggable splitter handles.</li>
+</ul>
+<h3>8. Robust SQLite Persistence</h3>
+<ul>
+<li><strong>Write-Ahead Logging (WAL):</strong> Local SQLite storage configured with WAL mode for rapid, non-blocking concurrent reads and writes.</li>
+<li><strong>Thread-Local Safety:</strong> Managed via thread-local connections to guarantee thread safety across workers.</li>
+<li><strong>Foreign Key Constraints:</strong> Cascading deletes and relational integrity enforced (<code>PRAGMA foreign_keys = ON</code>).</li>
+</ul>
+<hr />
+<h2>Technologies Used</h2>
+<ul>
+<li><strong>Desktop Framework:</strong> Python, Flet</li>
+<li><strong>AI &amp; Inference:</strong> <code>llama-cpp-python</code> (Vulkan GPU acceleration), Google Gemini API (<code>google-genai</code>)</li>
+<li><strong>Document &amp; Graph Processing:</strong> <code>pypdf</code>, <code>pygraphviz</code>, <code>markdown</code></li>
+<li><strong>Storage &amp; Systems:</strong> SQLite (WAL mode), <code>psutil</code>, <code>requests</code></li>
 </ul>
     </div>
 </article>
@@ -212,7 +265,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1788391319"></script>
+    <script type="module" src="/static/js/main.js?v=1789499574"></script>
 
 </body>
 
