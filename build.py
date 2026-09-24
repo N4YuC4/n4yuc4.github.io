@@ -382,6 +382,15 @@ class SiteBuilder:
             social_links = self._read_json_file(get_lang_file('socialLinks.json')) or {}
             portfolio_items = self._read_json_file(get_lang_file('portfolioItems.json')) or []
 
+            # Extract tags for each portfolio item and collect all unique tags
+            all_tags = []
+            for item in portfolio_items:
+                raw_tech = item.get('techStack', '')
+                item['tags'] = [t.strip() for t in raw_tech.split(',') if t.strip()]
+                for tag in item['tags']:
+                    if tag not in all_tags:
+                        all_tags.append(tag)
+
             # Auto-populate CV with projects and publications
             if cv_data:
                 cv_projects = []
@@ -403,13 +412,29 @@ class SiteBuilder:
                 'lang_prefix': lang_prefix,
                 't': t,
                 'socialLinks': social_links,
-                'build_time': int(time.time())
+                'build_time': int(time.time()),
+                'has_code': False
             }
 
             def render_lang_template(template_name, output_path, page_context={}, sources=[]):
                 full_context = common_context.copy()
                 full_context.update(page_context)
                 full_context['current_page'] = output_path
+
+                # Multilingual Canonical & Hreflang calculation
+                base_site_url = "https://n4yuc4.github.io"
+                if output_path == 'index.html':
+                    canonical_en_url = f"{base_site_url}/"
+                    canonical_tr_url = f"{base_site_url}/tr/"
+                else:
+                    canonical_en_url = f"{base_site_url}/{output_path}"
+                    canonical_tr_url = f"{base_site_url}/tr/{output_path}"
+
+                full_context['canonical_en_url'] = canonical_en_url
+                full_context['canonical_tr_url'] = canonical_tr_url
+                full_context['canonical_x_default_url'] = canonical_en_url
+                full_context['canonical_url'] = canonical_tr_url if lang == 'tr' else canonical_en_url
+
                 self.render_template(template_name, output_path, full_context, sources=sources, output_dir=output_dir)
 
             print(f"Rendering templates for {lang}...")
@@ -433,6 +458,7 @@ class SiteBuilder:
             
             render_lang_template('portfolio.html', 'portfolio.html', {
                 'items': portfolio_items,
+                'all_tags': all_tags,
                 'seo': seo_data.get('portfolio', {}),
             }, sources=[get_lang_file('portfolioItems.json'), get_lang_file('seoData.json')])
             
@@ -485,7 +511,7 @@ class SiteBuilder:
                     render_lang_template(
                         'portfolio_detail.html',
                         os.path.join('portfolio', f"{slug}.html"),
-                        {'item': item, 'seo': seo_data.get('portfolio', {})},
+                        {'item': item, 'seo': seo_data.get('portfolio', {}), 'has_code': True},
                         sources=[full_md_path, get_lang_file('portfolioItems.json'), get_lang_file('seoData.json')]
                     )
             print(f"Rendered {len(portfolio_items)} portfolio detail pages for {lang}.")

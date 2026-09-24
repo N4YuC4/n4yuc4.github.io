@@ -4,18 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N4YuC4 - Home | Software, Technology and Art</title>
+    <title>N4YuC4 - Home | Software, Technology and AI</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="N4YuC4's personal website and portfolio. Articles and projects on software development, artificial intelligence, data science and machine learning.">
-    <meta name="keywords" content="n4yuc4, portfolio, software, technology, artificial intelligence, art, programming, coding">
+    <meta name="keywords" content="n4yuc4, portfolio, software, technology, artificial intelligence, machine learning, programming, coding">
     <meta name="author" content="Nazmi Yücel Çan">
+    <!-- Canonical and Multilingual SEO -->
     <link rel="canonical" href="https://n4yuc4.github.io/">
+    <link rel="alternate" hreflang="en" href="https://n4yuc4.github.io/">
+    <link rel="alternate" hreflang="tr" href="https://n4yuc4.github.io/tr/">
+    <link rel="alternate" hreflang="x-default" href="https://n4yuc4.github.io/">
+
+    <!-- View Transitions API for seamless page transitions -->
+    <meta name="view-transition" content="same-origin">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nazmi Yücel Çan",
+        "url": "https://n4yuc4.github.io/",
+        "image": "https://n4yuc4.github.io/static/images/profile.png",
+        "sameAs": [
+            "https://github.com/N4YuC4",
+            "https://www.linkedin.com/in/n4yuc4/",
+            "https://medium.com/@n4yuc4",
+            "https://kaggle.com/n4yuc4",
+            "https://x.com/N4YuC4"
+        ],
+        "jobTitle": "Data Scientist & AI Researcher",
+        "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "TinyML", "Python"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "N4YuC4",
+        "url": "https://n4yuc4.github.io/"
+    }
+    </script>
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="N4YuC4 - Home | Software, Technology and Art">
+    <meta property="og:title" content="N4YuC4 - Home | Software, Technology and AI">
     <meta property="og:description" content="N4YuC4's personal website and portfolio. Articles and projects on software development, artificial intelligence, data science and machine learning.">
-    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
     <meta property="og:url" content="https://n4yuc4.github.io/">
     <meta property="og:type" content="website">
 
@@ -23,9 +58,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@N4YuC4">
     <meta name="twitter:creator" content="@N4YuC4">
-    <meta name="twitter:title" content="N4YuC4 - Home | Software, Technology and Art">
+    <meta name="twitter:title" content="N4YuC4 - Home | Software, Technology and AI">
     <meta name="twitter:description" content="N4YuC4's personal website and portfolio. Articles and projects on software development, artificial intelligence, data science and machine learning.">
-    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -47,25 +82,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Highlight.js CSS (Atom One Dark) -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <!-- Highlight.js JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Extra support for Python and other data science languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="/static/images/icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/icon-180.png">
+    <link rel="shortcut icon" href="/static/images/icon-32.png">
 
     <!-- Google Analytics -->
     <meta name="google-site-verification" content="g34xvCdWWaT9GpwC59QGEXDgzUx8oqQ_O9i_ZnvX4cM" />
@@ -83,9 +110,9 @@
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <div id="hamburger-button" class="hamburger-button block lg:hidden">
+            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden" aria-label="Open Navigation Menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
 
             <!-- Desktop Navigation Menu -->
             <nav id="desktop-nav" class="hidden lg:flex items-center">
@@ -119,10 +146,10 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden lg:hidden">
-        <div id="close-mobile-menu" class="close-button">
+    <div id="mobile-menu-overlay" popover="auto" class="mobile-menu-overlay hidden lg:hidden">
+        <button id="close-mobile-menu" popovertarget="mobile-menu-overlay" popovertargetaction="hide" class="close-button" aria-label="Close Navigation Menu">
             <i class="fas fa-times"></i>
-        </div>
+        </button>
         <ul>
             <li><a href="/index.html" id="mobile-nav-home" class="mobile-nav-link">Home</a></li>
             <li><a href="/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Blog</a></li>
@@ -144,13 +171,17 @@
         
 <div class="space-y-16">
     <!-- About Section -->
-    <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
+    <section class="cyber-card p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
         <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
-            <!-- Profile Picture -->
+            <!-- Profile Picture (LCP Candidate) -->
             <div class="w-48 h-48 lg:w-64 lg:h-64 flex-shrink-0 relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 to-sky-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
                 <img src="/static/images/profile.png" 
                      alt="Profile Picture" 
+                     fetchpriority="high"
+                     decoding="async"
+                     width="256"
+                     height="256"
                      class="w-full h-full object-cover rounded-full shadow-2xl relative z-10 border-4 border-white">
             </div>
 
@@ -255,57 +286,125 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         <div class="space-y-6">
             
             <a href="/portfolio/mt5-en-tr-translation.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/mt5-en-tr.png" 
                              alt="mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)" 
+                             loading="lazy"
+                             decoding="async"
+                             width="128"
+                             height="128"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).</p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Python</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">PyTorch</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Transformers</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">LoRA</span>
+                            
+                        </div>
+                        
                     </div>
                 </article>
             </a>
             
             <a href="/portfolio/zettelkasten-ai-notes.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
                              alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" 
+                             loading="lazy"
+                             decoding="async"
+                             width="128"
+                             height="128"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">A desktop knowledge management application built around the Zettelkasten method using Python and Flet. Features a Dual AI Engine providing both cloud (Google Gemini) and 100% offline local inference (GGUF models accelerated via Vulkan GPU) to extract atomic notes and semantic links from PDFs. Includes an in-app model downloader, hardware resource guard, live Markdown editor with LaTeX math, smart bidirectional WikiLinks, and an interactive canvas mind map. All data is persisted in a local SQLite database with WAL mode.</p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Python</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Flet</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">SQLite</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">llama.cpp</span>
+                            
+                        </div>
+                        
                     </div>
                 </article>
             </a>
             
             <a href="/portfolio/elma-tespit-kalite-analizi.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" 
                              alt="Apple Detection and Quality Analysis System" 
+                             loading="lazy"
+                             decoding="async"
+                             width="128"
+                             height="128"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Apple Detection and Quality Analysis System</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">An industrial computer vision application featuring real-time object detection, physical dimension measurement, and CIEDE2000 color quality analysis. Focused on system integration, designing the application architecture, and orchestrating the end-to-end pipeline—integrating the camera SDK, real-time YOLOv8-seg model inference, and measurement modules into a unified desktop interface.</p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Python</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">OpenCV</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">YOLO</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">PyQt5</span>
+                            
+                        </div>
+                        
                     </div>
                 </article>
             </a>
             
             <a href="/portfolio/arduino-pc-system-monitor.html" class="block group">
-                <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/arduino-pc-monitor.png" 
                              alt="Arduino PC System Monitor" 
+                             loading="lazy"
+                             decoding="async"
+                             width="128"
+                             height="128"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Arduino PC System Monitor</h4>
                         <p class="text-gray-500 font-mono text-xs mt-3 leading-relaxed line-clamp-3">A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.</p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Python</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">Arduino</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">TinyML</span>
+                            
+                            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs rounded border border-sky-800/40">scikit-learn</span>
+                            
+                        </div>
+                        
                     </div>
                 </article>
             </a>
@@ -322,11 +421,13 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <a href="https://medium.com/@n4yuc4/stop-using-deep-learning-for-everything-the-academically-proven-guide-to-classical-ml-on-tabular-43b2ebcda137?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*CQJ0MG4BYGWKQrtQxqnJtw.png" 
                              alt="Stop Using Deep Learning for Everything: The Academically Proven Guide to Classical ML on Tabular…" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     
@@ -339,11 +440,13 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="https://medium.com/@n4yuc4/dimensionality-in-data-science-the-critical-difference-between-feature-selection-and-feature-ad745f0f7bcb?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*TLqSCKS6K2qgXmN9n-P0Dw.png" 
                              alt="Dimensionality in Data Science: The Critical Difference Between Feature Selection and Feature…" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     
@@ -356,11 +459,13 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="https://medium.com/@n4yuc4/ai-is-no-longer-a-magical-black-box-the-era-of-transparency-and-trust-with-xai-333d36f94c1d?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/640/1*UjV14c7cPcLdaT3lbR1t_g.jpeg" 
                              alt="AI is No Longer a ‘Magical Black Box’! The Era of Transparency and Trust with XAI" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                     </div>
                     
@@ -384,7 +489,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         </div>
         <div class="space-y-6">
             
-            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="cyber-card p-6 rounded-xl shadow-md border border-gray-100">
                 <h4 class="text-xl font-bold text-gray-800 mb-2">
                     <a href="https://doi.org/10.31202/ecjse.1747013" target="_blank" class="hover:text-sky-400 transition-colors">
                         Deep Learning Models Integrating Attention Mechanisms For Military Camouflaged Object Detection
@@ -415,7 +520,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1789501971"></script>
+    <script type="module" src="/static/js/main.js?v=1790267463"></script>
 
 </body>
 

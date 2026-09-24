@@ -10,13 +10,48 @@
     <meta name="description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
     <meta name="keywords" content="software portfolio, projects, github, web development, mobile development, open source">
     <meta name="author" content="Nazmi Yücel Çan">
-    <link rel="canonical" href="https://n4yuc4.github.io/">
+    <!-- Canonical and Multilingual SEO -->
+    <link rel="canonical" href="https://n4yuc4.github.io/portfolio/elma-tespit-kalite-analizi.html">
+    <link rel="alternate" hreflang="en" href="https://n4yuc4.github.io/portfolio/elma-tespit-kalite-analizi.html">
+    <link rel="alternate" hreflang="tr" href="https://n4yuc4.github.io/tr/portfolio/elma-tespit-kalite-analizi.html">
+    <link rel="alternate" hreflang="x-default" href="https://n4yuc4.github.io/portfolio/elma-tespit-kalite-analizi.html">
+
+    <!-- View Transitions API for seamless page transitions -->
+    <meta name="view-transition" content="same-origin">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nazmi Yücel Çan",
+        "url": "https://n4yuc4.github.io/",
+        "image": "https://n4yuc4.github.io/static/images/profile.png",
+        "sameAs": [
+            "https://github.com/N4YuC4",
+            "https://www.linkedin.com/in/n4yuc4/",
+            "https://medium.com/@n4yuc4",
+            "https://kaggle.com/n4yuc4",
+            "https://x.com/N4YuC4"
+        ],
+        "jobTitle": "Data Scientist & AI Researcher",
+        "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "TinyML", "Python"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "N4YuC4",
+        "url": "https://n4yuc4.github.io/"
+    }
+    </script>
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="N4YuC4 - Portfolio | My Projects">
     <meta property="og:description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
-    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
-    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/portfolio/elma-tespit-kalite-analizi.html">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Meta Tags -->
@@ -25,7 +60,7 @@
     <meta name="twitter:creator" content="@N4YuC4">
     <meta name="twitter:title" content="N4YuC4 - Portfolio | My Projects">
     <meta name="twitter:description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
-    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -47,6 +82,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <!-- Highlight.js CSS (Atom One Dark) -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -57,15 +93,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="/static/images/icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/icon-180.png">
+    <link rel="shortcut icon" href="/static/images/icon-32.png">
 
     <!-- Google Analytics -->
     <meta name="google-site-verification" content="g34xvCdWWaT9GpwC59QGEXDgzUx8oqQ_O9i_ZnvX4cM" />
@@ -83,9 +121,9 @@
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <div id="hamburger-button" class="hamburger-button block lg:hidden">
+            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden" aria-label="Open Navigation Menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
 
             <!-- Desktop Navigation Menu -->
             <nav id="desktop-nav" class="hidden lg:flex items-center">
@@ -119,10 +157,10 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden lg:hidden">
-        <div id="close-mobile-menu" class="close-button">
+    <div id="mobile-menu-overlay" popover="auto" class="mobile-menu-overlay hidden lg:hidden">
+        <button id="close-mobile-menu" popovertarget="mobile-menu-overlay" popovertargetaction="hide" class="close-button" aria-label="Close Navigation Menu">
             <i class="fas fa-times"></i>
-        </div>
+        </button>
         <ul>
             <li><a href="/index.html" id="mobile-nav-home" class="mobile-nav-link">Home</a></li>
             <li><a href="/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Blog</a></li>
@@ -142,25 +180,25 @@
     <!-- Main Content Area -->
     <main id="content-area" class="container mx-auto my-6 md:my-12 p-4 md:p-6 lg:p-8 flex-grow">
         
-<article class="bg-white p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
+<article class="cyber-card p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
     <div class="mb-8">
         <a href="/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; Back to Portfolio</a>
         <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">Apple Detection and Quality Analysis System</h1>
         
-        <p class="text-sky-600 font-medium mb-4">March 2026</p>
+        <p class="text-sky-400 font-medium mb-4">March 2026</p>
         
         
         <div class="flex flex-wrap gap-2 mb-4">
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Python</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">PyQt5</span>
-            
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">OpenCV</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">YOLOv8</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">YOLO</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">MVS SDK</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">PyQt5</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Computer Vision</span>
             
         </div>
         
@@ -174,7 +212,7 @@
             
         </div>
         
-        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" alt="Apple Detection and Quality Analysis System image" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" alt="Apple Detection and Quality Analysis System image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
     </div>
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
@@ -232,7 +270,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1789501971"></script>
+    <script type="module" src="/static/js/main.js?v=1790267463"></script>
 
 </body>
 

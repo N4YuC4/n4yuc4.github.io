@@ -17,8 +17,11 @@ def index():
 def serve_static(path):
     """
     Serves any other file (e.g., /about.html, /static/css/style.css)
-    from the 'docs' directory.
+    from the 'docs' directory. If a directory is requested, serves its index.html.
     """
+    full_path = os.path.join(DOCS_DIR, path)
+    if os.path.isdir(full_path):
+        return send_from_directory(full_path, 'index.html')
     return send_from_directory(DOCS_DIR, path)
 
 if __name__ == '__main__':

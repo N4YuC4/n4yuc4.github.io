@@ -4,7 +4,7 @@
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
         "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
-        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, mT5 SLM",
+        "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",
         "detailFile": "portfolio/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",
         "links": [
@@ -19,7 +19,7 @@
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
         "description": "A desktop knowledge management application built around the Zettelkasten method using Python and Flet. Features a Dual AI Engine providing both cloud (Google Gemini) and 100% offline local inference (GGUF models accelerated via Vulkan GPU) to extract atomic notes and semantic links from PDFs. Includes an in-app model downloader, hardware resource guard, live Markdown editor with LaTeX math, smart bidirectional WikiLinks, and an interactive canvas mind map. All data is persisted in a local SQLite database with WAL mode.",
-        "techStack": "Python, Flet, SQLite, llama-cpp-python (Vulkan GPU), Google Gemini AI",
+        "techStack": "Python, Flet, SQLite, llama.cpp, Google Gemini, NLP",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [
@@ -34,7 +34,7 @@
         "date": "March 2026",
         "imageUrl": "images/portfolio-images/elma-tespit-figures/genel_gorunum.png",
         "description": "An industrial computer vision application featuring real-time object detection, physical dimension measurement, and CIEDE2000 color quality analysis. Focused on system integration, designing the application architecture, and orchestrating the end-to-end pipeline—integrating the camera SDK, real-time YOLOv8-seg model inference, and measurement modules into a unified desktop interface.",
-        "techStack": "Python, PyQt5, OpenCV, YOLOv8, MVS SDK",
+        "techStack": "Python, OpenCV, YOLO, PyQt5, Computer Vision",
         "detailFile": "portfolio/elma-tespit-kalite-analizi.md",
         "slug": "elma-tespit-kalite-analizi",
         "links": [
@@ -49,7 +49,7 @@
         "date": "1 May 2026",
         "imageUrl": "images/portfolio-images/arduino-pc-monitor.png",
         "description": "A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.",
-        "techStack": "Python, Arduino (C++), PlatformIO, TinyML (SVM), scikit-learn",
+        "techStack": "Python, Arduino, TinyML, scikit-learn",
         "detailFile": "portfolio/arduino-pc-system-monitor.md",
         "slug": "arduino-pc-system-monitor",
         "links": [

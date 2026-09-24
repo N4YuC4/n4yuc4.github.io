@@ -4,25 +4,52 @@
 
 {% block content %}
 <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12">
+    <div class="text-center mb-8">
         <h1 class="text-3xl md:text-5xl font-bold text-gray-800">{{ t.nav_portfolio }}</h1>
         <p class="text-lg text-gray-600 mt-4">{{ t.portfolio_subtitle }}</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+
+    <!-- Filter Bar -->
+    {% if all_tags %}
+    <div class="mb-10 flex flex-col items-center">
+        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{{ t.filter_tags }}</span>
+        <div id="portfolio-filter-bar" class="flex flex-wrap justify-center gap-2 max-w-4xl">
+            <button type="button" class="filter-btn active" data-tag="all">{{ t.filter_all }}</button>
+            {% for tag in all_tags %}
+            <button type="button" class="filter-btn" data-tag="{{ tag }}">{{ tag }}</button>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
     {% for item in items %}
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }}" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="{{ item.tags | join(',') }}">
+        <img src="/static/{{ item.imageUrl }}" 
+             alt="{{ item.title }}" 
+             loading="lazy"
+             decoding="async"
+             class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ item.title }}</h3>
         {% if item.date %}
-        <p class="text-sky-600 text-sm font-medium mb-3">{{ item.date }}</p>
+        <p class="text-sky-400 text-sm font-medium mb-3">{{ item.date }}</p>
         {% endif %}
         <p class="text-gray-700 mb-4 flex-grow">{{ item.description }}</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        {% if item.tags %}
+        <div class="flex flex-wrap gap-1.5 mb-6">
+            {% for tag in item.tags %}
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
             <a href="{{ lang_prefix }}/portfolio/{{ item.slug }}.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">{{ t.view_details }}</a>
             {% if item.links %}
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 {% for link in item.links %}
-                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-400 transition flex items-center gap-1">
                     {{ link.label }} <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 {% endfor %}
@@ -31,5 +58,6 @@
         </div>
     </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}

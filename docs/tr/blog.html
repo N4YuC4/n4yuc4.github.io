@@ -10,13 +10,48 @@
     <meta name="description" content="Yazılım, veri bilimi, yapay zeka ve teknoloji üzerine en güncel ve bilgilendirici blog yazıları.">
     <meta name="keywords" content="teknoloji blogu, yazılım makaleleri, yapay zeka, veri bilimi, python, javascript">
     <meta name="author" content="Nazmi Yücel Çan">
-    <link rel="canonical" href="https://n4yuc4.github.io/">
+    <!-- Canonical and Multilingual SEO -->
+    <link rel="canonical" href="https://n4yuc4.github.io/tr/blog.html">
+    <link rel="alternate" hreflang="en" href="https://n4yuc4.github.io/blog.html">
+    <link rel="alternate" hreflang="tr" href="https://n4yuc4.github.io/tr/blog.html">
+    <link rel="alternate" hreflang="x-default" href="https://n4yuc4.github.io/blog.html">
+
+    <!-- View Transitions API for seamless page transitions -->
+    <meta name="view-transition" content="same-origin">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nazmi Yücel Çan",
+        "url": "https://n4yuc4.github.io/",
+        "image": "https://n4yuc4.github.io/static/images/profile.png",
+        "sameAs": [
+            "https://github.com/N4YuC4",
+            "https://www.linkedin.com/in/n4yuc4/",
+            "https://medium.com/@n4yuc4",
+            "https://kaggle.com/n4yuc4",
+            "https://x.com/N4YuC4"
+        ],
+        "jobTitle": "Data Scientist & AI Researcher",
+        "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "TinyML", "Python"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "N4YuC4",
+        "url": "https://n4yuc4.github.io/"
+    }
+    </script>
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="N4YuC4 - Blog | Son Yazılar">
     <meta property="og:description" content="Yazılım, veri bilimi, yapay zeka ve teknoloji üzerine en güncel ve bilgilendirici blog yazıları.">
-    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
-    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/tr/blog.html">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Meta Tags -->
@@ -25,7 +60,7 @@
     <meta name="twitter:creator" content="@N4YuC4">
     <meta name="twitter:title" content="N4YuC4 - Blog | Son Yazılar">
     <meta name="twitter:description" content="Yazılım, veri bilimi, yapay zeka ve teknoloji üzerine en güncel ve bilgilendirici blog yazıları.">
-    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -47,25 +82,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Highlight.js CSS (Atom One Dark) -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <!-- Highlight.js JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Extra support for Python and other data science languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="/static/images/icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/icon-180.png">
+    <link rel="shortcut icon" href="/static/images/icon-32.png">
 
     <!-- Google Analytics -->
     <meta name="google-site-verification" content="g34xvCdWWaT9GpwC59QGEXDgzUx8oqQ_O9i_ZnvX4cM" />
@@ -83,9 +110,9 @@
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <div id="hamburger-button" class="hamburger-button block lg:hidden">
+            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden" aria-label="Open Navigation Menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
 
             <!-- Desktop Navigation Menu -->
             <nav id="desktop-nav" class="hidden lg:flex items-center">
@@ -119,10 +146,10 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden lg:hidden">
-        <div id="close-mobile-menu" class="close-button">
+    <div id="mobile-menu-overlay" popover="auto" class="mobile-menu-overlay hidden lg:hidden">
+        <button id="close-mobile-menu" popovertarget="mobile-menu-overlay" popovertargetaction="hide" class="close-button" aria-label="Close Navigation Menu">
             <i class="fas fa-times"></i>
-        </div>
+        </button>
         <ul>
             <li><a href="/tr/index.html" id="mobile-nav-home" class="mobile-nav-link">Ana Sayfa</a></li>
             <li><a href="/tr/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Yazılar</a></li>
@@ -152,11 +179,13 @@
         
             
             <a href="https://medium.com/@n4yuc4/stop-using-deep-learning-for-everything-the-academically-proven-guide-to-classical-ml-on-tabular-43b2ebcda137?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
+                <article class="cyber-card rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
                     
                     <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*CQJ0MG4BYGWKQrtQxqnJtw.png" 
                              alt="Stop Using Deep Learning for Everything: The Academically Proven Guide to Classical ML on Tabular…" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     
@@ -187,11 +216,13 @@
             </a>
             
             <a href="https://medium.com/@n4yuc4/dimensionality-in-data-science-the-critical-difference-between-feature-selection-and-feature-ad745f0f7bcb?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
+                <article class="cyber-card rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
                     
                     <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*TLqSCKS6K2qgXmN9n-P0Dw.png" 
                              alt="Dimensionality in Data Science: The Critical Difference Between Feature Selection and Feature…" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     
@@ -222,11 +253,13 @@
             </a>
             
             <a href="https://medium.com/@n4yuc4/ai-is-no-longer-a-magical-black-box-the-era-of-transparency-and-trust-with-xai-333d36f94c1d?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
+                <article class="cyber-card rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
                     
                     <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/640/1*UjV14c7cPcLdaT3lbR1t_g.jpeg" 
                              alt="AI is No Longer a ‘Magical Black Box’! The Era of Transparency and Trust with XAI" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     
@@ -257,11 +290,13 @@
             </a>
             
             <a href="https://medium.com/@n4yuc4/putting-your-model-to-the-test-what-is-cross-validation-and-k-fold-cross-validation-cc2c2b8cda08?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
+                <article class="cyber-card rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
                     
                     <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/736/1*jCAY79McMV-KwEl-e0KqxA.png" 
                              alt="Putting Your Model to the Test: What is Cross-Validation and K-Fold Cross-Validation?" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     
@@ -292,11 +327,13 @@
             </a>
             
             <a href="https://medium.com/@n4yuc4/solid-principles-with-python-cornerstones-in-software-development-7801857515d8?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
+                <article class="cyber-card rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row h-full">
                     
                     <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*E5N8cJA3qLHm1B4KuHCoPg.png" 
                              alt="SOLID Principles with Python: Cornerstones in Software Development" 
+                             loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     
@@ -346,7 +383,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1789501972"></script>
+    <script type="module" src="/static/js/main.js?v=1790267464"></script>
 
 </body>
 

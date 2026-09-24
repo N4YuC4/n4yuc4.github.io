@@ -34,7 +34,9 @@
     "cv_languages_label": "Languages",
     "cv_at": "at",
     "cv_in": "in",
-    "cv_gpa": "GPA"
+    "cv_gpa": "GPA",
+    "filter_all": "All",
+    "filter_tags": "Filter by Technology:"
   },
   "tr": {
     "nav_home": "Ana Sayfa",
@@ -71,6 +73,8 @@
     "cv_languages_label": "Dil Bilgisi",
     "cv_at": "bünyesinde",
     "cv_in": "alanında",
-    "cv_gpa": "GNO"
+    "cv_gpa": "GNO",
+    "filter_all": "Tümü",
+    "filter_tags": "Teknolojiye Göre Filtrele:"
   }
 }

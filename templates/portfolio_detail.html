@@ -3,12 +3,12 @@
 {% block title %}{{ item.title }} - N4YuC4{% endblock %}
 
 {% block content %}
-<article class="bg-white p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
+<article class="cyber-card p-6 md:p-12 rounded-xl shadow-lg border border-gray-100 relative">
     <div class="mb-8">
         <a href="{{ lang_prefix }}/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; {{ t.back_to_portfolio }}</a>
         <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">{{ item.title }}</h1>
         {% if item.date %}
-        <p class="text-sky-600 font-medium mb-4">{{ item.date }}</p>
+        <p class="text-sky-400 font-medium mb-4">{{ item.date }}</p>
         {% endif %}
         {% if item.techStack %}
         <div class="flex flex-wrap gap-2 mb-4">
@@ -27,7 +27,7 @@
             {% endfor %}
         </div>
         {% endif %}
-        <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }} image" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+        <img src="/static/{{ item.imageUrl }}" alt="{{ item.title }} image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
     </div>
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">

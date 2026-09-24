@@ -10,13 +10,48 @@
     <meta name="description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
     <meta name="keywords" content="software portfolio, projects, github, web development, mobile development, open source">
     <meta name="author" content="Nazmi Yücel Çan">
-    <link rel="canonical" href="https://n4yuc4.github.io/">
+    <!-- Canonical and Multilingual SEO -->
+    <link rel="canonical" href="https://n4yuc4.github.io/portfolio.html">
+    <link rel="alternate" hreflang="en" href="https://n4yuc4.github.io/portfolio.html">
+    <link rel="alternate" hreflang="tr" href="https://n4yuc4.github.io/tr/portfolio.html">
+    <link rel="alternate" hreflang="x-default" href="https://n4yuc4.github.io/portfolio.html">
+
+    <!-- View Transitions API for seamless page transitions -->
+    <meta name="view-transition" content="same-origin">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nazmi Yücel Çan",
+        "url": "https://n4yuc4.github.io/",
+        "image": "https://n4yuc4.github.io/static/images/profile.png",
+        "sameAs": [
+            "https://github.com/N4YuC4",
+            "https://www.linkedin.com/in/n4yuc4/",
+            "https://medium.com/@n4yuc4",
+            "https://kaggle.com/n4yuc4",
+            "https://x.com/N4YuC4"
+        ],
+        "jobTitle": "Data Scientist & AI Researcher",
+        "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "TinyML", "Python"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "N4YuC4",
+        "url": "https://n4yuc4.github.io/"
+    }
+    </script>
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="N4YuC4 - Portfolio | My Projects">
     <meta property="og:description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
-    <meta property="og:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
-    <meta property="og:url" content="https://n4yuc4.github.io/">
+    <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
+    <meta property="og:url" content="https://n4yuc4.github.io/portfolio.html">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card Meta Tags -->
@@ -25,7 +60,7 @@
     <meta name="twitter:creator" content="@N4YuC4">
     <meta name="twitter:title" content="N4YuC4 - Portfolio | My Projects">
     <meta name="twitter:description" content="A compilation of projects I've developed in the field of software and technology. Web applications, mobile applications, and open-source contributions.">
-    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/meta_image.png">
+    <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -47,25 +82,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Highlight.js CSS (Atom One Dark) -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <!-- Highlight.js JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Extra support for Python and other data science languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/static/images/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="/static/images/icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/icon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/icon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/icon-180.png">
+    <link rel="shortcut icon" href="/static/images/icon-32.png">
 
     <!-- Google Analytics -->
     <meta name="google-site-verification" content="g34xvCdWWaT9GpwC59QGEXDgzUx8oqQ_O9i_ZnvX4cM" />
@@ -83,9 +110,9 @@
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <div id="hamburger-button" class="hamburger-button block lg:hidden">
+            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden" aria-label="Open Navigation Menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
 
             <!-- Desktop Navigation Menu -->
             <nav id="desktop-nav" class="hidden lg:flex items-center">
@@ -119,10 +146,10 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden lg:hidden">
-        <div id="close-mobile-menu" class="close-button">
+    <div id="mobile-menu-overlay" popover="auto" class="mobile-menu-overlay hidden lg:hidden">
+        <button id="close-mobile-menu" popovertarget="mobile-menu-overlay" popovertargetaction="hide" class="close-button" aria-label="Close Navigation Menu">
             <i class="fas fa-times"></i>
-        </div>
+        </button>
         <ul>
             <li><a href="/index.html" id="mobile-nav-home" class="mobile-nav-link">Home</a></li>
             <li><a href="/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Blog</a></li>
@@ -143,23 +170,96 @@
     <main id="content-area" class="container mx-auto my-6 md:my-12 p-4 md:p-6 lg:p-8 flex-grow">
         
 <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12">
+    <div class="text-center mb-8">
         <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Portfolio</h1>
         <p class="text-lg text-gray-600 mt-4">A showcase of my projects and technical works.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+
+    <!-- Filter Bar -->
     
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/mt5-en-tr.png" alt="mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+    <div class="mb-10 flex flex-col items-center">
+        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Filter by Technology:</span>
+        <div id="portfolio-filter-bar" class="flex flex-wrap justify-center gap-2 max-w-4xl">
+            <button type="button" class="filter-btn active" data-tag="all">All</button>
+            
+            <button type="button" class="filter-btn" data-tag="Python">Python</button>
+            
+            <button type="button" class="filter-btn" data-tag="PyTorch">PyTorch</button>
+            
+            <button type="button" class="filter-btn" data-tag="Transformers">Transformers</button>
+            
+            <button type="button" class="filter-btn" data-tag="LoRA">LoRA</button>
+            
+            <button type="button" class="filter-btn" data-tag="Fine-Tuning">Fine-Tuning</button>
+            
+            <button type="button" class="filter-btn" data-tag="ONNX Runtime">ONNX Runtime</button>
+            
+            <button type="button" class="filter-btn" data-tag="NLP">NLP</button>
+            
+            <button type="button" class="filter-btn" data-tag="Flet">Flet</button>
+            
+            <button type="button" class="filter-btn" data-tag="SQLite">SQLite</button>
+            
+            <button type="button" class="filter-btn" data-tag="llama.cpp">llama.cpp</button>
+            
+            <button type="button" class="filter-btn" data-tag="Google Gemini">Google Gemini</button>
+            
+            <button type="button" class="filter-btn" data-tag="OpenCV">OpenCV</button>
+            
+            <button type="button" class="filter-btn" data-tag="YOLO">YOLO</button>
+            
+            <button type="button" class="filter-btn" data-tag="PyQt5">PyQt5</button>
+            
+            <button type="button" class="filter-btn" data-tag="Computer Vision">Computer Vision</button>
+            
+            <button type="button" class="filter-btn" data-tag="Arduino">Arduino</button>
+            
+            <button type="button" class="filter-btn" data-tag="TinyML">TinyML</button>
+            
+            <button type="button" class="filter-btn" data-tag="scikit-learn">scikit-learn</button>
+            
+        </div>
+    </div>
+    
+
+    <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+    
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,PyTorch,Transformers,LoRA,Fine-Tuning,ONNX Runtime,NLP">
+        <img src="/static/images/portfolio-images/mt5-en-tr.png" 
+             alt="mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)" 
+             loading="lazy"
+             decoding="async"
+             class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)</h3>
         
         <p class="text-gray-700 mb-4 flex-grow">Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        
+        <div class="flex flex-wrap gap-1.5 mb-6">
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Python</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">PyTorch</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Transformers</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">LoRA</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Fine-Tuning</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">ONNX Runtime</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">NLP</span>
+            
+        </div>
+        
+
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
             <a href="/portfolio/mt5-en-tr-translation.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>
             
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 
-                <a href="https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                <a href="https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-400 transition flex items-center gap-1">
                     Kaggle <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 
@@ -168,19 +268,42 @@
         </div>
     </div>
     
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,Flet,SQLite,llama.cpp,Google Gemini,NLP">
+        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
+             alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" 
+             loading="lazy"
+             decoding="async"
+             class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)</h3>
         
-        <p class="text-sky-600 text-sm font-medium mb-3">27 October 2025</p>
+        <p class="text-sky-400 text-sm font-medium mb-3">27 October 2025</p>
         
         <p class="text-gray-700 mb-4 flex-grow">A desktop knowledge management application built around the Zettelkasten method using Python and Flet. Features a Dual AI Engine providing both cloud (Google Gemini) and 100% offline local inference (GGUF models accelerated via Vulkan GPU) to extract atomic notes and semantic links from PDFs. Includes an in-app model downloader, hardware resource guard, live Markdown editor with LaTeX math, smart bidirectional WikiLinks, and an interactive canvas mind map. All data is persisted in a local SQLite database with WAL mode.</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        
+        <div class="flex flex-wrap gap-1.5 mb-6">
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Python</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Flet</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">SQLite</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">llama.cpp</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Google Gemini</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">NLP</span>
+            
+        </div>
+        
+
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
             <a href="/portfolio/zettelkasten-ai-notes.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>
             
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 
-                <a href="https://github.com/N4YuC4/ZettelKasten-AI-Notes" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                <a href="https://github.com/N4YuC4/ZettelKasten-AI-Notes" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-400 transition flex items-center gap-1">
                     GitHub <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 
@@ -189,19 +312,40 @@
         </div>
     </div>
     
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" alt="Apple Detection and Quality Analysis System" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,OpenCV,YOLO,PyQt5,Computer Vision">
+        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" 
+             alt="Apple Detection and Quality Analysis System" 
+             loading="lazy"
+             decoding="async"
+             class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Apple Detection and Quality Analysis System</h3>
         
-        <p class="text-sky-600 text-sm font-medium mb-3">March 2026</p>
+        <p class="text-sky-400 text-sm font-medium mb-3">March 2026</p>
         
         <p class="text-gray-700 mb-4 flex-grow">An industrial computer vision application featuring real-time object detection, physical dimension measurement, and CIEDE2000 color quality analysis. Focused on system integration, designing the application architecture, and orchestrating the end-to-end pipeline—integrating the camera SDK, real-time YOLOv8-seg model inference, and measurement modules into a unified desktop interface.</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        
+        <div class="flex flex-wrap gap-1.5 mb-6">
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Python</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">OpenCV</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">YOLO</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">PyQt5</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Computer Vision</span>
+            
+        </div>
+        
+
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
             <a href="/portfolio/elma-tespit-kalite-analizi.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>
             
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 
-                <a href="https://github.com/N4YuC4/elma_tespit_ve_kalite_analizi" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                <a href="https://github.com/N4YuC4/elma_tespit_ve_kalite_analizi" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-400 transition flex items-center gap-1">
                     GitHub <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 
@@ -210,19 +354,38 @@
         </div>
     </div>
     
-    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col">
-        <img src="/static/images/portfolio-images/arduino-pc-monitor.png" alt="Arduino PC System Monitor" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,Arduino,TinyML,scikit-learn">
+        <img src="/static/images/portfolio-images/arduino-pc-monitor.png" 
+             alt="Arduino PC System Monitor" 
+             loading="lazy"
+             decoding="async"
+             class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Arduino PC System Monitor</h3>
         
-        <p class="text-sky-600 text-sm font-medium mb-3">1 May 2026</p>
+        <p class="text-sky-400 text-sm font-medium mb-3">1 May 2026</p>
         
         <p class="text-gray-700 mb-4 flex-grow">A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.</p>
-        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        
+        <div class="flex flex-wrap gap-1.5 mb-6">
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Python</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Arduino</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">TinyML</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">scikit-learn</span>
+            
+        </div>
+        
+
+        <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
             <a href="/portfolio/arduino-pc-system-monitor.html" class="read-more-btn inline-block py-2 px-5 rounded-full font-semibold shadow-lg transition duration-300 text-center flex-grow sm:flex-grow-0 w-full sm:w-auto">View Details</a>
             
             <div class="flex flex-wrap gap-3 text-sm font-medium">
                 
-                <a href="https://github.com/N4YuC4/Arduino-PC-System-Monitor" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-500 transition flex items-center gap-1">
+                <a href="https://github.com/N4YuC4/Arduino-PC-System-Monitor" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-sky-400 transition flex items-center gap-1">
                     GitHub <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 
@@ -231,6 +394,7 @@
         </div>
     </div>
     
+    </div>
 </div>
 
     </main>
@@ -249,7 +413,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1789501971"></script>
+    <script type="module" src="/static/js/main.js?v=1790267463"></script>
 
 </body>
 

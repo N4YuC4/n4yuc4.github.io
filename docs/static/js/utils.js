@@ -1,19 +1,76 @@
 // utils.js - Genel yardımcı fonksiyonlar
 
 /**
- * Mobil menüyü açar.
+ * Mobil menüyü açar (Popover API veya fallback).
  */
 export function openMobileMenu(mobileMenuOverlay, bodyElement) {
-    mobileMenuOverlay.classList.add('open');
-    bodyElement.classList.add('no-scroll');
+    if (mobileMenuOverlay && mobileMenuOverlay.showPopover) {
+        try {
+            mobileMenuOverlay.showPopover();
+            return;
+        } catch (e) {
+            // Devam et fallback
+        }
+    }
+    if (mobileMenuOverlay) mobileMenuOverlay.classList.add('open');
+    if (bodyElement) bodyElement.classList.add('no-scroll');
 }
 
 /**
- * Mobil menüyü kapatır.
+ * Mobil menüyü kapatır (Popover API veya fallback).
  */
 export function closeMobileMenu(mobileMenuOverlay, bodyElement) {
-    mobileMenuOverlay.classList.remove('open');
-    bodyElement.classList.remove('no-scroll');
+    if (mobileMenuOverlay && mobileMenuOverlay.hidePopover) {
+        try {
+            mobileMenuOverlay.hidePopover();
+        } catch (e) {
+            // Ignored
+        }
+    }
+    if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('open');
+    if (bodyElement) bodyElement.classList.remove('no-scroll');
+}
+
+/**
+ * Portföy teknoloji etiket filtreleme mantığını başlatır.
+ */
+export function initPortfolioFilter() {
+    const filterBar = document.getElementById('portfolio-filter-bar');
+    if (!filterBar) return;
+
+    const buttons = filterBar.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.portfolio-card');
+
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            buttons.forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const selectedTag = btn.getAttribute('data-tag');
+
+            cards.forEach((card) => {
+                if (selectedTag === 'all') {
+                    card.classList.remove('filtered-out');
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                } else {
+                    const cardTags = (card.getAttribute('data-tags') || '')
+                        .split(',')
+                        .map((t) => t.trim());
+
+                    if (cardTags.includes(selectedTag)) {
+                        card.classList.remove('filtered-out');
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.96)';
+                        card.classList.add('filtered-out');
+                    }
+                }
+            });
+        });
+    });
 }
 
 /**

@@ -6,7 +6,8 @@ import {
     closeMobileMenu,
     initHeaderShrink,
     setupCodeBlocks,
-    highlightActiveLink
+    highlightActiveLink,
+    initPortfolioFilter
 } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -22,8 +23,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Aktif navigasyon linkini vurgula
     highlightActiveLink();
 
+    // Portföy etiket filtresini başlat
+    initPortfolioFilter();
+
     // Kod bloklarını geliştir (Mac penceresi, Kopyala butonu)
-    // Highlight.js zaten base.html'de çalışıyor, bu fonksiyon üzerine ekleme yapar.
     setupCodeBlocks();
 
     // Mobil menü olay dinleyicileri

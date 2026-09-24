@@ -4,7 +4,7 @@
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
         "description": "Çift yönlü İngilizce-Türkçe makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500 MB'tan 100 MB'a); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.",
-        "techStack": "Python, PyTorch, Hugging Face PEFT (LoRA), ONNX Runtime, INT8 Quantization, mT5 SLM",
+        "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",
         "detailFile": "portfolio/tr/mt5-en-tr-translation.md",
         "slug": "mt5-en-tr-translation",
         "links": [
@@ -19,7 +19,7 @@
         "date": "27 Ekim 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
         "description": "Zettelkasten yöntemi etrafında Python ve Flet ile geliştirilmiş masaüstü bilgi yönetimi uygulaması. PDF belgelerinden atomik notlar ve anlamsal bağlantılar çıkarmak için hem bulut (Google Gemini) hem de %100 çevrimdışı yerel çıkarım (Vulkan GPU hızlandırmalı GGUF modelleri) sunan Çift Yapay Zeka Motoru içerir. Uygulama içi model indiricisi, donanım kaynak koruması, LaTeX matematik destekli canlı Markdown editörü, çift yönlü WikiLink sistemi ve etkileşimli kanvas zihin haritası sunar. Tüm veriler WAL modundaki yerel SQLite veritabanında saklanır.",
-        "techStack": "Python, Flet, SQLite, llama-cpp-python (Vulkan GPU), Google Gemini AI",
+        "techStack": "Python, Flet, SQLite, llama.cpp, Google Gemini, NLP",
         "detailFile": "portfolio/tr/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [
@@ -34,7 +34,7 @@
         "date": "Mart 2026",
         "imageUrl": "images/portfolio-images/elma-tespit-figures/genel_gorunum.png",
         "description": "Gerçek zamanlı nesne tespiti, fiziksel boyut ölçümü ve CIEDE2000 standardına göre renk kalitesi analizi gerçekleştiren endüstriyel bilgisayarlı görü uygulaması. Staj kapsamında, kamera SDK entegrasyonu, gerçek zamanlı YOLOv8-seg model çıkarımı ve ölçüm modüllerini birleştiren uçtan uca uygulama mimarisinin entegrasyonu ve geliştirilmesi üstlenilmiştir.",
-        "techStack": "Python, PyQt5, OpenCV, YOLOv8, MVS SDK",
+        "techStack": "Python, OpenCV, YOLO, PyQt5, Computer Vision",
         "detailFile": "portfolio/tr/elma-tespit-kalite-analizi.md",
         "slug": "elma-tespit-kalite-analizi",
         "links": [
@@ -49,7 +49,7 @@
         "date": "1 Mayıs 2026",
         "imageUrl": "images/portfolio-images/arduino-pc-monitor.png",
         "description": "PC donanım kaynaklarını (CPU, RAM, GPU, VRAM) izleyen ve güç tüketimini otomatik olarak optimize eden TinyML tabanlı uç sistem. Sistem, donanım telemetrisini gerçek zamanlı olarak çıkarır ve sistemin güç durumunu belirleyip ayarlamak için bir Arduino Leonardo üzerinde cihaz içi SVM sınıflandırma modeli çalıştırır.",
-        "techStack": "Python, Arduino (C++), PlatformIO, TinyML (SVM), scikit-learn",
+        "techStack": "Python, Arduino, TinyML, scikit-learn",
         "detailFile": "portfolio/tr/arduino-pc-system-monitor.md",
         "slug": "arduino-pc-system-monitor",
         "links": [
