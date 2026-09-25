@@ -194,11 +194,15 @@
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Flet</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite (WAL)</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">llama.cpp</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">RAG</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">llama.cpp (Vulkan)</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Cross-Encoder</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Gemini API</span>
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">NLP</span>
             
@@ -219,72 +223,103 @@
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
         <h1>Zettelkasten AI Notes</h1>
-<p>A desktop knowledge management system implementing the <strong>Zettelkasten</strong> methodology, built with <strong>Python</strong> and the <strong>Flet</strong> UI framework. Originally recognized as a <strong>Top 10 Finalist at the Pupilica AI Hackathon</strong>, the project has evolved into a privacy-first, modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.</p>
-<p>It features a <strong>Dual AI Engine</strong> offering both cloud-based analysis via Google Gemini and 100% offline local inference using GGUF models accelerated by Vulkan GPU compute, coupled with an interactive canvas mind map, an advanced live Markdown editor, and a smart bidirectional [[WikiLink]] system.</p>
+<p>A desktop knowledge management system implementing the <strong>Zettelkasten</strong> methodology, built with <strong>Python 3.13</strong> and the <strong>Flet</strong> UI framework (Flutter-backed desktop runtime). Originally recognized as a <strong>Top 10 Finalist at the Pupilica AI Hackathon</strong>, the project has evolved into a privacy-first, modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.</p>
+<p>It features a <strong>Dual AI Engine</strong> offering both cloud-based analysis via Google Gemini and 100% offline local inference using GGUF models accelerated by Vulkan GPU compute, a <strong>Two-Tier In-Memory Vector RAG Pool</strong> with CPU-isolated cross-encoder reranking, an interactive canvas mind map, an advanced live Markdown editor, and a smart bidirectional [[WikiLink]] system.</p>
 <hr />
 <h2>Architecture &amp; Core Capabilities</h2>
-<h3>1. Dual AI Extraction Engine (Cloud &amp; Offline Local)</h3>
-<p>The core feature of Zettelkasten AI Notes is its ability to ingest dense PDF documents, extract meaningful atomic insights, and establish semantic relationships:</p>
+<h3>1. Dual AI Extraction Engine &amp; Two-Tier In-Memory Vector RAG Pool</h3>
+<p>The core engine of Zettelkasten AI Notes ingests dense PDF documents, extracts meaningful atomic insights, and establishes semantic relationships without concept duplication across document chunks:</p>
 <ul>
-<li><strong>Cloud AI (Google Gemini API):</strong> Fast, high-throughput extraction utilizing the official <code>google-genai</code> SDK for users with an API key.</li>
+<li><strong>Cloud AI (Google Gemini API):</strong> High-throughput extraction utilizing the official <code>google-genai</code> SDK (v2.22.0) with custom system prompt governance.</li>
 <li><strong>Offline Local AI (GGUF via Vulkan GPU):</strong> Privacy-first, local LLM inference powered by <code>llama-cpp-python</code> with cross-vendor <strong>Vulkan GPU acceleration</strong> (compatible with NVIDIA, AMD, Intel, and Apple Silicon).</li>
-<li><strong>Process-Isolated Execution:</strong> Local inference executes inside a dedicated <code>multiprocessing</code> worker. This prevents GUI thread freezes and deadlocks with Wayland/Vulkan presentation pipelines, keeping the interface fluid while ensuring immediate memory reclamation upon task completion or cancellation.</li>
-<li><strong>Intelligent Response Parsing (<code>AiResponseParser</code>):</strong> A multi-stage JSON recovery pipeline that strips academic citation markers (<code>[1]</code>, <code>[Smith et al.]</code>), ignores structural headings (Figure, Table, Section), and repairs malformed LLM responses into clean graph connections.</li>
+<li><strong>Two-Tier Stateful RAG Pool (<code>note_rag_pool.py</code>):</strong> Session-scoped RAG pool eliminating cross-chunk concept duplication during multi-chunk PDF and document ingestion:</li>
+<li><strong>Tier 1 (Global Concept Map):</strong> Bird's-eye view of all accumulated notes with canonical IDs, titles, and 1-sentence core mechanism summaries injected into generation prompts.</li>
+<li><strong>Tier 2 (Focal Note Retrieval):</strong> Dynamically budgeted focal note injection pairing bi-encoder vector similarity with cross-encoder reranking.</li>
+<li><strong>Global Union-Find Reconciliation:</strong> Discovers multi-way transitive duplicate clusters across document chunks and consolidates them via LLM or algorithmic non-redundant synthesis while cleanly remapping wikilinks and graph edges.</li>
+<li><strong>Process-Isolated Execution:</strong> Local inference executes inside a dedicated <code>multiprocessing</code> worker. This prevents GUI thread freezes and deadlocks with Wayland/Vulkan presentation pipelines, keeping the interface fluid while ensuring immediate RAM/VRAM reclamation upon task completion or cancellation.</li>
 </ul>
-<h3>2. In-App Model Manager &amp; Downloader</h3>
-<p>Users can run local AI without setting up external servers or command-line tools:</p>
+<h3>2. Dedicated CPU Auxiliary Inference Models (Embeddings &amp; Reranking)</h3>
+<p>To ensure optimal performance without consuming precious GPU memory needed by generation LLMs, auxiliary NLP models run strictly in CPU-isolated workers:</p>
 <ul>
-<li><strong>Curated Local Model Catalog:</strong> Pre-configured models tailored for different hardware tiers, including the <strong>Gemma 4 family</strong> (Lightweight E2B 3.2 GB with a 128K context window, Balanced 12B 6.2 GB, and Flagship 26B MoE 13.1 GB).</li>
-<li><strong>Chunked HTTP Downloader:</strong> Integrated background downloader fetching models directly from Hugging Face with live progress indicators, download speed, ETA calculation, and cancellation support.</li>
+<li><strong>Semantic Memory Service (<code>semantic_memory_service.py</code>):</strong> Local CPU embedding inference powered by <strong>Microsoft Harrier (0.6B)</strong> (32K context window, 1024 dimensions) for vector indexing, cosine candidate discovery, and semantic graph linking.</li>
+<li><strong>Cross-Encoder Reranker (<code>reranker_service.py</code>):</strong> High-precision candidate relevance scoring powered by <strong>Qwen3-Reranker (0.6B)</strong>. Evaluates <code>(query, note)</code> pairs using instruction-aware cross-attention and calibrated sigmoid logit scoring (<code>logit("yes") - logit("no")</code>).</li>
+<li><strong>Zero VRAM Contention:</strong> Auxiliary models execute strictly on CPU (<code>n_threads=2</code>, <code>n_gpu_layers=0</code>), preserving 100% of GPU VRAM for the primary generation models (Gemma 4 family).</li>
 </ul>
-<h3>3. Hardware Resource Inspector &amp; OOM Guard</h3>
+<h3>3. Modular Parsing, Concept Matching &amp; Graph Reconciliation</h3>
+<p>The processing pipeline is decomposed into resilient, decoupled domain engines:</p>
+<ul>
+<li><strong>Multilingual Concept Matcher (<code>concept_matcher.py</code>):</strong> Multi-tier duplicate concept detection engine utilizing character 4-gram overlap, language-agnostic token normalization and stemming, qualifier stripping, and synonym reconciliation.</li>
+<li><strong>Resilient JSON Repair &amp; LaTeX Sanitizer (<code>json_repair_engine.py</code> &amp; <code>ai_response_parser.py</code>):</strong> Dedicated parsing and repair engine that balances unclosed brackets and truncated strings from LLM context limits, filters academic citation markers (<code>[1]</code>, <code>[Smith et al.]</code>), and performs KaTeX-safe LaTeX escaping without corrupting code blocks.</li>
+<li><strong>Loop-Safe Graph Reconciliation (<code>graph_reconciliation.py</code>):</strong> Enforces canonical undirected pair ordering (<code>canonical_pair</code>), resolves transitive redirects safely without cyclic loops, and remaps wikilinks across heterogeneous integer and UUID note identifiers.</li>
+<li><strong>Universal Dynamic Semantic Chunker (<code>semantic_chunker.py</code>):</strong> Dynamically splits dense PDF texts along semantic paragraph, sentence, and word boundaries with adaptive token overlap (~4500 tokens default) to prevent context truncation.</li>
+<li><strong>Non-Blocking PDF Processing (<code>pdf_processor.py</code>):</strong> Background thread text extraction with layout awareness and typographical normalization (hyphen healing, newline collapsing) to avoid GUI freezing.</li>
+</ul>
+<h3>4. In-App Model Manager &amp; Downloader</h3>
+<p>Enables users to discover, download, and configure local models without external servers or command-line tooling:</p>
+<ul>
+<li><strong>Curated Local Model Catalog (<code>local_models_catalog.py</code>):</strong></li>
+<li><strong>Generation Models (Gemma 4 Family):</strong> Lightweight E2B (3.2 GB, 128K context), Balanced 12B (6.2 GB), and Flagship 26B MoE (13.1 GB).</li>
+<li><strong>Auxiliary Models:</strong> Microsoft Harrier 0.6B (Embeddings) and Qwen3-Reranker 0.6B (Cross-Encoder).</li>
+<li><strong>Chunked HTTP Downloader (<code>model_downloader.py</code>):</strong> Integrated background downloader fetching weights directly from Hugging Face with live progress indicators, download speed, ETA estimation, and cancellation support. Models are stored in the OS user data directory (<code>~/.local/share/zettelkasten_ai/models/</code>) to maintain repository hygiene.</li>
+</ul>
+<h3>5. Hardware Resource Inspector &amp; OOM Guard (<code>hardware_checker.py</code>)</h3>
 <ul>
 <li><strong>Proactive Resource Detection:</strong> Automatically detects host system RAM, CPU cores, GPU devices, and available VRAM.</li>
 <li><strong>Out-Of-Memory (OOM) Protection:</strong> Validates system headroom before downloading or loading models into memory.</li>
 <li><strong>Dynamic Layer Offloading:</strong> Automatically computes the optimal number of GPU offloading layers (<code>n_gpu_layers</code>) based on current hardware capability.</li>
 </ul>
-<h3>4. Advanced Live Markdown Workspace</h3>
+<h3>6. Advanced Live Markdown Workspace (<code>markdown_editor_widget.py</code>)</h3>
 <ul>
 <li><strong>Source &amp; Reading Modes:</strong> Seamlessly toggle between raw Markdown editing and formatted preview using <code>Ctrl+E</code> or the header toolbar button.</li>
 <li><strong>Rich Formatting Toolbar:</strong> One-click shortcuts for Headings (H1–H4), bold (<code>Ctrl+B</code>), italic (<code>Ctrl+I</code>), strikethrough, syntax-highlighted code blocks, blockquotes, lists, tables, and horizontal rules.</li>
 <li><strong>Interactive Task Checklists:</strong> Toggle <code>- [ ]</code> and <code>- [x]</code> checkboxes with direct click interaction in both editing and reading modes.</li>
-<li><strong>LaTeX Math Normalization:</strong> Full support for inline math (<code>$ ... $</code>, <code>\( ... \)</code>) and display math (<code>$$ ... $$</code>, <code>\[ ... \]</code>) rendered cleanly within the Flet Markdown viewer.</li>
+<li><strong>LaTeX Math Normalization:</strong> Full support for inline math (<code>$ ... $</code>, <code>\( ... \)</code>) and display math (<code>$$ ... $$</code>, <code>\[ ... \]</code>) rendered cleanly within Flutter KaTeX.</li>
 <li><strong>Document Telemetry:</strong> Live counter tracking words, characters, lines, and estimated reading time.</li>
 <li><strong>Debounced Auto-Save:</strong> Background non-blocking auto-save with dirty state indicators (<code>*</code>) to ensure no thoughts are lost.</li>
 </ul>
-<h3>5. Smart Bidirectional [[WikiLink]] System</h3>
+<h3>7. Smart Bidirectional [[WikiLink]] System</h3>
 <ul>
 <li><strong>WikiLink Syntax:</strong> Connect concepts effortlessly using <code>[[Note Title]]</code> or <code>[[Target Note|Custom Alias]]</code>.</li>
 <li><strong>Interactive Navigation &amp; Auto-Creation:</strong> Clicking any WikiLink jumps straight to that note. If the target note does not exist yet, the application prompts to create and link it in a single click.</li>
 <li><strong>Quick Link Picker (<code>Ctrl+K</code>):</strong> Fast search modal to quickly insert links and establish directional or bidirectional connections between notes.</li>
+<li><strong>Strict Semantic Edge Resolution:</strong> Prevents false graph connections and hallucinated links by matching exact titles and normalized case-folded names.</li>
 </ul>
-<h3>6. Interactive Canvas Mind Map &amp; Knowledge Graph</h3>
+<h3>8. Interactive Canvas Mind Map &amp; Knowledge Graph (<code>mind_map_widget.py</code>)</h3>
 <ul>
 <li><strong>Canvas Rendering:</strong> Hardware-accelerated dynamic graph rendering via <code>flet.canvas</code> with automatic node layout calculation using <code>PyGraphviz</code>.</li>
 <li><strong>Pan &amp; Zoom Navigation:</strong> Smooth, fluid navigation powered by <code>InteractiveViewer</code> controls.</li>
-<li><strong>Direct Interaction:</strong> Clicking any node on the graph canvas instantly focuses and opens the note in the editor workspace.</li>
+<li><strong>Direct Interaction &amp; Focus Mode:</strong> Clicking any node on the graph canvas instantly focuses and opens the note in the editor workspace.</li>
 </ul>
-<h3>7. Modular 3-Pane Responsive Layout</h3>
+<h3>9. Modern 3-Pane Responsive Layout &amp; Settings Architecture</h3>
 <ul>
 <li><strong>Left Sidebar:</strong> Filter collections, search in real-time, view note counts, and access configuration settings.</li>
-<li><strong>Center Workspace:</strong> Markdown editor, reading preview, and note action buttons.</li>
+<li><strong>Center Workspace:</strong> Markdown editor, reading preview, dynamic AppBar header with active note title and category badge.</li>
 <li><strong>Right Panel:</strong> Interactive Mind Map canvas and Linked Notes relationship inspector.</li>
 <li><strong>Collapsible Narrow Rails:</strong> Minimize the left sidebar (<code>Ctrl+[</code>) or right panel (<code>Ctrl+]</code>) into compact 50px icon rails to maximize editor focus.</li>
 <li><strong>Draggable Splitters:</strong> Adjust pane widths smoothly with draggable splitter handles.</li>
+<li><strong>Dedicated Settings Repository (<code>db/settings.db</code>):</strong> 4-tab settings UI (General, AI, Storage, System) managing preferences and API secrets locally with isolated connections, custom system prompts, live hardware diagnostics, and factory reset.</li>
 </ul>
-<h3>8. Robust SQLite Persistence</h3>
+<h3>10. Robust SQLite Persistence &amp; Privacy</h3>
 <ul>
-<li><strong>Write-Ahead Logging (WAL):</strong> Local SQLite storage configured with WAL mode for rapid, non-blocking concurrent reads and writes.</li>
-<li><strong>Thread-Local Safety:</strong> Managed via thread-local connections to guarantee thread safety across workers.</li>
-<li><strong>Foreign Key Constraints:</strong> Cascading deletes and relational integrity enforced (<code>PRAGMA foreign_keys = ON</code>).</li>
+<li><strong>Write-Ahead Logging (WAL):</strong> Local SQLite storage (<code>db/notes.db</code> and <code>db/settings.db</code>) configured with WAL mode for rapid, non-blocking concurrent reads and writes.</li>
+<li><strong>Thread-Local Safety:</strong> Managed via thread-local connections to guarantee thread safety across workers with cascading foreign keys (<code>PRAGMA foreign_keys = ON</code>).</li>
+<li><strong>Custom Database Paths (<code>CUSTOM_DB_PATH</code>):</strong> Full flexibility for users to specify custom database directories.</li>
+<li><strong>Zero Data Leakage:</strong> All databases and logs reside locally and are strictly excluded from version control.</li>
+</ul>
+<h3>11. Comprehensive Testing &amp; Engineering Rigor</h3>
+<ul>
+<li><strong>Extensive Automated Test Suite:</strong> <strong>291 passing automated unit tests</strong> across 23 test suites covering domain models, UI view components, AI parsers, RAG vector retrieval, cross-encoder reranking, and SQLite transactions.</li>
+<li><strong>Fast Test Execution:</strong> Entire test suite runs hermetically in ~15-16 seconds.</li>
 </ul>
 <hr />
 <h2>Technologies Used</h2>
 <ul>
-<li><strong>Desktop Framework:</strong> Python, Flet</li>
-<li><strong>AI &amp; Inference:</strong> <code>llama-cpp-python</code> (Vulkan GPU acceleration), Google Gemini API (<code>google-genai</code>)</li>
-<li><strong>Document &amp; Graph Processing:</strong> <code>pypdf</code>, <code>pygraphviz</code>, <code>markdown</code></li>
-<li><strong>Storage &amp; Systems:</strong> SQLite (WAL mode), <code>psutil</code>, <code>requests</code></li>
+<li><strong>Desktop Framework:</strong> Python 3.13, Flet (Flutter Desktop Runtime)</li>
+<li><strong>AI &amp; Inference:</strong> <code>llama-cpp-python</code> (Vulkan GPU compute), Google Gemini API (<code>google-genai</code> SDK)</li>
+<li><strong>RAG &amp; NLP:</strong> Microsoft Harrier 0.6B (Embeddings), Qwen3-Reranker 0.6B (Cross-Encoder), NumPy</li>
+<li><strong>Document &amp; Graph Processing:</strong> PyPDF, PyGraphviz, Python-Markdown, KaTeX</li>
+<li><strong>Storage &amp; Systems:</strong> SQLite (WAL mode, Thread-Local Connections), psutil, requests</li>
+<li><strong>Testing:</strong> Pytest (291 unit tests)</li>
 </ul>
     </div>
 </article>
@@ -305,7 +340,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1790267463"></script>
+    <script type="module" src="/static/js/main.js?v=1790368730"></script>
 
 </body>
 

@@ -194,11 +194,15 @@
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Flet</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">SQLite (WAL)</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">llama.cpp</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">RAG</span>
             
-            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Google Gemini</span>
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">llama.cpp (Vulkan)</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Cross-Encoder</span>
+            
+            <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">Gemini API</span>
             
             <span class="px-3 py-1 bg-sky-900/30 text-sky-300 text-sm font-medium rounded-full border border-sky-700/50">NLP</span>
             
@@ -219,72 +223,103 @@
 
     <div class="prose prose-lg prose-slate mx-auto text-slate-700">
         <h1>Zettelkasten Yapay Zeka Notları</h1>
-<p><strong>Zettelkasten</strong> metodolojisini masaüstüne taşıyan, <strong>Python</strong> ve Python'un modern UI kütüphanesi <strong>Flet</strong> ile geliştirilmiş gizlilik odaklı bir kişisel bilgi yönetimi sistemi. İlk olarak <strong>Pupilica Yapay Zeka Hackathonu'nda İlk 10 Finalist</strong> arasına girerek ödüllendirilen proje; daha sonra modüler mimariye, yüksek performanslı yerel çıkarım yeteneklerine ve zengin bir görselleştirme ortamına sahip tam teşekküllü bir masaüstü uygulamasına dönüştürülmüştür.</p>
-<p>Uygulama, hem Google Gemini bulut API'sini hem de donanım hızlandırmalı Vulkan GPU desteğiyle çalışan %100 çevrimdışı yerel GGUF modellerini bünyesinde birleştiren bir <strong>Çift Yapay Zeka Motoru (Dual AI Engine)</strong>, etkileşimli kanvas zihin haritası, LaTeX matematik destekli canlı Markdown editörü ve çift yönlü [[WikiLink]] altyapısı sunar.</p>
+<p><strong>Zettelkasten</strong> metodolojisini masaüstüne taşıyan, <strong>Python 3.13</strong> ve Flutter tabanlı modern masaüstü UI framework'ü <strong>Flet</strong> ile geliştirilmiş gizlilik odaklı bir kişisel bilgi yönetimi sistemi. İlk olarak <strong>Pupilica Yapay Zeka Hackathonu'nda İlk 10 Finalist</strong> arasına girerek ödüllendirilen proje; daha sonra modüler mimariye, iki kademeli vektör RAG altyapısına, yüksek performanslı yerel çıkarım yeteneklerine ve zengin bir görselleştirme ortamına sahip tam teşekküllü bir masaüstü uygulamasına dönüştürülmüştür.</p>
+<p>Uygulama, Google Gemini bulut API'sini ve donanım hızlandırmalı Vulkan GPU desteğiyle çalışan %100 çevrimdışı yerel GGUF modellerini bünyesinde birleştiren bir <strong>Çift Yapay Zeka Motoru (Dual AI Engine)</strong>, CPU üzerinde çalışan bağımsız gömme ve yeniden sıralama modelleriyle güçlendirilmiş <strong>İki Kademeli Bellek-İçi Vektör RAG Havuzu</strong>, etkileşimli kanvas zihin haritası, LaTeX matematik destekli canlı Markdown editörü ve çift yönlü [[WikiLink]] altyapısı sunar.</p>
 <hr />
 <h2>Mimari ve Temel Yetenekler</h2>
-<h3>1. Çift Yapay Zeka Çıkarım Motoru (Bulut &amp; Çevrimdışı Yerel)</h3>
-<p>Zettelkasten AI Notes, yoğun PDF belgelerini işleyerek anlamlı atomik fikirler çıkarır ve aralarında anlamsal bağlantılar kurar:</p>
+<h3>1. Çift Yapay Zeka Çıkarım Motoru ve İki Kademeli Vektör RAG Havuzu</h3>
+<p>Zettelkasten AI Notes, yoğun PDF belgelerini işleyerek anlamlı atomik fikirler çıkarır, belge parçaları arasındaki kavram tekrarlarını engeller ve aralarında anlamsal bağlantılar kurar:</p>
 <ul>
-<li><strong>Bulut Yapay Zeka (Google Gemini API):</strong> Güncel resmi <code>google-genai</code> SDK'sı üzerinden API anahtarı ile çalışan hızlı ve yüksek verimli çıkarım katmanı.</li>
+<li><strong>Bulut Yapay Zeka (Google Gemini API):</strong> Güncel resmi <code>google-genai</code> SDK'sı (v2.22.0) ve özel sistem yönlendirmeleriyle (system prompt) yönetilen hızlı, yüksek verimli çıkarım katmanı.</li>
 <li><strong>Çevrimdışı Yerel Yapay Zeka (Vulkan GPU ile GGUF):</strong> <code>llama-cpp-python</code> kütüphanesi ve platform bağımsız <strong>Vulkan GPU hızlandırması</strong> (NVIDIA, AMD, Intel ve Apple Silicon uyumlu) sayesinde internet bağlantısı gerektirmeyen, tamamen gizlilik odaklı yerel LLM çıkarımı.</li>
+<li><strong>İki Kademeli Bellek-İçi RAG Havuzu (<code>note_rag_pool.py</code>):</strong> Çok parçalı PDF ve belge işleme sırasında parçalar arası kavram yinelemelerini ortadan kaldıran oturum tabanlı RAG havuzu:</li>
+<li><strong>Kademe 1 (Global Konsept Haritası):</strong> Birikmiş tüm notların kanonik ID'leri, başlıkları ve 1 cümlelik temel mekanizma özetleriyle kuşbakışı bir kavram dizini oluşturup üretim istemlerine enjekte eder.</li>
+<li><strong>Kademe 2 (Odak Not Getirimi):</strong> Bi-encoder vektör benzerliği ile cross-encoder yeniden sıralama puanlamasını birleştirerek bütçelenmiş odak notları isteme dinamik olarak ekler.</li>
+<li><strong>Global Union-Find Küme Birleştirmesi:</strong> Belge parçaları arasındaki geçişli kopya kavram kümelerini keşfeder ve bunları LLM veya algoritmik fazlalıksız sentezle birleştirir; wikilink'leri ve grafik kenarlarını temiz biçimde yeniden eşler.</li>
 <li><strong>Süreç İzolasyonlu Çalışma Mantığı (<code>multiprocessing</code>):</strong> Yerel model çıkarımları bağımsız bir Python alt sürecinde yürütülür. Bu sayede Linux/Wayland ortamlarında arayüz donmaları ve Vulkan sunum kilitlenmeleri engellenir, arayüz akıcılığı korunur ve işlem tamamlandığında veya iptal edildiğinde kullanılan RAM/VRAM anında sisteme iade edilir.</li>
-<li><strong>Akıllı Yanıt Ayrıştırıcı (<code>AiResponseParser</code>):</strong> Akademik atıf kalıntılarını (<code>[1]</code>, <code>[Smith vd.]</code>) temizleyen, yapısal başlıkları (Şekil, Tablo, Bölüm) filtreleyen ve bozuk JSON çıktılarını onararak tutarlı grafik kenarlarına dönüştüren çok aşamalı ayrıştırma altyapısı.</li>
 </ul>
-<h3>2. Dahili Model Yöneticisi ve İndirici</h3>
+<h3>2. Bağımsız CPU Yardımcı Çıkarım Modelleri (Gömme ve Yeniden Sıralama)</h3>
+<p>Üretim LLM'lerinin ihtiyaç duyduğu GPU bellek alanını tüketmemek ve VRAM çekişmesini sıfırlamak için yardımcı NLP modelleri tamamen CPU üzerinde çalışır:</p>
+<ul>
+<li><strong>Anlamsal Bellek Servisi (<code>semantic_memory_service.py</code>):</strong> Vektör indeksleme, kosinüs benzerliği adayı keşfi ve anlamsal grafik bağlantıları için <strong>Microsoft Harrier (0.6B)</strong> (32K bağlam penceresi, 1024 boyutlu vektör uzayı) tabanlı yerel CPU gömme (embedding) çıkarımı.</li>
+<li><strong>Cross-Encoder Yeniden Sıralayıcı (<code>reranker_service.py</code>):</strong> <strong>Qwen3-Reranker (0.6B)</strong> ile güçlendirilmiş yüksek hassasiyetli semantik alaka puanlama servisi. <code>(sorgu, not)</code> çiftlerini yönergeye duyarlı çapraz dikkat ve kalibre edilmiş sigmoid logit farkı (<code>logit("yes") - logit("no")</code>) ile değerlendirir.</li>
+<li><strong>Sıfır VRAM Rekabeti:</strong> Yardımcı modeller kesinlikle CPU iş parçacıkları üzerinde (<code>n_threads=2</code>, <code>n_gpu_layers=0</code>) çalışarak GPU VRAM'inin %100'ünü ana metin üretim modellerine (Gemma 4 ailesi) bırakır.</li>
+</ul>
+<h3>3. Modüler Ayrıştırma, Kavram Eşleme ve Grafik Uzlaştırma Motorları</h3>
+<p>İşlem hattı esnek, birbirinden bağımsız etki alanı motorlarına ayrıştırılmıştır:</p>
+<ul>
+<li><strong>Çok Dilli Kavram Eşleyici (<code>concept_matcher.py</code>):</strong> Karakter 4-gram örtüşmesi, dilden bağımsız token normalizasyonu ve kök bulma (stemming), niteleyici temizleme ve çok kademeli kopya kavram tespit motoru.</li>
+<li><strong>Dirençli JSON Onarım ve LaTeX Sanitizer (<code>json_repair_engine.py</code> &amp; <code>ai_response_parser.py</code>):</strong> Model bağlam limitlerinden kaynaklanan yarım kalmış dizgileri ve kapatılmamış parantezleri dengeleyen, akademik atıf kalıntılarını (<code>[1]</code>, <code>[Smith vd.]</code>) filtreleyen ve KaTeX uyumlu LaTeX kaçışlarını kod bloklarına zarar vermeden yürüten onarım motoru.</li>
+<li><strong>Döngü Korumalı Grafik Uzlaştırma (<code>graph_reconciliation.py</code>):</strong> Kanonik yönsüz ikili sıralama (<code>canonical_pair</code>) uygulayan, döngüsel kilitlenmeleri engelleyen güvenli geçişli yönlendirmeler sunan ve heterojen tamsayı/UUID not kimliklerinde wikilink'leri yeniden eşleyen grafik araçları.</li>
+<li><strong>Evrensel Dinamik Semantik Parçalayıcı (<code>semantic_chunker.py</code>):</strong> Uzun PDF metinlerini paragraf, cümle ve kelime sınırları boyunca adaptif token örtüşmesiyle (~4500 token) bölerek bağlam kaybını önleyen paylaşımlı parçalama motoru.</li>
+<li><strong>Arayüzü Kilitlemeyen PDF İşleme (<code>pdf_processor.py</code>):</strong> Sayfa düzeni analizi ve tipografik normalizasyon (tire birleştirme, satır sonu temizleme) işlemlerini arka plan iş parçacığında yürüterek kullanıcı deneyimini kesintisiz tutar.</li>
+</ul>
+<h3>4. Dahili Model Yöneticisi ve İndirici</h3>
 <p>Kullanıcıların harici sunucular kurmasına ya da terminal komutlarıyla uğraşmasına gerek kalmadan yerel modelleri yönetmesini sağlar:</p>
 <ul>
-<li><strong>Seçilmiş Yerel Model Kataloğu:</strong> Farklı donanım seviyeleri için optimize edilmiş <strong>Gemma 4 ailesi</strong> (128K bağlam pencereli 3.2 GB hafif E2B, 6.2 GB dengeli 12B ve 13.1 GB amiral gemisi 26B MoE).</li>
-<li><strong>Parçalı HTTP İndirme Yöneticisi:</strong> Hugging Face üzerinden modelleri doğrudan arayüz içerisinden indiren; anlık hız, tahmini süre (ETA), ilerleme çubuğu ve duraklatma/iptal desteği sunan arka plan indiricisi.</li>
+<li><strong>Seçilmiş Yerel Model Kataloğu (<code>local_models_catalog.py</code>):</strong></li>
+<li><strong>Üretim Modelleri (Gemma 4 Ailesi):</strong> 128K bağlam pencereli 3.2 GB hafif E2B, 6.2 GB dengeli 12B ve 13.1 GB amiral gemisi 26B MoE.</li>
+<li><strong>Yardımcı Modeller:</strong> Microsoft Harrier 0.6B (Gömme) ve Qwen3-Reranker 0.6B (Yeniden Sıralama).</li>
+<li><strong>Parçalı HTTP İndirme Yöneticisi (<code>model_downloader.py</code>):</strong> Hugging Face üzerinden modelleri doğrudan arayüz içerisinden indiren; anlık hız, tahmini süre (ETA), ilerleme çubuğu ve iptal desteği sunan arka plan indiricisi. Modeller Git deposunu temiz tutmak adına işletim sistemi kullanıcı veri dizininde (<code>~/.local/share/zettelkasten_ai/models/</code>) depolanır.</li>
 </ul>
-<h3>3. Donanım Kaynak Denetleyicisi ve OOM Koruması</h3>
+<h3>5. Donanım Kaynak Denetleyicisi ve OOM Koruması (<code>hardware_checker.py</code>)</h3>
 <ul>
 <li><strong>Otomatik Donanım Tespiti:</strong> Sistem RAM'i, CPU çekirdekleri, GPU aygıtları ve kullanılabilir VRAM miktarını proaktif olarak denetler.</li>
 <li><strong>Bellek Aşımı (OOM) Koruması:</strong> Modeller belleğe alınmadan veya indirilmeden önce sistem kapasitesini doğrulayarak çökmeleri önler.</li>
 <li><strong>Dinamik Katman Paylaştırma:</strong> Mevcut donanım gücüne göre GPU'ya devredilecek en uygun katman sayısını (<code>n_gpu_layers</code>) dinamik olarak belirler.</li>
 </ul>
-<h3>4. Gelişmiş Canlı Markdown Çalışma Alanı</h3>
+<h3>6. Gelişmiş Canlı Markdown Çalışma Alanı (<code>markdown_editor_widget.py</code>)</h3>
 <ul>
 <li><strong>Kaynak ve Okuma Modları:</strong> <code>Ctrl+E</code> kısayolu veya başlık çubuğundaki düğmeyle ham Markdown düzenleme ile biçimlendirilmiş okuma modu arasında anında geçiş.</li>
 <li><strong>Zengin Biçimlendirme Araç Çubuğu:</strong> Başlıklar (H1–H4), kalın (<code>Ctrl+B</code>), eğik (<code>Ctrl+I</code>), üstü çizili, sözdizimi vurgulamalı kod blokları, alıntılar, listeler, tablolar ve yatay ayırıcılar için tek tıkla kısayollar.</li>
 <li><strong>Etkileşimli Görev Listeleri:</strong> Hem düzenleme hem de okuma modunda tıklanarak işaretlenebilen <code>- [ ]</code> ve <code>- [x]</code> onay kutuları.</li>
-<li><strong>LaTeX Matematik Normalizasyonu:</strong> Satır içi (<code>$ ... $</code>, <code>\( ... \)</code>) ve blok (<code>$$ ... $$</code>, <code>\[ ... \]</code>) matematik formüllerinin Flet arayüzünde kod bloklarını bozmadan temiz şekilde işlenmesi.</li>
+<li><strong>LaTeX Matematik Normalizasyonu:</strong> Satır içi (<code>$ ... $</code>, <code>\( ... \)</code>) ve blok (<code>$$ ... $$</code>, <code>\[ ... \]</code>) matematik formüllerinin Flutter KaTeX ile kod bloklarını bozmadan temiz şekilde işlenmesi.</li>
 <li><strong>Belge İstatistikleri:</strong> Kelime, karakter, satır sayısı ve tahmini okuma süresini gösteren gerçek zamanlı sayaçlar.</li>
 <li><strong>Otomatik Kaydetme:</strong> Arka planda çalışan ve kaydedilmemiş değişiklikleri (<code>*</code>) gösteren güvenli otomatik kayıt mimarisi.</li>
 </ul>
-<h3>5. Çift Yönlü [[WikiLink]] Sistemi</h3>
+<h3>7. Çift Yönlü [[WikiLink]] Sistemi</h3>
 <ul>
 <li><strong>WikiLink Sözdizimi:</strong> Düşünceler <code>[[Not Başlığı]]</code> veya <code>[[Hedef Not|Özel İsim]]</code> biçiminde kolayca birbirine bağlanır.</li>
 <li><strong>Etkileşimli Gezinme ve Otomatik Oluşturma:</strong> Herhangi bir bağlantıya tıklandığında hedef nota doğrudan geçilir. Hedef not henüz mevcut değilse tek tıkla oluşturulup bağlanır.</li>
 <li><strong>Hızlı Bağlantı Seçici (<code>Ctrl+K</code>):</strong> Notlar arasında hızlıca tek veya çift yönlü bağlantılar kurmayı sağlayan arama penceresi.</li>
+<li><strong>Kesin Anlamsal Kenar Çözümleme:</strong> Tam başlıklar ve normalleştirilmiş küçük harf eşleşmeleriyle halüsinatif veya hatalı grafik bağlantılarını engeller.</li>
 </ul>
-<h3>6. Etkileşimli Kanvas Zihin Haritası ve Bilgi Grafiği</h3>
+<h3>8. Etkileşimli Kanvas Zihin Haritası ve Bilgi Grafiği (<code>mind_map_widget.py</code>)</h3>
 <ul>
 <li><strong>Kanvas Çizimi:</strong> <code>flet.canvas</code> kullanılarak GPU ivmeli dinamik grafik çizimi ve <code>PyGraphviz</code> ile otomatik düğüm konumlandırma.</li>
 <li><strong>Kaydırma ve Yakınlaştırma:</strong> <code>InteractiveViewer</code> kontrolleriyle akıcı pan ve zoom özellikleri.</li>
-<li><strong>Doğrudan Odaklanma:</strong> Grafikteki herhangi bir düğüme tıklandığında o notun düzenleme alanında anında açılması.</li>
+<li><strong>Doğrudan Odaklanma ve Odak Modu:</strong> Grafikteki herhangi bir düğüme tıklandığında o notun düzenleme alanında anında açılması.</li>
 </ul>
-<h3>7. Modüler 3 Bölmeli Esnek Arayüz</h3>
+<h3>9. Modüler 3 Bölmeli Esnek Arayüz ve Ayar Mimarisi</h3>
 <ul>
 <li><strong>Sol Kenar Çubuğu:</strong> Koleksiyon filtreleme, anlık arama, not sayısı göstergeleri ve ayarlar paneli.</li>
-<li><strong>Merkezi Çalışma Alanı:</strong> Markdown editörü, canlı önizleme ve not eylem butonları.</li>
+<li><strong>Merkezi Çalışma Alanı:</strong> Markdown editörü, canlı önizleme, aktif not başlığı ve kategori rozeti içeren dinamik AppBar.</li>
 <li><strong>Sağ Panel:</strong> Etkileşimli zihin haritası kanvası ve bağlı notlar listesi.</li>
 <li><strong>Daraltılabilir İnce Raylar:</strong> Yazı alanını genişletmek için sol kenar çubuğunu (<code>Ctrl+[</code>) veya sağ paneli (<code>Ctrl+]</code>) 50 piksellik kompakt simge raylarına dönüştürebilme.</li>
 <li><strong>Sürüklenebilir Ayırıcılar:</strong> Bölme genişliklerini fareyle serbestçe ayarlama imkanı.</li>
+<li><strong>Ayrılmış Ayarlar Deposu (<code>db/settings.db</code>):</strong> İzole bağlantılarla yerel tercihleri ve API anahtarlarını yöneten, özel sistem yönlendirmeleri, canlı donanım tanıları ve fabrika ayarlarına sıfırlama desteği sunan 4 sekmeli (Genel, Yapay Zeka, Depolama, Sistem) modern ayar paneli.</li>
 </ul>
-<h3>8. Güçlü SQLite Kalıcılık Katmanı</h3>
+<h3>10. Güçlü SQLite Kalıcılık Katmanı ve Gizlilik</h3>
 <ul>
-<li><strong>Write-Ahead Logging (WAL):</strong> Eşzamanlı okuma ve yazma işlemlerinde performansı artıran WAL modu yapılandırması.</li>
-<li><strong>İş Parçacığı Güvenliği:</strong> Thread-local bağlantılar sayesinde iş parçacıkları arasında güvenli veritabanı iletişimi.</li>
-<li><strong>İlişkisel Bütünlük:</strong> Basamaklı silmeler (cascading deletes) ve yabancı anahtar kısıtlamaları (<code>PRAGMA foreign_keys = ON</code>).</li>
+<li><strong>Write-Ahead Logging (WAL):</strong> <code>db/notes.db</code> ve <code>db/settings.db</code> veritabanlarında eşzamanlı okuma ve yazma işlemlerinde performansı artıran WAL modu yapılandırması.</li>
+<li><strong>İş Parçacığı Güvenliği:</strong> Thread-local bağlantılar sayesinde iş parçacıkları arasında güvenli veritabanı iletişimi ve basamaklı yabancı anahtar bütünlüğü (<code>PRAGMA foreign_keys = ON</code>).</li>
+<li><strong>Özel Veritabanı Yolu Desteği (<code>CUSTOM_DB_PATH</code>):</strong> Kullanıcının veritabanı dosyalarını dilediği dizinde konumlandırabilmesi.</li>
+<li><strong>Sıfır Veri Sızıntısı:</strong> Tüm veritabanları ve günlük kayıtları yerel tutulur ve Git sürüm kontrolünden tamamen hariç tutulur.</li>
+</ul>
+<h3>11. Kapsamlı Otomasyon Test Paketi ve Mühendislik Disiplini</h3>
+<ul>
+<li><strong>Genişletilmiş Test Kapsamı:</strong> Domain modelleri, UI bileşenleri, yapay zeka ayrıştırıcıları, RAG vektör havuzu, cross-encoder yeniden sıralayıcı ve SQLite işlemlerini kapsayan 23 dosyada <strong>291 başarılı otomatik birim test</strong>.</li>
+<li><strong>Hızlı Yürütme:</strong> Tüm test paketi yaklaşık 15-16 saniyede başarıyla tamamlanır.</li>
 </ul>
 <hr />
 <h2>Kullanılan Teknolojiler</h2>
 <ul>
-<li><strong>Masaüstü Framework:</strong> Python, Flet</li>
-<li><strong>Yapay Zeka ve Çıkarım:</strong> <code>llama-cpp-python</code> (Vulkan GPU hızlandırması), Google Gemini API (<code>google-genai</code>)</li>
-<li><strong>Belge ve Grafik İşleme:</strong> <code>pypdf</code>, <code>pygraphviz</code>, <code>markdown</code></li>
-<li><strong>Depolama ve Sistem:</strong> SQLite (WAL modu), <code>psutil</code>, <code>requests</code></li>
+<li><strong>Masaüstü Framework:</strong> Python 3.13, Flet (Flutter Masaüstü Katmanı)</li>
+<li><strong>Yapay Zeka ve Çıkarım:</strong> <code>llama-cpp-python</code> (Vulkan GPU hızlandırması), Google Gemini API (<code>google-genai</code> SDK)</li>
+<li><strong>RAG ve NLP:</strong> Microsoft Harrier 0.6B (Gömme), Qwen3-Reranker 0.6B (Cross-Encoder), NumPy</li>
+<li><strong>Belge ve Grafik İşleme:</strong> PyPDF, PyGraphviz, Python-Markdown, KaTeX</li>
+<li><strong>Depolama ve Sistem:</strong> SQLite (WAL modu, Thread-Local Bağlantılar), psutil, requests</li>
+<li><strong>Test:</strong> Pytest (291 birim test)</li>
 </ul>
     </div>
 </article>
@@ -305,7 +340,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1790267464"></script>
+    <script type="module" src="/static/js/main.js?v=1790368731"></script>
 
 </body>
 

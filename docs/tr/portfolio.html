@@ -198,11 +198,15 @@
             
             <button type="button" class="filter-btn" data-tag="Flet">Flet</button>
             
-            <button type="button" class="filter-btn" data-tag="SQLite">SQLite</button>
+            <button type="button" class="filter-btn" data-tag="SQLite (WAL)">SQLite (WAL)</button>
             
-            <button type="button" class="filter-btn" data-tag="llama.cpp">llama.cpp</button>
+            <button type="button" class="filter-btn" data-tag="RAG">RAG</button>
             
-            <button type="button" class="filter-btn" data-tag="Google Gemini">Google Gemini</button>
+            <button type="button" class="filter-btn" data-tag="llama.cpp (Vulkan)">llama.cpp (Vulkan)</button>
+            
+            <button type="button" class="filter-btn" data-tag="Cross-Encoder">Cross-Encoder</button>
+            
+            <button type="button" class="filter-btn" data-tag="Gemini API">Gemini API</button>
             
             <button type="button" class="filter-btn" data-tag="OpenCV">OpenCV</button>
             
@@ -268,7 +272,7 @@
         </div>
     </div>
     
-    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,Flet,SQLite,llama.cpp,Google Gemini,NLP">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="Python,Flet,SQLite (WAL),RAG,llama.cpp (Vulkan),Cross-Encoder,Gemini API,NLP">
         <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
              alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" 
              loading="lazy"
@@ -278,7 +282,7 @@
         
         <p class="text-sky-400 text-sm font-medium mb-3">27 Ekim 2025</p>
         
-        <p class="text-gray-700 mb-4 flex-grow">Zettelkasten yöntemi etrafında Python ve Flet ile geliştirilmiş masaüstü bilgi yönetimi uygulaması. PDF belgelerinden atomik notlar ve anlamsal bağlantılar çıkarmak için hem bulut (Google Gemini) hem de %100 çevrimdışı yerel çıkarım (Vulkan GPU hızlandırmalı GGUF modelleri) sunan Çift Yapay Zeka Motoru içerir. Uygulama içi model indiricisi, donanım kaynak koruması, LaTeX matematik destekli canlı Markdown editörü, çift yönlü WikiLink sistemi ve etkileşimli kanvas zihin haritası sunar. Tüm veriler WAL modundaki yerel SQLite veritabanında saklanır.</p>
+        <p class="text-gray-700 mb-4 flex-grow">Zettelkasten yöntemi etrafında Python ve Flet ile geliştirilmiş gizlilik odaklı masaüstü bilgi yönetim sistemi. Çift Yapay Zeka Motoru (Google Gemini ve Vulkan GPU hızlandırmalı yerel GGUF) üzerinde İki Kademeli Vektör RAG Havuzu, CPU cross-encoder yeniden sıralama (Qwen3) ve yerel gömme (Harrier-0.6B) ile kavram tekrarsız atomik not sentezi sunar. Etkileşimli kanvas zihin haritası, LaTeX destekli canlı Markdown editörü, çift yönlü WikiLink ve SQLite WAL kalıcılığı içerir.</p>
 
         
         <div class="flex flex-wrap gap-1.5 mb-6">
@@ -287,11 +291,15 @@
             
             <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Flet</span>
             
-            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">SQLite</span>
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">SQLite (WAL)</span>
             
-            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">llama.cpp</span>
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">RAG</span>
             
-            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Google Gemini</span>
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">llama.cpp (Vulkan)</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Cross-Encoder</span>
+            
+            <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">Gemini API</span>
             
             <span class="px-2 py-0.5 bg-sky-950/60 text-sky-300 text-xs font-medium rounded border border-sky-800/40">NLP</span>
             
@@ -413,7 +421,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1790267464"></script>
+    <script type="module" src="/static/js/main.js?v=1790368731"></script>
 
 </body>
 

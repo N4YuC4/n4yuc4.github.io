@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Giresun, Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
   },
-  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projemde; hem Google Gemini API'si hem de Vulkan GPU hızlandırmalı çevrimdışı yerel GGUF modelleriyle çalışan çift yapay zeka motorlu bir bilgi yönetimi masaüstü sistemi geliştirdim.",
+  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projesinde iki kademeli vektör RAG havuzu, CPU cross-encoder yeniden sıralama ve Vulkan GPU hızlandırmalı yerel GGUF çıkarım mimarisi geliştirdim.",
   "skills": [
     {
       "category": "Programlama Dilleri",
@@ -33,7 +33,7 @@
       "category": "Temel Alanlar",
       "skill_list": [
         "Bilgisayarlı Görü (OpenCV, YOLOv8)",
-        "Doğal Dil İşleme - NLP (Transformers)",
+        "Doğal Dil İşleme - NLP (Transformers, RAG & Gömme)",
         "Veri Önişleme & Değerlendirme",
         "Model Optimizasyonu (Kuantizasyon & Budama)",
         "Temel MLOps Prensipleri"
