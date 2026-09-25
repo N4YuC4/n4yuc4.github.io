@@ -19,7 +19,7 @@
         "date": "27 Ekim 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
         "description": "Zettelkasten yöntemi etrafında Python ve Flet ile geliştirilmiş gizlilik odaklı masaüstü bilgi yönetim sistemi. Çift Yapay Zeka Motoru (Google Gemini ve Vulkan GPU hızlandırmalı yerel GGUF) üzerinde İki Kademeli Vektör RAG Havuzu, CPU cross-encoder yeniden sıralama (Qwen3) ve yerel gömme (Harrier-0.6B) ile kavram tekrarsız atomik not sentezi sunar. Etkileşimli kanvas zihin haritası, LaTeX destekli canlı Markdown editörü, çift yönlü WikiLink ve SQLite WAL kalıcılığı içerir.",
-        "techStack": "Python, Flet, SQLite (WAL), RAG, llama.cpp (Vulkan), Cross-Encoder, Gemini API, NLP",
+        "techStack": "Python, Flet, SQLite, RAG, llama.cpp, Gemini API, NLP",
         "detailFile": "portfolio/tr/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [

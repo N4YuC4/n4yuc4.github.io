@@ -19,7 +19,7 @@
         "date": "27 October 2025",
         "imageUrl": "images/portfolio-images/zettelkasten-ai-notes-ss.png",
         "description": "A privacy-first desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.",
-        "techStack": "Python, Flet, SQLite (WAL), RAG, llama.cpp (Vulkan), Cross-Encoder, Gemini API, NLP",
+        "techStack": "Python, Flet, SQLite, RAG, llama.cpp, Gemini API, NLP",
         "detailFile": "portfolio/zettelkasten-ai-notes.md",
         "slug": "zettelkasten-ai-notes",
         "links": [
