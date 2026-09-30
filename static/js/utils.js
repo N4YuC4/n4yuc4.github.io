@@ -40,37 +40,72 @@ export function initPortfolioFilter() {
 
     const buttons = filterBar.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.portfolio-card');
+    const emptyState = document.getElementById('portfolio-empty-state');
+    const clearBtn = document.getElementById('portfolio-clear-filter-btn');
 
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            buttons.forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
+    const applyFilter = (tag) => {
+        let visibleCount = 0;
 
-            const selectedTag = btn.getAttribute('data-tag');
+        buttons.forEach((b) => {
+            if (b.getAttribute('data-tag') === tag) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
 
-            cards.forEach((card) => {
-                if (selectedTag === 'all') {
+        cards.forEach((card) => {
+            if (tag === 'all') {
+                card.classList.remove('filtered-out');
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+                visibleCount++;
+            } else {
+                const cardTags = (card.getAttribute('data-tags') || '')
+                    .split(',')
+                    .map((t) => t.trim().toLowerCase());
+
+                if (cardTags.includes(tag.toLowerCase())) {
                     card.classList.remove('filtered-out');
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
+                    visibleCount++;
                 } else {
-                    const cardTags = (card.getAttribute('data-tags') || '')
-                        .split(',')
-                        .map((t) => t.trim());
-
-                    if (cardTags.includes(selectedTag)) {
-                        card.classList.remove('filtered-out');
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.96)';
-                        card.classList.add('filtered-out');
-                    }
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.96)';
+                    card.classList.add('filtered-out');
                 }
-            });
+            }
+        });
+
+        if (emptyState) {
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+    };
+
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const selectedTag = btn.getAttribute('data-tag');
+            applyFilter(selectedTag);
         });
     });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            applyFilter('all');
+        });
+    }
+
+    // URL parametresini kontrol et (?tag=Python gibi)
+    const urlParams = new URLSearchParams(window.location.search);
+    const tagFromUrl = urlParams.get('tag');
+    if (tagFromUrl) {
+        applyFilter(tagFromUrl);
+    }
 }
 
 /**
@@ -116,13 +151,11 @@ export function setupCodeBlocks() {
         
         // Header HTML content
         header.innerHTML = `
-            <div class="window-dots">
-                <span class="dot dot-red"></span>
-                <span class="dot dot-yellow"></span>
-                <span class="dot dot-green"></span>
+            <div class="language-label">
+                <i class="fas fa-code text-sky-400"></i>
+                <span>${language}</span>
             </div>
-            <div class="language-label">${language}</div>
-            <button class="copy-btn" title="Copy Code">
+            <button class="copy-btn" title="Copy Code" aria-label="Copy Code">
                 <i class="far fa-copy"></i>
                 <span>Copy</span>
             </button>

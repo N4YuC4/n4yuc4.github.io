@@ -175,14 +175,15 @@
         <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
             <!-- Profile Picture (LCP Candidate) -->
             <div class="w-48 h-48 lg:w-64 lg:h-64 flex-shrink-0 relative">
-                <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 to-sky-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
-                <img src="/static/images/profile.png" 
-                     alt="Profile Picture" 
-                     fetchpriority="high"
-                     decoding="async"
-                     width="256"
-                     height="256"
-                     class="w-full h-full object-cover rounded-full shadow-2xl relative z-10 border-4 border-white">
+                <div class="w-full h-full rounded-full p-1 bg-gradient-to-b from-sky-500/30 via-slate-800 to-slate-900 shadow-xl">
+                    <img src="/static/images/profile.png" 
+                         alt="Profile Picture" 
+                         fetchpriority="high"
+                         decoding="async"
+                         width="256"
+                         height="256"
+                         class="w-full h-full object-cover rounded-full border-2 border-slate-700/80">
+                </div>
             </div>
 
             <!-- Content -->
@@ -286,7 +287,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         <div class="space-y-6">
             
             <a href="/portfolio/mt5-en-tr-translation.html" class="block group">
-                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/mt5-en-tr.png" 
                              alt="mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)" 
@@ -294,7 +295,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                              decoding="async"
                              width="128"
                              height="128"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)</h4>
@@ -317,7 +318,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="/portfolio/zettelkasten-ai-notes.html" class="block group">
-                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
                              alt="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)" 
@@ -325,7 +326,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                              decoding="async"
                              width="128"
                              height="128"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)</h4>
@@ -348,7 +349,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="/portfolio/elma-tespit-kalite-analizi.html" class="block group">
-                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" 
                              alt="Apple Detection and Quality Analysis System" 
@@ -356,7 +357,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                              decoding="async"
                              width="128"
                              height="128"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Apple Detection and Quality Analysis System</h4>
@@ -379,7 +380,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="/portfolio/arduino-pc-system-monitor.html" class="block group">
-                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col md:flex-row gap-6">
+                <article class="cyber-card p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
                         <img src="/static/images/portfolio-images/arduino-pc-monitor.png" 
                              alt="Arduino PC System Monitor" 
@@ -387,7 +388,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
                              decoding="async"
                              width="128"
                              height="128"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     <div class="flex-1">
                         <h4 class="text-xl font-bold text-gray-800 group-hover:text-sky-400 transition-colors mb-2">Arduino PC System Monitor</h4>
@@ -421,14 +422,14 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <a href="https://medium.com/@n4yuc4/stop-using-deep-learning-for-everything-the-academically-proven-guide-to-classical-ml-on-tabular-43b2ebcda137?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*CQJ0MG4BYGWKQrtQxqnJtw.png" 
                              alt="Stop Using Deep Learning for Everything: The Academically Proven Guide to Classical ML on Tabular…" 
                              loading="lazy"
                              decoding="async"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     
                     <div class="p-5 flex-1 flex flex-col">
@@ -440,14 +441,14 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="https://medium.com/@n4yuc4/dimensionality-in-data-science-the-critical-difference-between-feature-selection-and-feature-ad745f0f7bcb?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/1024/1*TLqSCKS6K2qgXmN9n-P0Dw.png" 
                              alt="Dimensionality in Data Science: The Critical Difference Between Feature Selection and Feature…" 
                              loading="lazy"
                              decoding="async"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     
                     <div class="p-5 flex-1 flex flex-col">
@@ -459,14 +460,14 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
             </a>
             
             <a href="https://medium.com/@n4yuc4/ai-is-no-longer-a-magical-black-box-the-era-of-transparency-and-trust-with-xai-333d36f94c1d?source=rss-ddd99602096e------2" target="_blank" rel="noopener noreferrer" class="block group">
-                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <article class="cyber-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-800/80 overflow-hidden flex flex-col h-full">
                     
                     <div class="h-40 overflow-hidden">
                         <img src="https://cdn-images-1.medium.com/max/640/1*UjV14c7cPcLdaT3lbR1t_g.jpeg" 
                              alt="AI is No Longer a ‘Magical Black Box’! The Era of Transparency and Trust with XAI" 
                              loading="lazy"
                              decoding="async"
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                             class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-300">
                     </div>
                     
                     <div class="p-5 flex-1 flex flex-col">
@@ -489,7 +490,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
         </div>
         <div class="space-y-6">
             
-            <div class="cyber-card p-6 rounded-xl shadow-md border border-gray-100">
+            <div class="cyber-card p-6 rounded-xl shadow-md border border-slate-800/80">
                 <h4 class="text-xl font-bold text-gray-800 mb-2">
                     <a href="https://doi.org/10.31202/ecjse.1747013" target="_blank" class="hover:text-sky-400 transition-colors">
                         Deep Learning Models Integrating Attention Mechanisms For Military Camouflaged Object Detection
@@ -520,7 +521,7 @@ I co-authored an academic paper with my team members, published in the El-Cezeri
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1790369302"></script>
+    <script type="module" src="/static/js/main.js?v=1790727820"></script>
 
 </body>
 

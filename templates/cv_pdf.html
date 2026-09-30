@@ -9,17 +9,17 @@
 <style>
 @page {
     size: A4;
-    margin: 11mm 10mm 12mm 10mm;
+    margin: 7mm 8mm 6mm 8mm;
     @bottom-left {
         content: "{{ cv.personalInfo.firstName }} {{ cv.personalInfo.lastName }} – CV";
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        font-size: 7pt;
+        font-size: 6.5pt;
         color: #94a3b8;
     }
     @bottom-right {
         content: "{% if lang == 'tr' %}Sayfa {% else %}Page {% endif %}" counter(page) " / " counter(pages);
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        font-size: 7pt;
+        font-size: 6.5pt;
         font-weight: 500;
         color: #94a3b8;
     }
@@ -31,8 +31,8 @@
 }
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-size: 9.5pt;
-    line-height: 1.45;
+    font-size: 7.4pt;
+    line-height: 1.34;
     color: #1e293b;
     background: #fff;
     -webkit-print-color-adjust: exact;
@@ -46,63 +46,64 @@ body {
 .header {
     display: flex;
     align-items: center;
-    gap: 5mm;
-    padding-bottom: 4mm;
-    border-bottom: 2.5px solid #0ea5e9;
-    margin-bottom: 4mm;
+    gap: 3.5mm;
+    padding-bottom: 2mm;
+    border-bottom: 1.2px solid #cbd5e1;
+    margin-bottom: 2mm;
 }
 .header-img {
-    width: 30mm;
-    height: 30mm;
+    width: 22mm;
+    height: 22mm;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #0ea5e9;
+    border: 1.5px solid #0284c7;
     flex-shrink: 0;
 }
 .header-info {
     flex: 1;
 }
 .header-name {
-    font-size: 16pt;
+    font-size: 13.5pt;
     font-weight: 700;
     color: #0f172a;
-    line-height: 1.15;
-    margin-bottom: 0.8mm;
+    line-height: 1.1;
+    margin-bottom: 0.4mm;
+    letter-spacing: -0.02em;
 }
 .header-sub {
     display: flex;
     align-items: baseline;
-    gap: 2mm;
-    margin-bottom: 2mm;
+    gap: 1.5mm;
+    margin-bottom: 1.2mm;
     flex-wrap: wrap;
 }
 .header-title {
-    font-size: 8pt;
-    font-weight: 600;
+    font-size: 7.4pt;
+    font-weight: 700;
     color: #0284c7;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
 }
 .header-loc-sep {
-    font-size: 7.5pt;
+    font-size: 6.8pt;
     color: #94a3b8;
 }
 .header-location {
-    font-size: 7.5pt;
+    font-size: 6.8pt;
     font-weight: 500;
     color: #475569;
 }
 .header-contact {
     display: flex;
     justify-content: space-between;
-    gap: 3mm;
+    gap: 2mm;
     width: 100%;
 }
 .contact-col {
     display: flex;
     flex-direction: column;
-    gap: 1.5mm;
-    font-size: 7.5pt;
+    gap: 0.6mm;
+    font-size: 6.8pt;
     color: #475569;
 }
 .contact-col a {
@@ -110,30 +111,26 @@ body {
     text-decoration: none;
     font-weight: 500;
 }
-.contact-col a:hover {
-    text-decoration: underline;
-}
 
 /* SECTIONS */
 .section {
-    margin-bottom: 5mm;
+    margin-bottom: 1.8mm;
 }
 .section-heading {
-    font-size: 10.5pt;
-    font-weight: 800;
+    font-size: 7.8pt;
+    font-weight: 700;
     color: #0f172a;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding-bottom: 1.5mm;
-    margin-bottom: 3.2mm;
-    margin-top: 1.8mm;
-    border-bottom: 2px solid #0ea5e9;
+    letter-spacing: 0.05em;
+    padding-bottom: 0.4mm;
+    margin-bottom: 1mm;
+    border-bottom: 1px solid #cbd5e1;
 }
 
 /* SUMMARY */
 .summary-text {
-    font-size: 8.5pt;
-    line-height: 1.55;
+    font-size: 7.2pt;
+    line-height: 1.34;
     color: #334155;
     text-align: justify;
 }
@@ -142,97 +139,147 @@ body {
 .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5mm 4mm;
+    gap: 1mm 2.5mm;
 }
 .skill-group {
-    min-width: 60mm;
+    min-width: 44mm;
     flex: 1;
 }
 .skill-cat {
-    font-size: 7.5pt;
+    font-size: 6.9pt;
     font-weight: 700;
     color: #0f172a;
-    margin-bottom: 0.3mm;
+    margin-bottom: 0.2mm;
 }
 .skill-list {
-    font-size: 8pt;
+    font-size: 6.8pt;
     color: #475569;
-    line-height: 1.5;
+    line-height: 1.28;
+}
+.lang-line {
+    margin-top: 0.8mm;
+    font-size: 6.8pt;
+    color: #475569;
 }
 
-/* PROJECTS */
-.project-item {
-    margin-bottom: 3.2mm;
-    break-inside: avoid;
+/* EXPERIENCE */
+.exp-item {
+    margin-bottom: 1mm;
 }
-.project-title {
-    font-size: 9pt;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.3mm;
-}
-.project-tech {
-    font-size: 7.5pt;
-    font-weight: 600;
-    color: #0284c7;
-    margin-bottom: 0.6mm;
-}
-.project-highlights {
-    padding-left: 3.5mm;
-    margin: 0;
-}
-.project-highlights li {
-    font-size: 8pt;
-    color: #475569;
-    line-height: 1.55;
-    margin-bottom: 0.3mm;
-}
-.project-links {
-    margin-top: 0.5mm;
-    font-size: 7.5pt;
-}
-.project-links a {
-    color: #0369a1;
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 2mm;
-}
-
-/* EDUCATION */
-.edu-item {
-    margin-bottom: 2.5mm;
-    break-inside: avoid;
-}
-.edu-row {
+.item-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 2mm;
 }
+.item-title {
+    font-size: 7.4pt;
+    font-weight: 700;
+    color: #0f172a;
+}
+.item-date {
+    font-size: 6.8pt;
+    color: #64748b;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.item-highlights {
+    padding-left: 3mm;
+    margin: 0.3mm 0 0 0;
+}
+.item-highlights li {
+    font-size: 6.9pt;
+    color: #475569;
+    line-height: 1.3;
+    margin-bottom: 0.2mm;
+}
+
+/* PROJECTS */
+.project-item {
+    margin-bottom: 1.3mm;
+}
+.project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2mm;
+    flex-wrap: wrap;
+}
+.project-title {
+    font-size: 7.4pt;
+    font-weight: 700;
+    color: #0f172a;
+}
+.project-links {
+    display: inline-flex;
+    gap: 1.2mm;
+    margin-left: 1mm;
+}
+.project-links a {
+    color: #0284c7;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 6.7pt;
+}
+.project-links a:hover {
+    text-decoration: underline;
+}
+.project-tech {
+    font-size: 6.7pt;
+    font-weight: 600;
+    color: #0284c7;
+}
+.project-highlights {
+    padding-left: 3mm;
+    margin: 0.2mm 0 0 0;
+}
+.project-highlights li {
+    font-size: 6.9pt;
+    color: #475569;
+    line-height: 1.3;
+}
+
+/* DUAL SECTION FOR EDUCATION & PUBLICATIONS */
+.dual-section {
+    display: flex;
+    gap: 3.5mm;
+    margin-bottom: 1.8mm;
+}
+.dual-col {
+    flex: 1;
+}
+
+/* EDUCATION */
+.edu-item {
+    font-size: 6.9pt;
+    color: #475569;
+    line-height: 1.28;
+}
 .edu-degree {
-    font-size: 8.5pt;
+    font-size: 7.4pt;
     font-weight: 700;
     color: #0f172a;
 }
 .edu-date {
-    font-size: 7.5pt;
+    font-size: 6.8pt;
     color: #64748b;
     font-weight: 600;
     white-space: nowrap;
 }
 .edu-school {
-    font-size: 8pt;
+    font-size: 6.9pt;
     color: #475569;
+}
+.edu-gpa {
+    font-size: 6.7pt;
+    color: #64748b;
+    font-weight: 500;
 }
 
 /* PUBLICATIONS */
 .pub-item {
-    font-size: 8pt;
+    font-size: 6.9pt;
     color: #475569;
-    margin-bottom: 1.5mm;
-    line-height: 1.55;
-    break-inside: avoid;
-    padding-left: 3.5mm;
+    line-height: 1.28;
 }
 .pub-item strong {
     color: #0f172a;
@@ -243,41 +290,14 @@ body {
 }
 
 /* REFERENCES */
-.refs-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2mm 3mm;
+.ref-line {
+    font-size: 6.8pt;
+    color: #475569;
+    line-height: 1.3;
 }
-.ref-item {
-    min-width: 65mm;
-    max-width: 95mm;
-    break-inside: avoid;
-}
-.ref-name {
-    font-weight: 700;
+.ref-line strong {
     color: #0f172a;
-    font-size: 8.5pt;
-    margin-bottom: 0.6mm;
-}
-.ref-title {
-    font-size: 7.5pt;
-    color: #0284c7;
-    margin-bottom: 0.6mm;
-}
-.ref-contact {
-    font-size: 7.5pt;
-    color: #475569;
-    line-height: 1.45;
-}
-
-/* LANGUAGES */
-.lang-line {
-    font-size: 8pt;
-    color: #475569;
-}
-.lang-line strong {
     font-weight: 600;
-    color: #0f172a;
 }
 </style>
 </head>
@@ -298,17 +318,20 @@ body {
                 <div class="contact-col">
                     <a href="mailto:{{ socialLinks.email }}">{{ socialLinks.email }}</a>
                     <a href="{{ socialLinks.website.url }}">{{ socialLinks.website.display }}</a>
+                </div>
+                <div class="contact-col">
                     {% for link in socialLinks.links %}{% if link.platform == 'LinkedIn' %}
                     <a href="{{ link.url }}">{{ link.display }}</a>
                     {% endif %}{% endfor %}
-                </div>
-                <div class="contact-col">
-                    {% for link in socialLinks.links %}{% if link.platform in ['GitHub', 'Kaggle'] %}
+                    {% for link in socialLinks.links %}{% if link.platform == 'GitHub' %}
                     <a href="{{ link.url }}">{{ link.display }}</a>
                     {% endif %}{% endfor %}
                 </div>
                 <div class="contact-col">
-                    {% for link in socialLinks.links %}{% if link.platform in ['ORCID', 'DergiPark'] %}
+                    {% for link in socialLinks.links %}{% if link.platform == 'Kaggle' %}
+                    <a href="{{ link.url }}">{{ link.display }}</a>
+                    {% endif %}{% endfor %}
+                    {% for link in socialLinks.links %}{% if link.platform == 'ORCID' %}
                     <a href="{{ link.url }}">{{ link.display }}</a>
                     {% endif %}{% endfor %}
                 </div>
@@ -335,9 +358,9 @@ body {
             {% endfor %}
         </div>
         {% if cv.languages %}
-        <div style="margin-top:1.5mm;font-size:8pt;color:#475569;">
+        <div class="lang-line">
             <strong style="color:#0f172a;font-weight:600;">{{ t.cv_languages_label }}:</strong>
-            {% for lang in cv.languages %}{{ lang.language }} ({{ lang.level }}){% if not loop.last %}, {% endif %}{% endfor %}
+            {% for lang_item in cv.languages %}{{ lang_item.language }} ({{ lang_item.level }}){% if not loop.last %}, {% endif %}{% endfor %}
         </div>
         {% endif %}
     </section>
@@ -347,19 +370,19 @@ body {
     <section class="section">
         <h2 class="section-heading">{{ t.cv_experience_heading }}</h2>
         {% for exp in cv.experiences %}
-        <div class="project-item">
-            <div class="edu-row">
-                <span class="edu-degree">
+        <div class="exp-item">
+            <div class="item-row">
+                <span class="item-title">
                     {% if lang == 'tr' %}
-                    {{ exp.company }} <span style="font-weight:400;color:#475569;">{{ t.cv_at }}</span> {{ exp.title }}
+                    {{ exp.company }} <span style="font-weight:400;color:#64748b;">{{ t.cv_at }}</span> {{ exp.title }}
                     {% else %}
-                    {{ exp.title }} <span style="font-weight:400;color:#475569;">{{ t.cv_at }}</span> {{ exp.company }}
+                    {{ exp.title }} <span style="font-weight:400;color:#64748b;">{{ t.cv_at }}</span> {{ exp.company }}
                     {% endif %}
                 </span>
-                <span class="edu-date">{{ exp.startDate }} – {{ exp.endDate }}</span>
+                <span class="item-date">{{ exp.startDate }} – {{ exp.endDate }}</span>
             </div>
             {% if exp.description %}
-            <ul class="project-highlights" style="margin-top:1.5mm;">
+            <ul class="item-highlights">
                 {% if exp.description is string %}
                 <li>{{ exp.description }}</li>
                 {% else %}
@@ -377,45 +400,25 @@ body {
     {% if cv.projects %}
     <section class="section">
         <h2 class="section-heading">{{ t.cv_projects_heading }}</h2>
-        {% for project in cv.projects[:2] %}
+        {% for project in cv.projects %}
         <div class="project-item">
-            <h3 class="project-title">{{ project.title }}</h3>
-            {% if project.techStack %}<div class="project-tech">{{ project.techStack }}</div>{% endif %}
+            <div class="project-header">
+                <span class="project-title">{{ project.title }}</span>
+                {% if project.links %}
+                <span class="project-links">
+                    {% for link in project.links %}
+                    <a href="{{ link.url }}">[{{ link.label }}]</a>
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+            {% if project.techStack %}<div class="project-tech">({{ project.techStack }})</div>{% endif %}
             <ul class="project-highlights">
                 <li>{{ project.description }}</li>
             </ul>
-            {% if project.links %}
-            <div class="project-links">
-                {% for link in project.links %}
-                <a href="{{ link.url }}">{{ link.label }}</a>
-                {% endfor %}
-            </div>
-            {% endif %}
         </div>
         {% endfor %}
     </section>
-
-    {% if cv.projects | length > 2 %}
-    <div style="break-after: page; page-break-after: always;"></div>
-    <section class="section">
-        {% for project in cv.projects[2:] %}
-        <div class="project-item">
-            <h3 class="project-title">{{ project.title }}</h3>
-            {% if project.techStack %}<div class="project-tech">{{ project.techStack }}</div>{% endif %}
-            <ul class="project-highlights">
-                <li>{{ project.description }}</li>
-            </ul>
-            {% if project.links %}
-            <div class="project-links">
-                {% for link in project.links %}
-                <a href="{{ link.url }}">{{ link.label }}</a>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </section>
-    {% endif %}
     {% endif %}
 
     {% if cv.publications %}
@@ -424,7 +427,7 @@ body {
         {% for pub in cv.publications %}
         <div class="pub-item">
             <strong>{{ pub.title }}</strong>{% if pub.authors %} — {{ pub.authors }}{% endif %}
-            {% if pub.journal or pub.year %}<br><em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}{% if pub.link %} — <a href="{{ pub.link }}" style="color: #0369a1; text-decoration: none;">{{ pub.link }}</a>{% endif %}
+            {% if pub.journal or pub.year %} — <em>{{ pub.journal }}{% if pub.year %} ({{ pub.year }}){% endif %}</em>{% endif %}{% if pub.link %} [<a href="{{ pub.link }}" style="color: #0369a1; text-decoration: none;">Link</a>]{% endif %}
         </div>
         {% endfor %}
     </section>
@@ -441,18 +444,18 @@ body {
         {% for edu in cv.education %}
         {% if edu.degree and edu.institution %}
         <div class="edu-item">
-            <div class="edu-row">
+            <div class="item-row">
                 <span class="edu-degree">
                     {% if lang == 'tr' %}
                     {{ edu.field }}{% if edu.degree %} - {{ edu.degree }}{% endif %}
                     {% else %}
                     {{ edu.degree }}{% if edu.field %} {{ t.cv_in }} {{ edu.field }}{% endif %}
                     {% endif %}
+                    <span style="font-weight:400;color:#475569;">— {{ edu.institution }}</span>
+                    {% if edu.gpa %}<span style="font-weight:500;color:#64748b;font-size:6.7pt;margin-left:1mm;">({{ t.cv_gpa }}: {{ edu.gpa }})</span>{% endif %}
                 </span>
                 <span class="edu-date">{{ edu.startYear }} – {{ edu.endYear }}</span>
             </div>
-            <div class="edu-school">{{ edu.institution }}</div>
-            {% if edu.gpa %}<div style="font-size:7.5pt;color:#64748b;">{{ t.cv_gpa }}: {{ edu.gpa }}</div>{% endif %}
         </div>
         {% endif %}
         {% endfor %}
@@ -461,19 +464,10 @@ body {
     {% endif %}
 
     {% if cv.references %}
-    <section class="section">
+    <section class="section" style="margin-bottom: 0;">
         <h2 class="section-heading">{{ t.cv_references_heading }}</h2>
-        <div class="refs-grid">
-            {% for ref in cv.references %}
-            <div class="ref-item">
-                <h3 class="ref-name">{{ ref.name }}</h3>
-                <div class="ref-title">{{ ref.title }}{% if ref.company %}<br>{{ ref.company }}{% endif %}</div>
-                <div class="ref-contact">
-                    {% if ref.email %}{{ ref.email }}<br>{% endif %}
-                    {% if ref.phone %}{{ ref.phone }}{% endif %}
-                </div>
-            </div>
-            {% endfor %}
+        <div class="ref-line" style="font-size: 7.2pt; color: #475569; font-style: italic;">
+            {{ t.cv_references_upon_request | default('References available upon request.' if lang == 'en' else 'Referanslar talep halinde iletilecektir.') }}
         </div>
     </section>
     {% endif %}

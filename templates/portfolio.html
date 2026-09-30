@@ -24,7 +24,7 @@
 
     <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
     {% for item in items %}
-    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-gray-100 flex flex-col" data-tags="{{ item.tags | join(',') }}">
+    <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-slate-800/80 flex flex-col" data-tags="{{ item.tags | join(',') }}">
         <img src="/static/{{ item.imageUrl }}" 
              alt="{{ item.title }}" 
              loading="lazy"
@@ -58,6 +58,17 @@
         </div>
     </div>
     {% endfor %}
+    </div>
+
+    <!-- Empty State for Filter -->
+    <div id="portfolio-empty-state" class="hidden text-center py-16 cyber-card rounded-xl border border-slate-800/80 mt-6">
+        <div class="w-12 h-12 mx-auto mb-4 text-slate-500 flex items-center justify-center rounded-full bg-slate-900 border border-slate-800">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <p class="text-slate-300 font-medium mb-4">{{ t.filter_no_results }}</p>
+        <button id="portfolio-clear-filter-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-sky-400 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 hover:border-sky-500 transition">
+            {{ t.clear_filter }}
+        </button>
     </div>
 </div>
 {% endblock %}

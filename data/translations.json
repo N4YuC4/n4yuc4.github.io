@@ -31,12 +31,16 @@
     "cv_publications_heading": "Publications",
     "cv_education_heading": "Education",
     "cv_references_heading": "References",
+    "cv_references_upon_request": "References available upon request.",
     "cv_languages_label": "Languages",
     "cv_at": "at",
     "cv_in": "in",
     "cv_gpa": "GPA",
     "filter_all": "All",
-    "filter_tags": "Filter by Technology:"
+    "filter_tags": "Filter by Technology:",
+    "filter_no_results": "No projects found for the selected tag.",
+    "clear_filter": "Clear Filter",
+    "no_publications": "No publications available at this time."
   },
   "tr": {
     "nav_home": "Ana Sayfa",
@@ -70,11 +74,15 @@
     "cv_publications_heading": "Yayınlar",
     "cv_education_heading": "Eğitim Bilgileri",
     "cv_references_heading": "Referanslar",
+    "cv_references_upon_request": "Talep halinde iletilecektir.",
     "cv_languages_label": "Dil Bilgisi",
     "cv_at": "bünyesinde",
     "cv_in": "alanında",
     "cv_gpa": "GNO",
     "filter_all": "Tümü",
-    "filter_tags": "Teknolojiye Göre Filtrele:"
+    "filter_tags": "Teknolojiye Göre Filtrele:",
+    "filter_no_results": "Seçilen etikete ait proje bulunamadı.",
+    "clear_filter": "Filtreyi Temizle",
+    "no_publications": "Şu anda listelenecek bir akademik yayın bulunmuyor."
   }
 }

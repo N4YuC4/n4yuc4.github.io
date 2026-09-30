@@ -5,36 +5,37 @@
 
 :root {
     /* Arka planlar */
-    --bg-main: #0f0f0f;
-    --bg-card: #161616;
-    --bg-header: #0f0f0f;
-    --bg-code: #0d0d0d;
-    --bg-code-header: #121212;
+    --bg-main: #0b0f17;
+    --bg-card: #111827;
+    --bg-header: #0b0f17;
+    --bg-code: #0d1117;
+    --bg-code-header: #161b22;
     --bg-tooltip: #0ea5e9;
-    --bg-badge: rgba(14, 165, 233, 0.1);
+    --bg-badge: rgba(56, 189, 248, 0.1);
 
     /* Kenarlıklar */
-    --border-color: #1e293b;
+    --border-color: #1f293d;
     --border-hover: #334155;
 
-    /* Metin */
-    --text-heading: #00d4ff;      /* Neon Mavi - ana vurgu */
-    --text-main: #cbd5e1;          /* Açık gri - ana metin */
-    --text-muted: #94a3b8;         /* Orta gri */
-    --text-dim: #64748b;           /* Koyu gri - az önemli */
+    /* Metin - Berrak ve yüksek kontrastlı hiyerarşi */
+    --text-heading: #f8fafc;       /* Slate-50 - Berrak, göz yormayan başlıklar */
+    --text-heading-accent: #38bdf8;/* Vurgulu başlık öğeleri */
+    --text-main: #e2e8f0;          /* Slate-200 - Rahat okunan ana metin */
+    --text-muted: #94a3b8;         /* Slate-400 - İkincil açıklamalar */
+    --text-dim: #94a3b8;           /* Slate-400 - WCAG AA (>4.5:1) uyumlu meta veriler */
 
-    /* Mavi ailesi - 4 farklı ton (kullanım alanları) */
-    --neon-blue: #00d4ff;          /* En parlak - nav:hover, linkler, buton metni, cursor */
-    --cyber-blue: #007cf0;         /* Hover durumları, kart:hover border */
-    --ice-blue: #22d3ee;           /* Gradient glow, soluk başlıklar, section subtitle */
-    --deep-blue: #0ea5e9;          /* Arka plan overlay, tooltip bg, badge bg */
+    /* Vurgu ailesi */
+    --neon-blue: #38bdf8;          /* Sky-400 - Temiz vurgular, butonlar, linkler */
+    --cyber-blue: #0ea5e9;         /* Sky-500 - Hover durumları */
+    --ice-blue: #7dd3fc;           /* Sky-300 - İkincil rozetler */
+    --deep-blue: #0369a1;          /* Sky-700 - Derin arka planlar */
 
     /* Kullanıcı dostu alias'lar */
     --accent-color: var(--neon-blue);
     --accent-hover: var(--cyber-blue);
-    --accent-secondary: #06b6d4;   /* Cyan-500 ikincil vurgu */
-    --accent-dim: rgba(14, 165, 233, 0.1);
-    --accent-glow: rgba(34, 211, 238, 0.15);
+    --accent-secondary: #06b6d4;   /* Cyan-500 */
+    --accent-dim: rgba(56, 189, 248, 0.1);
+    --accent-glow: rgba(56, 189, 248, 0.18);
 }
 
 body {
@@ -132,11 +133,12 @@ a:hover {
 }
 .blinking-cursor {
     display: inline-block;
-    color: var(--accent-secondary);
-    animation: blink 1s step-end infinite;
+    color: var(--accent-color);
     margin-left: 4px;
-    font-weight: 400;
+    font-weight: 600;
+    animation: blink 1s step-end infinite;
 }
+
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
@@ -179,23 +181,21 @@ a:hover {
     border-radius: 4px;
 }
 
-/* Kartlar - Minimalist ve Karanlık */
+/* Kartlar - Minimalist, Dengeli ve Derinlikli */
 .cyber-card,
 .bg-white {
     background-color: var(--bg-card) !important;
     color: var(--text-main) !important;
     border: 1px solid var(--border-color) !important;
-    border-left-width: 1px !important;
     box-shadow: none !important;
     border-radius: 0.75rem;
-    transition: all 0.3s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
-/* Kart hover efekti - Hafif aydınlanma ve aktif panel hissi */
+/* Kart hover efekti - Kutu modelini sarsmayan mikro yükselme ve zarif ışıma */
 .cyber-card:hover,
 .bg-white:hover {
-    border-color: var(--border-color) !important;
-    border-left-width: 4px !important;
-    border-left-color: var(--accent-secondary) !important;
+    border-color: var(--border-hover) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.15) !important;
     transform: translateY(-2px);
 }
 
@@ -221,8 +221,8 @@ a:hover {
 /* Genel Metin Renkleri & Modern Tipografi (text-wrap) */
 h1, h2, h3, h4, h5, h6, .header-title { 
     color: var(--text-heading) !important; 
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    letter-spacing: -0.025em;
+    text-shadow: none;
     text-wrap: balance;
 }
 p, #content-area li, blockquote { 
@@ -232,11 +232,12 @@ p, #content-area li, blockquote {
     text-wrap: pretty;
 }
 
-/* Tailwind gri override'ları — kendi renk paletimize map edilmiş */
-.text-gray-800 { color: var(--text-heading) !important; }    /* Neon Mavi - kart başlıkları */
-.text-gray-700 { color: var(--text-main) !important; }        /* Açık gri - kart içi metin */
-.text-gray-600 { color: var(--text-muted) !important; }       /* Orta gri - özet, açıklama */
-.text-gray-500 { color: var(--text-dim) !important; }         /* Koyu gri - tarih, az önemli */
+/* Semantik renk haritası */
+.text-gray-800 { color: var(--text-heading) !important; }    /* Slate-50 - Kart ve bölüm başlıkları */
+.text-gray-700 { color: var(--text-main) !important; }       /* Slate-200 - Gövde metinleri */
+.text-gray-600 { color: var(--text-muted) !important; }      /* Slate-400 - Özet ve açıklamalar */
+.text-gray-500 { color: var(--text-dim) !important; }        /* Slate-400 - Tarih ve meta veriler (WCAG AA uyumlu) */
+.text-gray-400 { color: var(--text-muted) !important; }
 
 /* Butonlar - Outline Stil */
 .read-more-btn {
@@ -453,7 +454,7 @@ p, #content-area li, blockquote {
     background-color: var(--bg-code) !important;
     border: 1px solid var(--border-color);
     box-shadow: none !important;
-    overflow: visible; /* Allow child scrollbar to be visible */
+    overflow: hidden;
 }
 
 .code-header {
@@ -461,30 +462,42 @@ p, #content-area li, blockquote {
     align-items: center;
     justify-content: space-between;
     background-color: var(--bg-code-header);
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.85rem;
     border-bottom: 1px solid var(--border-color);
 }
 
-.window-dots { display: flex; gap: 6px; opacity: 0.5; grayscale: 100%; } /* Gri noktalar */
-.dot { width: 10px; height: 10px; border-radius: 50%;     background-color: var(--text-dim); }
-
 .language-label {
-    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
     font-weight: 600;
-    font-family: 'Inter', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .copy-btn {
     background: transparent;
-    border: none;
-    color: var(--text-dim);
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    transition: color 0.2s;
+    gap: 0.35rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
-.copy-btn:hover { color: var(--text-main); }
+.copy-btn:hover { 
+    color: var(--text-heading); 
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color);
+}
 
 .prose pre {
     background: transparent !important;
