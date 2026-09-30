@@ -1,41 +1,59 @@
 import os
 from flask import Flask, send_from_directory
 
-# The 'docs' directory is where our static site is built.
-# We configure Flask to serve files from there.
-# Note: For development, this provides a simple way to test the built site.
-app = Flask(__name__)
+DEFAULT_DOCS_DIR = 'docs'
 
-DOCS_DIR = 'docs'
 
-@app.route('/')
-def index():
-    """Serves the index.html file from the 'docs' directory."""
-    return send_from_directory(DOCS_DIR, 'index.html')
-
-@app.route('/<path:path>')
-def serve_static(path):
+def create_app(docs_dir=DEFAULT_DOCS_DIR):
     """
-    Serves any other file (e.g., /about.html, /static/css/style.css)
-    from the 'docs' directory. If a directory is requested, serves its index.html.
+    Application factory for the development server.
+    Serves generated static files directly from the build directory.
     """
-    full_path = os.path.join(DOCS_DIR, path)
-    if os.path.isdir(full_path):
-        return send_from_directory(full_path, 'index.html')
-    return send_from_directory(DOCS_DIR, path)
+    server = Flask(__name__, static_folder=None)
+    server.config['DOCS_DIR'] = docs_dir
+
+    @server.route('/')
+    def index():
+        """Serves index.html from the build directory."""
+        target_dir = server.config['DOCS_DIR']
+        return send_from_directory(target_dir, 'index.html')
+
+    @server.route('/<path:path>')
+    def serve_static(path):
+        """
+        Serves static assets and pages.
+        Falls back to directory index.html or adds .html extension if applicable.
+        """
+        target_dir = server.config['DOCS_DIR']
+        full_path = os.path.join(target_dir, path)
+
+        if os.path.isdir(full_path):
+            return send_from_directory(full_path, 'index.html')
+
+        if not os.path.exists(full_path) and os.path.exists(full_path + '.html'):
+            return send_from_directory(target_dir, path + '.html')
+
+        return send_from_directory(target_dir, path)
+
+    return server
+
+
+# Default instance for WSGI runners or direct imports
+app = create_app()
+
 
 if __name__ == '__main__':
-    if not os.path.exists(DOCS_DIR):
+    target_docs = app.config['DOCS_DIR']
+    if not os.path.exists(target_docs):
         print("---")
-        print("ERROR: The 'docs' directory does not exist.")
-        print("Please run 'python build.py' first to build the site.")
+        print(f"ERROR: The '{target_docs}' directory does not exist.")
+        print("Please run 'python build.py' first to compile the site.")
         print("---")
     else:
         print("---")
         print("Starting development server...")
-        print(f"Serving files from the '{DOCS_DIR}' directory.")
+        print(f"Serving files from the '{target_docs}' directory.")
         print("Access the site at http://localhost:5000")
         print("To rebuild the site, stop this server (Ctrl+C) and run 'python build.py' again.")
         print("---")
-        # Using Flask's built-in server for simplicity in development.
         app.run(debug=True, host='0.0.0.0', port=5000)

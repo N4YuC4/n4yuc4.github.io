@@ -1,7 +1,8 @@
-/* Modern Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-/* Kod Fontu */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+/* Global HTML and Scroll Configuration (WCAG 2.2 SC 2.4.11) */
+html {
+    scroll-padding-top: 6.5rem;
+    scroll-behavior: smooth;
+}
 
 :root {
     /* Arka planlar */
@@ -47,7 +48,19 @@ body {
     background-size: 30px 30px;
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Modal Açıkken Arka Plan Kaymasını Kilitleme */
+body.no-scroll {
+    overflow: hidden !important;
+    touch-action: none;
+}
+
+/* Dokunmatik Cihazlarda 300ms Tap Delay Önleme */
+button, a, input, select, textarea {
+    touch-action: manipulation;
 }
 
 /* --- Custom Scrollbar --- */
@@ -298,7 +311,11 @@ p, #content-area li, blockquote {
 }
 @media (max-width: 1023px) {
     .hamburger-button {
-        display: block !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
         color: var(--text-main);
         font-size: 1.5rem;
         cursor: pointer;

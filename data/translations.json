@@ -40,7 +40,9 @@
     "filter_tags": "Filter by Technology:",
     "filter_no_results": "No projects found for the selected tag.",
     "clear_filter": "Clear Filter",
-    "no_publications": "No publications available at this time."
+    "no_publications": "No publications available at this time.",
+    "skip_to_content": "Skip to main content",
+    "nav_mobile": "Mobile Navigation"
   },
   "tr": {
     "nav_home": "Ana Sayfa",
@@ -83,6 +85,8 @@
     "filter_tags": "Teknolojiye Göre Filtrele:",
     "filter_no_results": "Seçilen etikete ait proje bulunamadı.",
     "clear_filter": "Filtreyi Temizle",
-    "no_publications": "Şu anda listelenecek bir akademik yayın bulunmuyor."
+    "no_publications": "Şu anda listelenecek bir akademik yayın bulunmuyor.",
+    "skip_to_content": "Ana içeriğe atla",
+    "nav_mobile": "Mobil Menü"
   }
 }

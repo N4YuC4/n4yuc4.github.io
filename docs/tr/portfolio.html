@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N4YuC4 - Portfolyo | Projelerim</title>
+    <title>Portfolyo - N4YuC4</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Yazılım ve teknoloji alanında geliştirdiğim projelerin bir derlemesi. Web uygulamaları, mobil uygulamalar ve açık kaynaklı katkılar.">
@@ -83,6 +83,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- External CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
@@ -99,23 +103,28 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
+    <!-- Skip to Content Link (WCAG 2.4.1) -->
+    <a href="#content-area" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-sky-400 focus:text-slate-950 focus:font-bold focus:rounded-md focus:shadow-xl focus:outline-none">
+        Ana içeriğe atla
+    </a>
+
     <!-- Header Section -->
     <header id="main-header"
-        class="main-header text-white p-6 rounded-b-xl sticky top-0 z-50">
-        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center">
-            <a href="/tr/index.html">
-                <h1 class="header-title text-4xl lg:text-5xl font-bold mb-4 lg:mb-0 tracking-tight">
+        class="main-header text-white p-4 md:p-6 rounded-b-xl sticky top-0 z-50">
+        <div class="container mx-auto flex flex-row justify-between items-center w-full">
+            <a href="/tr/index.html" class="inline-block" aria-label="N4YuC4 Home">
+                <span class="header-title text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-0">
                     <span id="header-title-text">N4YuC4</span><span class="blinking-cursor">_</span>
-                </h1>
+                </span>
             </a>
 
             <!-- Hamburger Menu Button (Mobile view only) -->
-            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden" aria-label="Open Navigation Menu">
-                <i class="fas fa-bars"></i>
+            <button id="hamburger-button" popovertarget="mobile-menu-overlay" popovertargetaction="show" class="hamburger-button block lg:hidden p-2 text-2xl" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
 
             <!-- Desktop Navigation Menu -->
-            <nav id="desktop-nav" class="hidden lg:flex items-center">
+            <nav id="desktop-nav" class="hidden lg:flex items-center" aria-label="Desktop Navigation">
                 <ul class="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-4 xl:space-x-8 text-lg xl:text-xl items-center">
                     <li><a href="/tr/index.html" id="nav-home"
                             class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">Ana Sayfa</a></li>
@@ -135,10 +144,10 @@
                             class="header-nav-link block text-white hover:text-sky-200 transition duration-300 font-semibold border-b-2 border-transparent hover:border-sky-200 pb-1 whitespace-nowrap">İletişim</a>
                     </li>
                     <!-- Language Selector Toggle -->
-                    <li class="flex items-center space-x-2 text-sm font-semibold border-l border-white/20 pl-4 ml-2">
-                        <a href="/portfolio.html" class="text-slate-300 hover:text-white transition" aria-label="English Version">EN</a>
+                    <li class="flex items-center space-x-1 text-sm font-semibold border-l border-white/20 pl-3 ml-2">
+                        <a href="/portfolio.html" hreflang="en" class="inline-flex items-center justify-center min-w-[36px] py-1 px-1.5 rounded text-slate-300 hover:text-white transition" aria-label="English Version">EN</a>
                         <span class="text-white/30">|</span>
-                        <a href="/tr/portfolio.html" class="text-sky-400 font-bold" aria-label="Türkçe Sürüm">TR</a>
+                        <a href="/tr/portfolio.html" hreflang="tr" class="inline-flex items-center justify-center min-w-[36px] py-1 px-1.5 rounded text-sky-400 font-bold" aria-label="Türkçe Sürüm">TR</a>
                     </li>
                 </ul>
             </nav>
@@ -148,21 +157,23 @@
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" popover="auto" class="mobile-menu-overlay hidden lg:hidden">
         <button id="close-mobile-menu" popovertarget="mobile-menu-overlay" popovertargetaction="hide" class="close-button" aria-label="Close Navigation Menu">
-            <i class="fas fa-times"></i>
+            <i class="fas fa-times" aria-hidden="true"></i>
         </button>
-        <ul>
-            <li><a href="/tr/index.html" id="mobile-nav-home" class="mobile-nav-link">Ana Sayfa</a></li>
-            <li><a href="/tr/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Yazılar</a></li>
-            <li><a href="/tr/portfolio.html" id="mobile-nav-portfolio" class="mobile-nav-link">Portfolyo</a></li>
-            <li><a href="/tr/publications.html" id="mobile-nav-publications" class="mobile-nav-link">Yayınlar</a></li>
-            <li><a href="/tr/about.html" id="mobile-nav-about" class="mobile-nav-link">Hakkımda</a></li>
-            <li><a href="/tr/contact.html" id="mobile-nav-contact" class="mobile-nav-link">İletişim</a></li>
-        </ul>
+        <nav aria-label="Mobil Menü" class="w-full text-center">
+            <ul>
+                <li><a href="/tr/index.html" id="mobile-nav-home" class="mobile-nav-link">Ana Sayfa</a></li>
+                <li><a href="/tr/blog.html" id="mobile-nav-blog" class="mobile-nav-link">Yazılar</a></li>
+                <li><a href="/tr/portfolio.html" id="mobile-nav-portfolio" class="mobile-nav-link">Portfolyo</a></li>
+                <li><a href="/tr/publications.html" id="mobile-nav-publications" class="mobile-nav-link">Yayınlar</a></li>
+                <li><a href="/tr/about.html" id="mobile-nav-about" class="mobile-nav-link">Hakkımda</a></li>
+                <li><a href="/tr/contact.html" id="mobile-nav-contact" class="mobile-nav-link">İletişim</a></li>
+            </ul>
+        </nav>
         <!-- Mobile Language Selector Toggle -->
         <div class="flex justify-center space-x-4 mt-8 text-xl font-semibold border-t border-white/10 pt-6">
-            <a href="/portfolio.html" class="text-slate-400 hover:text-white transition">EN</a>
-            <span class="text-white/20">|</span>
-            <a href="/tr/portfolio.html" class="text-sky-400 font-bold">TR</a>
+            <a href="/portfolio.html" hreflang="en" aria-label="English Version" class="p-2 text-slate-400 hover:text-white transition">EN</a>
+            <span class="text-white/20 self-center">|</span>
+            <a href="/tr/portfolio.html" hreflang="tr" aria-label="Türkçe Sürüm" class="p-2 text-sky-400 font-bold">TR</a>
         </div>
     </div>
 
@@ -227,7 +238,7 @@
     <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
     
     <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-slate-800/80 flex flex-col" data-tags="Python,PyTorch,Transformers,LoRA,Fine-Tuning,ONNX Runtime,NLP">
-        <img src="/static/images/portfolio-images/mt5-en-tr.png" 
+        <img src="/static/images/portfolio-images/mt5-en-tr.jpg" 
              alt="mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)" 
              loading="lazy"
              decoding="async"
@@ -271,7 +282,7 @@
     </div>
     
     <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-slate-800/80 flex flex-col" data-tags="Python,Flet,SQLite,RAG,llama.cpp,Gemini API,NLP">
-        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.png" 
+        <img src="/static/images/portfolio-images/zettelkasten-ai-notes-ss.jpg" 
              alt="Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)" 
              loading="lazy"
              decoding="async"
@@ -317,7 +328,7 @@
     </div>
     
     <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-slate-800/80 flex flex-col" data-tags="Python,OpenCV,YOLO,PyQt5,Computer Vision">
-        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.png" 
+        <img src="/static/images/portfolio-images/elma-tespit-figures/genel_gorunum.jpg" 
              alt="Elma Tespit ve Kalite Analizi Sistemi" 
              loading="lazy"
              decoding="async"
@@ -359,7 +370,7 @@
     </div>
     
     <div class="cyber-card portfolio-card p-6 md:p-8 rounded-xl shadow-lg relative border border-slate-800/80 flex flex-col" data-tags="Python,Arduino,TinyML,scikit-learn">
-        <img src="/static/images/portfolio-images/arduino-pc-monitor.png" 
+        <img src="/static/images/portfolio-images/arduino-pc-monitor.jpg" 
              alt="Arduino PC System Monitor" 
              loading="lazy"
              decoding="async"
@@ -428,7 +439,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1790727821"></script>
+    <script type="module" src="/static/js/main.js?v=1790795496"></script>
 
 </body>
 
