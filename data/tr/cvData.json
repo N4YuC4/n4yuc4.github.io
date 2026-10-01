@@ -32,18 +32,19 @@
     {
       "category": "Temel Alanlar",
       "skill_list": [
-        "Bilgisayarlı Görü (OpenCV, YOLOv8)",
+        "Bilgisayarlı Görü (OpenCV, YOLOv8-seg)",
         "Doğal Dil İşleme - NLP (Transformers, RAG & Gömme)",
-        "Veri Önişleme & Değerlendirme",
-        "Model Optimizasyonu (Kuantizasyon & Budama)",
-        "Temel MLOps Prensipleri"
+        "Veri Önişleme, Doğrulama & Veri Artırma (Augmentation)",
+        "Model Optimizasyonu (Kuantizasyon, Budama, LoRA/PEFT)",
+        "Edge AI & Çıkarım Optimizasyonu"
       ]
     },
     {
-      "category": "Araçlar & Platformlar",
+      "category": "Araçlar & Dağıtım",
       "skill_list": [
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
+        "REST API & Model Servisleme Temelleri",
         "PyQt5",
         "Flet",
         "Google Gemini API"
@@ -67,9 +68,9 @@
       "startDate": "02/2026",
       "endDate": "06/2026",
       "description": [
-        "Endüstriyel 'Elma Tespit ve Kalite Analizi Sistemi' kapsamında; YOLOv8-seg ile gerçek zamanlı nesne tespiti, CIEDE2000 renk kalite analizi ve boyut ölçüm algoritmalarını endüstriyel kamera SDK'sı ile PyQt5 masaüstü arayüzünde birleştiren uçtan uca mimarinin geliştirilmesi.",
-        "Kaynak kısıtlı gömülü donanımlar üzerinde gerçek zamanlı uç çıkarım (Edge Inference) sağlamak amacıyla YOLOv8-seg modellerinin eğitilmesi, işleme hattı (pipeline throughput) optimizasyonu ve devreye alınması",
-        "Uç bilişim (Edge Computing) donanımlarında veri önişleme ve model doğrulama/değerlendirme süreçlerini uygulayarak, gerçek dünya gecikme ve kaynak kısıtlamalarına yönelik çözümler üretilmesi."
+        "Endüstriyel 'Elma Tespit ve Kalite Analizi Sistemi' için YOLOv8-seg örnek segmentasyonu (instance segmentation), aydınlatma değişimlerine dayanıklı CIEDE2000 renk farkı formülü ve fiziksel boyut ölçüm algoritmalarını endüstriyel kamera SDK'sı ile entegre ederek PyQt5 tabanlı uçtan uca masaüstü analiz mimarisini geliştirdim.",
+        "Kaynak kısıtlı gömülü donanımlar üzerinde gerçek zamanlı uç çıkarım (Edge AI) elde etmek amacıyla YOLOv8-seg modelini eğittim; görüntü işleme hattındaki veri aktarım darboğazlarını optimize ederek canlı kamera akışında kesintisiz çıkarım sağladım.",
+        "Endüstriyel kamera akışlarından elde edilen görüntülerin önişleme ve veri artırma (data augmentation) süreçlerini kurguladım; model doğrulama aşamalarını yürüterek zorlu aydınlatma koşullarında kararlı çalışmasını sağladım."
       ]
     }
   ],

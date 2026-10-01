@@ -32,18 +32,19 @@
     {
       "category": "Core Domains",
       "skill_list": [
-        "Computer Vision (OpenCV, YOLOv8)",
+        "Computer Vision (OpenCV, YOLOv8-seg)",
         "NLP (Transformers, RAG & Embeddings)",
-        "Data Preprocessing & Evaluation",
-        "Model Optimization (Quantization & Pruning)",
-        "MLOps Fundamentals"
+        "Data Preprocessing, Validation & Augmentation",
+        "Model Optimization (Quantization, Pruning, LoRA/PEFT)",
+        "Edge AI & Inference Optimization"
       ]
     },
     {
-      "category": "Tools & Platforms",
+      "category": "Tools & Deployment",
       "skill_list": [
         "Git/GitHub",
         "Linux (Ubuntu/Debian)",
+        "REST API & Model Serving Fundamentals",
         "PyQt5",
         "Flet",
         "Google Gemini API"
@@ -67,9 +68,9 @@
       "startDate": "02/2026",
       "endDate": "06/2026",
       "description": [
-        "Developed the industrial \"Apple Detection and Quality Analysis System\", integrating real-time YOLOv8-seg fruit detection, CIEDE2000 color quality analysis, physical dimension measurement, and camera SDK into a unified PyQt5 desktop application.",
-        "Trained and deployed YOLOv8-seg models on resource-constrained embedded hardware, optimizing pipeline throughput to achieve real-time edge inference.",
-        "Implemented data preprocessing and model evaluation workflows for edge computing hardware, addressing real-world latency and resource constraints."
+        "Developed an end-to-end industrial \"Apple Detection and Quality Analysis System\", integrating YOLOv8-seg instance segmentation, illumination-robust CIEDE2000 color difference formula, and physical dimension measurement with the industrial camera SDK into a PyQt5 desktop application.",
+        "Trained and deployed YOLOv8-seg models for real-time edge inference on resource-constrained embedded hardware, optimizing the image processing pipeline to eliminate data transfer bottlenecks and maintain continuous live stream processing.",
+        "Engineered data preprocessing and augmentation workflows for industrial camera feeds, conducting systematic model validation to ensure operational stability under challenging lighting conditions."
       ]
     }
   ],
