@@ -498,18 +498,25 @@ class SiteBuilder:
                 if tag not in all_tags:
                     all_tags.append(tag)
 
-        # Auto-populate CV with projects and publications
+        # Auto-populate CV with projects and publications if not explicitly provided
         if cv_data:
-            cv_data['projects'] = [
-                {
-                    'title': item.get('title', ''),
-                    'description': item.get('description', ''),
-                    'techStack': item.get('techStack', ''),
-                    'slug': item.get('slug', ''),
-                    'links': item.get('links', [])
-                }
-                for item in portfolio_items
-            ]
+            if 'projects' not in cv_data and 'projeler' not in cv_data:
+                cv_data['projects'] = [
+                    {
+                        'title': item.get('title', ''),
+                        'description': item.get('description', ''),
+                        'techStack': item.get('techStack', ''),
+                        'slug': item.get('slug', ''),
+                        'links': item.get('links', [])
+                    }
+                    for item in portfolio_items
+                ]
+            elif 'projeler' in cv_data and 'projects' not in cv_data:
+                cv_data['projects'] = cv_data['projeler']
+
+            if 'technicalProfile' in cv_data and 'professionalSummary' not in cv_data:
+                cv_data['professionalSummary'] = cv_data['technicalProfile']
+
             cv_data['publications'] = publications_items
 
         t = ui_translations.get(lang, {})

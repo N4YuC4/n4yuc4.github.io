@@ -293,9 +293,13 @@ class CVManager:
                 trigger_rebuild()
             
             elif choice == '2':
-                data['professionalSummary'] = get_multiline_input("Profesyonel Özet", data.get('professionalSummary', ''))
+                current_summary = data.get('technicalProfile') or data.get('professionalSummary', '')
+                new_summary = get_multiline_input("Teknik Profil / Özet", current_summary)
+                data['technicalProfile'] = new_summary
+                if 'professionalSummary' in data:
+                    del data['professionalSummary']
                 save_json(cv_file, data)
-                print(f"{Colors.GREEN}✓ Profesyonel özet güncellendi.{Colors.ENDC}")
+                print(f"{Colors.GREEN}✓ Teknik profil / özet güncellendi.{Colors.ENDC}")
                 trigger_rebuild()
                 
             elif choice == '3':

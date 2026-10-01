@@ -339,10 +339,10 @@ body {
         </div>
     </header>
 
-    {% if cv.professionalSummary %}
+    {% if cv.professionalSummary or cv.technicalProfile %}
     <section class="section">
         <h2 class="section-heading">{{ t.cv_summary_heading }}</h2>
-        <p class="summary-text">{{ cv.professionalSummary }}</p>
+        <p class="summary-text">{{ cv.technicalProfile or cv.professionalSummary }}</p>
     </section>
     {% endif %}
 

@@ -3,11 +3,11 @@
   "personalInfo": {
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
-    "title": "Machine Learning Engineer",
+    "title": "Junior Machine Learning Engineer",
     "profileImage": "images/profile.png",
-    "location": "Giresun, Türkiye (Open to Relocation / Remote)"
+    "location": "Türkiye (Open to Relocation & Remote)"
   },
-  "professionalSummary": "Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Developed Zettelkasten AI Notes (Pupilica AI Hackathon Top 10 Finalist), featuring a Two-Tier Vector RAG pool, CPU cross-encoder reranking, and Vulkan GPU local GGUF inference.",
+  "technicalProfile": "Junior Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Developed Zettelkasten AI Notes (Pupilica AI Hackathon Top 10 Finalist), featuring a Two-Tier Vector RAG pool, CPU cross-encoder reranking, and Vulkan GPU local GGUF inference.",
   "skills": [
     {
       "category": "Programming Languages",
@@ -68,8 +68,46 @@
       "endDate": "06/2026",
       "description": [
         "Developed the industrial \"Apple Detection and Quality Analysis System\", integrating real-time YOLOv8-seg fruit detection, CIEDE2000 color quality analysis, physical dimension measurement, and camera SDK into a unified PyQt5 desktop application.",
-        "Trained and deployed computer vision models on embedded devices for real-time edge AI inference.",
+        "Trained and deployed YOLOv8-seg models on resource-constrained embedded hardware, optimizing pipeline throughput to achieve real-time edge inference.",
         "Implemented data preprocessing and model evaluation workflows for edge computing hardware, addressing real-world latency and resource constraints."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
+      "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
+      "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",
+      "slug": "mt5-en-tr-translation",
+      "links": [
+        {
+          "label": "Kaggle",
+          "url": "https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation"
+        }
+      ]
+    },
+    {
+      "title": "Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist)",
+      "description": "A privacy-first desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.",
+      "techStack": "Python, Flet, SQLite, RAG, llama.cpp, Gemini API, NLP",
+      "slug": "zettelkasten-ai-notes",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
+        }
+      ]
+    },
+    {
+      "title": "Arduino PC System Monitor",
+      "description": "A TinyML-powered system that monitors PC hardware resources (CPU, RAM, GPU, VRAM) and automatically optimizes power consumption. The system extracts hardware telemetry in real-time, executing an on-device SVM classification model on an Arduino Leonardo to determine and adjust the system's power state.",
+      "techStack": "Python, Arduino, TinyML, scikit-learn",
+      "slug": "arduino-pc-system-monitor",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
+        }
       ]
     }
   ],
@@ -83,14 +121,5 @@
       "level": "Upper-Intermediate"
     }
   ],
-  "publications": [],
-  "references": [
-    {
-      "name": "Asst. Prof. Dr. Nilgün ŞENGÖZ",
-      "title": "Postdoctoral Researcher, Computer Science, University of Nottingham",
-      "company": "Department of Information Systems & Technologies, MAKU, Türkiye",
-      "email": "nilgunsengoz@mehmetakif.edu.tr",
-      "phone": ""
-    }
-  ]
+  "publications": []
 }

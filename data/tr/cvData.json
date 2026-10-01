@@ -3,11 +3,11 @@
   "personalInfo": {
     "firstName": "Nazmi Yücel",
     "lastName": "Çan",
-    "title": "Makine Öğrenimi Mühendisi",
+    "title": "Junior Makine Öğrenimi Mühendisi",
     "profileImage": "images/profile.png",
-    "location": "Giresun, Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
+    "location": "Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
   },
-  "professionalSummary": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projesinde iki kademeli vektör RAG havuzu, CPU cross-encoder yeniden sıralama ve Vulkan GPU hızlandırmalı yerel GGUF çıkarım mimarisi geliştirdim.",
+  "technicalProfile": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Junior Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projesinde iki kademeli vektör RAG havuzu, CPU cross-encoder yeniden sıralama ve Vulkan GPU hızlandırmalı yerel GGUF çıkarım mimarisi geliştirdim.",
   "skills": [
     {
       "category": "Programlama Dilleri",
@@ -68,8 +68,46 @@
       "endDate": "06/2026",
       "description": [
         "Endüstriyel 'Elma Tespit ve Kalite Analizi Sistemi' kapsamında; YOLOv8-seg ile gerçek zamanlı nesne tespiti, CIEDE2000 renk kalite analizi ve boyut ölçüm algoritmalarını endüstriyel kamera SDK'sı ile PyQt5 masaüstü arayüzünde birleştiren uçtan uca mimarinin geliştirilmesi.",
-        "Gömülü sistemler üzerinde çalışan, gerçek zamanlı ve düşük gecikmeli uç yapay zeka (Edge AI) bilgisayarlı görü modellerinin eğitilmesi ve devreye alınması.",
+        "Kaynak kısıtlı gömülü donanımlar üzerinde gerçek zamanlı uç çıkarım (Edge Inference) sağlamak amacıyla YOLOv8-seg modellerinin eğitilmesi, işleme hattı (pipeline throughput) optimizasyonu ve devreye alınması",
         "Uç bilişim (Edge Computing) donanımlarında veri önişleme ve model doğrulama/değerlendirme süreçlerini uygulayarak, gerçek dünya gecikme ve kaynak kısıtlamalarına yönelik çözümler üretilmesi."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)",
+      "description": "Çift yönlü İngilizce-Türkçe makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500 MB'tan 100 MB'a); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.",
+      "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",
+      "slug": "mt5-en-tr-translation",
+      "links": [
+        {
+          "label": "Kaggle",
+          "url": "https://www.kaggle.com/code/n4yuc4/t5-model-based-machine-translation"
+        }
+      ]
+    },
+    {
+      "title": "Zettelkasten Yapay Zeka Notları (Pupilica Yapay Zeka Hackathonu — İlk 10 Finalist)",
+      "description": "Zettelkasten yöntemi etrafında Python ve Flet ile geliştirilmiş gizlilik odaklı masaüstü bilgi yönetim sistemi. Çift Yapay Zeka Motoru (Google Gemini ve Vulkan GPU hızlandırmalı yerel GGUF) üzerinde İki Kademeli Vektör RAG Havuzu, CPU cross-encoder yeniden sıralama (Qwen3) ve yerel gömme (Harrier-0.6B) ile kavram tekrarsız atomik not sentezi sunar. Etkileşimli kanvas zihin haritası, LaTeX destekli canlı Markdown editörü, çift yönlü WikiLink ve SQLite WAL kalıcılığı içerir.",
+      "techStack": "Python, Flet, SQLite, RAG, llama.cpp, Gemini API, NLP",
+      "slug": "zettelkasten-ai-notes",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/ZettelKasten-AI-Notes"
+        }
+      ]
+    },
+    {
+      "title": "Arduino PC System Monitor",
+      "description": "PC donanım kaynaklarını (CPU, RAM, GPU, VRAM) izleyen ve güç tüketimini otomatik olarak optimize eden TinyML tabanlı uç sistem. Sistem, donanım telemetrisini gerçek zamanlı olarak çıkarır ve sistemin güç durumunu belirleyip ayarlamak için bir Arduino Leonardo üzerinde cihaz içi SVM sınıflandırma modeli çalıştırır.",
+      "techStack": "Python, Arduino, TinyML, scikit-learn",
+      "slug": "arduino-pc-system-monitor",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/Arduino-PC-System-Monitor"
+        }
       ]
     }
   ],
@@ -83,14 +121,5 @@
       "level": "İleri-Orta Seviye"
     }
   ],
-  "publications": [],
-  "references": [
-    {
-      "name": "Dr. Öğr. Üyesi Nilgün ŞENGÖZ",
-      "title": "Doktora Sonrası Araştırmacı, Bilgisayar Bilimleri, Nottingham Üniversitesi",
-      "company": "Bilişim Sistemleri ve Teknolojileri Bölümü, Burdur Mehmet Akif Ersoy Üniversitesi (MAKÜ)",
-      "email": "nilgunsengoz@mehmetakif.edu.tr",
-      "phone": ""
-    }
-  ]
+  "publications": []
 }

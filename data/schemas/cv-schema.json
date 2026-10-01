@@ -19,6 +19,10 @@
       "type": "string",
       "description": "A brief overview of professional background and key strengths"
     },
+    "technicalProfile": {
+      "type": "string",
+      "description": "A brief technical summary and key strengths"
+    },
     "skills": {
       "type": "array",
       "description": "Categorized list of technical skills",
@@ -93,6 +97,37 @@
     "publications": {
       "type": "array",
       "description": "Academic publications (usually populated programmatically by the build system)",
+      "items": {
+        "type": "object"
+      }
+    },
+    "projects": {
+      "type": "array",
+      "description": "Featured projects on CV",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "techStack": { "type": "string" },
+          "slug": { "type": "string" },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            }
+          }
+        },
+        "required": ["title", "description"]
+      }
+    },
+    "projeler": {
+      "type": "array",
+      "description": "Featured projects on CV (Turkish alias)",
       "items": {
         "type": "object"
       }
