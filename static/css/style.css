@@ -452,8 +452,23 @@ p, #content-area li, blockquote {
 }
 
 /* Listeler */
-.prose ul > li::marker { color: #525252 !important; } /* Neutral-600 */
-.prose ol > li::marker { color: var(--accent-color) !important; }
+.prose ul, .prose ol {
+    margin: 1.25rem 0 !important;
+    padding-left: 1.5rem !important;
+}
+.prose ul {
+    list-style-type: disc !important;
+}
+.prose ol {
+    list-style-type: decimal !important;
+}
+.prose li {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.7 !important;
+}
+.prose ul > li::marker { color: var(--accent-color) !important; }
+.prose ol > li::marker { color: var(--accent-color) !important; font-weight: 600; }
 
 /* Alıntılar */
 .prose blockquote {
@@ -581,11 +596,25 @@ footer a:hover { color: var(--text-main) !important; }
     margin: 2rem 0;   /* Add some vertical space */
     width: 100%;
     border-collapse: collapse;
+    -webkit-overflow-scrolling: touch;
+}
+
+.prose table th,
+.prose table td {
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem !important;
 }
 
 .prose table th {
-    color: var(--text-heading); /* Make table header text lighter */
-    background-color: var(--bg-card); /* Add background color */
+    color: var(--text-heading) !important; /* Make table header text lighter */
+    background-color: var(--bg-card) !important; /* Add background color */
+    font-weight: 600 !important;
+    white-space: nowrap;
+}
+
+.prose table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 

@@ -259,10 +259,12 @@
 </code></pre></div>
 
 <h3>1. Sıfır-Disk Bellek Güvenliği ve Çekirdek Düzeyinde Koruma</h3>
-<p>Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sistem seviyesinde katı gizlilik tedbirleri uygulanmıştır:
-* <strong>Yalnızca Uçucu Bellek (RAM-Only):</strong> Sisteme yüklenen dosyalar, çıkarılan metin parçaları, vektör gömmeleri ve arama indeksleri yalnızca geçici bellekte (<code>SessionVectorStore</code>) tutulur. Her işlem tamamlandığında <code>finally: store.clear()</code> bloğu ile ayrılan tüm bellek blokları anında geri verilir.
-* <strong>Bellek Dökümü Engelleme:</strong> Linux çekirdeğinin prctl arayüzü üzerinden (<code>prctl(PR_SET_DUMPABLE, 0)</code> - <code>src/docneedle/hardening.py</code>) sürecin belleği dışarıya kilitlenir; yetkisiz bellek dökümü (core dump) alınması ya da <code>ptrace</code> ile sürecin izlenmesi engellenir.
-* <strong>Sertleştirilmiş Konteyner Yapısı:</strong> Üretim ortamında salt okunur kök dosya sistemi (<code>read_only: true</code>), RAM tabanlı <code>/tmp</code> dizini (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), sıfırlanmış core dump limiti ve tamamen çevrimdışı Hugging Face kipi (<code>HF_HUB_OFFLINE=1</code>) ile çalıştırılır.</p>
+<p>Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sistem seviyesinde katı gizlilik tedbirleri uygulanmıştır:</p>
+<ul>
+<li><strong>Yalnızca Uçucu Bellek (RAM-Only):</strong> Sisteme yüklenen dosyalar, çıkarılan metin parçaları, vektör gömmeleri ve arama indeksleri yalnızca geçici bellekte (<code>SessionVectorStore</code>) tutulur. Her işlem tamamlandığında <code>finally: store.clear()</code> bloğu ile ayrılan tüm bellek blokları anında geri verilir.</li>
+<li><strong>Bellek Dökümü Engelleme:</strong> Linux çekirdeğinin prctl arayüzü üzerinden (<code>prctl(PR_SET_DUMPABLE, 0)</code> - <code>src/docneedle/hardening.py</code>) sürecin belleği dışarıya kilitlenir; yetkisiz bellek dökümü (core dump) alınması ya da <code>ptrace</code> ile sürecin izlenmesi engellenir.</li>
+<li><strong>Sertleştirilmiş Konteyner Yapısı:</strong> Üretim ortamında salt okunur kök dosya sistemi (<code>read_only: true</code>), RAM tabanlı <code>/tmp</code> dizini (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), sıfırlanmış core dump limiti ve tamamen çevrimdışı Hugging Face kipi (<code>HF_HUB_OFFLINE=1</code>) ile çalıştırılır.</li>
+</ul>
 <div class="codehilite"><pre><span></span><code><span class="k">[Yüklenen Belge ve Şema]</span>
 <span class="w">            </span><span class="na">│</span>
 <span class="w">            </span><span class="na">▼</span>
@@ -289,26 +291,34 @@
 </code></pre></div>
 
 <h3>2. Klasik OCR'ı Devre Dışı Bırakan Görsel RAG Yaklaşımı</h3>
-<p>Geleneksel optik karakter tanıma (OCR) motorları; el yazılı notlar, kaşeler, soluk taranmış belgeler veya karmaşık tablo yapılarında harf ve biçim hataları yaparak çıkarım kalitesini düşürür. DocNeedle bu sorunu çift yönlü bir belge işleme hattıyla aşar:
-* <strong>Dijital Belgeler:</strong> Seçilebilir metin içeren PDF'ler Docling Core ile hiyerarşik Markdown parçalarına ayrılarak başlık düzenleri ve tablo yapıları kayıpsız korunur.
-* <strong>Taranmış Dokümanlar ve Görseller:</strong> Taranmış sayfalar ve görsel dosyaları (PNG, JPG, TIFF, WEBP), <code>pypdfium2</code> ile yüksek çözünürlükte (108 DPI) işlenip herhangi bir metin dönüşümüne zorlanmadan doğrudan görsel parça olarak sisteme alınır.
-* <strong>Görsel Bağlam ile Çıkarım:</strong> Sayfa görselleri SigLIP projeksiyonu (<code>mmproj-F16.gguf</code>) üzerinden vektör uzayına taşınır ve çok modlu büyük dil modeline (Qwen3.5-4B) yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model, sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler.</p>
+<p>Geleneksel optik karakter tanıma (OCR) motorları; el yazılı notlar, kaşeler, soluk taranmış belgeler veya karmaşık tablo yapılarında harf ve biçim hataları yaparak çıkarım kalitesini düşürür. DocNeedle bu sorunu çift yönlü bir belge işleme hattıyla aşar:</p>
+<ul>
+<li><strong>Dijital Belgeler:</strong> Seçilebilir metin içeren PDF'ler Docling Core ile hiyerarşik Markdown parçalarına ayrılarak başlık düzenleri ve tablo yapıları kayıpsız korunur.</li>
+<li><strong>Taranmış Dokümanlar ve Görseller:</strong> Taranmış sayfalar ve görsel dosyaları (PNG, JPG, TIFF, WEBP), <code>pypdfium2</code> ile yüksek çözünürlükte (108 DPI) işlenip herhangi bir metin dönüşümüne zorlanmadan doğrudan görsel parça olarak sisteme alınır.</li>
+<li><strong>Görsel Bağlam ile Çıkarım:</strong> Sayfa görselleri SigLIP projeksiyonu (<code>mmproj-F16.gguf</code>) üzerinden vektör uzayına taşınır ve çok modlu büyük dil modeline (Qwen3.5-4B) yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model, sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler.</li>
+</ul>
 <h3>3. Yerel C++ Çapraz Modlu Vektörleştirme Motoru</h3>
-<p>Geniş belge koleksiyonlarında arama gecikmesini sıfıra indirmek amacıyla C++ ile yazılmış bağımsız bir gömme motoru (<code>src/docneedle/retrieval/docneedle_embed.cpp</code>) paylaşımlı kütüphane (<code>libdocneedle_embed.so</code>) olarak derlenmiştir:
-* <strong>Ortak Vektör Uzayı:</strong> Metin sorgularını (<code>task: search result | query: {text}</code>) ve sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.
-* <strong>Hazır CUDA Desteği:</strong> <code>libggml-cuda.so</code>, modern NVIDIA mimarilerini (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace ve <code>sm_120a</code> Blackwell) dahili çekirdekleriyle destekler; çalışma anında JIT derleme beklemeden doğrudan GPU gücünden faydalanır.
-* <strong>Dinamik Kütüphane İzolasyonu:</strong> C++ motoru, Python <code>ctypes</code> üzerinden <code>RTLD_LOCAL | RTLD_DEEPBIND</code> bayraklarıyla yalıtılmış bir alt süreçte çalıştırılır. Böylece <code>llama-cpp-python</code> ile paylaşımlı sembol çakışmaları tamamen önlenir.</p>
+<p>Geniş belge koleksiyonlarında arama gecikmesini sıfıra indirmek amacıyla C++ ile yazılmış bağımsız bir gömme motoru (<code>src/docneedle/retrieval/docneedle_embed.cpp</code>) paylaşımlı kütüphane (<code>libdocneedle_embed.so</code>) olarak derlenmiştir:</p>
+<ul>
+<li><strong>Ortak Vektör Uzayı:</strong> Metin sorgularını (<code>task: search result | query: {text}</code>) ve sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.</li>
+<li><strong>Hazır CUDA Desteği:</strong> <code>libggml-cuda.so</code>, modern NVIDIA mimarilerini (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace ve <code>sm_120a</code> Blackwell) dahili çekirdekleriyle destekler; çalışma anında JIT derleme beklemeden doğrudan GPU gücünden faydalanır.</li>
+<li><strong>Dinamik Kütüphane İzolasyonu:</strong> C++ motoru, Python <code>ctypes</code> üzerinden <code>RTLD_LOCAL | RTLD_DEEPBIND</code> bayraklarıyla yalıtılmış bir alt süreçte çalıştırılır. Böylece <code>llama-cpp-python</code> ile paylaşımlı sembol çakışmaları tamamen önlenir.</li>
+</ul>
 <h3>4. Etkileşimli PDF Formlarında (AcroForm) Doğrudan Ayrıştırma</h3>
-<p>Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir.
-* DocNeedle, <code>pypdfium2</code> arayüzü (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>) üzerinden PDF nesne akışlarını doğrudan tarar.
-* Form alanlarının adlarını, geliştirici ipuçlarını, onay kutusu durumlarını ve kullanıcı girdilerini UTF-16LE akışından hatasız okur.
-* Çıkarılan form verilerini yapılandırılmış Markdown tablolarına dönüştürerek modelin bağlamına ekler; resmi formlarda sıfır yanılsamayla kesin sonuç verir.</p>
+<p>Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir:</p>
+<ul>
+<li>DocNeedle, <code>pypdfium2</code> arayüzü (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>) üzerinden PDF nesne akışlarını doğrudan tarar.</li>
+<li>Form alanlarının adlarını, geliştirici ipuçlarını, onay kutusu durumlarını ve kullanıcı girdilerini UTF-16LE akışından hatasız okur.</li>
+<li>Çıkarılan form verilerini yapılandırılmış Markdown tablolarına dönüştürerek modelin bağlamına ekler; resmi formlarda sıfır yanılsamayla kesin sonuç verir.</li>
+</ul>
 <h3>5. Uzamsal Çakışma Çözücü (Spatial Collision Resolution)</h3>
-<p>Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir.
-* <code>SpatialCollisionResolver</code> (<code>src/docneedle/extraction/collision.py</code>), çıkarım sonuçlarını inceleyerek farklı şema anahtarlarına aynı değerin atanıp atanmadığını tespit eder.
-* Değerin ilgili sayfada fiziksel olarak kaç kez geçtiğini doğrular.
-* Eğer değer sayfada tek bir kez geçiyorsa, şemadaki alan açıklamalarıyla değerin etrafındaki metin bağlamı arasındaki anlamsal ilgiyi puanlar.
-* Değeri en yüksek ilgi skoruna sahip alana bırakır; mükerrer atanan diğer alanları ise güvenle <code>found: False, value: None</code> durumuna getirir.</p>
+<p>Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir:</p>
+<ul>
+<li><code>SpatialCollisionResolver</code> (<code>src/docneedle/extraction/collision.py</code>), çıkarım sonuçlarını inceleyerek farklı şema anahtarlarına aynı değerin atanıp atanmadığını tespit eder.</li>
+<li>Değerin ilgili sayfada fiziksel olarak kaç kez geçtiğini doğrular.</li>
+<li>Eğer değer sayfada tek bir kez geçiyorsa, şemadaki alan açıklamalarıyla değerin etrafındaki metin bağlamı arasındaki anlamsal ilgiyi puanlar.</li>
+<li>Değeri en yüksek ilgi skoruna sahip alana bırakır; mükerrer atanan diğer alanları ise güvenle <code>found: False, value: None</code> durumuna getirir.</li>
+</ul>
 <h3>6. Hibrit Arama (RRF) ve Cross-Encoder Yeniden Sıralama</h3>
 <ul>
 <li><strong>Reciprocal Rank Fusion (RRF):</strong> EmbeddingGemma-2 yoğun anlamsal vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesiyle ($k=60$) RRF algoritması üzerinden harmanlanır.</li>
@@ -328,15 +338,100 @@
 <hr />
 <h2>ExtractBench Kıyaslama ve Performans Değerlendirmesi</h2>
 <p>DocNeedle; faturalar, resmi sözleşmeler, finansal tablolar ve el yazılı makbuzlardan oluşan <strong>370 belge</strong>, <strong>4.869 sayfa</strong> ve <strong>13.577 etiketli alan</strong> içeren <strong>ExtractBench</strong> (LlamaIndex, arXiv:2607.29677) veri setinde test edilmiştir.</p>
-<p>| Sistem / Model | Mimari ve Dağıtım | Genel Değer F1 | Kısa (≤10s) | Orta (11-50s) | Uzun (&gt;50s) | Sayfa Konumu | Sayfa Başı Maliyet | Gizlilik ve Depolama |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| <strong>LlamaExtract Agentic Plus</strong> | Bulut Ajan İş Hattı | <strong>96.17%</strong> | 97.02% | 94.30% | 94.65% | 88.26% | $0.0750 | Bulut API (Harici) |
-| <strong>Codex (GPT-6.1 Sol Evidence)</strong> | Frontier Kodlama Ajanı | <strong>95.31%</strong> | 97.01% | 92.96% | 85.46% | 89.37% | $0.0713 | Bulut API (Harici) |
-| <strong>Claude Code (Sonnet 5.5 Evidence)</strong>| Frontier Kodlama Ajanı | <strong>94.68%</strong> | 96.22% | 92.97% | 83.69% | 75.99% | $0.0569 | Bulut API (Harici) |
-| <strong>OpenAI GPT-6 Astra</strong> | Ticari Büyük VLM | <strong>91.91%</strong> | 97.22% | 90.56% | 31.70% | 0.00% <em>(Yok)</em> | $0.1109 | Bulut API (Harici) |
-| <strong>Qwen3.5 4B (Yalın Temel Model)</strong> | Bağımsız Temel Model | <strong>82.43%</strong> | 89.06% | 76.64% | 27.31% | 0.00% <em>(Yok)</em> | Ücretsiz (yerel) | Yerel / Self-Hosted |
-| <strong>Google Gemini 3.8 Flash</strong> | Ticari Hızlı VLM | <strong>80.71%</strong> | 88.14% | 72.23% | 28.70% | 0.00% <em>(Yok)</em> | $0.0043 | Bulut API (Harici) |
-| <strong>DocNeedle (Süreç İçi)</strong> | <strong>Qwen3.5-4B + Gemma2-RAG</strong> | <strong>75.71%</strong> | <strong>77.16%</strong> | <strong>69.70%</strong> | <strong>71.43%</strong> | <strong>80.95%</strong> | <strong>$0.00 (yerel)</strong> | <strong>Sıfır-Disk RAM / Hava Boşluklu</strong> |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Sistem / Model</th>
+<th style="text-align: left;">Mimari ve Dağıtım</th>
+<th style="text-align: center;">Genel Değer F1</th>
+<th style="text-align: center;">Kısa (≤10s)</th>
+<th style="text-align: center;">Orta (11-50s)</th>
+<th style="text-align: center;">Uzun (&gt;50s)</th>
+<th style="text-align: center;">Sayfa Konumu</th>
+<th style="text-align: center;">Sayfa Başı Maliyet</th>
+<th style="text-align: left;">Gizlilik ve Depolama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>LlamaExtract Agentic Plus</strong></td>
+<td style="text-align: left;">Bulut Ajan İş Hattı</td>
+<td style="text-align: center;"><strong>96.17%</strong></td>
+<td style="text-align: center;">97.02%</td>
+<td style="text-align: center;">94.30%</td>
+<td style="text-align: center;">94.65%</td>
+<td style="text-align: center;">88.26%</td>
+<td style="text-align: center;">$0.0750</td>
+<td style="text-align: left;">Bulut API (Harici)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Codex (GPT-6.1 Sol Evidence)</strong></td>
+<td style="text-align: left;">Frontier Kodlama Ajanı</td>
+<td style="text-align: center;"><strong>95.31%</strong></td>
+<td style="text-align: center;">97.01%</td>
+<td style="text-align: center;">92.96%</td>
+<td style="text-align: center;">85.46%</td>
+<td style="text-align: center;">89.37%</td>
+<td style="text-align: center;">$0.0713</td>
+<td style="text-align: left;">Bulut API (Harici)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Claude Code (Sonnet 5.5 Evidence)</strong></td>
+<td style="text-align: left;">Frontier Kodlama Ajanı</td>
+<td style="text-align: center;"><strong>94.68%</strong></td>
+<td style="text-align: center;">96.22%</td>
+<td style="text-align: center;">92.97%</td>
+<td style="text-align: center;">83.69%</td>
+<td style="text-align: center;">75.99%</td>
+<td style="text-align: center;">$0.0569</td>
+<td style="text-align: left;">Bulut API (Harici)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>OpenAI GPT-6 Astra</strong></td>
+<td style="text-align: left;">Ticari Büyük VLM</td>
+<td style="text-align: center;"><strong>91.91%</strong></td>
+<td style="text-align: center;">97.22%</td>
+<td style="text-align: center;">90.56%</td>
+<td style="text-align: center;">31.70%</td>
+<td style="text-align: center;">0.00% <em>(Yok)</em></td>
+<td style="text-align: center;">$0.1109</td>
+<td style="text-align: left;">Bulut API (Harici)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Qwen3.5 4B (Yalın Temel Model)</strong></td>
+<td style="text-align: left;">Bağımsız Temel Model</td>
+<td style="text-align: center;"><strong>82.43%</strong></td>
+<td style="text-align: center;">89.06%</td>
+<td style="text-align: center;">76.64%</td>
+<td style="text-align: center;">27.31%</td>
+<td style="text-align: center;">0.00% <em>(Yok)</em></td>
+<td style="text-align: center;">Ücretsiz (yerel)</td>
+<td style="text-align: left;">Yerel / Self-Hosted</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Google Gemini 3.8 Flash</strong></td>
+<td style="text-align: left;">Ticari Hızlı VLM</td>
+<td style="text-align: center;"><strong>80.71%</strong></td>
+<td style="text-align: center;">88.14%</td>
+<td style="text-align: center;">72.23%</td>
+<td style="text-align: center;">28.70%</td>
+<td style="text-align: center;">0.00% <em>(Yok)</em></td>
+<td style="text-align: center;">$0.0043</td>
+<td style="text-align: left;">Bulut API (Harici)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DocNeedle (Süreç İçi)</strong></td>
+<td style="text-align: left;"><strong>Qwen3.5-4B + Gemma2-RAG</strong></td>
+<td style="text-align: center;"><strong>75.71%</strong></td>
+<td style="text-align: center;"><strong>77.16%</strong></td>
+<td style="text-align: center;"><strong>69.70%</strong></td>
+<td style="text-align: center;"><strong>71.43%</strong></td>
+<td style="text-align: center;"><strong>80.95%</strong></td>
+<td style="text-align: center;"><strong>$0.00 (yerel)</strong></td>
+<td style="text-align: left;"><strong>Sıfır-Disk RAM / Hava Boşluklu</strong></td>
+</tr>
+</tbody>
+</table>
 <h3>Öne Çıkan Bulgular</h3>
 <ul>
 <li><strong>Uzun Belgelerde Üstün Dayanıklılık (Temel Modele Göre +44.12 Puan):</strong> 50 sayfayı aşan belgelerde RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları akıllıca yönlendirerek <strong>%71.43 F1</strong> başarısını korur.</li>
@@ -374,7 +469,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794493621"></script>
+    <script type="module" src="/static/js/main.js?v=1794494274"></script>
 
 </body>
 

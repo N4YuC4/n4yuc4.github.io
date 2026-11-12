@@ -29,7 +29,9 @@ DocNeedle/
 ```
 
 ### 1. Sıfır-Disk Bellek Güvenliği ve Çekirdek Düzeyinde Koruma
+
 Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sistem seviyesinde katı gizlilik tedbirleri uygulanmıştır:
+
 * **Yalnızca Uçucu Bellek (RAM-Only):** Sisteme yüklenen dosyalar, çıkarılan metin parçaları, vektör gömmeleri ve arama indeksleri yalnızca geçici bellekte (`SessionVectorStore`) tutulur. Her işlem tamamlandığında `finally: store.clear()` bloğu ile ayrılan tüm bellek blokları anında geri verilir.
 * **Bellek Dökümü Engelleme:** Linux çekirdeğinin prctl arayüzü üzerinden (`prctl(PR_SET_DUMPABLE, 0)` - `src/docneedle/hardening.py`) sürecin belleği dışarıya kilitlenir; yetkisiz bellek dökümü (core dump) alınması ya da `ptrace` ile sürecin izlenmesi engellenir.
 * **Sertleştirilmiş Konteyner Yapısı:** Üretim ortamında salt okunur kök dosya sistemi (`read_only: true`), RAM tabanlı `/tmp` dizini (`tmpfs`, 1 GB, `nosuid`), sıfırlanmış core dump limiti ve tamamen çevrimdışı Hugging Face kipi (`HF_HUB_OFFLINE=1`) ile çalıştırılır.
@@ -61,25 +63,33 @@ Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sist
 ```
 
 ### 2. Klasik OCR'ı Devre Dışı Bırakan Görsel RAG Yaklaşımı
+
 Geleneksel optik karakter tanıma (OCR) motorları; el yazılı notlar, kaşeler, soluk taranmış belgeler veya karmaşık tablo yapılarında harf ve biçim hataları yaparak çıkarım kalitesini düşürür. DocNeedle bu sorunu çift yönlü bir belge işleme hattıyla aşar:
+
 * **Dijital Belgeler:** Seçilebilir metin içeren PDF'ler Docling Core ile hiyerarşik Markdown parçalarına ayrılarak başlık düzenleri ve tablo yapıları kayıpsız korunur.
 * **Taranmış Dokümanlar ve Görseller:** Taranmış sayfalar ve görsel dosyaları (PNG, JPG, TIFF, WEBP), `pypdfium2` ile yüksek çözünürlükte (108 DPI) işlenip herhangi bir metin dönüşümüne zorlanmadan doğrudan görsel parça olarak sisteme alınır.
 * **Görsel Bağlam ile Çıkarım:** Sayfa görselleri SigLIP projeksiyonu (`mmproj-F16.gguf`) üzerinden vektör uzayına taşınır ve çok modlu büyük dil modeline (Qwen3.5-4B) yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model, sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler.
 
 ### 3. Yerel C++ Çapraz Modlu Vektörleştirme Motoru
+
 Geniş belge koleksiyonlarında arama gecikmesini sıfıra indirmek amacıyla C++ ile yazılmış bağımsız bir gömme motoru (`src/docneedle/retrieval/docneedle_embed.cpp`) paylaşımlı kütüphane (`libdocneedle_embed.so`) olarak derlenmiştir:
+
 * **Ortak Vektör Uzayı:** Metin sorgularını (`task: search result | query: {text}`) ve sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.
 * **Hazır CUDA Desteği:** `libggml-cuda.so`, modern NVIDIA mimarilerini (`sm_80` Ampere, `sm_86`, `sm_89` Ada Lovelace ve `sm_120a` Blackwell) dahili çekirdekleriyle destekler; çalışma anında JIT derleme beklemeden doğrudan GPU gücünden faydalanır.
 * **Dinamik Kütüphane İzolasyonu:** C++ motoru, Python `ctypes` üzerinden `RTLD_LOCAL | RTLD_DEEPBIND` bayraklarıyla yalıtılmış bir alt süreçte çalıştırılır. Böylece `llama-cpp-python` ile paylaşımlı sembol çakışmaları tamamen önlenir.
 
 ### 4. Etkileşimli PDF Formlarında (AcroForm) Doğrudan Ayrıştırma
-Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir.
+
+Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir:
+
 * DocNeedle, `pypdfium2` arayüzü (`FPDFPage_GetAnnot`, `FPDFAnnot_GetFormFieldType`) üzerinden PDF nesne akışlarını doğrudan tarar.
 * Form alanlarının adlarını, geliştirici ipuçlarını, onay kutusu durumlarını ve kullanıcı girdilerini UTF-16LE akışından hatasız okur.
 * Çıkarılan form verilerini yapılandırılmış Markdown tablolarına dönüştürerek modelin bağlamına ekler; resmi formlarda sıfır yanılsamayla kesin sonuç verir.
 
 ### 5. Uzamsal Çakışma Çözücü (Spatial Collision Resolution)
-Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir.
+
+Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir:
+
 * `SpatialCollisionResolver` (`src/docneedle/extraction/collision.py`), çıkarım sonuçlarını inceleyerek farklı şema anahtarlarına aynı değerin atanıp atanmadığını tespit eder.
 * Değerin ilgili sayfada fiziksel olarak kaç kez geçtiğini doğrular.
 * Eğer değer sayfada tek bir kez geçiyorsa, şemadaki alan açıklamalarıyla değerin etrafındaki metin bağlamı arasındaki anlamsal ilgiyi puanlar.
@@ -115,6 +125,7 @@ DocNeedle; faturalar, resmi sözleşmeler, finansal tablolar ve el yazılı makb
 | **DocNeedle (Süreç İçi)** | **Qwen3.5-4B + Gemma2-RAG** | **75.71%** | **77.16%** | **69.70%** | **71.43%** | **80.95%** | **$0.00 (yerel)** | **Sıfır-Disk RAM / Hava Boşluklu** |
 
 ### Öne Çıkan Bulgular
+
 * **Uzun Belgelerde Üstün Dayanıklılık (Temel Modele Göre +44.12 Puan):** 50 sayfayı aşan belgelerde RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları akıllıca yönlendirerek **%71.43 F1** başarısını korur.
 * **Denetlenebilir Sayfa Konumlandırması (%90.67 Kısa, %80.95 Genel):** Ticari VLM'ler kaynak atfında %0.00 alırken, DocNeedle çıkarılan her veri için doğrulanmış sayfa numarası ve doğrudan alıntı metni sunar.
 * **Ekonomik ve Güvenli:** Sayfa başına $0.00 marjinal maliyetle çalışırken, uçucu RAM garantileriyle kurumsal veri sızıntılarını tamamen engeller.

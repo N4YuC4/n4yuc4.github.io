@@ -24,7 +24,9 @@ Sistemin merkezinde etkileşimli kanvas yer alır. YOLOv8-seg tarafından tahmin
 ![Gerçek Zamanlı Segmentasyon ve ROI Katmanları](/static/images/portfolio-images/elma-tespit-figures/merkezi_kanvas.png)
 
 ### 3. Endüstriyel Veri Merkezi ve Metrikler
+
 Arayüzün sağ paneli, yazılımın analitik kalbi olarak işlev görür ve elmaların piyasa değerini belirleyen temel bilimsel metrikleri raporlar:
+
 - **Renk Sapması (Delta E00):** Referans havuzuna kıyasla algısal renk farkı.
 - **Sınıf İçi Sapma (σ - Sigma):** Paketleme partisinin kararlılığını ve homojenliğini temsil eder.
 - **Homojenlik Endeksi (%):** Yüksek kalite için %90+ oranının hedeflendiği görsel tekdüzelik skoru.

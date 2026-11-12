@@ -259,10 +259,12 @@
 </code></pre></div>
 
 <h3>1. Zero-Disk In-Memory Privacy &amp; Kernel Hardening</h3>
-<p>Enterprise documents often contain sensitive personal, financial, or proprietary information. DocNeedle enforces an air-gapped data guarantee:
-* <strong>Volatile-Only Memory:</strong> Uploaded files, chunk representations, vector embeddings, and retrieval indices exist exclusively in system RAM inside <code>SessionVectorStore</code>. Every request unconditionally purges its allocated memory buffers inside a <code>finally: store.clear()</code> block.
-* <strong>Kernel Anti-Dumping:</strong> Process memory is protected against unauthorized inspection, core dumping, and debugger attachment using the Linux kernel prctl interface: <code>prctl(PR_SET_DUMPABLE, 0)</code> (<code>src/docneedle/hardening.py</code>).
-* <strong>Hardened Production Profile:</strong> Containers run with a read-only root filesystem (<code>read_only: true</code>), temporary files mapped strictly to RAM (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), zero core dump limits (<code>ulimits: core: 0</code>), and offline Hugging Face mode (<code>HF_HUB_OFFLINE=1</code>).</p>
+<p>Enterprise documents often contain sensitive personal, financial, or proprietary information. DocNeedle enforces an air-gapped data guarantee:</p>
+<ul>
+<li><strong>Volatile-Only Memory:</strong> Uploaded files, chunk representations, vector embeddings, and retrieval indices exist exclusively in system RAM inside <code>SessionVectorStore</code>. Every request unconditionally purges its allocated memory buffers inside a <code>finally: store.clear()</code> block.</li>
+<li><strong>Kernel Anti-Dumping:</strong> Process memory is protected against unauthorized inspection, core dumping, and debugger attachment using the Linux kernel prctl interface: <code>prctl(PR_SET_DUMPABLE, 0)</code> (<code>src/docneedle/hardening.py</code>).</li>
+<li><strong>Hardened Production Profile:</strong> Containers run with a read-only root filesystem (<code>read_only: true</code>), temporary files mapped strictly to RAM (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), zero core dump limits (<code>ulimits: core: 0</code>), and offline Hugging Face mode (<code>HF_HUB_OFFLINE=1</code>).</li>
+</ul>
 <div class="codehilite"><pre><span></span><code><span class="k">[Uploaded Document &amp; Schema]</span>
 <span class="w">            </span><span class="na">│</span>
 <span class="w">            </span><span class="na">▼</span>
@@ -289,26 +291,34 @@
 </code></pre></div>
 
 <h3>2. OCR-Free Visual RAG &amp; Multimodal Grounding</h3>
-<p>Traditional document processing pipelines suffer compounding errors when OCR misinterprets handwritten annotations, stamps, faded scans, or complex table hierarchies. DocNeedle sidesteps these pitfalls with a dual-track ingestion pipeline:
-* <strong>Digital Documents:</strong> Files containing embedded text layers (<code>pdf_embedded_text_min_chars = 50</code>) are parsed using Docling Core into clean, hierarchical Markdown chunks with heading structures and tables intact.
-* <strong>Scanned Pages &amp; Images:</strong> Scanned documents and raw images (PNG, JPG, TIFF, WEBP) are rasterized at high resolution (108 DPI) via <code>pypdfium2</code> and ingested directly as visual chunks without lossy text conversion.
-* <strong>Visual Context Passing:</strong> Candidate page images are projected into vector space via the SigLIP vision projector (<code>mmproj-F16.gguf</code>) and passed directly into the multimodal LLM (Qwen3.5-4B) as high-resolution visual tokens. The model interprets page layouts and visual cues directly, just as a human reader would.</p>
+<p>Traditional document processing pipelines suffer compounding errors when OCR misinterprets handwritten annotations, stamps, faded scans, or complex table hierarchies. DocNeedle sidesteps these pitfalls with a dual-track ingestion pipeline:</p>
+<ul>
+<li><strong>Digital Documents:</strong> Files containing embedded text layers (<code>pdf_embedded_text_min_chars = 50</code>) are parsed using Docling Core into clean, hierarchical Markdown chunks with heading structures and tables intact.</li>
+<li><strong>Scanned Pages &amp; Images:</strong> Scanned documents and raw images (PNG, JPG, TIFF, WEBP) are rasterized at high resolution (108 DPI) via <code>pypdfium2</code> and ingested directly as visual chunks without lossy text conversion.</li>
+<li><strong>Visual Context Passing:</strong> Candidate page images are projected into vector space via the SigLIP vision projector (<code>mmproj-F16.gguf</code>) and passed directly into the multimodal LLM (Qwen3.5-4B) as high-resolution visual tokens. The model interprets page layouts and visual cues directly, just as a human reader would.</li>
+</ul>
 <h3>3. Native C++ Cross-Modal Embedding Engine</h3>
-<p>To deliver low-latency retrieval across large document corpora, DocNeedle integrates a standalone C++ embedding core (<code>src/docneedle/retrieval/docneedle_embed.cpp</code>) compiled as a shared library (<code>libdocneedle_embed.so</code>):
-* <strong>Unified Vector Space:</strong> Maps both text queries (<code>task: search result | query: {text}</code>) and raw page images into a shared 768-dimensional L2-normalized space using EmbeddingGemma-2.
-* <strong>Precompiled Multi-Architecture CUDA Kernels:</strong> <code>libggml-cuda.so</code> embeds precompiled kernels for modern NVIDIA architectures (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace, <code>sm_120a</code> Blackwell), avoiding runtime JIT compilation delays.
-* <strong>DSO Symbol Isolation:</strong> Loaded via Python <code>ctypes</code> with <code>RTLD_LOCAL | RTLD_DEEPBIND</code> flags in an isolated worker process, preventing internal runtime symbol clashes with <code>llama-cpp-python</code>.</p>
+<p>To deliver low-latency retrieval across large document corpora, DocNeedle integrates a standalone C++ embedding core (<code>src/docneedle/retrieval/docneedle_embed.cpp</code>) compiled as a shared library (<code>libdocneedle_embed.so</code>):</p>
+<ul>
+<li><strong>Unified Vector Space:</strong> Maps both text queries (<code>task: search result | query: {text}</code>) and raw page images into a shared 768-dimensional L2-normalized space using EmbeddingGemma-2.</li>
+<li><strong>Precompiled Multi-Architecture CUDA Kernels:</strong> <code>libggml-cuda.so</code> embeds precompiled kernels for modern NVIDIA architectures (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace, <code>sm_120a</code> Blackwell), avoiding runtime JIT compilation delays.</li>
+<li><strong>DSO Symbol Isolation:</strong> Loaded via Python <code>ctypes</code> with <code>RTLD_LOCAL | RTLD_DEEPBIND</code> flags in an isolated worker process, preventing internal runtime symbol clashes with <code>llama-cpp-python</code>.</li>
+</ul>
 <h3>4. Interactive PDF AcroForm Stream Parsing</h3>
-<p>When extracting data from official forms, tax documents, or insurance claims, general-purpose LLMs frequently hallucinate check states or confuse adjacent fields.
-* DocNeedle interfaces directly with PDF dictionary streams via low-level <code>pypdfium2</code> bindings (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>).
-* It extracts form field names, developer tooltips, checked states, and user inputs from UTF-16LE streams.
-* The extracted fields are structured into clean Markdown tables and injected into the retrieval context ahead of time, ensuring near-perfect accuracy on interactive forms.</p>
+<p>When extracting data from official forms, tax documents, or insurance claims, general-purpose LLMs frequently hallucinate check states or confuse adjacent fields:</p>
+<ul>
+<li>DocNeedle interfaces directly with PDF dictionary streams via low-level <code>pypdfium2</code> bindings (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>).</li>
+<li>It extracts form field names, developer tooltips, checked states, and user inputs from UTF-16LE streams.</li>
+<li>The extracted fields are structured into clean Markdown tables and injected into the retrieval context ahead of time, ensuring near-perfect accuracy on interactive forms.</li>
+</ul>
 <h3>5. Spatial Collision Resolution</h3>
-<p>When a document features a single prominent number (such as an invoice total or transaction date), large language models tend to repeat that same value across multiple unpopulated or missing schema fields.
-* <code>SpatialCollisionResolver</code> (<code>src/docneedle/extraction/collision.py</code>) monitors extraction outputs for duplicate values across distinct schema keys.
-* It verifies the physical occurrence count of the value across candidate source pages.
-* If a value appears only once on the source page, it scores the contextual affinity between each field's description and the text surrounding the token.
-* The value is assigned strictly to the highest-affinity field, while ambiguous duplicates are cleanly reset to <code>found: False, value: None</code>.</p>
+<p>When a document features a single prominent number (such as an invoice total or transaction date), large language models tend to repeat that same value across multiple unpopulated or missing schema fields.</p>
+<ul>
+<li><code>SpatialCollisionResolver</code> (<code>src/docneedle/extraction/collision.py</code>) monitors extraction outputs for duplicate values across distinct schema keys.</li>
+<li>It verifies the physical occurrence count of the value across candidate source pages.</li>
+<li>If a value appears only once on the source page, it scores the contextual affinity between each field's description and the text surrounding the token.</li>
+<li>The value is assigned strictly to the highest-affinity field, while ambiguous duplicates are cleanly reset to <code>found: False, value: None</code>.</li>
+</ul>
 <h3>6. Hybrid RRF Retrieval &amp; Auxiliary Reranking</h3>
 <ul>
 <li><strong>Reciprocal Rank Fusion (RRF):</strong> Dense semantic embeddings (EmbeddingGemma-2) and sparse lexical signals (Okapi BM25) are fused using Reciprocal Rank Fusion ($k=60$) alongside document-diversity constraints to prevent single-page bias.</li>
@@ -328,15 +338,100 @@
 <hr />
 <h2>Benchmark Performance: ExtractBench Evaluation</h2>
 <p>DocNeedle was evaluated on <strong>ExtractBench</strong> (LlamaIndex, arXiv:2607.29677), an enterprise document extraction benchmark spanning <strong>370 documents</strong>, <strong>4,869 pages</strong>, and <strong>13,577 annotated fields</strong> across invoices, financial filings, regulatory forms, and handwritten receipts.</p>
-<p>| System / Model | Architecture &amp; Deployment | Overall Value F1 | Short (≤10p) | Medium (11-50p) | Long (&gt;50p) | Page Grounding | Cost / Page | Privacy &amp; Storage |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| <strong>LlamaExtract Agentic Plus</strong> | Cloud Agentic Pipeline | <strong>96.17%</strong> | 97.02% | 94.30% | 94.65% | 88.26% | $0.0750 | Cloud API (External) |
-| <strong>Codex (GPT-6.1 Sol Evidence)</strong> | Frontier Coding Agent | <strong>95.31%</strong> | 97.01% | 92.96% | 85.46% | 89.37% | $0.0713 | Cloud API (External) |
-| <strong>Claude Code (Sonnet 5.5 Evidence)</strong>| Frontier Coding Agent | <strong>94.68%</strong> | 96.22% | 92.97% | 83.69% | 75.99% | $0.0569 | Cloud API (External) |
-| <strong>OpenAI GPT-6 Astra</strong> | Commercial Frontier VLM | <strong>91.91%</strong> | 97.22% | 90.56% | 31.70% | 0.00% <em>(N/A)</em> | $0.1109 | Cloud API (External) |
-| <strong>Qwen3.5 4B (Raw Base Model)</strong> | Standalone Base Model | <strong>82.43%</strong> | 89.06% | 76.64% | 27.31% | 0.00% <em>(N/A)</em> | Free (self-host) | Self-Hosted / Local |
-| <strong>Google Gemini 3.8 Flash</strong> | Commercial Fast VLM | <strong>80.71%</strong> | 88.14% | 72.23% | 28.70% | 0.00% <em>(N/A)</em> | $0.0043 | Cloud API (External) |
-| <strong>DocNeedle (In-Process)</strong> | <strong>Qwen3.5-4B + Gemma2-RAG</strong> | <strong>75.71%</strong> | <strong>77.16%</strong> | <strong>69.70%</strong> | <strong>71.43%</strong> | <strong>80.95%</strong> | <strong>$0.00 (local)</strong> | <strong>Zero-Disk RAM / Air-Gapped</strong> |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">System / Model</th>
+<th style="text-align: left;">Architecture &amp; Deployment</th>
+<th style="text-align: center;">Overall Value F1</th>
+<th style="text-align: center;">Short (≤10p)</th>
+<th style="text-align: center;">Medium (11-50p)</th>
+<th style="text-align: center;">Long (&gt;50p)</th>
+<th style="text-align: center;">Page Grounding</th>
+<th style="text-align: center;">Cost / Page</th>
+<th style="text-align: left;">Privacy &amp; Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>LlamaExtract Agentic Plus</strong></td>
+<td style="text-align: left;">Cloud Agentic Pipeline</td>
+<td style="text-align: center;"><strong>96.17%</strong></td>
+<td style="text-align: center;">97.02%</td>
+<td style="text-align: center;">94.30%</td>
+<td style="text-align: center;">94.65%</td>
+<td style="text-align: center;">88.26%</td>
+<td style="text-align: center;">$0.0750</td>
+<td style="text-align: left;">Cloud API (External)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Codex (GPT-6.1 Sol Evidence)</strong></td>
+<td style="text-align: left;">Frontier Coding Agent</td>
+<td style="text-align: center;"><strong>95.31%</strong></td>
+<td style="text-align: center;">97.01%</td>
+<td style="text-align: center;">92.96%</td>
+<td style="text-align: center;">85.46%</td>
+<td style="text-align: center;">89.37%</td>
+<td style="text-align: center;">$0.0713</td>
+<td style="text-align: left;">Cloud API (External)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Claude Code (Sonnet 5.5 Evidence)</strong></td>
+<td style="text-align: left;">Frontier Coding Agent</td>
+<td style="text-align: center;"><strong>94.68%</strong></td>
+<td style="text-align: center;">96.22%</td>
+<td style="text-align: center;">92.97%</td>
+<td style="text-align: center;">83.69%</td>
+<td style="text-align: center;">75.99%</td>
+<td style="text-align: center;">$0.0569</td>
+<td style="text-align: left;">Cloud API (External)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>OpenAI GPT-6 Astra</strong></td>
+<td style="text-align: left;">Commercial Frontier VLM</td>
+<td style="text-align: center;"><strong>91.91%</strong></td>
+<td style="text-align: center;">97.22%</td>
+<td style="text-align: center;">90.56%</td>
+<td style="text-align: center;">31.70%</td>
+<td style="text-align: center;">0.00% <em>(N/A)</em></td>
+<td style="text-align: center;">$0.1109</td>
+<td style="text-align: left;">Cloud API (External)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Qwen3.5 4B (Raw Base Model)</strong></td>
+<td style="text-align: left;">Standalone Base Model</td>
+<td style="text-align: center;"><strong>82.43%</strong></td>
+<td style="text-align: center;">89.06%</td>
+<td style="text-align: center;">76.64%</td>
+<td style="text-align: center;">27.31%</td>
+<td style="text-align: center;">0.00% <em>(N/A)</em></td>
+<td style="text-align: center;">Free (self-host)</td>
+<td style="text-align: left;">Self-Hosted / Local</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Google Gemini 3.8 Flash</strong></td>
+<td style="text-align: left;">Commercial Fast VLM</td>
+<td style="text-align: center;"><strong>80.71%</strong></td>
+<td style="text-align: center;">88.14%</td>
+<td style="text-align: center;">72.23%</td>
+<td style="text-align: center;">28.70%</td>
+<td style="text-align: center;">0.00% <em>(N/A)</em></td>
+<td style="text-align: center;">$0.0043</td>
+<td style="text-align: left;">Cloud API (External)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DocNeedle (In-Process)</strong></td>
+<td style="text-align: left;"><strong>Qwen3.5-4B + Gemma2-RAG</strong></td>
+<td style="text-align: center;"><strong>75.71%</strong></td>
+<td style="text-align: center;"><strong>77.16%</strong></td>
+<td style="text-align: center;"><strong>69.70%</strong></td>
+<td style="text-align: center;"><strong>71.43%</strong></td>
+<td style="text-align: center;"><strong>80.95%</strong></td>
+<td style="text-align: center;"><strong>$0.00 (local)</strong></td>
+<td style="text-align: left;"><strong>Zero-Disk RAM / Air-Gapped</strong></td>
+</tr>
+</tbody>
+</table>
 <h3>Key Benchmark Insights</h3>
 <ul>
 <li><strong>Long-Document Resilience (+44.12 pts vs. Base Model):</strong> On documents exceeding 50 pages, unaugmented frontier models suffer severe attention degradation (raw Qwen3.5 4B drops to 27.31%, GPT-6 Astra drops to 31.70%). DocNeedle sustains <strong>71.43% F1</strong> by filtering and routing relevant visual and textual chunks into a compact bounded context window.</li>
@@ -374,7 +469,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794493620"></script>
+    <script type="module" src="/static/js/main.js?v=1794494273"></script>
 
 </body>
 

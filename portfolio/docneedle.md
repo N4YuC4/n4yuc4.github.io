@@ -29,7 +29,9 @@ DocNeedle/
 ```
 
 ### 1. Zero-Disk In-Memory Privacy & Kernel Hardening
+
 Enterprise documents often contain sensitive personal, financial, or proprietary information. DocNeedle enforces an air-gapped data guarantee:
+
 * **Volatile-Only Memory:** Uploaded files, chunk representations, vector embeddings, and retrieval indices exist exclusively in system RAM inside `SessionVectorStore`. Every request unconditionally purges its allocated memory buffers inside a `finally: store.clear()` block.
 * **Kernel Anti-Dumping:** Process memory is protected against unauthorized inspection, core dumping, and debugger attachment using the Linux kernel prctl interface: `prctl(PR_SET_DUMPABLE, 0)` (`src/docneedle/hardening.py`).
 * **Hardened Production Profile:** Containers run with a read-only root filesystem (`read_only: true`), temporary files mapped strictly to RAM (`tmpfs`, 1 GB, `nosuid`), zero core dump limits (`ulimits: core: 0`), and offline Hugging Face mode (`HF_HUB_OFFLINE=1`).
@@ -61,25 +63,33 @@ Enterprise documents often contain sensitive personal, financial, or proprietary
 ```
 
 ### 2. OCR-Free Visual RAG & Multimodal Grounding
+
 Traditional document processing pipelines suffer compounding errors when OCR misinterprets handwritten annotations, stamps, faded scans, or complex table hierarchies. DocNeedle sidesteps these pitfalls with a dual-track ingestion pipeline:
+
 * **Digital Documents:** Files containing embedded text layers (`pdf_embedded_text_min_chars = 50`) are parsed using Docling Core into clean, hierarchical Markdown chunks with heading structures and tables intact.
 * **Scanned Pages & Images:** Scanned documents and raw images (PNG, JPG, TIFF, WEBP) are rasterized at high resolution (108 DPI) via `pypdfium2` and ingested directly as visual chunks without lossy text conversion.
 * **Visual Context Passing:** Candidate page images are projected into vector space via the SigLIP vision projector (`mmproj-F16.gguf`) and passed directly into the multimodal LLM (Qwen3.5-4B) as high-resolution visual tokens. The model interprets page layouts and visual cues directly, just as a human reader would.
 
 ### 3. Native C++ Cross-Modal Embedding Engine
+
 To deliver low-latency retrieval across large document corpora, DocNeedle integrates a standalone C++ embedding core (`src/docneedle/retrieval/docneedle_embed.cpp`) compiled as a shared library (`libdocneedle_embed.so`):
+
 * **Unified Vector Space:** Maps both text queries (`task: search result | query: {text}`) and raw page images into a shared 768-dimensional L2-normalized space using EmbeddingGemma-2.
 * **Precompiled Multi-Architecture CUDA Kernels:** `libggml-cuda.so` embeds precompiled kernels for modern NVIDIA architectures (`sm_80` Ampere, `sm_86`, `sm_89` Ada Lovelace, `sm_120a` Blackwell), avoiding runtime JIT compilation delays.
 * **DSO Symbol Isolation:** Loaded via Python `ctypes` with `RTLD_LOCAL | RTLD_DEEPBIND` flags in an isolated worker process, preventing internal runtime symbol clashes with `llama-cpp-python`.
 
 ### 4. Interactive PDF AcroForm Stream Parsing
-When extracting data from official forms, tax documents, or insurance claims, general-purpose LLMs frequently hallucinate check states or confuse adjacent fields.
+
+When extracting data from official forms, tax documents, or insurance claims, general-purpose LLMs frequently hallucinate check states or confuse adjacent fields:
+
 * DocNeedle interfaces directly with PDF dictionary streams via low-level `pypdfium2` bindings (`FPDFPage_GetAnnot`, `FPDFAnnot_GetFormFieldType`).
 * It extracts form field names, developer tooltips, checked states, and user inputs from UTF-16LE streams.
 * The extracted fields are structured into clean Markdown tables and injected into the retrieval context ahead of time, ensuring near-perfect accuracy on interactive forms.
 
 ### 5. Spatial Collision Resolution
+
 When a document features a single prominent number (such as an invoice total or transaction date), large language models tend to repeat that same value across multiple unpopulated or missing schema fields.
+
 * `SpatialCollisionResolver` (`src/docneedle/extraction/collision.py`) monitors extraction outputs for duplicate values across distinct schema keys.
 * It verifies the physical occurrence count of the value across candidate source pages.
 * If a value appears only once on the source page, it scores the contextual affinity between each field's description and the text surrounding the token.
@@ -115,6 +125,7 @@ DocNeedle was evaluated on **ExtractBench** (LlamaIndex, arXiv:2607.29677), an e
 | **DocNeedle (In-Process)** | **Qwen3.5-4B + Gemma2-RAG** | **75.71%** | **77.16%** | **69.70%** | **71.43%** | **80.95%** | **$0.00 (local)** | **Zero-Disk RAM / Air-Gapped** |
 
 ### Key Benchmark Insights
+
 * **Long-Document Resilience (+44.12 pts vs. Base Model):** On documents exceeding 50 pages, unaugmented frontier models suffer severe attention degradation (raw Qwen3.5 4B drops to 27.31%, GPT-6 Astra drops to 31.70%). DocNeedle sustains **71.43% F1** by filtering and routing relevant visual and textual chunks into a compact bounded context window.
 * **Auditable Page Grounding (90.67% Short, 80.95% Overall):** While raw commercial VLMs provide zero source attribution (0.00%), DocNeedle pairs every extracted value with verified page citations and verbatim text evidence.
 * **Air-Gapped Economics:** Delivers enterprise extraction at $0.00 marginal cost per page while strictly guaranteeing zero-disk RAM privacy.

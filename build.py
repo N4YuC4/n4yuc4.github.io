@@ -345,7 +345,7 @@ class SiteBuilder:
 
     def _convert_markdown_to_html(self, md_content):
         md_content = re.sub(r'(/static/images/portfolio-images/.*?)\.png', r'\1.jpg', md_content)
-        return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite'])
+        return markdown.markdown(md_content, extensions=['fenced_code', 'codehilite', 'tables'])
 
     def render_template(self, template_name, output_path, context=None, sources=None, output_dir=BuildConfig.BUILD_DIR):
         if context is None:

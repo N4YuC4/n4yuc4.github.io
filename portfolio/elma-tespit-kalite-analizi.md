@@ -24,7 +24,9 @@ At the heart of the system is the interactive canvas. Segments predicted by YOLO
 ![Real-time Segmentation and ROI Layers](/static/images/portfolio-images/elma-tespit-figures/merkezi_kanvas.png)
 
 ### 3. Industrial Data Center & Metrics
+
 The right panel of the interface acts as the analytical heart of the software, reporting the key scientific metrics defining the apples' market value:
+
 - **Color Deviation (Delta E00):** The perceptual difference against the reference pool.
 - **Intra-Class Deviation (σ - Sigma):** Represents the stability and homogeneity of the packaging batch.
 - **Homogeneity Index (%):** Visual uniformity score where 90%+ is targeted for high quality.
