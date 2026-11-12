@@ -77,7 +77,7 @@
   "projects": [
     {
       "title": "DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi",
-      "description": "Kurumsal belgelerden (fatura, sözleşme, form, tablo) önceden tanımlı JSON şemasına göre hedef verileri çıkaran, her değeri sayfa referansı ve güven puanıyla doğrulayan uçtan uca bir veri çıkarma sistemi geliştirdim. Çekirdek düzeyinde bellek koruması (PR_SET_DUMPABLE=0), C++ ile derlenmiş çok modlu gömme (EmbeddingGemma-2), görsel LLM çıkarımı (Qwen3.5-4B), doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma çözücü uygulayarak; 370 belgelik ExtractBench testinde 50+ sayfalık belgelerde temel modelleri +44 F1 puanı geride bıraktım.",
+      "description": "Fatura, sözleşme, form ve tablolardan JSON şemasına uygun verileri sayfa referansı ve güven puanıyla çıkaran %100 yerel bir belge veri çıkarma sistemi geliştirdim; belgeleri diske yazmadan yalnızca bellekte (RAM) işleyerek tam veri gizliliği ve sıfır bulut API maliyeti sağladım. OCR gerektirmeyen Hibrit Görsel RAG mimarisini (EmbeddingGemma-2, BM25, Qwen3-Reranker) kuantize çok modlu LLM (Qwen3.5-4B) ve KV-önbellek optimizasyonuyla birleştirerek 8 GB VRAM içinde çalışacak şekilde optimize ettim. 370 belge ve 13.500+ alandan oluşan ExtractBench testinde %81.0 sayfa kaynak doğruluğu ve 50+ sayfalık belgelerde %71.4 F1 skoru ile temel modelleri +44 puan geride bıraktım.",
       "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
       "slug": "docneedle",
       "links": [
