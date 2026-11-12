@@ -3,7 +3,7 @@
         "title": "DocNeedle — Schema-Guided Local Document Information Extraction Engine",
         "date": "November 2026",
         "imageUrl": "images/portfolio-images/docneedle.png",
-        "description": "A privacy-first local document data extraction engine that extracts structured key-value pairs from PDFs, scanned forms, and spreadsheets strictly governed by a JSON schema. Designed for automated information extraction rather than conversational chat, it features auditable page citations, statistical confidence scores, zero-disk volatile RAM guarantees, native C++ embeddings, direct PDF AcroForm parsing, and spatial collision resolution—benchmarked across 370 documents in ExtractBench.",
+        "description": "A privacy-first local document data extraction engine that extracts structured key-value pairs from PDFs, scanned forms, and spreadsheets strictly governed by a JSON schema. Features auditable page citations, statistical confidence scores, zero-disk volatile RAM guarantees, native C++ embeddings, direct PDF AcroForm parsing, and spatial collision resolution—benchmarked across 370 documents in ExtractBench.",
         "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
         "detailFile": "portfolio/docneedle.md",
         "slug": "docneedle",

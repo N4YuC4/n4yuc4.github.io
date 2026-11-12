@@ -77,7 +77,7 @@
   "projects": [
     {
       "title": "DocNeedle — Schema-Guided Local Document Information Extraction Engine",
-      "description": "Engineered an in-process document data extraction engine that extracts structured key-value pairs from enterprise documents strictly governed by JSON schemas. Moving beyond conversational chatbots, the system delivers structured JSON payloads directly with verified page citations and confidence scores—enforcing zero-disk volatile RAM guarantees (kernel PR_SET_DUMPABLE=0), native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), PDF AcroForm stream parsing, and spatial collision resolution. Evaluated on ExtractBench (370 docs, 13k+ fields), sustaining 71.4% F1 on long (>50p) documents.",
+      "description": "Engineered an in-process document data extraction engine that extracts structured key-value pairs from enterprise documents strictly governed by JSON schemas. Directly produces structured JSON payloads with verified page citations and confidence scores—enforcing zero-disk volatile RAM guarantees (kernel PR_SET_DUMPABLE=0), native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), PDF AcroForm stream parsing, and spatial collision resolution. Evaluated on ExtractBench (370 docs, 13k+ fields), sustaining 71.4% F1 on long (>50p) documents.",
       "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
       "slug": "docneedle",
       "links": [
