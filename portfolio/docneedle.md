@@ -154,9 +154,8 @@ Handling documents spanning dozens of pages requires strict attention and memory
 * **Hybrid RRF & Cross-Encoder Reranking:** EmbeddingGemma-2 dense vectors and Okapi BM25 sparse keyword signals are fused via Reciprocal Rank Fusion (with k = 60 constant) alongside document-diversity constraints to prevent single-page bias. High-precision extraction requests can route candidate chunks through **Qwen3-Reranker-0.6B** for cross-attention logit scoring.
 * **Speculative Decoding (Prompt Lookup Decoding):** Supports in-process `LlamaPromptLookupDecoding` (`max_ngram_size=2`) to accelerate throughput during schema-constrained JSON extraction by matching repetitive key patterns.
 
-### 5. Unified Port 7860, Production Deployment & Asynchronous Job Pipeline
+### 5. Production Deployment & Asynchronous Job Pipeline
 
-* **Unified Service on Port 7860:** The Gradio 6 web interface and FastAPI REST endpoints are co-hosted on a single port (`7860`).
 * **Hardware-Profile Container Architecture:** `docker-compose.yml` supports unified hardware profiles: `docker compose --profile gpu up -d` for NVIDIA GPU acceleration, and `docker compose --profile cpu up -d` for headless development and CI verification.
 * **Hugging Face Spaces (ZeroGPU):** Deploys to Hugging Face Spaces with dynamic NVIDIA A100/A10G GPU slicing via a single command: `bash scripts/deploy_space.sh`.
 * **Dynamic Schema & Real-Time Telemetry:** Heavy multi-document batch jobs (`POST /v1/jobs`) stream progress, execution stages, and field-level extractions live over Server-Sent Events (`GET /v1/jobs/{id}/events`). Users can configure extraction schemas visually with field-type pickers or use the raw JSON schema editor with recursive `$ref` pointer resolution up to 20 levels deep.

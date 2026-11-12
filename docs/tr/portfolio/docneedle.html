@@ -374,9 +374,8 @@
 <li><strong>RRF Hibrit Arama &amp; Reranker:</strong> EmbeddingGemma-2 yoğun vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesi gözetilerek (k = 60 sabitiyle) Reciprocal Rank Fusion üzerinden harmanlanır. Kritik sorgularda aday parçalar <strong>Qwen3-Reranker-0.6B</strong> cross-encoder modeline aktarılarak logit puan farkıyla elenir.</li>
 <li><strong>Spekülatif Kod Çözme (Prompt Lookup Decoding):</strong> Şema tabanlı JSON üretiminde hız kazanmak için n-gram eşleşmelerine dayalı dahili <code>LlamaPromptLookupDecoding</code> (<code>max_ngram_size=2</code>) mekanizması desteklenir.</li>
 </ul>
-<h3>5. Birleşik Port 7860, Dağıtım ve Asenkron İş Akışı</h3>
+<h3>5. Dağıtım ve Asenkron İş Akışı</h3>
 <ul>
-<li><strong>Tek Portta Birleşik Hizmet (7860):</strong> Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port (<code>7860</code>) üzerinden birlikte sunulur.</li>
 <li><strong>Konteyner Donanım Profilleri:</strong> <code>docker-compose.yml</code> modern profil mimarisini destekler: NVIDIA GPU hızlandırmalı üretim için <code>docker compose --profile gpu up -d</code>, geliştirme ve CI doğrulaması için <code>docker compose --profile cpu up -d</code>.</li>
 <li><strong>Hugging Face Spaces (ZeroGPU):</strong> <code>bash scripts/deploy_space.sh</code> komutu ile dinamik NVIDIA A100/A10G GPU dilimlerine sahip Hugging Face Spaces ortamına tek adımda kurulur.</li>
 <li><strong>Dinamik Şema ve Canlı SSE Akışı:</strong> Çok belgeli toplu işler (<code>POST /v1/jobs</code>), Server-Sent Events (<code>GET /v1/jobs/{id}/events</code>) üzerinden anlık ilerleme yüzdesiyle canlı takip edilir; form alanları arayüzden seçilebilir veya iç içe <code>$ref</code> işaretçilerini çözebilen çift yönlü senkronize ham JSON şema editörü kullanılabilir.</li>
@@ -596,7 +595,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794507176"></script>
+    <script type="module" src="/static/js/main.js?v=1794508423"></script>
 
 </body>
 

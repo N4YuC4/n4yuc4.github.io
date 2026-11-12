@@ -154,9 +154,8 @@ Geniş belge koleksiyonlarında modelin 32.768 token bağlamında belleği tüke
 * **RRF Hibrit Arama & Reranker:** EmbeddingGemma-2 yoğun vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesi gözetilerek (k = 60 sabitiyle) Reciprocal Rank Fusion üzerinden harmanlanır. Kritik sorgularda aday parçalar **Qwen3-Reranker-0.6B** cross-encoder modeline aktarılarak logit puan farkıyla elenir.
 * **Spekülatif Kod Çözme (Prompt Lookup Decoding):** Şema tabanlı JSON üretiminde hız kazanmak için n-gram eşleşmelerine dayalı dahili `LlamaPromptLookupDecoding` (`max_ngram_size=2`) mekanizması desteklenir.
 
-### 5. Birleşik Port 7860, Dağıtım ve Asenkron İş Akışı
+### 5. Dağıtım ve Asenkron İş Akışı
 
-* **Tek Portta Birleşik Hizmet (7860):** Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port (`7860`) üzerinden birlikte sunulur.
 * **Konteyner Donanım Profilleri:** `docker-compose.yml` modern profil mimarisini destekler: NVIDIA GPU hızlandırmalı üretim için `docker compose --profile gpu up -d`, geliştirme ve CI doğrulaması için `docker compose --profile cpu up -d`.
 * **Hugging Face Spaces (ZeroGPU):** `bash scripts/deploy_space.sh` komutu ile dinamik NVIDIA A100/A10G GPU dilimlerine sahip Hugging Face Spaces ortamına tek adımda kurulur.
 * **Dinamik Şema ve Canlı SSE Akışı:** Çok belgeli toplu işler (`POST /v1/jobs`), Server-Sent Events (`GET /v1/jobs/{id}/events`) üzerinden anlık ilerleme yüzdesiyle canlı takip edilir; form alanları arayüzden seçilebilir veya iç içe `$ref` işaretçilerini çözebilen çift yönlü senkronize ham JSON şema editörü kullanılabilir.
