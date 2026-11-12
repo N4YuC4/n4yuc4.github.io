@@ -1,6 +1,6 @@
 # Zettelkasten Yapay Zeka Notları
 
-**Zettelkasten** metodolojisini masaüstüne taşıyan, **Python 3.13** ve Flutter tabanlı modern masaüstü UI framework'ü **Flet** ile geliştirilmiş gizlilik odaklı bir kişisel bilgi yönetimi sistemi. İlk olarak **Pupilica Yapay Zeka Hackathonu'nda İlk 10 Finalist** arasına girerek ödüllendirilen proje; daha sonra modüler mimariye, iki kademeli vektör RAG altyapısına, yüksek performanslı yerel çıkarım yeteneklerine ve zengin bir görselleştirme ortamına sahip tam teşekküllü bir masaüstü uygulamasına dönüştürülmüştür.
+**Zettelkasten** metodolojisini masaüstüne taşıyan, **Python 3.13** ve Flutter tabanlı modern masaüstü UI framework'ü **Flet** ile geliştirilmiş bir kişisel bilgi yönetimi sistemi. İlk olarak **Pupilica Yapay Zeka Hackathonu'nda İlk 10 Finalist** arasına girerek ödüllendirilen proje; daha sonra modüler mimariye, iki kademeli vektör RAG altyapısına, yüksek performanslı yerel çıkarım yeteneklerine ve zengin bir görselleştirme ortamına sahip tam teşekküllü bir masaüstü uygulamasına dönüştürülmüştür.
 
 Uygulama, Google Gemini bulut API'sini ve donanım hızlandırmalı Vulkan GPU desteğiyle çalışan %100 çevrimdışı yerel GGUF modellerini bünyesinde birleştiren bir **Çift Yapay Zeka Motoru (Dual AI Engine)**, CPU üzerinde çalışan bağımsız gömme ve yeniden sıralama modelleriyle güçlendirilmiş **İki Kademeli Bellek-İçi Vektör RAG Havuzu**, etkileşimli kanvas zihin haritası, LaTeX matematik destekli canlı Markdown editörü ve çift yönlü [[WikiLink]] altyapısı sunar.
 
@@ -12,7 +12,7 @@ Uygulama, Google Gemini bulut API'sini ve donanım hızlandırmalı Vulkan GPU d
 Zettelkasten AI Notes, yoğun PDF belgelerini işleyerek anlamlı atomik fikirler çıkarır, belge parçaları arasındaki kavram tekrarlarını engeller ve aralarında anlamsal bağlantılar kurar:
 
 * **Bulut Yapay Zeka (Google Gemini API):** Güncel resmi `google-genai` SDK'sı (v2.22.0) ve özel sistem yönlendirmeleriyle (system prompt) yönetilen hızlı, yüksek verimli çıkarım katmanı.
-* **Çevrimdışı Yerel Yapay Zeka (Vulkan GPU ile GGUF):** `llama-cpp-python` kütüphanesi ve platform bağımsız **Vulkan GPU hızlandırması** (NVIDIA, AMD, Intel ve Apple Silicon uyumlu) sayesinde internet bağlantısı gerektirmeyen, tamamen gizlilik odaklı yerel LLM çıkarımı.
+* **Çevrimdışı Yerel Yapay Zeka (Vulkan GPU ile GGUF):** `llama-cpp-python` kütüphanesi ve platform bağımsız **Vulkan GPU hızlandırması** (NVIDIA, AMD, Intel ve Apple Silicon uyumlu) sayesinde internet bağlantısı gerektirmeyen yerel LLM çıkarımı.
 * **İki Kademeli Bellek-İçi RAG Havuzu (`note_rag_pool.py`):** Çok parçalı PDF ve belge işleme sırasında parçalar arası kavram yinelemelerini ortadan kaldıran oturum tabanlı RAG havuzu:
   * **Kademe 1 (Global Konsept Haritası):** Birikmiş tüm notların kanonik ID'leri, başlıkları ve 1 cümlelik temel mekanizma özetleriyle kuşbakışı bir kavram dizini oluşturup üretim istemlerine enjekte eder.
   * **Kademe 2 (Odak Not Getirimi):** Bi-encoder vektör benzerliği ile cross-encoder yeniden sıralama puanlamasını birleştirerek bütçelenmiş odak notları isteme dinamik olarak ekler.
@@ -75,11 +75,11 @@ Kullanıcıların harici sunucular kurmasına ya da terminal komutlarıyla uğra
 * **Sürüklenebilir Ayırıcılar:** Bölme genişliklerini fareyle serbestçe ayarlama imkanı.
 * **Ayrılmış Ayarlar Deposu (`db/settings.db`):** İzole bağlantılarla yerel tercihleri ve API anahtarlarını yöneten, özel sistem yönlendirmeleri, canlı donanım tanıları ve fabrika ayarlarına sıfırlama desteği sunan 4 sekmeli (Genel, Yapay Zeka, Depolama, Sistem) modern ayar paneli.
 
-### 10. Güçlü SQLite Kalıcılık Katmanı ve Gizlilik
+### 10. Güçlü SQLite Kalıcılık Katmanı
 * **Write-Ahead Logging (WAL):** `db/notes.db` ve `db/settings.db` veritabanlarında eşzamanlı okuma ve yazma işlemlerinde performansı artıran WAL modu yapılandırması.
 * **İş Parçacığı Güvenliği:** Thread-local bağlantılar sayesinde iş parçacıkları arasında güvenli veritabanı iletişimi ve basamaklı yabancı anahtar bütünlüğü (`PRAGMA foreign_keys = ON`).
 * **Özel Veritabanı Yolu Desteği (`CUSTOM_DB_PATH`):** Kullanıcının veritabanı dosyalarını dilediği dizinde konumlandırabilmesi.
-* **Sıfır Veri Sızıntısı:** Tüm veritabanları ve günlük kayıtları yerel tutulur ve Git sürüm kontrolünden tamamen hariç tutulur.
+* **Yerel Veri İzolasyonu:** Tüm veritabanları ve günlük kayıtları yerel tutulur ve Git sürüm kontrolünden tamamen hariç tutulur.
 
 ### 11. Kapsamlı Otomasyon Test Paketi ve Mühendislik Disiplini
 * **Genişletilmiş Test Kapsamı:** Domain modelleri, UI bileşenleri, yapay zeka ayrıştırıcıları, RAG vektör havuzu, cross-encoder yeniden sıralayıcı ve SQLite işlemlerini kapsayan 23 dosyada **291 başarılı otomatik birim test**.

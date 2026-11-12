@@ -7,7 +7,7 @@
     <title>Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist) - N4YuC4</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="A privacy-first desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
+    <meta name="description" content="A desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
     <meta name="keywords" content="software portfolio, projects, github, web development, mobile development, open source">
     <meta name="author" content="Nazmi Yücel Çan">
     <!-- Canonical and Multilingual SEO -->
@@ -49,7 +49,7 @@
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist) - N4YuC4">
-    <meta property="og:description" content="A privacy-first desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
+    <meta property="og:description" content="A desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
     <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
     <meta property="og:url" content="https://n4yuc4.github.io/portfolio/zettelkasten-ai-notes.html">
     <meta property="og:type" content="website">
@@ -59,7 +59,7 @@
     <meta name="twitter:site" content="@N4YuC4">
     <meta name="twitter:creator" content="@N4YuC4">
     <meta name="twitter:title" content="Zettelkasten AI Notes (Pupilica AI Hackathon — Top 10 Finalist) - N4YuC4">
-    <meta name="twitter:description" content="A privacy-first desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
+    <meta name="twitter:description" content="A desktop knowledge management application implementing the Zettelkasten method using Python and Flet. Features a Dual AI Engine (Google Gemini and Vulkan-accelerated local GGUF models) with a Two-Tier In-Memory Vector RAG Pool, CPU cross-encoder reranking (Qwen3), and local embeddings (Harrier-0.6B) to synthesize atomic notes without duplicate concepts. Includes an interactive canvas mind map, live Markdown editor with LaTeX, smart WikiLinks, and SQLite WAL persistence.">
     <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
@@ -232,7 +232,7 @@
 
     <div class="prose prose-lg prose-invert mx-auto">
         <h1>Zettelkasten AI Notes</h1>
-<p>A desktop knowledge management system implementing the <strong>Zettelkasten</strong> methodology, built with <strong>Python 3.13</strong> and the <strong>Flet</strong> UI framework (Flutter-backed desktop runtime). Originally recognized as a <strong>Top 10 Finalist at the Pupilica AI Hackathon</strong>, the project has evolved into a privacy-first, modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.</p>
+<p>A desktop knowledge management system implementing the <strong>Zettelkasten</strong> methodology, built with <strong>Python 3.13</strong> and the <strong>Flet</strong> UI framework (Flutter-backed desktop runtime). Originally recognized as a <strong>Top 10 Finalist at the Pupilica AI Hackathon</strong>, the project has evolved into a modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.</p>
 <p>It features a <strong>Dual AI Engine</strong> offering both cloud-based analysis via Google Gemini and 100% offline local inference using GGUF models accelerated by Vulkan GPU compute, a <strong>Two-Tier In-Memory Vector RAG Pool</strong> with CPU-isolated cross-encoder reranking, an interactive canvas mind map, an advanced live Markdown editor, and a smart bidirectional [[WikiLink]] system.</p>
 <hr />
 <h2>Architecture &amp; Core Capabilities</h2>
@@ -240,7 +240,7 @@
 <p>The core engine of Zettelkasten AI Notes ingests dense PDF documents, extracts meaningful atomic insights, and establishes semantic relationships without concept duplication across document chunks:</p>
 <ul>
 <li><strong>Cloud AI (Google Gemini API):</strong> High-throughput extraction utilizing the official <code>google-genai</code> SDK (v2.22.0) with custom system prompt governance.</li>
-<li><strong>Offline Local AI (GGUF via Vulkan GPU):</strong> Privacy-first, local LLM inference powered by <code>llama-cpp-python</code> with cross-vendor <strong>Vulkan GPU acceleration</strong> (compatible with NVIDIA, AMD, Intel, and Apple Silicon).</li>
+<li><strong>Offline Local AI (GGUF via Vulkan GPU):</strong> Local LLM inference powered by <code>llama-cpp-python</code> with cross-vendor <strong>Vulkan GPU acceleration</strong> (compatible with NVIDIA, AMD, Intel, and Apple Silicon).</li>
 <li><strong>Two-Tier Stateful RAG Pool (<code>note_rag_pool.py</code>):</strong> Session-scoped RAG pool eliminating cross-chunk concept duplication during multi-chunk PDF and document ingestion:</li>
 <li><strong>Tier 1 (Global Concept Map):</strong> Bird's-eye view of all accumulated notes with canonical IDs, titles, and 1-sentence core mechanism summaries injected into generation prompts.</li>
 <li><strong>Tier 2 (Focal Note Retrieval):</strong> Dynamically budgeted focal note injection pairing bi-encoder vector similarity with cross-encoder reranking.</li>
@@ -308,12 +308,12 @@
 <li><strong>Draggable Splitters:</strong> Adjust pane widths smoothly with draggable splitter handles.</li>
 <li><strong>Dedicated Settings Repository (<code>db/settings.db</code>):</strong> 4-tab settings UI (General, AI, Storage, System) managing preferences and API secrets locally with isolated connections, custom system prompts, live hardware diagnostics, and factory reset.</li>
 </ul>
-<h3>10. Robust SQLite Persistence &amp; Privacy</h3>
+<h3>10. Robust SQLite Persistence</h3>
 <ul>
 <li><strong>Write-Ahead Logging (WAL):</strong> Local SQLite storage (<code>db/notes.db</code> and <code>db/settings.db</code>) configured with WAL mode for rapid, non-blocking concurrent reads and writes.</li>
 <li><strong>Thread-Local Safety:</strong> Managed via thread-local connections to guarantee thread safety across workers with cascading foreign keys (<code>PRAGMA foreign_keys = ON</code>).</li>
 <li><strong>Custom Database Paths (<code>CUSTOM_DB_PATH</code>):</strong> Full flexibility for users to specify custom database directories.</li>
-<li><strong>Zero Data Leakage:</strong> All databases and logs reside locally and are strictly excluded from version control.</li>
+<li><strong>Local Data Isolation:</strong> All databases and logs reside locally and are strictly excluded from version control.</li>
 </ul>
 <h3>11. Comprehensive Testing &amp; Engineering Rigor</h3>
 <ul>
@@ -349,7 +349,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794494273"></script>
+    <script type="module" src="/static/js/main.js?v=1794501951"></script>
 
 </body>
 

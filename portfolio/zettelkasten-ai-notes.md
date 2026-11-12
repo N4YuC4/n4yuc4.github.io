@@ -1,6 +1,6 @@
 # Zettelkasten AI Notes
 
-A desktop knowledge management system implementing the **Zettelkasten** methodology, built with **Python 3.13** and the **Flet** UI framework (Flutter-backed desktop runtime). Originally recognized as a **Top 10 Finalist at the Pupilica AI Hackathon**, the project has evolved into a privacy-first, modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.
+A desktop knowledge management system implementing the **Zettelkasten** methodology, built with **Python 3.13** and the **Flet** UI framework (Flutter-backed desktop runtime). Originally recognized as a **Top 10 Finalist at the Pupilica AI Hackathon**, the project has evolved into a modular desktop environment that transforms unstructured documents into an interconnected web of atomic notes.
 
 It features a **Dual AI Engine** offering both cloud-based analysis via Google Gemini and 100% offline local inference using GGUF models accelerated by Vulkan GPU compute, a **Two-Tier In-Memory Vector RAG Pool** with CPU-isolated cross-encoder reranking, an interactive canvas mind map, an advanced live Markdown editor, and a smart bidirectional [[WikiLink]] system.
 
@@ -12,7 +12,7 @@ It features a **Dual AI Engine** offering both cloud-based analysis via Google G
 The core engine of Zettelkasten AI Notes ingests dense PDF documents, extracts meaningful atomic insights, and establishes semantic relationships without concept duplication across document chunks:
 
 * **Cloud AI (Google Gemini API):** High-throughput extraction utilizing the official `google-genai` SDK (v2.22.0) with custom system prompt governance.
-* **Offline Local AI (GGUF via Vulkan GPU):** Privacy-first, local LLM inference powered by `llama-cpp-python` with cross-vendor **Vulkan GPU acceleration** (compatible with NVIDIA, AMD, Intel, and Apple Silicon).
+* **Offline Local AI (GGUF via Vulkan GPU):** Local LLM inference powered by `llama-cpp-python` with cross-vendor **Vulkan GPU acceleration** (compatible with NVIDIA, AMD, Intel, and Apple Silicon).
 * **Two-Tier Stateful RAG Pool (`note_rag_pool.py`):** Session-scoped RAG pool eliminating cross-chunk concept duplication during multi-chunk PDF and document ingestion:
   * **Tier 1 (Global Concept Map):** Bird's-eye view of all accumulated notes with canonical IDs, titles, and 1-sentence core mechanism summaries injected into generation prompts.
   * **Tier 2 (Focal Note Retrieval):** Dynamically budgeted focal note injection pairing bi-encoder vector similarity with cross-encoder reranking.
@@ -75,11 +75,11 @@ Enables users to discover, download, and configure local models without external
 * **Draggable Splitters:** Adjust pane widths smoothly with draggable splitter handles.
 * **Dedicated Settings Repository (`db/settings.db`):** 4-tab settings UI (General, AI, Storage, System) managing preferences and API secrets locally with isolated connections, custom system prompts, live hardware diagnostics, and factory reset.
 
-### 10. Robust SQLite Persistence & Privacy
+### 10. Robust SQLite Persistence
 * **Write-Ahead Logging (WAL):** Local SQLite storage (`db/notes.db` and `db/settings.db`) configured with WAL mode for rapid, non-blocking concurrent reads and writes.
 * **Thread-Local Safety:** Managed via thread-local connections to guarantee thread safety across workers with cascading foreign keys (`PRAGMA foreign_keys = ON`).
 * **Custom Database Paths (`CUSTOM_DB_PATH`):** Full flexibility for users to specify custom database directories.
-* **Zero Data Leakage:** All databases and logs reside locally and are strictly excluded from version control.
+* **Local Data Isolation:** All databases and logs reside locally and are strictly excluded from version control.
 
 ### 11. Comprehensive Testing & Engineering Rigor
 * **Extensive Automated Test Suite:** **291 passing automated unit tests** across 23 test suites covering domain models, UI view components, AI parsers, RAG vector retrieval, cross-encoder reranking, and SQLite transactions.
