@@ -1,6 +1,6 @@
 # DocNeedle: Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG
 
-**DocNeedle**, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri; doğrulanabilir sayfa referansları, kaynak alıntıları ve güven skorlarıyla birlikte çıkaran açık kaynaklı bir doküman zekâsı platformudur.
+**DocNeedle**, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri; doğrulanabilir sayfa referansları, kaynak alıntıları ve güven skorlarıyla birlikte çıkaran yapay zekâ destekli bir belge işleme ve veri çıkarma aracıdır.
 
 Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) ve görsel RAG yaklaşımıyla %100 yerel ortamda çalışır.
 
