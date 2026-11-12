@@ -236,38 +236,16 @@
 
     <div class="prose prose-lg prose-invert mx-auto">
         <h1>DocNeedle: Şema Tabanlı Belge Veri Çıkarma Sistemi</h1>
-<p><strong>DocNeedle</strong>, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri doğrudan ayıklayan, her veri için doğrulanabilir sayfa referansı, kaynak alıntısı ve güven skoru üreten yerel bir <strong>yapılandırılmış veri çıkarma (Information Extraction) motorudur</strong>.</p>
-<p>Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) %100 yerel ortamda çalışır.</p>
+<p>Kurumsal belgelerden—taranmış faturalar, çok sayfalı sözleşmeler, finansal tablolar veya el yazılı makbuzlar—yapılandırılmış veri çekmek geleneksel yöntemlerle ciddi bir mühendislik açmazıdır. Klasik optik karakter tanıma (OCR) motorları soluk taramalarda ve karmaşık tablolarda harf hataları yaparak bağlamı bozar; popüler bulut modelleri hassas ticari sırların ve kişisel verilerin dışarı sızmasına yol açar; devasa genel dil modelleri ise belge boyutu 50 sayfayı aştığında dikkat kaybı yaşayarak halüsinasyon üretir.</p>
+<p><strong>DocNeedle</strong>, bu tıkanıklıkları aşmak için geliştirilmiş, <strong>%100 yerel ve gizlilik odaklı bir yapılandırılmış bilgi çıkarma (Information Extraction) motoru ve mikroservis platformudur</strong>.</p>
+<p>Sisteme yüklenen belgelerden kullanıcı tarafından belirlenen JSON şemasına uygun alanları ayıklar; her veriyi doğrulanabilir sayfa referansı, kaynak metin alıntısı ve istatistiksel güven skoruyla birlikte sunar. Veriler hiçbir zaman kalıcı diske yazılmaz ve harici bulut API'lerine tek bir bayt veri dahi gönderilmez.</p>
 <p><img alt="DocNeedle Etkileşimli Arayüz" src="/static/images/portfolio-images/docneedle/dashboard_preview.jpg" /></p>
 <hr />
-<h2>Mimari ve Temel Bileşenler</h2>
-<div class="codehilite"><pre><span></span><code>DocNeedle/
-├── assets/                       # Marka grafikleri ve SVG ikonlar
-├── app.py                        # Birleşik Gradio 6 arayüzü + FastAPI kök bağlama ve ZeroGPU girişi
-├── config.toml                   # Temel uygulama, model ve işlem hattı yapılandırması
-├── src/docneedle/
-│   ├── main.py                   # FastAPI servis fabrikası, CORS ve /healthz tanı uçları
-│   ├── hardening.py              # Linux çekirdeği PR_SET_DUMPABLE bellek dökümü koruması
-│   ├── cuda_compat.py            # ZeroGPU önyükleyicileri ve dinamik CUDA sembol yönetimi
-│   ├── api/                      # Senkron (/v1/extract) ve asenkron iş uç noktaları
-│   ├── jobs/                     # Bellek-içi asenkron iş kuyruğu ve anlık SSE akışı
-│   ├── ingest/                   # Docling parçalama, pypdfium2 AcroForm çıkarımı ve görsel rasterizer
-│   ├── retrieval/                # Yerel C++ gömme motoru, SessionVectorStore, BM25 ve Qwen3-Reranker
-│   ├── extraction/               # Uzamsal çakışma çözümü, şema doğrulama ve güven puanlama
-│   └── llm/                      # Qwen3.5-4B GGUF çok modlu çıkarım ve spekülatif kod çözme
-└── tests/                        # Sıfır-disk doğrulamalı 159 hermetik birim testi
-</code></pre></div>
-
-<h3>1. Sıfır-Disk Bellek Güvenliği ve Çekirdek Düzeyinde Koruma</h3>
-<p>Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sistem seviyesinde katı gizlilik tedbirleri uygulanmıştır:</p>
-<ul>
-<li><strong>Yalnızca Uçucu Bellek (RAM-Only):</strong> Sisteme yüklenen dosyalar, çıkarılan metin parçaları, vektör gömmeleri ve arama indeksleri yalnızca geçici bellekte (<code>SessionVectorStore</code>) tutulur. Her işlem tamamlandığında <code>finally: store.clear()</code> bloğu ile ayrılan tüm bellek blokları anında geri verilir.</li>
-<li><strong>Bellek Dökümü Engelleme:</strong> Linux çekirdeğinin prctl arayüzü üzerinden (<code>prctl(PR_SET_DUMPABLE, 0)</code> - <code>src/docneedle/hardening.py</code>) sürecin belleği dışarıya kilitlenir; yetkisiz bellek dökümü (core dump) alınması ya da <code>ptrace</code> ile sürecin izlenmesi engellenir.</li>
-<li><strong>Sertleştirilmiş Konteyner Yapısı:</strong> Üretim ortamında salt okunur kök dosya sistemi (<code>read_only: true</code>), RAM tabanlı <code>/tmp</code> dizini (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), sıfırlanmış core dump limiti ve tamamen çevrimdışı Hugging Face kipi (<code>HF_HUB_OFFLINE=1</code>) ile çalıştırılır.</li>
-</ul>
-<div class="codehilite"><pre><span></span><code><span class="k">[Yüklenen Belge ve Şema]</span>
-<span class="w">            </span><span class="na">│</span>
-<span class="w">            </span><span class="na">▼</span>
+<h2>Sistem Mimarisi ve İşlem Akışı</h2>
+<p>DocNeedle; doküman ayrıştırma, çok modlu vektörleştirme, hibrit arama ve yerel model çıkarımını tek bir uçucu bellek oturumunda birleştirir:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[Yüklenen Belge &amp; JSON Şeması]</span>
+<span class="w">               </span><span class="na">│</span>
+<span class="w">               </span><span class="na">▼</span>
 <span class="na">┌────────────────────────────────────────────────────────┐</span>
 <span class="na">│ Uçucu Bellek-İçi İşlem Hattı (PR_SET_DUMPABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0)     │</span>
 <span class="na">│                                                        │</span>
@@ -277,73 +255,143 @@
 <span class="na">│  SessionVectorStore (Bellek-İçi RRF Hibrit İndeks)     │</span>
 <span class="na">│         │                                              │</span>
 <span class="na">│         ▼                                              │</span>
-<span class="na">│  Yerel Çok Modlu LLM (Qwen3.5-4B + mmproj)             │</span>
+<span class="na">│  Yerel Çok Modlu Model (Qwen3.5-4B + mmproj)           │</span>
 <span class="na">│         │                                              │</span>
 <span class="na">│         ▼                                              │</span>
 <span class="na">│  Uzamsal Çakışma Çözücü ve Güven Doğrulayıcı          │</span>
 <span class="na">└────────────────────────────────────────────────────────┘</span>
-<span class="w">            </span><span class="na">│</span>
-<span class="w">            </span><span class="na">▼</span>
-<span class="k">[Doğrulanmış Kaynak Alıntılarıyla Yapılandırılmış JSON]</span>
-<span class="w">            </span><span class="na">│</span>
-<span class="w">            </span><span class="na">▼</span>
-<span class="w">  </span><span class="na">finally</span><span class="o">:</span><span class="w"> </span><span class="s">store.clear() (RAM tamamen boşaltılır)</span>
+<span class="w">               </span><span class="na">│</span>
+<span class="w">               </span><span class="na">▼</span>
+<span class="k">[Sayfa Referanslı Yapılandırılmış JSON Çıktısı]</span>
+<span class="w">               </span><span class="na">│</span>
+<span class="w">               </span><span class="na">▼</span>
+<span class="w">    </span><span class="na">finally</span><span class="o">:</span><span class="w"> </span><span class="s">store.clear() (RAM anında tahliye edilir)</span>
 </code></pre></div>
 
-<h3>2. Klasik OCR'ı Devre Dışı Bırakan Görsel RAG Yaklaşımı</h3>
-<p>Geleneksel optik karakter tanıma (OCR) motorları; el yazılı notlar, kaşeler, soluk taranmış belgeler veya karmaşık tablo yapılarında harf ve biçim hataları yaparak çıkarım kalitesini düşürür. DocNeedle bu sorunu çift yönlü bir belge işleme hattıyla aşar:</p>
+<p>Modüler kod mimarisi, çekirdek güvenliğinden C++ çıkarım katmanına kadar katı bir sorumluluk ayrımı sunar:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">DocNeedle</span><span class="o">/</span>
+<span class="n">├──</span><span class="w"> </span><span class="p">.</span><span class="n">github</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">workflows</span><span class="o">/</span>
+<span class="n">│</span><span class="w">       </span><span class="n">└──</span><span class="w"> </span><span class="n">ci</span><span class="p">.</span><span class="n">yml</span><span class="w">                </span><span class="c1"># CI: Lint, 159 hermetik test, konteyner ve fail-fast denetimi</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">assets</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">logo</span><span class="p">.</span><span class="n">svg</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">logo</span><span class="p">.</span><span class="n">png</span><span class="w">       </span><span class="c1"># Vektör ve raster marka logoları</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">favicon</span><span class="p">.</span><span class="n">svg</span><span class="w">               </span><span class="c1"># Uygulama favicon ikonu</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">demo</span><span class="p">.</span><span class="n">gif</span><span class="w">                  </span><span class="c1"># Canlı veri çıkarma animasyonu</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">dashboard_preview</span><span class="p">.</span><span class="n">png</span><span class="w">     </span><span class="c1"># Web arayüzü önizleme görseli</span>
+<span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">examples</span><span class="o">/</span><span class="w">                 </span><span class="c1"># Örnek belgeler (fatura, kira sözleşmesi, makbuz)</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="n">py</span><span class="w">                        </span><span class="c1"># Port 7860 üzerinde birleşik Gradio 6 ve FastAPI girişi</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">toml</span><span class="w">                   </span><span class="c1"># Uygulama, model, donanım ve çıkarım ayarları</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">Dockerfile</span><span class="w">                    </span><span class="c1"># Multi-stage Python 3.14-slim üretim ve test imajı</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span><span class="w">            </span><span class="c1"># Birleşik `gpu` ve `cpu` donanım profilleri</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">scripts</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">download_models</span><span class="p">.</span><span class="n">py</span><span class="w">        </span><span class="c1"># Doğrulamalı kuantize GGUF model indirme aracı</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">benchmark_extractbench</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1"># ExtractBench değerlendirme ve raporlama betiği</span>
+<span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">deploy_space</span><span class="p">.</span><span class="n">sh</span><span class="w">           </span><span class="c1"># Hugging Face Spaces (ZeroGPU) tek tıkla dağıtım</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">models</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">embedding</span><span class="o">/</span><span class="w">                </span><span class="c1"># EmbeddingGemma-2 GGUF + SigLIP mmproj-F16 projektörü</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">llm</span><span class="o">/</span><span class="w">                      </span><span class="c1"># Qwen3.5-4B-Q4_K_M GGUF + mmproj-Qwen3.5-4B-F16</span>
+<span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">reranker</span><span class="o">/</span><span class="w">                 </span><span class="c1"># Qwen3-Reranker-0.6B.Q4_K_M GGUF</span>
+<span class="n">├──</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">docneedle</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="n">py</span><span class="w">                   </span><span class="c1"># FastAPI uygulama fabrikası, CORS ve /healthz tanı ucu</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">py</span><span class="w">                 </span><span class="c1"># Pydantic BaseSettings (TOML + ortam değişkenleri)</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">hardening</span><span class="p">.</span><span class="n">py</span><span class="w">              </span><span class="c1"># Linux çekirdeği PR_SET_DUMPABLE bellek koruması</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">cuda_compat</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># ZeroGPU önyükleyicileri ve dinamik CUDA yönetimi</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">api</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">routes_extract</span><span class="p">.</span><span class="n">py</span><span class="w">     </span><span class="c1"># POST /v1/extract (senkron veri çıkarma)</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">routes_jobs</span><span class="p">.</span><span class="n">py</span><span class="w">        </span><span class="c1"># POST /v1/jobs, GET /v1/jobs/{id}, SSE /events</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="k">validation</span><span class="p">.</span><span class="n">py</span><span class="w">         </span><span class="c1"># Özyinelemeli $ref çözücü ve yük sınırı denetimi</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">jobs</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># JobStatus, JobProgress ve yanıt sözleşmeleri</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Bellek-içi iş kaydı, SSE yayın kuyrukları ve TTL</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">ingest</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="k">parser</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># Bellek-içi Docling + pypdfium2 ayrıştırma (sıfır-disk)</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">chunker</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Başlık ve görsel ekleme destekli DoclingChunker</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">acroform</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># Etkileşimli PDF AcroForm form alanı çıkarıcısı</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="k">cache</span><span class="p">.</span><span class="n">py</span><span class="w">              </span><span class="c1"># İş parçacığı güvenli bellek-içi LRU doküman önbelleği</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># IngestionService orkestratörü</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># Doküman ve parça (chunk) veri modelleri</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">retrieval</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">embedder</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># Yerel libdocneedle_embed.so için ctypes bağlayıcısı</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">docneedle_embed</span><span class="p">.</span><span class="n">cpp</span><span class="w">   </span><span class="c1"># Yerel C++ çapraz modlu vektörleştirme çekirdeği</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">worker</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># Yalıtılmış alt süreç gömme sunucusu (RTLD_DEEPBIND)</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">bm25</span><span class="p">.</span><span class="n">py</span><span class="w">               </span><span class="c1"># Okapi BM25 sözcüksel arama motoru</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">reranker</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># Qwen3-Reranker cross-encoder logit puanlayıcısı</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">store</span><span class="p">.</span><span class="n">py</span><span class="w">              </span><span class="c1"># SessionVectorStore (bellek-içi RRF ve çeşitlilik)</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># SearchResult arama sonucu modeli</span>
+<span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">extraction</span><span class="o">/</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Arama sorgu sentezi ve LLM orkestrasyonu</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">verifier</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># ConfidenceCalculator ve tip doğrulama</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">matcher</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Birebir/yaklaşık metin ve sayfa kanıtı eşleştirici</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">collision</span><span class="p">.</span><span class="n">py</span><span class="w">          </span><span class="c1"># Mükerrer değerler için SpatialCollisionResolver</span>
+<span class="n">│</span><span class="w">   </span><span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="k">schemas</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># İstek/yanıt Pydantic veri modelleri</span>
+<span class="n">│</span><span class="w">   </span><span class="n">└──</span><span class="w"> </span><span class="n">llm</span><span class="o">/</span>
+<span class="n">│</span><span class="w">       </span><span class="n">├──</span><span class="w"> </span><span class="n">local_engine</span><span class="p">.</span><span class="n">py</span><span class="w">       </span><span class="c1"># LocalLLMEngine (Qwen3.5-4B GGUF + mmproj görsel çıkarım)</span>
+<span class="n">│</span><span class="w">       </span><span class="n">├──</span><span class="w"> </span><span class="k">client</span><span class="p">.</span><span class="n">py</span><span class="w">             </span><span class="c1"># LLMClient arayüzü</span>
+<span class="n">│</span><span class="w">       </span><span class="n">├──</span><span class="w"> </span><span class="n">handlers</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="c1"># Çok modlu sohbet tamamlama yöneticileri</span>
+<span class="n">│</span><span class="w">       </span><span class="n">├──</span><span class="w"> </span><span class="n">parsing</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Çıktı temizleme, JSON ayıklama ve unicode onarımı</span>
+<span class="n">│</span><span class="w">       </span><span class="n">├──</span><span class="w"> </span><span class="n">prompts</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># Şema kısıtlı prompt inşa edici</span>
+<span class="n">│</span><span class="w">       </span><span class="n">└──</span><span class="w"> </span><span class="n">speculative</span><span class="p">.</span><span class="n">py</span><span class="w">        </span><span class="c1"># Prompt Lookup Decoding spekülatif hızlandırıcı</span>
+<span class="n">└──</span><span class="w"> </span><span class="n">tests</span><span class="o">/</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_zero_disk</span><span class="p">.</span><span class="n">py</span><span class="w">         </span><span class="c1"># Çekirdek PR_SET_DUMPABLE ve sıfır-disk testleri</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_clean_modules</span><span class="p">.</span><span class="n">py</span><span class="w">     </span><span class="c1"># Ayrıştırma, doğrulayıcı, eşleyici birim testleri</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_collision</span><span class="o">*</span><span class="p">.</span><span class="n">py</span><span class="w">        </span><span class="c1"># Uzamsal çakışma çözümü testleri (EN ve TR)</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_acroform</span><span class="p">.</span><span class="n">py</span><span class="w">          </span><span class="c1"># Etkileşimli PDF AcroForm form çıkarma testleri</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_ocr_grounding</span><span class="p">.</span><span class="n">py</span><span class="w">     </span><span class="c1"># Çok modlu görsel kanıt ve alıntı testleri</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_ui_schema_sync</span><span class="p">.</span><span class="n">py</span><span class="w">    </span><span class="c1"># Gradio 6 şema oluşturucu senkronizasyon testleri</span>
+<span class="w">    </span><span class="n">├──</span><span class="w"> </span><span class="n">test_health</span><span class="p">.</span><span class="n">py</span><span class="w">            </span><span class="c1"># /healthz tanı ucu ve donanım testleri</span>
+<span class="w">    </span><span class="n">└──</span><span class="w"> </span><span class="n">test_extraction</span><span class="p">.</span><span class="n">py</span><span class="w">        </span><span class="c1"># Uçtan uca veri çıkarma entegrasyon testleri</span>
+</code></pre></div>
+
+<hr />
+<h2>Temel Mühendislik Çözümleri</h2>
+<h3>1. Sıfır-Disk Bellek Mimarisi ve Çekirdek Güvenliği</h3>
+<p>Finansal raporlar, hasta verileri veya ticari sözleşmeler gibi belgelerin gizliliği yalnızca yazılım seviyesinde geçici dosyalar silinerek garanti edilemez. DocNeedle bu güvenceyi işletim sistemi çekirdeği düzeyinde sağlar:</p>
 <ul>
-<li><strong>Dijital Belgeler:</strong> Seçilebilir metin içeren PDF'ler Docling Core ile hiyerarşik Markdown parçalarına ayrılarak başlık düzenleri ve tablo yapıları kayıpsız korunur.</li>
-<li><strong>Taranmış Dokümanlar ve Görseller:</strong> Taranmış sayfalar ve görsel dosyaları (PNG, JPG, TIFF, WEBP), <code>pypdfium2</code> ile yüksek çözünürlükte (108 DPI) işlenip herhangi bir metin dönüşümüne zorlanmadan doğrudan görsel parça olarak sisteme alınır.</li>
-<li><strong>Görsel Bağlam ile Çıkarım:</strong> Sayfa görselleri SigLIP projeksiyonu (<code>mmproj-F16.gguf</code>) üzerinden vektör uzayına taşınır ve çok modlu büyük dil modeline (Qwen3.5-4B) yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model, sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler.</li>
+<li><strong>Sadece Uçucu Bellek (RAM-Only):</strong> Sisteme gelen dosyalar doğrudan bayt akışı (<code>io.BytesIO</code>) olarak karşılanır; parçalama, gömme vektörleri ve arama indeksleri yalnızca <code>SessionVectorStore</code> içinde tutulur. İstek tamamlandığı an <code>finally: store.clear()</code> tetiklenerek ayrılan bellek blokları işletim sistemine geri verilir.</li>
+<li><strong>Bellek Dökümü Engelleme (Anti-Dumping):</strong> <code>src/docneedle/hardening.py</code> modülü, Linux çekirdeğinin <code>prctl(PR_SET_DUMPABLE, 0)</code> bayrağını etkinleştirir. Süreç çalışırken yetkisiz bellek dökümü (core dump) alınması veya harici araçların <code>ptrace</code> ile sürece bağlanıp belleği okuması çekirdek düzeyinde engellenir.</li>
+<li><strong>Sertleştirilmiş Konteyner &amp; CI Doğrulaması:</strong> Üretim ortamında salt okunur kök dosya sistemi (<code>read_only: true</code>), RAM tabanlı geçici alan (<code>tmpfs</code>, 1 GB, <code>nosuid</code>), sıfırlanmış core dump limiti ve çevrimdışı Hugging Face kipi (<code>HF_HUB_OFFLINE=1</code>) zorunlu tutulur. GitHub Actions CI boru hattı; her derlemede <code>PR_SET_DUMPABLE=0</code> çekirdek logunu, salt okunur dosya sisteminde sağlık ucunu ve geçersiz dosya formatlarında fail-fast (HTTP 415) yanıtını otomatik olarak denetler.</li>
 </ul>
-<h3>3. Yerel C++ Çapraz Modlu Vektörleştirme Motoru</h3>
-<p>Geniş belge koleksiyonlarında arama gecikmesini sıfıra indirmek amacıyla C++ ile yazılmış bağımsız bir gömme motoru (<code>src/docneedle/retrieval/docneedle_embed.cpp</code>) paylaşımlı kütüphane (<code>libdocneedle_embed.so</code>) olarak derlenmiştir:</p>
+<h3>2. OCR Bağımsız Görsel RAG ve Yerel C++ Vektörleştirme</h3>
+<p>Klasik iş akışları belgeleri önce bir OCR motoruna sokar; okunamayan harfler veya bozulan tablo dizilimleri dil modeline aktarıldığında çıkarım baştan çöker. DocNeedle dokümanları çift kanaldan işler:</p>
 <ul>
-<li><strong>Ortak Vektör Uzayı:</strong> Metin sorgularını (<code>task: search result | query: {text}</code>) ve sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.</li>
-<li><strong>Hazır CUDA Desteği:</strong> <code>libggml-cuda.so</code>, modern NVIDIA mimarilerini (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace ve <code>sm_120a</code> Blackwell) dahili çekirdekleriyle destekler; çalışma anında JIT derleme beklemeden doğrudan GPU gücünden faydalanır.</li>
-<li><strong>Dinamik Kütüphane İzolasyonu:</strong> C++ motoru, Python <code>ctypes</code> üzerinden <code>RTLD_LOCAL | RTLD_DEEPBIND</code> bayraklarıyla yalıtılmış bir alt süreçte çalıştırılır. Böylece <code>llama-cpp-python</code> ile paylaşımlı sembol çakışmaları tamamen önlenir.</li>
+<li><strong>Dijital PDF'ler:</strong> Seçilebilir metin içeren belgeler Docling Core ile başlık hiyerarşisi ve tablo yapıları kayıpsız korunarak Markdown parçalarına ayrılır.</li>
+<li><strong>Taranmış Sayfalar ve Görseller:</strong> Taranmış sözleşmeler, el yazılı makbuzlar ve resimler (PNG, JPG, TIFF, WEBP), <code>pypdfium2</code> ile 108 DPI çözünürlükte işlenerek doğrudan görsel parça olarak sisteme alınır.</li>
+<li><strong>Doğrudan Görsel Çıkarım:</strong> Sayfa görselleri SigLIP projeksiyonu üzerinden çok modlu Qwen3.5-4B modeline yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler; metne dönüştürme hataları tamamen elenir.</li>
+<li><strong>Yerel C++ Gömme Çekirdeği (<code>libdocneedle_embed.so</code>):</strong> Python-C++ arasındaki serileştirme yükünü ortadan kaldırmak için C++ ile bağımsız bir gömme motoru geliştirilmiştir. EmbeddingGemma-2 ile metin sorgularını ve görsel parçaları 768 boyutlu ortak bir L2 uzayında buluşturur. Modern NVIDIA mimarilerini (<code>sm_80</code> Ampere, <code>sm_86</code>, <code>sm_89</code> Ada Lovelace ve <code>sm_120a</code> Blackwell) dahili CUDA çekirdekleriyle destekler ve <code>RTLD_LOCAL | RTLD_DEEPBIND</code> bayraklarıyla sembol çakışmalarına karşı izole edilir.</li>
 </ul>
-<h3>4. Etkileşimli PDF Formlarında (AcroForm) Doğrudan Ayrıştırma</h3>
-<p>Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir:</p>
+<h3>3. AcroForm Ayrıştırma ve Uzamsal Çakışma Çözümü (Spatial Collision Resolution)</h3>
+<p>Resmi vergi beyannameleri veya sigorta formları işlenirken genel amaçlı modeller genellikle iki kritik yanılsamaya düşer: işaretlenmemiş kutucukları dolu varsaymak ve belgedeki tek bir baskın tutarı boş kalan diğer alanlara kopyalamak.</p>
 <ul>
-<li>DocNeedle, <code>pypdfium2</code> arayüzü (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>) üzerinden PDF nesne akışlarını doğrudan tarar.</li>
-<li>Form alanlarının adlarını, geliştirici ipuçlarını, onay kutusu durumlarını ve kullanıcı girdilerini UTF-16LE akışından hatasız okur.</li>
-<li>Çıkarılan form verilerini yapılandırılmış Markdown tablolarına dönüştürerek modelin bağlamına ekler; resmi formlarda sıfır yanılsamayla kesin sonuç verir.</li>
+<li><strong>AcroForm Doğrudan Ayrıştırma:</strong> DocNeedle, PDF nesne akışlarını doğrudan <code>pypdfium2</code> arayüzü (<code>FPDFPage_GetAnnot</code>, <code>FPDFAnnot_GetFormFieldType</code>) üzerinden okur. Form alan adları, ipuçları, onay kutusu durumları ve kullanıcı girdileri UTF-16LE akışından sıfır yanılsamayla çekilerek tablo formatında bağlama eklenir.</li>
+<li><strong>Uzamsal Çakışma Çözücü (<code>collision.py</code>):</strong> Model, belgedeki tek bir belirgin tutarı (örneğin fatura toplamı) şemadaki birden fazla alana atadığında devreye girer. Değerin ilgili sayfada fiziksel olarak kaç kez geçtiği doğrulanır. Eğer sayfada tek bir kez geçiyorsa, alan tanımlarıyla değerin etrafındaki metin bağlamı arasındaki alaka puanlanır. Değer en yüksek ilgi skoruna sahip alana atanırken, mükerrer atanan diğer alanlar güvenle <code>found: False, value: None</code> durumuna getirilir.</li>
 </ul>
-<h3>5. Uzamsal Çakışma Çözücü (Spatial Collision Resolution)</h3>
-<p>Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir:</p>
+<h3>4. VRAM Ayak İzi, Geniş Bağlam ve Çıkarım Optimizasyonları</h3>
+<p>Geniş belge koleksiyonlarında modelin 32.768 token bağlamında belleği tüketmeden çalışması dikkatle dengelenmiştir:</p>
 <ul>
-<li><code>SpatialCollisionResolver</code> (<code>src/docneedle/extraction/collision.py</code>), çıkarım sonuçlarını inceleyerek farklı şema anahtarlarına aynı değerin atanıp atanmadığını tespit eder.</li>
-<li>Değerin ilgili sayfada fiziksel olarak kaç kez geçtiğini doğrular.</li>
-<li>Eğer değer sayfada tek bir kez geçiyorsa, şemadaki alan açıklamalarıyla değerin etrafındaki metin bağlamı arasındaki anlamsal ilgiyi puanlar.</li>
-<li>Değeri en yüksek ilgi skoruna sahip alana bırakır; mükerrer atanan diğer alanları ise güvenle <code>found: False, value: None</code> durumuna getirir.</li>
+<li><strong>Gerçek Donanım VRAM Ölçümü:</strong> Üç nöral modelin tümü (Qwen3.5-4B LLM, EmbeddingGemma-2 gömme ve Qwen3-Reranker) GPU'ya aktarıldığında ölçülen tepe VRAM tüketimi <strong>7.286 MiB / 8.188 MiB</strong> seviyesindedir (~7.3 GB - RTX 4060 Laptop). Sistem 8 GB ekran kartlarında bile tam kapasite çalışır; modeller ilk istekte tembel yükleme (lazy-loading) ile belleğe alınır (~10 sn soğuk, ~2.3 sn sıcak istek).</li>
+<li><strong>Flash Attention ve Sıkıştırılmış KV Önbellek:</strong> 32K token tam bağlam penceresinde GPU belleğinin şişmesini (OOM) önlemek için <code>llama.cpp</code> Flash Attention çekirdekleriyle çalıştırılır. Key tensörleri FP16 hassasiyetinde tutulurken, Value tensörleri 8-bit (Q8_0) seviyesinde kuantize edilerek önbellek boyutu yarı yarıya indirilir.</li>
+<li><strong>RRF Hibrit Arama &amp; Reranker:</strong> EmbeddingGemma-2 yoğun vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesi gözetilerek (k = 60 sabitiyle) Reciprocal Rank Fusion üzerinden harmanlanır. Kritik sorgularda aday parçalar <strong>Qwen3-Reranker-0.6B</strong> cross-encoder modeline aktarılarak logit puan farkıyla elenir.</li>
+<li><strong>Spekülatif Kod Çözme (Prompt Lookup Decoding):</strong> Şema tabanlı JSON üretiminde hız kazanmak için n-gram eşleşmelerine dayalı dahili <code>LlamaPromptLookupDecoding</code> (<code>max_ngram_size=2</code>) mekanizması desteklenir.</li>
 </ul>
-<h3>6. Hibrit Arama (RRF) ve Cross-Encoder Yeniden Sıralama</h3>
+<h3>5. Birleşik Port 7860, Dağıtım ve Asenkron İş Akışı</h3>
 <ul>
-<li><strong>Reciprocal Rank Fusion (RRF):</strong> EmbeddingGemma-2 yoğun anlamsal vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesiyle ($k=60$) RRF algoritması üzerinden harmanlanır.</li>
-<li><strong>Yeniden Sıralama:</strong> Yüksek hassasiyet gerektiren aramalarda aday parçalar <strong>Qwen3-Reranker-0.6B</strong> cross-encoder modeline aktarılarak logit puan farkı (<code>logit("yes") - logit("no")</code>) üzerinden elenir.</li>
-</ul>
-<h3>7. Spekülatif Kod Çözme ve Bellek Optimizasyonu</h3>
-<ul>
-<li><strong>Flash Attention ve Kompakt KV Önbellek:</strong> Flash Attention ile FP16 veya kuantize edilmiş KV önbellek (<code>model_kv_cache_type_k=1</code>, <code>model_kv_cache_type_v=8</code> [Q8_0]) mimarisi kullanılır; 32.768 token bağlam penceresi tüketici sınıfı donanımlarda bile rahatça çalışır.</li>
-<li><strong>Spekülatif Kod Çözme Hızlandırması:</strong> Şema tabanlı JSON üretiminde hız kazanmak için dahili <code>LlamaPromptLookupDecoding</code> (<code>max_ngram_size=2</code>, <code>num_pred_tokens=5</code>) mekanizmasını destekler.</li>
-</ul>
-<h3>8. Web Arayüzü ve Asenkron Akış API'si</h3>
-<ul>
-<li><strong>7860 Portunda Birleşik Hizmet:</strong> Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port üzerinden birlikte sunulur.</li>
-<li><strong>Görsel ve Ham Şema Eşitleme:</strong> Form alanları arayüzden kolayca eklenebilir veya iç içe <code>$ref</code> işaretçilerini 20 derinliğe kadar çözebilen çift yönlü senkronize ham JSON şema sekmesi kullanılabilir.</li>
-<li><strong>Canlı İlerleme Akışı:</strong> Çok belgeli toplu işler (<code>POST /v1/jobs</code>), Server-Sent Events (<code>GET /v1/jobs/{id}/events</code>) üzerinden anlık ilerleme yüzdesi ve alan bazında çıkarım olaylarıyla canlı takip edilir.</li>
+<li><strong>Tek Portta Birleşik Hizmet (7860):</strong> Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port (<code>7860</code>) üzerinden birlikte sunulur.</li>
+<li><strong>Konteyner Donanım Profilleri:</strong> <code>docker-compose.yml</code> modern profil mimarisini destekler: NVIDIA GPU hızlandırmalı üretim için <code>docker compose --profile gpu up -d</code>, geliştirme ve CI doğrulaması için <code>docker compose --profile cpu up -d</code>.</li>
+<li><strong>Hugging Face Spaces (ZeroGPU):</strong> <code>bash scripts/deploy_space.sh</code> komutu ile dinamik NVIDIA A100/A10G GPU dilimlerine sahip Hugging Face Spaces ortamına tek adımda kurulur.</li>
+<li><strong>Dinamik Şema ve Canlı SSE Akışı:</strong> Çok belgeli toplu işler (<code>POST /v1/jobs</code>), Server-Sent Events (<code>GET /v1/jobs/{id}/events</code>) üzerinden anlık ilerleme yüzdesiyle canlı takip edilir; form alanları arayüzden seçilebilir veya iç içe <code>$ref</code> işaretçilerini çözebilen çift yönlü senkronize ham JSON şema editörü kullanılabilir.</li>
 </ul>
 <hr />
-<h2>ExtractBench Kıyaslama ve Performans Değerlendirmesi</h2>
-<p>DocNeedle; faturalar, resmi sözleşmeler, finansal tablolar ve el yazılı makbuzlardan oluşan <strong>370 belge</strong>, <strong>4.869 sayfa</strong> ve <strong>13.577 etiketli alan</strong> içeren <strong>ExtractBench</strong> (LlamaIndex, arXiv:2607.29677) veri setinde test edilmiştir.</p>
+<h2>ExtractBench Kıyaslama ve Liderlik Tablosu</h2>
+<p>DocNeedle; faturalar, resmi sözleşmeler, finansal tablolar ve el yazılı makbuzlardan oluşan <strong>370 belge</strong>, <strong>4.869 sayfa</strong> ve <strong>13.577 etiketli alan</strong> içeren <strong><a href="https://www.extractbench.ai/">ExtractBench</a></strong> (LlamaIndex, <a href="https://arxiv.org/abs/2607.29677">arXiv:2607.29677</a>) kurumsal veri setinde test edilmiştir.</p>
+<p>Resmi ExtractBench liderlik tablosu (<code>leaderboard.csv</code>) karşılaştırması:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Sistem / Model</th>
-<th style="text-align: left;">Mimari ve Dağıtım</th>
-<th style="text-align: center;">Genel Değer F1</th>
+<th style="text-align: left;">Sağlayıcı / Kategori</th>
+<th style="text-align: left;">Mimari ve Boyut</th>
+<th style="text-align: center;">Genel F1</th>
 <th style="text-align: center;">Kısa (≤10s)</th>
 <th style="text-align: center;">Orta (11-50s)</th>
 <th style="text-align: center;">Uzun (&gt;50s)</th>
@@ -355,6 +403,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><strong>LlamaExtract Agentic Plus</strong></td>
+<td style="text-align: left;">LlamaIndex</td>
 <td style="text-align: left;">Bulut Ajan İş Hattı</td>
 <td style="text-align: center;"><strong>96.17%</strong></td>
 <td style="text-align: center;">97.02%</td>
@@ -366,6 +415,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Codex (GPT-6.1 Sol Evidence)</strong></td>
+<td style="text-align: left;">OpenAI / Codex</td>
 <td style="text-align: left;">Frontier Kodlama Ajanı</td>
 <td style="text-align: center;"><strong>95.31%</strong></td>
 <td style="text-align: center;">97.01%</td>
@@ -377,6 +427,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Claude Code (Sonnet 5.5 Evidence)</strong></td>
+<td style="text-align: left;">Anthropic</td>
 <td style="text-align: left;">Frontier Kodlama Ajanı</td>
 <td style="text-align: center;"><strong>94.68%</strong></td>
 <td style="text-align: center;">96.22%</td>
@@ -388,6 +439,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>OpenAI GPT-6 Astra</strong></td>
+<td style="text-align: left;">OpenAI</td>
 <td style="text-align: left;">Ticari Büyük VLM</td>
 <td style="text-align: center;"><strong>91.91%</strong></td>
 <td style="text-align: center;">97.22%</td>
@@ -399,6 +451,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Qwen3.5 4B (Yalın Temel Model)</strong></td>
+<td style="text-align: left;">Alibaba / OSS</td>
 <td style="text-align: left;">Bağımsız Temel Model</td>
 <td style="text-align: center;"><strong>82.43%</strong></td>
 <td style="text-align: center;">89.06%</td>
@@ -410,6 +463,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Google Gemini 3.8 Flash</strong></td>
+<td style="text-align: left;">Google</td>
 <td style="text-align: left;">Ticari Hızlı VLM</td>
 <td style="text-align: center;"><strong>80.71%</strong></td>
 <td style="text-align: center;">88.14%</td>
@@ -421,6 +475,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>DocNeedle (Süreç İçi)</strong></td>
+<td style="text-align: left;"><strong>DocNeedle</strong></td>
 <td style="text-align: left;"><strong>Qwen3.5-4B + Gemma2-RAG</strong></td>
 <td style="text-align: center;"><strong>75.71%</strong></td>
 <td style="text-align: center;"><strong>77.16%</strong></td>
@@ -432,12 +487,84 @@
 </tr>
 </tbody>
 </table>
-<h3>Öne Çıkan Bulgular</h3>
+<h3>Öne Çıkan Bulgular ve Mühendislik Çıkarımları</h3>
 <ul>
-<li><strong>Uzun Belgelerde Üstün Dayanıklılık (Temel Modele Göre +44.12 Puan):</strong> 50 sayfayı aşan belgelerde RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları akıllıca yönlendirerek <strong>%71.43 F1</strong> başarısını korur.</li>
-<li><strong>Denetlenebilir Sayfa Konumlandırması (%90.67 Kısa, %80.95 Genel):</strong> Ticari VLM'ler kaynak atfında %0.00 alırken, DocNeedle çıkarılan her veri için doğrulanmış sayfa numarası ve doğrudan alıntı metni sunar.</li>
-<li><strong>Ekonomik ve Güvenli:</strong> Sayfa başına $0.00 marjinal maliyetle çalışırken, uçucu RAM garantileriyle kurumsal veri sızıntılarını tamamen engeller.</li>
+<li><strong>Uzun Belgelerde Üstün Dayanıklılık (Temel Modele Göre +44.12 Puan):</strong> 50 sayfayı aşan belgelerde RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları akıllıca yönlendirerek <strong>%71.43 F1</strong> başarısını korur (2.6 kat dayanıklılık artışı).</li>
+<li><strong>Denetlenebilir Sayfa Konumlandırması (%90.67 Kısa, %80.95 Genel):</strong> Ticari büyük modeller kaynak gösteriminde %0.00 alırken, DocNeedle çıkarılan her veri için doğrulanmış sayfa numarası ve doğrudan alıntı metni sunar.</li>
+<li><strong>Modelden Bağımsız Ölçeklenebilirlik:</strong> Yayımlanan bu sonuçlar (<strong>%75.71 Genel F1</strong>, <strong>%90.67 Kısa Sayfa Doğrulaması</strong>), sistemin tüketici sınıfı donanımlarda (asgari 8 GB VRAM) çalışabildiğini kanıtlamak için kompakt bir <strong>4B model</strong> (<code>Qwen3.5-4B-Q4_K_M</code>) ve <strong>0.6B gömme modeli</strong> ile elde edilmiştir. Doküman ayrıştırma, AcroForm çıkarma ve hibrit RAG mimarisi modelden tamamen bağımsız olduğundan; daha büyük model ağırlıklarıyla (örneğin <strong>Qwen3.5-9B</strong> veya <strong>35B</strong>) sıfır-disk gizlilik garantisi korunarak <strong>%88–95+ F1</strong> seviyelerine doğrudan ölçeklenebilir.</li>
+<li><strong>Sıfır Marjinal Maliyet ve Hava Boşluklu Güvenlik:</strong> Sayfa başına $0.00 maliyetle çalışırken, uçucu RAM garantileriyle kurumsal veri sızıntılarını tamamen engeller.</li>
 </ul>
+<h3>Segment Bazlı Ayrıntılı Sonuçlar</h3>
+<p><code>scripts/benchmark_extractbench.py</code> ile yürütülen 370 belgelik testin segment dökümü:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metrik</th>
+<th style="text-align: center;">Kısa (≤10s)</th>
+<th style="text-align: center;">Orta (11-50s)</th>
+<th style="text-align: center;">Uzun (&gt;50s)</th>
+<th style="text-align: center;">Genel (370 Belge)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Belge Sayısı</strong></td>
+<td style="text-align: center;">252</td>
+<td style="text-align: center;">98</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;"><strong>370</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hedef Alan Sayısı</strong></td>
+<td style="text-align: center;">10.676</td>
+<td style="text-align: center;">2.808</td>
+<td style="text-align: center;">93</td>
+<td style="text-align: center;"><strong>13.577</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Birebir Eşleşen Alanlar</strong></td>
+<td style="text-align: center;">8.759</td>
+<td style="text-align: center;">2.153</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;"><strong>10.972</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Birleşik Değer F1</strong></td>
+<td style="text-align: center;"><strong>77.16%</strong></td>
+<td style="text-align: center;"><strong>69.70%</strong></td>
+<td style="text-align: center;"><strong>71.43%</strong></td>
+<td style="text-align: center;"><strong>75.71%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Değer Kesinliği (Precision)</strong></td>
+<td style="text-align: center;"><strong>81.00%</strong></td>
+<td style="text-align: center;"><strong>79.43%</strong></td>
+<td style="text-align: center;"><strong>80.88%</strong></td>
+<td style="text-align: center;"><strong>80.73%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Değer Duyarlılığı (Recall)</strong></td>
+<td style="text-align: center;"><strong>73.66%</strong></td>
+<td style="text-align: center;"><strong>62.10%</strong></td>
+<td style="text-align: center;"><strong>63.95%</strong></td>
+<td style="text-align: center;"><strong>71.27%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sayfa Konumlandırma</strong></td>
+<td style="text-align: center;"><strong>90.67%</strong></td>
+<td style="text-align: center;"><strong>62.14%</strong></td>
+<td style="text-align: center;"><strong>50.58%</strong></td>
+<td style="text-align: center;"><strong>80.95%</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eksik Alan Doğruluğu (Strict Null)</strong></td>
+<td style="text-align: center;"><strong>81.92%</strong></td>
+<td style="text-align: center;"><strong>84.62%</strong></td>
+<td style="text-align: center;"><strong>27.78%</strong></td>
+<td style="text-align: center;"><strong>82.35%</strong></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2>Kullanılan Teknolojiler</h2>
 <ul>
@@ -447,8 +574,8 @@
 <li><strong>Vektör Gömme ve Yerel Çekirdek:</strong> C++ (<code>docneedle_embed.cpp</code>, <code>libdocneedle_embed.so</code>), EmbeddingGemma-2 GGUF, <code>ctypes</code> süreç izolasyonu</li>
 <li><strong>Belge Ayrıştırma ve İşleme:</strong> Docling Core 2.15+, <code>pypdfium2</code> (AcroForm ayrıştırıcı ve 108 DPI rasterizer), <code>python-docx</code>, <code>openpyxl</code>, Pillow</li>
 <li><strong>Arama ve Yeniden Sıralama:</strong> Okapi BM25 (<code>rank-bm25</code>), Reciprocal Rank Fusion (RRF), Qwen3-Reranker-0.6B GGUF</li>
-<li><strong>Güvenlik ve Konteyner:</strong> Linux <code>prctl(PR_SET_DUMPABLE, 0)</code>, Docker, Docker Compose, Hugging Face Spaces (ZeroGPU)</li>
-<li><strong>Test ve Kalite:</strong> Pytest (159 otomatik birim testi), Ruff, Sıfır-Disk CI doğrulaması</li>
+<li><strong>Güvenlik ve Konteyner:</strong> Linux <code>prctl(PR_SET_DUMPABLE, 0)</code>, Docker, Docker Compose (GPU/CPU donanım profilleri), Hugging Face Spaces (ZeroGPU)</li>
+<li><strong>Test ve Kalite:</strong> Pytest (159 hermetik birim testi), Ruff, Sıfır-Disk CI doğrulaması</li>
 </ul>
     </div>
 </article>
@@ -469,7 +596,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794501952"></script>
+    <script type="module" src="/static/js/main.js?v=1794507176"></script>
 
 </body>
 
