@@ -1,14 +1,14 @@
-# DocNeedle: Gizlilik Odaklı Yerel Belge Çıkarım Mikroservisi ve Görsel RAG
+# DocNeedle: Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG
 
-**DocNeedle**, kullanıcı tanımlı JSON şemalarına dayalı yapılandırılmış verileri, doğrulanabilir kaynak alıntıları ve istatistiksel güven puanlarıyla birlikte yerel yapay zeka modelleri üzerinden çıkaran, gizlilik odaklı bir belge işleme mikroservisi ve etkileşimli web platformudur.
+**DocNeedle**, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri; doğrulanabilir sayfa referansları, kaynak alıntıları ve güven skorlarıyla birlikte çıkaran açık kaynaklı bir doküman zekâsı platformudur.
 
-Harici bulut API'lerine veya hata payı yüksek geleneksel optik karakter tanıma (OCR) motorlarına bağımlı sistemlerin aksine DocNeedle; sıfır harici ağ telemetrisi, kesin disk sızıntısız uçucu bellek (RAM) garantisi ve OCR gerektirmeyen görsel RAG mimarisiyle %100 yerel ortamda çalışır.
+Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) ve görsel RAG yaklaşımıyla %100 yerel ortamda çalışır.
 
 ![DocNeedle Etkileşimli Arayüz](/static/images/portfolio-images/docneedle/dashboard_preview.png)
 
 ---
 
-## Mimari ve Temel Yenilikler
+## Mimari ve Temel Bileşenler
 
 ```
 DocNeedle/
@@ -28,11 +28,11 @@ DocNeedle/
 └── tests/                        # Sıfır-disk doğrulamalı 159 hermetik birim testi
 ```
 
-### 1. Sıfır-Disk Bellek-İçi Gizlilik ve Çekirdek Seviyesinde Güvenlik
-DocNeedle, kurumsal ve yasal belgeler için üst düzey veri güvenliği ve gizlilik taahhüt eder:
-* **Sıfır Disk Kalıcılığı:** Yüklenen belgeler, ayrıştırılan metin parçaları, çapraz modlu vektör gömmeleri ve arama indeksleri yalnızca `SessionVectorStore` içerisindeki uçucu RAM alanında yaşar. Her istek tamamlandığında `finally: store.clear()` bloğu ile tüm bellek tamponları koşulsuz olarak temizlenir.
-* **Çekirdek Düzeyinde Bellek Dökümü Koruması:** Linux çekirdeğinin prctl arayüzü kullanılarak (`prctl(PR_SET_DUMPABLE, 0)` - `src/docneedle/hardening.py`), sürecin izinsiz bellek dökümü (core dump) vermesi veya ptrace ile dışarıdan okunması engellenir.
-* **Sertleştirilmiş Konteyner Profili:** Salt-okunur kök dosya sistemi (`read_only: true`), tmpfs tabanlı RAM geçici dizini (1 GB, `nosuid`), sıfırlanmış core dump limiti (`ulimits: core: 0`) ve tamamen çevrimdışı Hugging Face kipi (`HF_HUB_OFFLINE=1`) ile çalışır.
+### 1. Sıfır-Disk Bellek Güvenliği ve Çekirdek Düzeyinde Koruma
+Kişisel veri, finans veya ticari sır içeren belgelerin güvenliği için sistem seviyesinde katı gizlilik tedbirleri uygulanmıştır:
+* **Yalnızca Uçucu Bellek (RAM-Only):** Sisteme yüklenen dosyalar, çıkarılan metin parçaları, vektör gömmeleri ve arama indeksleri yalnızca geçici bellekte (`SessionVectorStore`) tutulur. Her işlem tamamlandığında `finally: store.clear()` bloğu ile ayrılan tüm bellek blokları anında geri verilir.
+* **Bellek Dökümü Engelleme:** Linux çekirdeğinin prctl arayüzü üzerinden (`prctl(PR_SET_DUMPABLE, 0)` - `src/docneedle/hardening.py`) sürecin belleği dışarıya kilitlenir; yetkisiz bellek dökümü (core dump) alınması ya da `ptrace` ile sürecin izlenmesi engellenir.
+* **Sertleştirilmiş Konteyner Yapısı:** Üretim ortamında salt okunur kök dosya sistemi (`read_only: true`), RAM tabanlı `/tmp` dizini (`tmpfs`, 1 GB, `nosuid`), sıfırlanmış core dump limiti ve tamamen çevrimdışı Hugging Face kipi (`HF_HUB_OFFLINE=1`) ile çalıştırılır.
 
 ```
 [Yüklenen Belge ve Şema]
@@ -54,55 +54,55 @@ DocNeedle, kurumsal ve yasal belgeler için üst düzey veri güvenliği ve gizl
 └────────────────────────────────────────────────────────┘
             │
             ▼
-[Alıntılı ve Doğrulanmış Yapılandırılmış JSON Çıktısı]
+[Doğrulanmış Kaynak Alıntılarıyla Yapılandırılmış JSON]
             │
             ▼
   finally: store.clear() (RAM tamamen boşaltılır)
 ```
 
-### 2. OCR Gerektirmeyen Görsel RAG ve Hibrit Belge Ayrıştırma
-Geleneksel belge işleme hatlarında OCR motorlarının el yazısını, kaşeleri, düşük kontrastlı metinleri veya karmaşık tablo hiyerarşilerini yanlış okuması zincirleme hatalara yol açar. DocNeedle, bu kırılganlığı ortadan kaldırmak için uyarlanabilir çift yönlü bir strateji uygular:
-* **Dijital Metin Ayrıştırma:** Aranabilir metin katmanı içeren belgeler (`pdf_embedded_text_min_chars = 50`), Docling Core aracılığıyla başlıkları ve tabloları koruyacak şekilde hiyerarşik Markdown parçalarına bölünür.
-* **Taranmış Sayfalar ve Görsel Parçalama:** Saf taranmış sayfalar ve görsel formatları (PNG, JPG, TIFF, WEBP), yüksek çözünürlükte (108 DPI) pypdfium2 ile rasterize edilerek metin kaybına uğramadan doğrudan görsel parça olarak sisteme alınır.
-* **Çapraz Modlu Doğrulama:** Sayfa görselleri SigLIP projeksiyonu (`mmproj-F16.gguf`) ile vektör uzayına yansıtılır ve çok modlu LLM'e (Qwen3.5-4B) base64 görsel bağlamı olarak aktarılır. Bu sayede faturalar, makbuzlar ve el yazılı formlar kayıpsız işlenir.
+### 2. Klasik OCR'ı Devre Dışı Bırakan Görsel RAG Yaklaşımı
+Geleneksel optik karakter tanıma (OCR) motorları; el yazılı notlar, kaşeler, soluk taranmış belgeler veya karmaşık tablo yapılarında harf ve biçim hataları yaparak çıkarım kalitesini düşürür. DocNeedle bu sorunu çift yönlü bir belge işleme hattıyla aşar:
+* **Dijital Belgeler:** Seçilebilir metin içeren PDF'ler Docling Core ile hiyerarşik Markdown parçalarına ayrılarak başlık düzenleri ve tablo yapıları kayıpsız korunur.
+* **Taranmış Dokümanlar ve Görseller:** Taranmış sayfalar ve görsel dosyaları (PNG, JPG, TIFF, WEBP), `pypdfium2` ile yüksek çözünürlükte (108 DPI) işlenip herhangi bir metin dönüşümüne zorlanmadan doğrudan görsel parça olarak sisteme alınır.
+* **Görsel Bağlam ile Çıkarım:** Sayfa görselleri SigLIP projeksiyonu (`mmproj-F16.gguf`) üzerinden vektör uzayına taşınır ve çok modlu büyük dil modeline (Qwen3.5-4B) yüksek çözünürlüklü görsel belirteçler olarak iletilir. Model, sayfayı bir insanın gördüğü gibi doğrudan görsel olarak inceler.
 
-### 3. Yerel C++ Çapraz Modlu Gömme Motoru
-Gecikmesiz ve yüksek verimli arama sağlamak amacıyla DocNeedle, C++ ile yazılmış bağımsız bir gömme motorunu (`src/docneedle/retrieval/docneedle_embed.cpp`) paylaşımlı kütüphane (`libdocneedle_embed.so`) olarak derler:
-* **Birleşik Vektör Uzayı:** Metin sorgularını (`task: search result | query: {text}`) ve ham sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.
-* **Önceden Derlenmiş Çok Mimarili CUDA Çekirdekleri:** `libggml-cuda.so`, modern GPU mimarilerini (`sm_80` Ampere, `sm_86`, `sm_89` Ada Lovelace ve `sm_120a` Blackwell) dahili olarak barındırır; anlık JIT derleme gecikmesi olmadan GPU üzerinde anında çalışır.
-* **Sembol İzolasyonu:** Python `ctypes` üzerinden `RTLD_LOCAL | RTLD_DEEPBIND` bayraklarıyla yalıtılmış bir alt süreçte yüklenir. Böylece `llama-cpp-python` kütüphanesi ile dahili C++ sembollerinin çakışması kesin olarak engellenir.
+### 3. Yerel C++ Çapraz Modlu Vektörleştirme Motoru
+Geniş belge koleksiyonlarında arama gecikmesini sıfıra indirmek amacıyla C++ ile yazılmış bağımsız bir gömme motoru (`src/docneedle/retrieval/docneedle_embed.cpp`) paylaşımlı kütüphane (`libdocneedle_embed.so`) olarak derlenmiştir:
+* **Ortak Vektör Uzayı:** Metin sorgularını (`task: search result | query: {text}`) ve sayfa görsellerini EmbeddingGemma-2 ile 768 boyutlu L2-normalleştirilmiş tek bir vektör uzayında buluşturur.
+* **Hazır CUDA Desteği:** `libggml-cuda.so`, modern NVIDIA mimarilerini (`sm_80` Ampere, `sm_86`, `sm_89` Ada Lovelace ve `sm_120a` Blackwell) dahili çekirdekleriyle destekler; çalışma anında JIT derleme beklemeden doğrudan GPU gücünden faydalanır.
+* **Dinamik Kütüphane İzolasyonu:** C++ motoru, Python `ctypes` üzerinden `RTLD_LOCAL | RTLD_DEEPBIND` bayraklarıyla yalıtılmış bir alt süreçte çalıştırılır. Böylece `llama-cpp-python` ile paylaşımlı sembol çakışmaları tamamen önlenir.
 
-### 4. Etkileşimli PDF AcroForm Doğrudan Çıkarımı
-Form alanlarında LLM'lerin en sık yaptığı hata, boş onay kutularını dolu varsayması veya etkileşimli alan değerlerini metin katmanından ayıramamasıdır.
-* DocNeedle, yerel `pypdfium2` arayüzü (`FPDFPage_GetAnnot`, `FPDFAnnot_GetFormFieldType`) ile PDF nesne akışlarını doğrudan tarar.
-* Form alan adlarını, ipuçlarını, onay kutusu durumlarını ve girilmiş değerleri UTF-16LE form akışlarından okur.
-* Çıkarılan alanları Markdown tablosu biçiminde yapılandırarak arama öncesi parçaların bağlamına ekler; resmi form ve sözleşmelerde sıfır yanılsama (hallucination) sağlar.
+### 4. Etkileşimli PDF Formlarında (AcroForm) Doğrudan Ayrıştırma
+Vergi beyannameleri, sigorta bildirimleri veya başvuru formları işlenirken dil modelleri genellikle işaretlenmemiş boş kutucukları dolu varsayabilir veya yan yana duran alan adlarını karıştırabilir.
+* DocNeedle, `pypdfium2` arayüzü (`FPDFPage_GetAnnot`, `FPDFAnnot_GetFormFieldType`) üzerinden PDF nesne akışlarını doğrudan tarar.
+* Form alanlarının adlarını, geliştirici ipuçlarını, onay kutusu durumlarını ve kullanıcı girdilerini UTF-16LE akışından hatasız okur.
+* Çıkarılan form verilerini yapılandırılmış Markdown tablolarına dönüştürerek modelin bağlamına ekler; resmi formlarda sıfır yanılsamayla kesin sonuç verir.
 
-### 5. Uzamsal Çakışma Çözümü (Spatial Collision Resolution)
-Bir belgede fatura tutarı veya tarih gibi tek bir belirgin veri bulunduğunda, dil modelleri genellikle o tek veriyi şemada yer alan diğer boş veya eksik alanlara da kopyalama eğilimindedir.
-* `SpatialCollisionResolver` (`src/docneedle/extraction/collision.py`), çıkarım sonuçlarını denetleyerek farklı şema anahtarları arasında yinelenen değerleri saptar.
-* Değerin kaynak sayfada kaç kez geçtiğini fiziksel olarak doğrular.
-* Eğer değer sayfada yalnızca bir kez geçiyorsa, her alanın şema açıklaması ile değerin etrafındaki metin bağlamı arasındaki anlamsal yakınlığı hesaplar.
-* Değeri en yüksek bağlamsal ilgiye sahip tek alana atar; diğer çakışan alanları ise güvenli bir şekilde `found: False, value: None` durumuna getirir.
+### 5. Uzamsal Çakışma Çözücü (Spatial Collision Resolution)
+Bir belgede tek bir belirgin tutar (örneğin fatura toplamı veya işlem tarihi) yer aldığında, dil modelleri genellikle bu tutarı belgede bulunmayan diğer boş alanlara da kopyalama eğilimi gösterir.
+* `SpatialCollisionResolver` (`src/docneedle/extraction/collision.py`), çıkarım sonuçlarını inceleyerek farklı şema anahtarlarına aynı değerin atanıp atanmadığını tespit eder.
+* Değerin ilgili sayfada fiziksel olarak kaç kez geçtiğini doğrular.
+* Eğer değer sayfada tek bir kez geçiyorsa, şemadaki alan açıklamalarıyla değerin etrafındaki metin bağlamı arasındaki anlamsal ilgiyi puanlar.
+* Değeri en yüksek ilgi skoruna sahip alana bırakır; mükerrer atanan diğer alanları ise güvenle `found: False, value: None` durumuna getirir.
 
-### 6. Hibrit RRF Arama ve Nöral Yeniden Sıralama
-* **Reciprocal Rank Fusion (RRF):** EmbeddingGemma-2 yoğun anlamsal gömmeleri ile Okapi BM25 seyrek anahtar kelime sinyalleri, belge çeşitliliği kısıtlarıyla ($k=60$) RRF algoritması üzerinden birleştirilir.
-* **Nöral Yeniden Sıralama:** Yüksek doğruluk gerektiren durumlarda aday parçalar **Qwen3-Reranker-0.6B** cross-encoder modeline aktarılarak logit puan farkı (`logit("yes") - logit("no")`) üzerinden elenir.
+### 6. Hibrit Arama (RRF) ve Cross-Encoder Yeniden Sıralama
+* **Reciprocal Rank Fusion (RRF):** EmbeddingGemma-2 yoğun anlamsal vektörleri ile Okapi BM25 anahtar kelime eşleşmeleri, sayfa çeşitliliği dengesiyle ($k=60$) RRF algoritması üzerinden harmanlanır.
+* **Yeniden Sıralama:** Yüksek hassasiyet gerektiren aramalarda aday parçalar **Qwen3-Reranker-0.6B** cross-encoder modeline aktarılarak logit puan farkı (`logit("yes") - logit("no")`) üzerinden elenir.
 
-### 7. Spekülatif Kod Çözme ve KV Bellek Optimizasyonu
-* **KV Önbellek Hızlandırması:** Flash Attention ve FP16 / kuantize edilmiş KV önbellek (`model_kv_cache_type_k=1`, `model_kv_cache_type_v=8` [Q8_0]) sayesinde 32.768 token bağlam penceresi tüketici seviyesi VRAM sınırlarında çalıştırılır.
-* **Spekülatif Kod Çözme:** Yapılandırılmış JSON üretim hızını katlamak için dahili `LlamaPromptLookupDecoding` (`max_ngram_size=2`, `num_pred_tokens=5`) desteği sunar.
+### 7. Spekülatif Kod Çözme ve Bellek Optimizasyonu
+* **Flash Attention ve Kompakt KV Önbellek:** Flash Attention ile FP16 veya kuantize edilmiş KV önbellek (`model_kv_cache_type_k=1`, `model_kv_cache_type_v=8` [Q8_0]) mimarisi kullanılır; 32.768 token bağlam penceresi tüketici sınıfı donanımlarda bile rahatça çalışır.
+* **Spekülatif Kod Çözme Hızlandırması:** Şema tabanlı JSON üretiminde hız kazanmak için dahili `LlamaPromptLookupDecoding` (`max_ngram_size=2`, `num_pred_tokens=5`) mekanizmasını destekler.
 
-### 8. Birleşik Gradio 6 Arayüzü ve Asenkron Akış API'si
-* **7860 Portunda Birleşik Hizmet:** Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port üzerinden eşzamanlı hizmet verir.
-* **Görsel ve Ham Şema Eşitleme:** Form alanlarını açılır menülerle görsel olarak oluşturabilir veya iç içe `$ref` işaretçilerini 20 seviyeye kadar çözebilen çift yönlü senkronize ham JSON şema sekmesini kullanabilirsiniz.
-* **Asenkron İşler ve Canlı SSE:** Çok belgeli toplu işler (`POST /v1/jobs`), Server-Sent Events (`GET /v1/jobs/{id}/events`) üzerinden anlık ilerleme yüzdesi ve alan bazında çıkarım olayları akıtır.
+### 8. Web Arayüzü ve Asenkron Akış API'si
+* **7860 Portunda Birleşik Hizmet:** Gradio 6 web arayüzü ve FastAPI REST API uçları tek bir port üzerinden birlikte sunulur.
+* **Görsel ve Ham Şema Eşitleme:** Form alanları arayüzden kolayca eklenebilir veya iç içe `$ref` işaretçilerini 20 derinliğe kadar çözebilen çift yönlü senkronize ham JSON şema sekmesi kullanılabilir.
+* **Canlı İlerleme Akışı:** Çok belgeli toplu işler (`POST /v1/jobs`), Server-Sent Events (`GET /v1/jobs/{id}/events`) üzerinden anlık ilerleme yüzdesi ve alan bazında çıkarım olaylarıyla canlı takip edilir.
 
 ---
 
-## ExtractBench Kıyaslama ve Liderlik Tablosu
+## ExtractBench Kıyaslama ve Performans Değerlendirmesi
 
-DocNeedle, faturalar, resmi yazışmalar, finansal raporlar ve el yazılı notlardan oluşan **370 belge**, **4.869 sayfa** ve **13.577 etiketli alan** içeren kurumsal **ExtractBench** (LlamaIndex, arXiv:2607.29677) veri setinde test edilmiştir.
+DocNeedle; faturalar, resmi sözleşmeler, finansal tablolar ve el yazılı makbuzlardan oluşan **370 belge**, **4.869 sayfa** ve **13.577 etiketli alan** içeren **ExtractBench** (LlamaIndex, arXiv:2607.29677) veri setinde test edilmiştir.
 
 | Sistem / Model | Mimari ve Dağıtım | Genel Değer F1 | Kısa (≤10s) | Orta (11-50s) | Uzun (>50s) | Sayfa Konumu | Sayfa Başı Maliyet | Gizlilik ve Depolama |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
@@ -114,20 +114,20 @@ DocNeedle, faturalar, resmi yazışmalar, finansal raporlar ve el yazılı notla
 | **Google Gemini 3.8 Flash** | Ticari Hızlı VLM | **80.71%** | 88.14% | 72.23% | 28.70% | 0.00% *(Yok)* | $0.0043 | Bulut API (Harici) |
 | **DocNeedle (Süreç İçi)** | **Qwen3.5-4B + Gemma2-RAG** | **75.71%** | **77.16%** | **69.70%** | **71.43%** | **80.95%** | **$0.00 (yerel)** | **Sıfır-Disk RAM / Hava Boşluklu** |
 
-### Öne Çıkan Kıyaslama Bulguları
-* **Uzun Belgelerde Yüksek Dayanıklılık (Temel Modele Karşı +44.12 Puan):** 50 sayfayı aşan hacimli dokümanlarda RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları hedefe odaklı filtreleyerek **%71.43 F1** başarısını korur.
-* **Denetlenebilir Sayfa Konumlandırması (%90.67 Kısa, %80.95 Genel):** Ticari VLM'ler kaynak atfında %0.00 alırken, DocNeedle her çıkarılan alan için doğrulanmış sayfa numarası ve doğrudan alıntı metni sunar.
-* **%100 Yerel ve Sıfır Maliyetli Çalışma:** Sayfa başına $0.00 maliyetle çalışırken, uçucu RAM garantileriyle kurumsal veri sızıntılarını tamamen engeller.
+### Öne Çıkan Bulgular
+* **Uzun Belgelerde Üstün Dayanıklılık (Temel Modele Göre +44.12 Puan):** 50 sayfayı aşan belgelerde RAG desteği olmayan büyük modeller dikkat dağınıklığı yaşayarak çökerken (yalın Qwen3.5 4B %27.31'e, GPT-6 Astra %31.70'e düşer), DocNeedle görsel ve metinsel parçaları akıllıca yönlendirerek **%71.43 F1** başarısını korur.
+* **Denetlenebilir Sayfa Konumlandırması (%90.67 Kısa, %80.95 Genel):** Ticari VLM'ler kaynak atfında %0.00 alırken, DocNeedle çıkarılan her veri için doğrulanmış sayfa numarası ve doğrudan alıntı metni sunar.
+* **Ekonomik ve Güvenli:** Sayfa başına $0.00 marjinal maliyetle çalışırken, uçucu RAM garantileriyle kurumsal veri sızıntılarını tamamen engeller.
 
 ---
 
 ## Kullanılan Teknolojiler
 
-* **Çekirdek Çalışma Zamanı ve Servis:** Python 3.14+, FastAPI 0.115+, Pydantic v2, Uvicorn, Server-Sent Events (SSE)
-* **Kullanıcı Arayüzü:** Gradio 6+ (Dinamik Şema Oluşturucu, Koyu Tema, Anlık İlerleme Göstergeleri)
-* **Süreç-İçi Model Çıkarımı:** `llama-cpp-python` (CUDA/cuBLAS & Flash Attention hızlandırmalı), Qwen3.5-4B GGUF Çok Modlu Model, SigLIP Görsel Projektör
-* **Çapraz Modlu Vektör Gömme ve Yerel Çekirdek:** C++ (`docneedle_embed.cpp`, `libdocneedle_embed.so`), EmbeddingGemma-2 GGUF, `ctypes` süreç izolasyonu
+* **Çalışma Zamanı ve Servis Mimarisi:** Python 3.14+, FastAPI 0.115+, Pydantic v2, Uvicorn, Server-Sent Events (SSE)
+* **Kullanıcı Arayüzü:** Gradio 6+ (Koyu Tema, Dinamik Şema Editörü, Canlı İlerleme Göstergeleri)
+* **Süreç-İçi Model Çıkarımı:** `llama-cpp-python` (CUDA/cuBLAS & Flash Attention), Qwen3.5-4B GGUF Çok Modlu Model, SigLIP Görsel Projektör
+* **Vektör Gömme ve Yerel Çekirdek:** C++ (`docneedle_embed.cpp`, `libdocneedle_embed.so`), EmbeddingGemma-2 GGUF, `ctypes` süreç izolasyonu
 * **Belge Ayrıştırma ve İşleme:** Docling Core 2.15+, `pypdfium2` (AcroForm ayrıştırıcı ve 108 DPI rasterizer), `python-docx`, `openpyxl`, Pillow
-* **Arama ve Sıralama:** Okapi BM25 (`rank-bm25`), Reciprocal Rank Fusion (RRF), Qwen3-Reranker-0.6B GGUF
+* **Arama ve Yeniden Sıralama:** Okapi BM25 (`rank-bm25`), Reciprocal Rank Fusion (RRF), Qwen3-Reranker-0.6B GGUF
 * **Güvenlik ve Konteyner:** Linux `prctl(PR_SET_DUMPABLE, 0)`, Docker, Docker Compose, Hugging Face Spaces (ZeroGPU)
-* **Test ve Doğrulama:** Pytest (159 otomatik birim testi), Ruff, Sıfır-Disk CI doğrulaması
+* **Test ve Kalite:** Pytest (159 otomatik birim testi), Ruff, Sıfır-Disk CI doğrulaması

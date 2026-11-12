@@ -1,9 +1,9 @@
 [
     {
-        "title": "DocNeedle — Privacy-First Local Document Extraction Microservice & Visual RAG",
+        "title": "DocNeedle — Privacy-First Local Document Extraction & Visual RAG",
         "date": "November 2026",
         "imageUrl": "images/portfolio-images/docneedle.png",
-        "description": "A privacy-first local document extraction microservice and interactive platform that extracts structured key-value data with auditable source citations and confidence scoring using in-process neural models. Features zero-disk volatile RAM guarantees, native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), PDF AcroForm direct parsing, spatial collision resolution, and OCR-free visual RAG—validated on ExtractBench across 370 documents.",
+        "description": "A privacy-first, local document intelligence platform designed to extract schema-guided structured data from PDFs, scanned forms, and spreadsheets with auditable page citations and confidence scores. Powered by in-process neural models (Qwen3.5-4B multimodal LLM, native C++ EmbeddingGemma-2, Qwen3-Reranker), it guarantees zero-disk volatile RAM execution, direct PDF AcroForm parsing, spatial collision resolution, and OCR-free visual RAG—benchmarked on 370 complex enterprise documents in ExtractBench.",
         "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
         "detailFile": "portfolio/docneedle.md",
         "slug": "docneedle",

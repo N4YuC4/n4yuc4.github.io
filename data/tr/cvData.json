@@ -76,8 +76,8 @@
   ],
   "projects": [
     {
-      "title": "DocNeedle — Gizlilik Odaklı Yerel Belge Çıkarım Mikroservisi ve Görsel RAG",
-      "description": "Kullanıcı tanımlı JSON şemalarına dayalı yapılandırılmış verileri, denetlenebilir sayfa alıntıları ve istatistiksel güven puanlarıyla yerel yapay zeka modelleriyle çıkaran mikroservis ve etkileşimli platform geliştirdim. Çekirdek düzeyinde bellek koruması (PR_SET_DUMPABLE=0) ve sıfır disk kalıcılığı, yerel C++ çapraz modlu gömme (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF AcroForm ayrıştırma ve uzamsal çakışma çözümü uyguladım; 370 belgelik ExtractBench testinde 50+ sayfalık hacimli dokümanlarda temel modelleri +44 F1 puanı geride bıraktı.",
+      "title": "DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG",
+      "description": "Karmaşık dokümanlardan (PDF, tarama, tablo) JSON şemasına uygun verileri, denetlenebilir sayfa referansları ve güven puanlarıyla yerel yapay zeka modelleri üzerinden çıkaran uçtan uca bir sistem geliştirdim. Çekirdek düzeyinde bellek korumasıyla (PR_SET_DUMPABLE=0) sıfır-disk RAM güvenliği, C++ ile derlenmiş çok modlu gömme motoru (EmbeddingGemma-2), görsel LLM çıkarımı (Qwen3.5-4B), doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma çözücü uyguladım; 370 belgelik ExtractBench testinde 50+ sayfalık hacimli dokümanlarda temel modelleri +44 F1 puanı geride bıraktı.",
       "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
       "slug": "docneedle",
       "links": [

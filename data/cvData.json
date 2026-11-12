@@ -76,8 +76,8 @@
   ],
   "projects": [
     {
-      "title": "DocNeedle — Privacy-First Local Document Extraction Microservice & Visual RAG",
-      "description": "Engineered an in-process document extraction microservice and interactive Gradio platform extracting schema-governed data with auditable page citations and statistical confidence scoring. Achieved zero-disk volatile RAM guarantees (kernel PR_SET_DUMPABLE=0), native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), direct PDF AcroForm parsing, and spatial collision resolution. Evaluated on the 370-document ExtractBench benchmark, outperforming standalone base models on long (>50p) documents by +44 F1 points.",
+      "title": "DocNeedle — Privacy-First Local Document Extraction & Visual RAG",
+      "description": "Developed an end-to-end local document extraction platform and microservice that extracts schema-guided structured data with auditable page citations and confidence scoring. Implemented zero-disk volatile RAM guarantees via kernel-level anti-dumping (PR_SET_DUMPABLE=0), a native C++ cross-modal embedding engine (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), direct PDF AcroForm stream parsing, and spatial collision resolution. Evaluated on ExtractBench (370 docs, 13k+ fields), sustaining 71.4% F1 on long documents (>50p)—outperforming unaugmented base models by +44 points with zero cloud reliance.",
       "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
       "slug": "docneedle",
       "links": [
