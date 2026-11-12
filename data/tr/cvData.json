@@ -76,6 +76,18 @@
   ],
   "projects": [
     {
+      "title": "DocNeedle — Gizlilik Odaklı Yerel Belge Çıkarım Mikroservisi ve Görsel RAG",
+      "description": "Kullanıcı tanımlı JSON şemalarına dayalı yapılandırılmış verileri, denetlenebilir sayfa alıntıları ve istatistiksel güven puanlarıyla yerel yapay zeka modelleriyle çıkaran mikroservis ve etkileşimli platform geliştirdim. Çekirdek düzeyinde bellek koruması (PR_SET_DUMPABLE=0) ve sıfır disk kalıcılığı, yerel C++ çapraz modlu gömme (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF AcroForm ayrıştırma ve uzamsal çakışma çözümü uyguladım; 370 belgelik ExtractBench testinde 50+ sayfalık hacimli dokümanlarda temel modelleri +44 F1 puanı geride bıraktı.",
+      "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
+      "slug": "docneedle",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/DocNeedle"
+        }
+      ]
+    },
+    {
       "title": "mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)",
       "description": "Çift yönlü İngilizce-Türkçe makine çevirisi için mT5-small modeline 8-bit LoRA ile ince ayar (fine-tuning) yapılarak 0.6245 METEOR skoruna ulaşıldı. Sözlük budama (pruning), ONNX derleme ve INT8 kuantizasyon teknikleriyle model boyutu 5 kat küçültüldü (500 MB'tan 100 MB'a); ONNX Runtime (ORT Mobile) ile mobil ve kısıtlı kaynaklı cihazlar için optimize edildi.",
       "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",

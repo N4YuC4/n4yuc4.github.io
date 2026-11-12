@@ -76,6 +76,18 @@
   ],
   "projects": [
     {
+      "title": "DocNeedle — Privacy-First Local Document Extraction Microservice & Visual RAG",
+      "description": "Engineered an in-process document extraction microservice and interactive Gradio platform extracting schema-governed data with auditable page citations and statistical confidence scoring. Achieved zero-disk volatile RAM guarantees (kernel PR_SET_DUMPABLE=0), native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), direct PDF AcroForm parsing, and spatial collision resolution. Evaluated on the 370-document ExtractBench benchmark, outperforming standalone base models on long (>50p) documents by +44 F1 points.",
+      "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
+      "slug": "docneedle",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/N4YuC4/DocNeedle"
+        }
+      ]
+    },
+    {
       "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
       "description": "Fine-tuned an mT5-small model with 8-bit LoRA for bidirectional English-Turkish translation, achieving a 0.6245 METEOR score. Reduced model size 5x (from 500MB to 100MB) and optimized performance for resource-constrained environments by applying model pruning, ONNX compilation, and INT8 quantization for mobile deployment via ONNX Runtime (ORT Mobile).",
       "techStack": "Python, PyTorch, Transformers, LoRA, Fine-Tuning, ONNX Runtime, NLP",

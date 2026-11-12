@@ -1,5 +1,20 @@
 [
     {
+        "title": "DocNeedle — Privacy-First Local Document Extraction Microservice & Visual RAG",
+        "date": "November 2026",
+        "imageUrl": "images/portfolio-images/docneedle.png",
+        "description": "A privacy-first local document extraction microservice and interactive platform that extracts structured key-value data with auditable source citations and confidence scoring using in-process neural models. Features zero-disk volatile RAM guarantees, native C++ cross-modal embeddings (EmbeddingGemma-2), multimodal LLM extraction (Qwen3.5-4B), PDF AcroForm direct parsing, spatial collision resolution, and OCR-free visual RAG—validated on ExtractBench across 370 documents.",
+        "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
+        "detailFile": "portfolio/docneedle.md",
+        "slug": "docneedle",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/DocNeedle"
+            }
+        ]
+    },
+    {
         "title": "mT5 Bidirectional EN-TR Machine Translation (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",

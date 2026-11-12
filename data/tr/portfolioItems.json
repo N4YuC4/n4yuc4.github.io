@@ -1,5 +1,20 @@
 [
     {
+        "title": "DocNeedle — Gizlilik Odaklı Yerel Belge Çıkarım Mikroservisi ve Görsel RAG",
+        "date": "Kasım 2026",
+        "imageUrl": "images/portfolio-images/docneedle.png",
+        "description": "Kullanıcı tanımlı JSON şemalarına dayalı yapılandırılmış verileri, doğrulanabilir kaynak alıntıları ve güven puanlarıyla yerel yapay zeka modelleri üzerinden çıkaran gizlilik odaklı mikroservis ve web platformu. Sıfır disk sızıntılı uçucu RAM garantisi, yerel C++ çapraz modlu gömme motoru (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF AcroForm ayrıştırma, uzamsal çakışma çözümü ve OCR gerektirmeyen görsel RAG mimarisi içerir; 370 belgelik ExtractBench kıyaslamasında test edilmiştir.",
+        "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
+        "detailFile": "portfolio/tr/docneedle.md",
+        "slug": "docneedle",
+        "links": [
+            {
+                "label": "GitHub",
+                "url": "https://github.com/N4YuC4/DocNeedle"
+            }
+        ]
+    },
+    {
         "title": "mT5 Çift Yönlü EN-TR Makine Çevirisi (ONNX INT8 & ORT Mobile)",
         "date": "",
         "imageUrl": "images/portfolio-images/mt5-en-tr.png",
