@@ -93,5 +93,31 @@ class TestSiteBuilder(unittest.TestCase):
             if os.path.exists(tmp_path):
                 os.remove(tmp_path)
 
+    def test_compute_asset_version_deterministic_and_content_based(self):
+        self.assertEqual(SiteBuilder._compute_asset_version("/non/existent/path"), "1")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            js_file = os.path.join(tmpdir, "main.js")
+            util_file = os.path.join(tmpdir, "utils.js")
+            with open(js_file, "w", encoding="utf-8") as f:
+                f.write("console.log('v1');")
+            with open(util_file, "w", encoding="utf-8") as f:
+                f.write("export const x = 1;")
+
+            v1 = SiteBuilder._compute_asset_version(tmpdir)
+            self.assertEqual(len(v1), 8)
+            self.assertEqual(v1, SiteBuilder._compute_asset_version(tmpdir))
+
+            # Touching mtime without changing content should keep the version unchanged
+            future_time = time.time() + 500
+            os.utime(js_file, (future_time, future_time))
+            self.assertEqual(v1, SiteBuilder._compute_asset_version(tmpdir))
+
+            # Modifying any file inside the directory should change the version
+            with open(util_file, "w", encoding="utf-8") as f:
+                f.write("export const x = 2;")
+            v2 = SiteBuilder._compute_asset_version(tmpdir)
+            self.assertNotEqual(v1, v2)
+
 if __name__ == '__main__':
     unittest.main()

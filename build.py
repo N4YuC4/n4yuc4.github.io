@@ -10,6 +10,7 @@ if sys.prefix == sys.base_prefix:
 import shutil
 import json
 import time
+import hashlib
 import re
 import xml.etree.ElementTree as ET
 import markdown
@@ -234,6 +235,34 @@ class SiteBuilder:
         if image_path and image_path.endswith('.png'):
             return image_path[:-4] + '.jpg'
         return image_path
+
+    @staticmethod
+    def _compute_asset_version(*paths):
+        """Computes a short deterministic SHA-256 content hash for static files or directories."""
+        hasher = hashlib.sha256()
+        entries = {}
+        for path in paths:
+            if os.path.isdir(path):
+                for root, _, files in os.walk(path):
+                    for name in files:
+                        full_path = os.path.join(root, name)
+                        rel_name = os.path.relpath(full_path, path).replace('\\', '/')
+                        entries[os.path.abspath(full_path)] = (rel_name, full_path)
+            elif os.path.isfile(path):
+                entries[os.path.abspath(path)] = (os.path.basename(path), path)
+
+        if not entries:
+            return '1'
+
+        for _, (rel_name, full_path) in sorted(entries.items(), key=lambda item: (item[1][0], item[0])):
+            hasher.update(rel_name.encode('utf-8'))
+            hasher.update(b'\x00')
+            with open(full_path, 'rb') as f:
+                for chunk in iter(lambda: f.read(65536), b''):
+                    hasher.update(chunk)
+            hasher.update(b'\x00')
+
+        return hasher.hexdigest()[:8]
 
     def clean_build_directory(self):
         """Removes previously generated files while keeping the target directory available."""
@@ -520,12 +549,15 @@ class SiteBuilder:
             cv_data['publications'] = publications_items
 
         t = ui_translations.get(lang, {})
+        js_version = self._compute_asset_version(os.path.join(BuildConfig.STATIC_DIR, 'js'))
+        css_version = self._compute_asset_version(os.path.join(BuildConfig.STATIC_DIR, 'css'))
         common_context = {
             'lang': lang,
             'lang_prefix': lang_prefix,
             't': t,
             'socialLinks': social_links,
-            'build_time': int(time.time()),
+            'js_version': js_version,
+            'css_version': css_version,
             'has_code': False
         }
 
