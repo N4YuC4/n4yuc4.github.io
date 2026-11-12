@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG - N4YuC4</title>
+    <title>DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi - N4YuC4</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="PDF'ler, taranmış faturalar, sözleşmeler ve tablolardan istenen verileri JSON şemasına göre çıkaran, sayfa alıntıları ve güven skorlarıyla doğrulayan yapay zekâ destekli belge işleme ve veri çıkarma aracı. Verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, yerel C++ vektör motoru (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF form ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
+    <meta name="description" content="PDF, fatura, sözleşme ve tablolardan istenen verileri JSON şemasına göre çıkaran, her alanı sayfa alıntısı ve güven skoruyla doğrulayan yerel veri çıkarma motoru. Bir sohbet botu değil; verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla doğrudan yapılandırılmış JSON çıktısı üretir; 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
     <meta name="keywords" content="yazılım portfolyosu, projeler, github, web geliştirme, mobil geliştirme, açık kaynak">
     <meta name="author" content="Nazmi Yücel Çan">
     <!-- Canonical and Multilingual SEO -->
@@ -48,8 +48,8 @@
     </script>
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG - N4YuC4">
-    <meta property="og:description" content="PDF'ler, taranmış faturalar, sözleşmeler ve tablolardan istenen verileri JSON şemasına göre çıkaran, sayfa alıntıları ve güven skorlarıyla doğrulayan yapay zekâ destekli belge işleme ve veri çıkarma aracı. Verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, yerel C++ vektör motoru (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF form ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
+    <meta property="og:title" content="DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi - N4YuC4">
+    <meta property="og:description" content="PDF, fatura, sözleşme ve tablolardan istenen verileri JSON şemasına göre çıkaran, her alanı sayfa alıntısı ve güven skoruyla doğrulayan yerel veri çıkarma motoru. Bir sohbet botu değil; verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla doğrudan yapılandırılmış JSON çıktısı üretir; 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
     <meta property="og:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
     <meta property="og:url" content="https://n4yuc4.github.io/tr/portfolio/docneedle.html">
     <meta property="og:type" content="website">
@@ -58,8 +58,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@N4YuC4">
     <meta name="twitter:creator" content="@N4YuC4">
-    <meta name="twitter:title" content="DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG - N4YuC4">
-    <meta name="twitter:description" content="PDF'ler, taranmış faturalar, sözleşmeler ve tablolardan istenen verileri JSON şemasına göre çıkaran, sayfa alıntıları ve güven skorlarıyla doğrulayan yapay zekâ destekli belge işleme ve veri çıkarma aracı. Verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, yerel C++ vektör motoru (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF form ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
+    <meta name="twitter:title" content="DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi - N4YuC4">
+    <meta name="twitter:description" content="PDF, fatura, sözleşme ve tablolardan istenen verileri JSON şemasına göre çıkaran, her alanı sayfa alıntısı ve güven skoruyla doğrulayan yerel veri çıkarma motoru. Bir sohbet botu değil; verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla doğrudan yapılandırılmış JSON çıktısı üretir; 370 belgelik ExtractBench kıyaslamasında test edilmiştir.">
     <meta name="twitter:image" content="https://n4yuc4.github.io/static/images/og-cover.png">
 
     <!-- Tailwind CSS CDN and Typography Plugin -->
@@ -194,7 +194,7 @@
 <article class="cyber-card p-6 md:p-12 rounded-xl shadow-lg border border-slate-800/80 relative">
     <div class="mb-8">
         <a href="/tr/portfolio.html" class="text-sky-400 hover:text-sky-300 font-semibold mb-4 inline-block transition duration-300">&larr; Portfolyoya Dön</a>
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG</h1>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-2">DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi</h1>
         
         <p class="text-sky-400 font-medium mb-4">Kasım 2026</p>
         
@@ -231,13 +231,17 @@
             
         </div>
         
-        <img src="/static/images/portfolio-images/docneedle.jpg" alt="DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
+        <img src="/static/images/portfolio-images/docneedle.jpg" alt="DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
     </div>
 
     <div class="prose prose-lg prose-invert mx-auto">
-        <h1>DocNeedle: Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG</h1>
-<p><strong>DocNeedle</strong>, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri; doğrulanabilir sayfa referansları, kaynak alıntıları ve güven skorlarıyla birlikte çıkaran yapay zekâ destekli bir belge işleme ve veri çıkarma aracıdır.</p>
-<p>Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) ve görsel RAG yaklaşımıyla %100 yerel ortamda çalışır.</p>
+        <h1>DocNeedle: Şema Tabanlı Belge Veri Çıkarma Sistemi</h1>
+<p><strong>DocNeedle</strong>, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri doğrudan ayıklayan, her veri için doğrulanabilir sayfa referansı, kaynak alıntısı ve güven skoru üreten yerel bir <strong>yapılandırılmış veri çıkarma (Information Extraction) motorudur</strong>.</p>
+<blockquote>
+<p>[!NOTE]
+<strong>Sohbet Asistanı Değildir:</strong> DocNeedle genel amaçlı bir doküman sohbet botu veya soru-cevap asistanı ("Chat with PDF") değildir. Belirlenen bir veri şemasına (örneğin fatura tutarı, vergi no, taraflar, son ödeme tarihi vb.) göre dokümanları tarayarak hedef verileri doğrudan yapılandırılmış JSON formatında üreten bir otomatik veri çıkarma sistemidir. İçerisindeki görsel RAG mimarisi sohbet amacıyla değil; çok sayfalı taranmış dokümanlarda hedeflenen verilerin bulunduğu doğru sayfaları klasik OCR hatalarına düşmeden tespit etmek için dahili bir arama mekanizması olarak çalışır.</p>
+</blockquote>
+<p>Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) %100 yerel ortamda çalışır.</p>
 <p><img alt="DocNeedle Etkileşimli Arayüz" src="/static/images/portfolio-images/docneedle/dashboard_preview.jpg" /></p>
 <hr />
 <h2>Mimari ve Temel Bileşenler</h2>
@@ -374,7 +378,7 @@
     </footer>
 
     <!-- Main JavaScript file (with type="module") -->
-    <script type="module" src="/static/js/main.js?v=1794489068"></script>
+    <script type="module" src="/static/js/main.js?v=1794491168"></script>
 
 </body>
 

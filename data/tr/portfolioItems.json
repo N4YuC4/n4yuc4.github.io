@@ -1,9 +1,9 @@
 [
     {
-        "title": "DocNeedle — Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG",
+        "title": "DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi",
         "date": "Kasım 2026",
         "imageUrl": "images/portfolio-images/docneedle.png",
-        "description": "PDF'ler, taranmış faturalar, sözleşmeler ve tablolardan istenen verileri JSON şemasına göre çıkaran, sayfa alıntıları ve güven skorlarıyla doğrulayan yapay zekâ destekli belge işleme ve veri çıkarma aracı. Verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, yerel C++ vektör motoru (EmbeddingGemma-2), çok modlu LLM (Qwen3.5-4B), doğrudan PDF form ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla 370 belgelik ExtractBench kıyaslamasında test edilmiştir.",
+        "description": "PDF, fatura, sözleşme ve tablolardan istenen verileri JSON şemasına göre çıkaran, her alanı sayfa alıntısı ve güven skoruyla doğrulayan yerel veri çıkarma motoru. Bir sohbet botu değil; verileri diske yazmadan tamamen RAM üzerinde işleyen sıfır sızıntılı mimarisi, doğrudan PDF form (AcroForm) ayrıştırma ve uzamsal çakışma giderici algoritmalarıyla doğrudan yapılandırılmış JSON çıktısı üretir; 370 belgelik ExtractBench kıyaslamasında test edilmiştir.",
         "techStack": "Python, FastAPI, Gradio, Multimodal LLM, RAG, llama.cpp, C++, Docling, Docker",
         "detailFile": "portfolio/tr/docneedle.md",
         "slug": "docneedle",

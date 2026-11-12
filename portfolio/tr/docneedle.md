@@ -1,8 +1,11 @@
-# DocNeedle: Gizlilik Odaklı Yerel Belge Analizi ve Görsel RAG
+# DocNeedle: Şema Tabanlı Belge Veri Çıkarma Sistemi
 
-**DocNeedle**, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri; doğrulanabilir sayfa referansları, kaynak alıntıları ve güven skorlarıyla birlikte çıkaran yapay zekâ destekli bir belge işleme ve veri çıkarma aracıdır.
+**DocNeedle**, karmaşık kurumsal dokümanlardan (PDF, taranmış faturalar, sözleşmeler, tablolar) belirlenen JSON şemasına uygun bilgileri doğrudan ayıklayan, her veri için doğrulanabilir sayfa referansı, kaynak alıntısı ve güven skoru üreten yerel bir **yapılandırılmış veri çıkarma (Information Extraction) motorudur**.
 
-Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) ve görsel RAG yaklaşımıyla %100 yerel ortamda çalışır.
+> [!NOTE]
+> **Sohbet Asistanı Değildir:** DocNeedle genel amaçlı bir doküman sohbet botu veya soru-cevap asistanı ("Chat with PDF") değildir. Belirlenen bir veri şemasına (örneğin fatura tutarı, vergi no, taraflar, son ödeme tarihi vb.) göre dokümanları tarayarak hedef verileri doğrudan yapılandırılmış JSON formatında üreten bir otomatik veri çıkarma sistemidir. İçerisindeki görsel RAG mimarisi sohbet amacıyla değil; çok sayfalı taranmış dokümanlarda hedeflenen verilerin bulunduğu doğru sayfaları klasik OCR hatalarına düşmeden tespit etmek için dahili bir arama mekanizması olarak çalışır.
+
+Harici bulut API'lerine bağımlı olan veya hata payı yüksek klasik optik karakter tanıma (OCR) motorlarıyla çalışan sistemlerin aksine DocNeedle; verileri üçüncü taraf sunuculara göndermeden, diske hiçbir kalıcı iz bırakmadan (sıfır-disk bellek garantisi) %100 yerel ortamda çalışır.
 
 ![DocNeedle Etkileşimli Arayüz](/static/images/portfolio-images/docneedle/dashboard_preview.png)
 

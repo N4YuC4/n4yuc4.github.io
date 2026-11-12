@@ -1,8 +1,11 @@
-# DocNeedle: Privacy-First Local Document Extraction & Visual RAG
+# DocNeedle: Schema-Guided Local Document Information Extraction Engine
 
-**DocNeedle** is an open-source, privacy-first document intelligence platform and microservice designed to extract schema-guided structured data from complex documents—including PDFs, scans, receipts, contracts, and spreadsheets. It pairs every extracted field with auditable page-level citations and statistical confidence scores, running entirely on local neural models with zero reliance on cloud APIs.
+**DocNeedle** is an open-source, privacy-first **structured information extraction engine** and microservice designed to extract schema-governed data from complex enterprise documents—including PDFs, scans, receipts, contracts, and spreadsheets. It pairs every extracted field with auditable page-level citations and statistical confidence scores, running entirely on local neural models with zero reliance on cloud APIs.
 
-By bypassing brittle traditional OCR pipelines and enforcing strict volatile in-memory execution, DocNeedle ensures that enterprise documents never touch persistent storage or leak into external services.
+> [!NOTE]
+> **Not a Conversational Chatbot:** DocNeedle is not a generic "Chat with your PDF" or conversational Q&A assistant. It is a purpose-built **document information extraction engine** that ingests raw documents alongside a target JSON schema (e.g. invoice total, vendor name, tax ID, due date) and directly emits validated JSON payloads. The internal visual RAG architecture serves purely as an in-process retrieval engine to locate candidate pages without brittle OCR errors, rather than for interactive dialogue.
+
+By bypassing fragile traditional OCR pipelines and enforcing strict volatile in-memory execution, DocNeedle ensures that enterprise documents never touch persistent storage or leak into external services.
 
 ![DocNeedle Interactive Dashboard](/static/images/portfolio-images/docneedle/dashboard_preview.png)
 
