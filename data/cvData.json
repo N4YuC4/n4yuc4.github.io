@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Türkiye (Open to Relocation & Remote)"
   },
-  "technicalProfile": "Junior Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Developed Zettelkasten AI Notes (Pupilica AI Hackathon Top 10 Finalist), featuring a Two-Tier Vector RAG pool, CPU cross-encoder reranking, and Vulkan GPU local GGUF inference.",
+  "technicalProfile": "Junior Machine Learning Engineer specializing in model development, optimization, and edge AI deployment. Reduced mT5 SLM model size 5x (from 500MB to 100MB) via pruning, 8-bit LoRA, and INT8 quantization. Following computer vision experience, currently focusing on Natural Language Processing (NLP). Co-authored a research paper published in El-Cezeri Journal (2026). Built DocNeedle, a 100% local document extraction system pairing Hybrid Visual RAG with a quantized multimodal LLM within 8 GB VRAM (+44 F1 pts on 50+ page docs in ExtractBench). Developed Zettelkasten AI Notes (Pupilica AI Hackathon Top 10 Finalist), featuring a Two-Tier Vector RAG pool, CPU cross-encoder reranking, and Vulkan GPU local GGUF inference.",
   "skills": [
     {
       "category": "Programming Languages",

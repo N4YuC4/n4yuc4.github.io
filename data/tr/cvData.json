@@ -7,7 +7,7 @@
     "profileImage": "images/profile.png",
     "location": "Türkiye (Taşınmaya Açık / Uzaktan Çalışabilir)"
   },
-  "technicalProfile": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Junior Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım; Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projesinde iki kademeli vektör RAG havuzu, CPU cross-encoder yeniden sıralama ve Vulkan GPU hızlandırmalı yerel GGUF çıkarım mimarisi geliştirdim.",
+  "technicalProfile": "Model geliştirme, optimizasyon ve Edge AI sistemlerine odaklanan bir Junior Makine Öğrenimi Mühendisiyim. mT5 SLM model boyutunu budama, 8-bit LoRA ve INT8 kuantizasyon ile 5 kat küçülterek optimize ettim (500 MB'tan 100 MB'a). Görüntü işleme tecrübelerimin ardından güncel olarak Doğal Dil İşleme (NLP) alanına yöneliyorum. El-Cezeri Fen ve Mühendislik Dergisi'nde (2026) yayımlanan makalenin ortak yazarıyım. Hibrit Görsel RAG ile kuantize çok modlu LLM mimarisini 8 GB VRAM sınırında çalıştıran %100 yerel belge veri çıkarma sistemi DocNeedle'ı tasarladım (50+ sayfalık ExtractBench belgelerinde temel modellere +44 F1 puanı fark). Pupilica Yapay Zeka Hackathonu'nda ilk 10 finalist arasına girdiğim Zettelkasten AI Notes projesinde iki kademeli vektör RAG havuzu, CPU cross-encoder yeniden sıralama ve Vulkan GPU hızlandırmalı yerel GGUF çıkarım mimarisi geliştirdim.",
   "skills": [
     {
       "category": "Programlama Dilleri",
