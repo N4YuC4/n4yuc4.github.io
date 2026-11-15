@@ -157,7 +157,7 @@ Handling documents spanning dozens of pages requires strict attention and memory
 ### 5. Production Deployment & Asynchronous Job Pipeline
 
 * **Hardware-Profile Container Architecture:** `docker-compose.yml` supports unified hardware profiles: `docker compose --profile gpu up -d` for NVIDIA GPU acceleration, and `docker compose --profile cpu up -d` for headless development and CI verification.
-* **Hugging Face Spaces (ZeroGPU):** Deploys to Hugging Face Spaces with dynamic NVIDIA A100/A10G GPU slicing via a single command: `bash scripts/deploy_space.sh`.
+* **Hugging Face Spaces (ZeroGPU):** Hosted live as an interactive [Hugging Face Spaces demo](https://huggingface.co/spaces/N4YuC4/docneedle) with dynamic NVIDIA A100/A10G GPU slicing, deployable via a single command: `bash scripts/deploy_space.sh`.
 * **Dynamic Schema & Real-Time Telemetry:** Heavy multi-document batch jobs (`POST /v1/jobs`) stream progress, execution stages, and field-level extractions live over Server-Sent Events (`GET /v1/jobs/{id}/events`). Users can configure extraction schemas visually with field-type pickers or use the raw JSON schema editor with recursive `$ref` pointer resolution up to 20 levels deep.
 
 ---

@@ -229,6 +229,11 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </a>
             
+            <a href="https://huggingface.co/spaces/N4YuC4/docneedle" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition">
+                <span>HF Spaces Demo</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+            
         </div>
         
         <img src="/static/images/portfolio-images/docneedle.jpg" alt="DocNeedle — Şema Tabanlı Belge Veri Çıkarma Sistemi image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
@@ -377,7 +382,7 @@
 <h3>5. Dağıtım ve Asenkron İş Akışı</h3>
 <ul>
 <li><strong>Konteyner Donanım Profilleri:</strong> <code>docker-compose.yml</code> modern profil mimarisini destekler: NVIDIA GPU hızlandırmalı üretim için <code>docker compose --profile gpu up -d</code>, geliştirme ve CI doğrulaması için <code>docker compose --profile cpu up -d</code>.</li>
-<li><strong>Hugging Face Spaces (ZeroGPU):</strong> <code>bash scripts/deploy_space.sh</code> komutu ile dinamik NVIDIA A100/A10G GPU dilimlerine sahip Hugging Face Spaces ortamına tek adımda kurulur.</li>
+<li><strong>Hugging Face Spaces (ZeroGPU):</strong> Dinamik NVIDIA A100/A10G GPU dilimlerine sahip <a href="https://huggingface.co/spaces/N4YuC4/docneedle">Hugging Face Spaces demosu</a> üzerinden canlı olarak sunulur ve <code>bash scripts/deploy_space.sh</code> komutu ile tek adımda kurulur.</li>
 <li><strong>Dinamik Şema ve Canlı SSE Akışı:</strong> Çok belgeli toplu işler (<code>POST /v1/jobs</code>), Server-Sent Events (<code>GET /v1/jobs/{id}/events</code>) üzerinden anlık ilerleme yüzdesiyle canlı takip edilir; form alanları arayüzden seçilebilir veya iç içe <code>$ref</code> işaretçilerini çözebilen çift yönlü senkronize ham JSON şema editörü kullanılabilir.</li>
 </ul>
 <hr />

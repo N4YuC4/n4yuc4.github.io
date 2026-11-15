@@ -229,6 +229,11 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </a>
             
+            <a href="https://huggingface.co/spaces/N4YuC4/docneedle" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition">
+                <span>HF Spaces Demo</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+            
         </div>
         
         <img src="/static/images/portfolio-images/docneedle.jpg" alt="DocNeedle — Schema-Guided Local Document Information Extraction Engine image" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md">
@@ -377,7 +382,7 @@
 <h3>5. Production Deployment &amp; Asynchronous Job Pipeline</h3>
 <ul>
 <li><strong>Hardware-Profile Container Architecture:</strong> <code>docker-compose.yml</code> supports unified hardware profiles: <code>docker compose --profile gpu up -d</code> for NVIDIA GPU acceleration, and <code>docker compose --profile cpu up -d</code> for headless development and CI verification.</li>
-<li><strong>Hugging Face Spaces (ZeroGPU):</strong> Deploys to Hugging Face Spaces with dynamic NVIDIA A100/A10G GPU slicing via a single command: <code>bash scripts/deploy_space.sh</code>.</li>
+<li><strong>Hugging Face Spaces (ZeroGPU):</strong> Hosted live as an interactive <a href="https://huggingface.co/spaces/N4YuC4/docneedle">Hugging Face Spaces demo</a> with dynamic NVIDIA A100/A10G GPU slicing, deployable via a single command: <code>bash scripts/deploy_space.sh</code>.</li>
 <li><strong>Dynamic Schema &amp; Real-Time Telemetry:</strong> Heavy multi-document batch jobs (<code>POST /v1/jobs</code>) stream progress, execution stages, and field-level extractions live over Server-Sent Events (<code>GET /v1/jobs/{id}/events</code>). Users can configure extraction schemas visually with field-type pickers or use the raw JSON schema editor with recursive <code>$ref</code> pointer resolution up to 20 levels deep.</li>
 </ul>
 <hr />

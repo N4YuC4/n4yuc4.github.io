@@ -84,6 +84,10 @@
         {
           "label": "GitHub",
           "url": "https://github.com/N4YuC4/DocNeedle"
+        },
+        {
+          "label": "HF Spaces Demo",
+          "url": "https://huggingface.co/spaces/N4YuC4/docneedle"
         }
       ]
     },

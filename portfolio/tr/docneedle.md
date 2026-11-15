@@ -157,7 +157,7 @@ Geniş belge koleksiyonlarında modelin 32.768 token bağlamında belleği tüke
 ### 5. Dağıtım ve Asenkron İş Akışı
 
 * **Konteyner Donanım Profilleri:** `docker-compose.yml` modern profil mimarisini destekler: NVIDIA GPU hızlandırmalı üretim için `docker compose --profile gpu up -d`, geliştirme ve CI doğrulaması için `docker compose --profile cpu up -d`.
-* **Hugging Face Spaces (ZeroGPU):** `bash scripts/deploy_space.sh` komutu ile dinamik NVIDIA A100/A10G GPU dilimlerine sahip Hugging Face Spaces ortamına tek adımda kurulur.
+* **Hugging Face Spaces (ZeroGPU):** Dinamik NVIDIA A100/A10G GPU dilimlerine sahip [Hugging Face Spaces demosu](https://huggingface.co/spaces/N4YuC4/docneedle) üzerinden canlı olarak sunulur ve `bash scripts/deploy_space.sh` komutu ile tek adımda kurulur.
 * **Dinamik Şema ve Canlı SSE Akışı:** Çok belgeli toplu işler (`POST /v1/jobs`), Server-Sent Events (`GET /v1/jobs/{id}/events`) üzerinden anlık ilerleme yüzdesiyle canlı takip edilir; form alanları arayüzden seçilebilir veya iç içe `$ref` işaretçilerini çözebilen çift yönlü senkronize ham JSON şema editörü kullanılabilir.
 
 ---
